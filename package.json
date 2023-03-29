@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@5list-design-system/react": "^4.0.0",
+    "@5list-design-system/tokens": "^3.0.0",
     "@stitches/react": "^1.2.8",
     "@types/node": "18.15.5",
     "@types/react": "18.0.28",
