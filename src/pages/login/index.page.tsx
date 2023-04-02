@@ -13,14 +13,13 @@ import {
   Text,
   TextInput,
 } from '@5list-design-system/react'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 import { SignupButton } from './components/Signup'
 import { Form, InputsContainer } from './style'
-import { zodResolver } from '@hookform/resolvers/zod'
-
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
 
 const LoginSchema = z.object({
   email: z.string().email('E-mail invalido.'),
@@ -83,9 +82,7 @@ export default function Login(): JSX.Element {
 
             <InputContainer>
               <TextInput
-                sufixIcon={
-                  errors.password ? <Error /> : submitCount > 0 && <Success />
-                }
+                sufixIcon={errors.password ? <Error /> : undefined}
                 disabled={isSubmitting || isSubmitSuccessful}
                 type={'password'}
                 spellCheck={false}

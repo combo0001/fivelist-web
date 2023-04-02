@@ -2,14 +2,15 @@ import {
   Back,
   Background,
   Box,
+  Error,
   Header,
   InputContainer,
-  Error,
   Success,
 } from '@/components/Auth'
 import { Button, Text, TextInput } from '@5list-design-system/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -27,7 +28,7 @@ export default function ForgotPassword(): JSX.Element {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful, submitCount },
+    formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordSchemaType>({
     mode: 'onSubmit',
     reValidateMode: 'onBlur',
@@ -36,8 +37,20 @@ export default function ForgotPassword(): JSX.Element {
       email: '',
     },
   })
+  const [cooldown, setCooldown] = useState<number>(0)
 
-  const handleOnSubmit = (data: ForgotPasswordSchemaType): void => {}
+  const isInCooldown = cooldown > 0
+  const isFormDisabled = isSubmitting || isInCooldown
+
+  useEffect(() => {
+    if (cooldown > 0) {
+      setTimeout(() => setCooldown((current: number) => current - 1), 1000)
+    }
+  }, [cooldown])
+
+  const handleOnSubmit = (data: ForgotPasswordSchemaType): void => {
+    setCooldown(60)
+  }
 
   return (
     <Background>
@@ -54,13 +67,11 @@ export default function ForgotPassword(): JSX.Element {
 
           <InputContainer>
             <TextInput
-              sufixIcon={
-                errors.email ? <Error /> : submitCount > 0 && <Success />
-              }
+              sufixIcon={errors.email ? <Error /> : isInCooldown && <Success />}
               autoComplete={'email'}
               placeholder={'Digite seu e-mail'}
               spellCheck={false}
-              disabled={isSubmitting || isSubmitSuccessful}
+              disabled={isFormDisabled}
               outlined
               {...register('email', { required: true })}
             />
@@ -72,8 +83,10 @@ export default function ForgotPassword(): JSX.Element {
             )}
           </InputContainer>
 
-          <Button type={'submit'} size={'lg'}>
-            Enviar link
+          <Button type={'submit'} size={'lg'} disabled={isFormDisabled}>
+            {isFormDisabled
+              ? `Enviar novamente em ${cooldown}s`
+              : 'Enviar link'}
           </Button>
         </Form>
 
