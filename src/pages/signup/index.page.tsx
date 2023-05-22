@@ -8,8 +8,13 @@ import {
   Success,
 } from '@/components/Auth'
 import { Button, Checkbox, Text, TextInput } from '@5list-design-system/react'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Controller, useForm } from 'react-hook-form'
+import { z } from 'zod'
 
+import { postSignup } from '../../services/users'
 import { LoginButton } from './components/Login'
 import {
   ButtonsContainer,
@@ -17,11 +22,6 @@ import {
   Form,
   InputsContainer,
 } from './style'
-
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 
 const passwordSchema = z
   .string()
@@ -76,9 +76,16 @@ export default function Signup(): JSX.Element {
     },
   })
 
-  const handleOnSubmit = (data: SignupSchemaType): void => {
-    console.log(data)
-    router.push('/signup/success')
+  const handleOnSubmit = async (data: SignupSchemaType): Promise<void> => {
+    try {
+      const userCreated = await postSignup(data)
+
+      if (userCreated && userCreated.customId) {
+        router.push('/signup/success')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

@@ -14,12 +14,17 @@ import {
   TextInput,
 } from '@5list-design-system/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { GetServerSideProps } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { postLogin } from '../../services/auth'
 import { SignupButton } from './components/Signup'
 import { Form, InputsContainer } from './style'
+
+import { getUser } from '@/services/users'
 
 const LoginSchema = z.object({
   email: z.string().email('E-mail invalido.'),
@@ -30,9 +35,12 @@ type LoginSchemaType = z.infer<typeof LoginSchema>
 
 // eslint-disable-next-line no-undef
 export default function Login(): JSX.Element {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, submitCount, isSubmitting, isSubmitSuccessful },
   } = useForm<LoginSchemaType>({
     mode: 'onSubmit',
@@ -44,7 +52,20 @@ export default function Login(): JSX.Element {
     },
   })
 
-  const handleOnSubmit = (data: LoginSchemaType): void => {}
+  const handleOnSubmit = async (data: LoginSchemaType): Promise<void> => {
+    try {
+      const isAuthorized = await postLogin(data)
+
+      if (isAuthorized) {
+        router.push('/')
+      }
+    } catch (error) {
+      setError('password', {
+        type: 'INVALID_CREDENTIALS',
+        message: 'Senha incorreta tente outros credenciais.',
+      })
+    }
+  }
 
   return (
     <Background>
@@ -114,4 +135,21 @@ export default function Login(): JSX.Element {
       </Box>
     </Background>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const user: any = await getUser(ctx)
+
+  if (user) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    }
+  } else {
+    return {
+      props: {},
+    }
+  }
 }

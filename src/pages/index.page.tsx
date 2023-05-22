@@ -1,3 +1,14 @@
-export default function Home() {
-  return <h1>Hello world!</h1>
+import { GetServerSideProps } from 'next'
+
+export default function Index() {
+  return <></>
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  return {
+    redirect: {
+      permanent: false,
+      destination: '/home',
+    },
+  }
 }
