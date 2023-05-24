@@ -8,9 +8,7 @@ import { ElementType } from 'react'
 import BackSvg from '../../assets/arrow-back.svg'
 import AuthBackgroundImage from '../../assets/auth-background.png'
 import { Background as BackgroundComponent, Container } from './style'
-
-import CheckSvg from '@/assets/check.svg'
-import ErrorSvg from '@/assets/error.svg'
+import { CheckIcon, ErrorIcon } from '../Icons'
 
 interface AuthBackgroundProps
   extends ComponentProps<typeof BackgroundComponent> {
@@ -98,12 +96,12 @@ export const InputContainer = styled('div', {
   gap: '$1',
 })
 
-export const Success = styled(CheckSvg, {
+export const Success = styled(CheckIcon, {
   size: '$6',
   fill: '$success600',
 })
 
-export const Error = styled(ErrorSvg, {
+export const Error = styled(ErrorIcon, {
   size: '$6',
   fill: '$error600',
 })

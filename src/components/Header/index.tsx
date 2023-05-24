@@ -1,14 +1,17 @@
+import { Button, Text } from '@5list-design-system/react'
+import Link from 'next/link'
+
 /* eslint-disable no-undef */
 import {
+  AuthButtonsSection,
   DiscordAnchor,
+  DiscordIcon,
   DiscordSection,
   HeaderContainer,
   PerfilAnchor,
+  PerfilIcon,
   PerfilSection,
 } from './style'
-
-import { Discord as DiscordIcon, Perfil as PerfilIcon } from '../Icons'
-import { Text } from '@5list-design-system/react'
 
 interface HeaderProps {
   user: any
@@ -17,17 +20,18 @@ interface HeaderProps {
 export const Header = ({ user }: HeaderProps): JSX.Element => {
   const isLogged = !!user
 
-  let authConteiner: JSX.Element
+  let authSection: JSX.Element
 
   if (isLogged) {
-    authConteiner = <Perfil user={user} />
+    authSection = <Perfil user={user} />
   } else {
-    authConteiner = <></>
+    authSection = <AuthButtons />
   }
 
   return (
     <HeaderContainer>
-      {authConteiner}
+      {authSection}
+
       <Discord inviteUrl={'https://discord.gg/aTGQYBwexY'} />
     </HeaderContainer>
   )
@@ -40,7 +44,7 @@ interface PerfilProps {
 const Perfil = ({ user }: PerfilProps): JSX.Element => (
   <PerfilSection>
     <PerfilAnchor href={`/users/${user.customId}`}>
-      <PerfilIcon fill={'$neutral100'} width={'$6'} height={'$6'} />
+      <PerfilIcon />
 
       <Text size={'sm'}>Perfil</Text>
     </PerfilAnchor>
@@ -54,9 +58,21 @@ interface DiscordProps {
 const Discord = ({ inviteUrl }: DiscordProps): JSX.Element => (
   <DiscordSection>
     <DiscordAnchor target={'_blank'} href={inviteUrl}>
-      <DiscordIcon fill={'$neutral100'} width={'$6'} height={'$6'} />
+      <DiscordIcon />
 
       <Text size={'sm'}>Acesse nosso discord</Text>
     </DiscordAnchor>
   </DiscordSection>
+)
+
+const AuthButtons = (): JSX.Element => (
+  <AuthButtonsSection>
+    <Link href={'/login'} legacyBehavior>
+      <Button outlined>Conectar</Button>
+    </Link>
+
+    <Link href={'/signup'} legacyBehavior>
+      <Button>Cadastre-se</Button>
+    </Link>
+  </AuthButtonsSection>
 )
