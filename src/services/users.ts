@@ -1,5 +1,4 @@
 import api from '@/utils/serverConnection'
-import { GetServerSidePropsContext } from 'next'
 
 import { parseCookies } from 'nookies'
 
@@ -23,22 +22,19 @@ export const postSignup = async (
   }
 }
 
-export const getUser = async (
-  ctx: GetServerSidePropsContext,
-): Promise<void> => {
-  const cookies = parseCookies(ctx)
+// eslint-disable-next-line no-undef
+export const getUser = async (): Promise<UserType.UserObject> => {
+  const cookies = parseCookies()
   const accessToken = cookies.FIVELIST_ACCESS_TOKEN
 
   if (accessToken) {
-    try {
-      const response = await api.get('/v1/users/', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
+    const response = await api.get('/v1/users/', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
 
-      if (response.status === 200) {
-        return response.data
-      }
-    } catch (err) {}
+    if (response.status === 200) {
+      return response.data
+    }
   }
 }
 
