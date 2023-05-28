@@ -13,7 +13,7 @@ export default function Document() {
         />
 
         <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Dela+Gothic+One&family=Inter:wght@500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Dela+Gothic+One&family=Inter:wght@500&family=Poppins:wght@400;600&display=swap"
           rel="stylesheet"
         />
 

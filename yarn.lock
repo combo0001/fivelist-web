@@ -2,20 +2,20 @@
 # yarn lockfile v1
 
 
-"@5list-design-system/react@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@5list-design-system/react/-/react-12.0.0.tgz#fbb03903882a0cf5e8651bfc919e56a132207a34"
-  integrity sha512-+BKF0x+dyhncT9MsCnoEBRmbXQP+uDRqRI7TGpu+Qfd6WIrhISP5hTZ3rf6tq27QO2o5Fz4Rd7+CRHrFnj5e5Q==
+"@5list-design-system/react@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@5list-design-system/react/-/react-13.0.0.tgz#c58c34ba84b3ee0d2f72d33e64a37921a6d76f02"
+  integrity sha512-arpMQeDSXjH6cGJGuHWm8+wpzCOqKDGa+Bs+SpeUcJj3j3bC86r72n3mpTDaB1bEZOAaRv5fRqQ1zDfGFN0lIA==
   dependencies:
     "@radix-ui/react-checkbox" "^1.0.3"
     "@radix-ui/react-select" "^1.2.1"
     "@radix-ui/react-switch" "^1.0.2"
     "@stitches/react" "^1.2.8"
 
-"@5list-design-system/tokens@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@5list-design-system/tokens/-/tokens-5.0.0.tgz#5b31fa5eed9d3f286bba6be5f24e4a98d55db7f2"
-  integrity sha512-lVQo+acI0h0nrmKCN5xt3rm7D+S8rmEBRbICbLC732i8rjkTQseGkUB4qkocrfBO6U77fHCT87Jyyl3DT8jbhg==
+"@5list-design-system/tokens@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@5list-design-system/tokens/-/tokens-6.0.0.tgz#595e9219dae2fc801a05a02c3c4e30c91ecce819"
+  integrity sha512-DEytXID0j3UPW2QNNxSziRkvao+907UOc+62jA5172cu6WN2gLmWrji87ND19mB05SqEzfY+QvMTX9HGIWy7Eg==
 
 "@ampproject/remapping@^2.2.0":
   version "2.2.0"

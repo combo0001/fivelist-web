@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
-import { styled } from '@/styles'
-
 import TrevorBackgroundImage from '@/assets/trevor.png'
-import { Button, Heading, Text } from '@5list-design-system/react'
 import { ArrowNextIcon } from '@/components/Icons'
+import { Tag as InfoTag } from '@/components/Tag'
+import { styled } from '@/styles'
+import { Button, Heading, Text } from '@5list-design-system/react'
 
 const HeaderWrapper = styled('section', {
   width: '100%',
@@ -50,27 +50,6 @@ const InformationsContainer = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '$2',
-})
-
-const InformationTag = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '$2',
-
-  height: '$6',
-  padding: '0 $2',
-
-  background: '$neutral800',
-  borderRadius: '$lg',
-})
-
-const ActiveCircle = styled('span', {
-  display: 'inline-block',
-
-  background: '$success600',
-
-  size: '$2',
-  borderRadius: '$full',
 })
 
 const ServersContainer = styled('section', {
@@ -125,7 +104,7 @@ const NextButton = styled(Button, {
   },
 })
 
-export const Header = (props: any): JSX.Element => {
+export const ListHeader = (props: any): JSX.Element => {
   return (
     <HeaderWrapper>
       <OnlineContainer>
@@ -140,21 +119,9 @@ export const Header = (props: any): JSX.Element => {
         </Heading>
 
         <InformationsContainer>
-          <InformationTag>
-            <ActiveCircle />
+          <InfoTag>138 Servidores</InfoTag>
 
-            <Text size={'xs'} weight={'bold'}>
-              138 Servidores
-            </Text>
-          </InformationTag>
-
-          <InformationTag>
-            <ActiveCircle />
-
-            <Text size={'xs'} weight={'bold'}>
-              13.346 Jogadores Online
-            </Text>
-          </InformationTag>
+          <InfoTag>13.346 Jogadores Online</InfoTag>
         </InformationsContainer>
       </OnlineContainer>
 

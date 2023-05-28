@@ -9,5 +9,7 @@ declare namespace ListType {
     followers: number
     likes: number
     reviews: number
+    hasVip: boolean
+    cfxHash: string
   }
 }

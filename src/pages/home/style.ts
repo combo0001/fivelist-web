@@ -8,6 +8,8 @@ export const HomeContainer = styled('main', {
   gridTemplateColumns: '$space$60 1fr',
   gridTemplateRows: '$space$20 1fr',
 
+  overflow: 'hidden',
+
   '& > *:nth-child(1)': {
     gridArea: '1 / 1 / 2 / 3',
   },
@@ -19,4 +21,14 @@ export const HomeContainer = styled('main', {
   '& > *:nth-child(3)': {
     gridArea: '2 / 2 / 3 / 3',
   },
+})
+
+export const ListContainer = styled('section', {
+  width: '100%',
+  height: '100%',
+
+  overflow: 'hidden',
+
+  display: 'flex',
+  flexDirection: 'column',
 })
