@@ -10,10 +10,10 @@ import { ListContainer } from './style'
 import { PageLayout } from '@/components/PageLayout'
 import { useClientUser } from '@/providers/UserProvider'
 
-export const HomePage = (): JSX.Element => {
+export const HomeMain = (): JSX.Element => {
   const { user } = useClientUser()
 
-  const MOCK_SERVERS: ListType.Server[] = [
+  const MOCK_SERVERS: ServersType.ServerObject[] = [
     {
       clients: 1200,
       slots: 2023,

@@ -13,6 +13,9 @@ import SilverPlaceSvg from '@/assets/silver-place.svg'
 import CopperPlaceSvg from '@/assets/copper-place.svg'
 import NormalPlaceSvg from '@/assets/normal-place.svg'
 import LikeSvg from '@/assets/like.svg'
+import PencilSvg from '@/assets/pencil.svg'
+import LinkSvg from '@/assets/link.svg'
+import StoreSvg from '@/assets/store.svg'
 
 export const PerfilIcon = styled(PerfilSvg, {})
 export const DiscordIcon = styled(DiscordSvg, {})
@@ -27,3 +30,6 @@ export const SilverPlaceIcon = styled(SilverPlaceSvg, {})
 export const CopperPlaceIcon = styled(CopperPlaceSvg, {})
 export const NormalPlaceIcon = styled(NormalPlaceSvg, {})
 export const LikeIcon = styled(LikeSvg, {})
+export const PencilIcon = styled(PencilSvg, {})
+export const LinkIcon = styled(LinkSvg, {})
+export const StoreIcon = styled(StoreSvg, {})

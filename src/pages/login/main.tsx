@@ -34,7 +34,7 @@ const LoginSchema = z.object({
 
 type LoginSchemaType = z.infer<typeof LoginSchema>
 
-export const LoginPage = (): JSX.Element => {
+export const LoginMain = (): JSX.Element => {
   const router = useRouter()
   const { user } = useClientUser()
 

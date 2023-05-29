@@ -1,16 +1,16 @@
-/* eslint-disable no-undef */
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { PageLayout } from '@/components/PageLayout'
 import { useClientUser } from '@/providers/UserProvider'
-import { ServersProps } from './[hash].page'
-import { ServerContainer } from './style'
+
+import { ServersProps } from './index.page'
 import { ServerHeader } from './components/ServerHeader'
+import { ServerContainer } from './style'
+import { ServerProvider } from './providers/ServerProvider'
 
-export const ServersPage = ({ server }: ServersProps): JSX.Element => {
+// eslint-disable-next-line no-undef
+export const ServersViewMain = ({ server }: ServersProps): JSX.Element => {
   const { user } = useClientUser()
-
-  console.log(server)
 
   return (
     <PageLayout>
@@ -19,7 +19,9 @@ export const ServersPage = ({ server }: ServersProps): JSX.Element => {
       <Navigation />
 
       <ServerContainer>
-        <ServerHeader />
+        <ServerProvider server={server}>
+          <ServerHeader />
+        </ServerProvider>
       </ServerContainer>
     </PageLayout>
   )

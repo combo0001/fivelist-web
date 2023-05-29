@@ -3,7 +3,7 @@ import { styled } from '@/styles'
 import { Server } from './Server'
 
 interface ListServersProps {
-  servers: ListType.Server[]
+  servers: ServersType.ServerObject[]
 }
 
 const ServersContainer = styled('ol', {

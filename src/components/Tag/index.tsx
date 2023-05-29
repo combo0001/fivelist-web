@@ -32,7 +32,7 @@ export const TagBox = styled('div', {
   },
 
   defaultVariants: {
-    active: true,
+    active: false,
   },
 })
 

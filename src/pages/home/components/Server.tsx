@@ -13,7 +13,7 @@ import { styled } from '@/styles'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 
-interface ServerProps extends ListType.Server {
+interface ServerProps extends ServersType.ServerObject {
   position: number
 }
 
@@ -214,13 +214,13 @@ export const Server = ({
           )}
 
           <TagsContainer>
-            <Tag>
+            <Tag active>
               {clients} Online de {slots}
             </Tag>
 
-            <Tag active={false}>{followers.toLocaleString()} Seguidores</Tag>
+            <Tag>{followers.toLocaleString()} Seguidores</Tag>
 
-            <Tag active={false}>{reviews.toLocaleString()} Avaliações</Tag>
+            <Tag>{reviews.toLocaleString()} Avaliações</Tag>
           </TagsContainer>
         </InformationsContainer>
 

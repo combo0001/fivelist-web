@@ -1,11 +1,12 @@
 /* eslint-disable no-undef */
 import { UserProvider } from '@/providers/UserProvider'
-import { HomePage } from './page'
+
+import { HomeMain } from './main'
 
 export default function Home(): JSX.Element {
   return (
     <UserProvider>
-      <HomePage />
+      <HomeMain />
     </UserProvider>
   )
 }

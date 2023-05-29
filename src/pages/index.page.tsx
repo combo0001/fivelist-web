@@ -1,6 +1,6 @@
-import { GetServerSideProps } from 'next'
+import { GetStaticProps } from 'next'
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   return {
     redirect: {
       permanent: false,

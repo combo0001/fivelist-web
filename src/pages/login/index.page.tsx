@@ -1,11 +1,12 @@
 import { UserProvider } from '@/providers/UserProvider'
-import { LoginPage } from './page'
+
+import { LoginMain } from './main'
 
 // eslint-disable-next-line no-undef
 export default function Login(): JSX.Element {
   return (
     <UserProvider>
-      <LoginPage />
+      <LoginMain />
     </UserProvider>
   )
 }
