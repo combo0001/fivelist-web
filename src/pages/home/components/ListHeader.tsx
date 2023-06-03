@@ -119,9 +119,9 @@ export const ListHeader = (props: any): JSX.Element => {
         </Heading>
 
         <InformationsContainer>
-          <InfoTag>138 Servidores</InfoTag>
+          <InfoTag active>138 Servidores</InfoTag>
 
-          <InfoTag>13.346 Jogadores Online</InfoTag>
+          <InfoTag active>13.346 Jogadores Online</InfoTag>
         </InformationsContainer>
       </OnlineContainer>
 

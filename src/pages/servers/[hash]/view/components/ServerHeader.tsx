@@ -1,8 +1,3 @@
-/* eslint-disable no-undef */
-import { styled } from '@/styles'
-import Image from 'next/image'
-import { useServer } from '../providers/ServerProvider'
-import { Button, Heading, Text } from '@5list-design-system/react'
 import {
   DiscordIcon,
   LinkIcon,
@@ -10,7 +5,13 @@ import {
   StoreIcon,
 } from '@/components/Icons'
 import { Tag } from '@/components/Tag'
+/* eslint-disable no-undef */
+import { styled } from '@/styles'
+import { Button, Heading, Text } from '@5list-design-system/react'
+import Image from 'next/image'
 import Link from 'next/link'
+
+import { useServer } from '../providers/ServerProvider'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -107,7 +108,7 @@ export const ServerHeader = (): JSX.Element => {
 
         <InformationsContainer>
           <ServerTags
-            clients={clients}
+            clients={clients.now}
             followers={followers}
             reviews={reviews}
           />

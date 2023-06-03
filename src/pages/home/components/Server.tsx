@@ -8,8 +8,8 @@ import {
   SilverPlaceIcon,
 } from '@/components/Icons'
 import { Tag } from '@/components/Tag'
-import { Heading, Text } from '@5list-design-system/react'
 import { styled } from '@/styles'
+import { Heading, Text } from '@5list-design-system/react'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 
@@ -215,7 +215,7 @@ export const Server = ({
 
           <TagsContainer>
             <Tag active>
-              {clients} Online de {slots}
+              {clients.now} Online de {slots}
             </Tag>
 
             <Tag>{followers.toLocaleString()} Seguidores</Tag>
