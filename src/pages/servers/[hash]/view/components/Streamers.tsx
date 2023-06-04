@@ -1,5 +1,5 @@
-import { Heading, Text } from '@5list-design-system/react'
 import { styled } from '@/styles'
+import { Heading, Text } from '@5list-design-system/react'
 import Image from 'next/image'
 
 /* eslint-disable no-undef */
@@ -69,7 +69,7 @@ const LiveViewersBox = styled('div', {
 
   background: '$neutral700',
 
-  '::before': {
+  '&::before': {
     content: '',
     display: 'inline-block',
 

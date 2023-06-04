@@ -3,10 +3,8 @@ import { Navigation } from '@/components/Navigation'
 import { PageLayout } from '@/components/PageLayout'
 import { useClientUser } from '@/providers/UserProvider'
 
-import { ServerContent } from './components/ServerContent'
-import { ServerHeader } from './components/ServerHeader'
-import { ServersProps } from './index.page'
 import { ServerProvider } from '../providers/ServerProvider'
+import { ServersProps } from './index.page'
 import { ServerContainer } from './style'
 
 // eslint-disable-next-line no-undef
@@ -21,8 +19,6 @@ export const ServersViewMain = ({ server }: ServersProps): JSX.Element => {
 
       <ServerContainer>
         <ServerProvider server={server}>
-          <ServerHeader />
-
           <ServerContent />
         </ServerProvider>
       </ServerContainer>

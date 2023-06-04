@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, { Context, createContext, useContext, useState } from 'react'
+import React, { Context, createContext, useContext } from 'react'
 
 const ServerCtx = createContext<ServersType.Provider | null>(null)
 

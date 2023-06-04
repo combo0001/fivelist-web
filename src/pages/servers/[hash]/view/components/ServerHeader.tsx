@@ -11,7 +11,7 @@ import { Button, Heading, Text } from '@5list-design-system/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useServer } from '../providers/ServerProvider'
+import { useServer } from '../../providers/ServerProvider'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -88,8 +88,18 @@ const ActionsContainer = styled('section', {
 })
 
 export const ServerHeader = (): JSX.Element => {
-  const { clients, endpoint, reviews, tags, followers, name, bannerURL } =
-    useServer()
+  const {
+    clients,
+    endpoint,
+    reviews,
+    tags,
+    followers,
+    name,
+    bannerURL,
+    cfxHash,
+  } = useServer()
+
+  const isOwner = true
 
   return (
     <HeaderWrapper>
@@ -101,10 +111,14 @@ export const ServerHeader = (): JSX.Element => {
       />
 
       <HeaderContainer>
-        <EditButton>
-          Editar
-          <PencilIcon css={{ size: '$4', fill: '$white' }} />
-        </EditButton>
+        {isOwner && (
+          <Link href={`/servers/${cfxHash}/edit`} legacyBehavior>
+            <EditButton>
+              Editar
+              <PencilIcon css={{ size: '$4', fill: '$white' }} />
+            </EditButton>
+          </Link>
+        )}
 
         <InformationsContainer>
           <ServerTags
