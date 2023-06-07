@@ -41,7 +41,7 @@ export const HomeMain = (): JSX.Element => {
     <PageLayout>
       <Header user={user} />
 
-      <Navigation />
+      <Navigation user={user} />
 
       <ListContainer>
         <FilterProvider>

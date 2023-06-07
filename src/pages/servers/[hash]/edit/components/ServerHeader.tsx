@@ -88,16 +88,7 @@ const ActionsContainer = styled('section', {
 })
 
 export const ServerHeader = (): JSX.Element => {
-  const {
-    clients,
-    endpoint,
-    reviews,
-    tags,
-    followers,
-    name,
-    bannerURL,
-    cfxHash,
-  } = useServer()
+  const { clients, reviews, tags, followers, name, bannerURL } = useServer()
 
   const isOwner = true
 
@@ -112,12 +103,10 @@ export const ServerHeader = (): JSX.Element => {
 
       <HeaderContainer>
         {isOwner && (
-          <Link href={`/servers/${cfxHash}/edit`} legacyBehavior>
-            <EditButton size={'lg'}>
-              Editar
-              <PencilIcon css={{ size: '$4', fill: '$white' }} />
-            </EditButton>
-          </Link>
+          <EditButton size={'lg'}>
+            Editar capa
+            <PencilIcon css={{ size: '$4', fill: '$white' }} />
+          </EditButton>
         )}
 
         <InformationsContainer>
@@ -138,14 +127,8 @@ export const ServerHeader = (): JSX.Element => {
           <Divisor />
 
           <ActionsContainer>
-            <Button as={'a'} href={`fivem://connect/${endpoint}`} size={'lg'}>
-              Conectar Servidor
-            </Button>
-
-            <Link href={'/home'} legacyBehavior>
-              <Button size={'lg'} outlined>
-                Obtenha o Premium
-              </Button>
+            <Link href={'/premium/servers'} legacyBehavior>
+              <Button size={'lg'}>Obtenha o Premium</Button>
             </Link>
 
             <Tag>Gerenciado por @WILLZAO</Tag>

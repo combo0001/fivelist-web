@@ -2,7 +2,8 @@
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import Link from 'next/link'
-import { useState } from 'react'
+
+import { EditLink } from './EditLink'
 
 interface DescriptionProps {
   text: string
@@ -35,6 +36,12 @@ const DescriptionContainer = styled('div', {
   overflow: 'hidden',
 })
 
+const TitleContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+})
+
 const DescriptionText = styled(Text, {
   textOverflow: 'clip',
 
@@ -56,43 +63,26 @@ export const Description = ({
   text,
   hasVip,
 }: DescriptionProps): JSX.Element => {
-  const [showMore, setShowMore] = useState<boolean>(false)
-
-  const toggleMode = (): void => {
-    setShowMore((state) => !state)
-  }
-
   return (
     <DescriptionWrapper>
       <DescriptionContainer>
-        <Heading as={'h5'} weight={'bold'}>
-          Descrição
-        </Heading>
+        <TitleContainer>
+          <Heading as={'h5'} weight={'bold'}>
+            Descrição
+          </Heading>
 
-        <DescriptionText size={'sm'}>
-          {showMore ? text : text.substring(0, 128)}
+          {hasVip && <EditLink text={'Editar descrição'} />}
+        </TitleContainer>
 
-          {text.length > 128 && (
-            <>
-              {!showMore && '...'}
-              <Text
-                as={'span'}
-                size={'sm'}
-                color={'$white'}
-                css={{ cursor: 'pointer', marginLeft: '$3' }}
-                onClick={toggleMode}
-              >
-                {showMore ? 'Mostrar menos' : 'Mostrar mais'}
-              </Text>
-            </>
-          )}
-        </DescriptionText>
+        <DescriptionText size={'sm'}>{text}</DescriptionText>
       </DescriptionContainer>
 
       {!hasVip && (
         <DescriptionBlurContainer>
           <Link href={'/premium/servers'} legacyBehavior>
-            <Button size={'lg'}>Servidor sem Premium</Button>
+            <Button css={{ padding: '0 4.5rem' }} size={'lg'}>
+              Obtenha o Premium
+            </Button>
           </Link>
         </DescriptionBlurContainer>
       )}

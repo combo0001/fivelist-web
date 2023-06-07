@@ -17,7 +17,7 @@ export const ServersViewMain = ({ server }: ServersProps): JSX.Element => {
     <PageLayout>
       <Header user={user} />
 
-      <Navigation />
+      <Navigation user={user} />
 
       <ServerContainer>
         <ServerProvider server={server}>

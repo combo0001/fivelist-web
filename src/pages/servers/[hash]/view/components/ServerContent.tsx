@@ -3,18 +3,18 @@ import { styled } from '@/styles'
 
 import { useServer } from '../../providers/ServerProvider'
 import { Description } from './Description'
-import { Statistic } from './Statistic'
-import { WebsiteLinks } from './WebsiteLinks'
-import { SocialMedia } from './SocialMedia'
-import { Streamers } from './Streamers'
-import { Reviews } from './Reviews'
 import { Players } from './Players'
+import { Reviews } from './Reviews'
+import { SocialMedia } from './SocialMedia'
+import { Statistic } from './Statistic'
+import { Streamers } from './Streamers'
+import { WebsiteLinks } from './WebsiteLinks'
 
 const ContentContainer = styled('section', {
   width: '94.5%',
 
   display: 'grid',
-  gridTemplateRows: 'auto auto 27.125rem auto',
+  gridTemplateRows: 'auto auto auto auto',
   gridTemplateColumns: '552fr 48fr 472fr',
   gridGap: '$8',
 
@@ -98,6 +98,83 @@ export const ServerContent = (): JSX.Element => {
 
       <Streamers
         streamers={[
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
+          {
+            bannerURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',
+            streamer: 'WILLZERA',
+            title: 'Matando geral no GTA RP..',
+            viewers: 34005,
+          },
           {
             bannerURL:
               'https://cdn.discordapp.com/attachments/897332194811473951/1114595213558685696/image.png',

@@ -1,15 +1,24 @@
 /* eslint-disable no-undef */
 
 import { Text } from '@5list-design-system/react'
+
 import { ListIcon, PerfilIcon, StarIcon, TwitchIcon } from '../Icons'
 import { LinkContainer, NavigationContainer } from './style'
 
-export const Navigation = (): JSX.Element => {
+interface NavigationProps {
+  user: any
+}
+
+export const Navigation = ({ user }: NavigationProps): JSX.Element => {
   return (
     <NavigationContainer>
       <ListLink />
-      <CommunityLink />
-      <StreamersLink />
+      {user && (
+        <>
+          <CommunityLink />
+          <StreamersLink />
+        </>
+      )}
       <AdsLink />
     </NavigationContainer>
   )

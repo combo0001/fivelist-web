@@ -1,6 +1,7 @@
 import { styled } from '@/styles'
 import { Heading, Text } from '@5list-design-system/react'
 import Image from 'next/image'
+import ScrollContainer from 'react-indiana-drag-scroll'
 
 /* eslint-disable no-undef */
 interface StreamersProps {
@@ -13,20 +14,43 @@ const StreamersContainer = styled('div', {
   gap: '$6',
 })
 
-const StreamersList = styled('section', {
+const StreamersList = styled(ScrollContainer, {
   flex: 1,
 
-  display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',
-  gridTemplateRows: '1fr',
-  gridGap: '$3',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$3',
 
-  '& > *': {
-    listStyleType: 'none',
+  overflowY: 'hidden',
+  overflowX: 'auto',
+
+  paddingBottom: '$2',
+
+  '&::-webkit-scrollbar': {
+    height: '$1',
+  },
+
+  '&::-webkit-scrollbar-track': {
+    background: '$neutral800',
+    borderRadius: '$md',
+  },
+
+  '&::-webkit-scrollbar-thumb': {
+    background: '$neutral700',
+    borderRadius: '$md',
+  },
+
+  '&::-webkit-scrollbar-thumb:hover': {
+    background: '$neutral600',
   },
 })
 
 const StreamerLiveBox = styled('div', {
+  flexShrink: 0,
+
+  width: '17rem',
+  height: '24.125rem',
+
   background: '$neutral800',
   borderRadius: '$lg',
 
@@ -116,10 +140,10 @@ export const Streamers = ({ streamers }: StreamersProps): JSX.Element => {
   return (
     <StreamersContainer>
       <Heading as={'h5'} weight={'bold'}>
-        Streamer Online
+        Streamers Online
       </Heading>
 
-      <StreamersList>
+      <StreamersList vertical={false} hideScrollbars={false}>
         {streamers.map(({ title, streamer, viewers, bannerURL }, index) => (
           <StreamerLiveBox key={index}>
             <LiveBannerImage
