@@ -87,8 +87,15 @@ const ActionsContainer = styled('section', {
   },
 })
 
+const PremiumContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$2',
+})
+
 export const ServerHeader = (): JSX.Element => {
-  const { clients, reviews, tags, followers, name, bannerURL } = useServer()
+  const { clients, hasVip, reviews, tags, followers, name, bannerURL } =
+    useServer()
 
   const isOwner = true
 
@@ -127,9 +134,19 @@ export const ServerHeader = (): JSX.Element => {
           <Divisor />
 
           <ActionsContainer>
-            <Link href={'/premium/servers'} legacyBehavior>
-              <Button size={'lg'}>Obtenha o Premium</Button>
-            </Link>
+            <PremiumContainer>
+              <Link href={'/premium/servers'} legacyBehavior>
+                <Button size={'lg'}>
+                  {isOwner && hasVip ? 'Renovar premium' : 'Obtenha o Premium'}
+                </Button>
+              </Link>
+
+              {isOwner && hasVip && (
+                <Text size={'md'} weight={'bold'}>
+                  Seu plano termina em 15 dias
+                </Text>
+              )}
+            </PremiumContainer>
 
             <Tag>Gerenciado por @WILLZAO</Tag>
           </ActionsContainer>

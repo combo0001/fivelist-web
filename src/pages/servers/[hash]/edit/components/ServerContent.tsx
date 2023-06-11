@@ -3,6 +3,11 @@ import { styled } from '@/styles'
 
 import { useServer } from '../../providers/ServerProvider'
 import { Description } from './Description'
+import { SocialMedia } from './SocialMedia'
+import { Statistic } from './Statistic'
+import { WebsiteLinks } from './WebsiteLinks'
+import { CustomLink } from './CustomLink'
+import { Players } from './Players'
 
 const ContentContainer = styled('section', {
   width: '94.5%',
@@ -40,11 +45,227 @@ const ContentContainer = styled('section', {
 })
 
 export const ServerContent = (): JSX.Element => {
-  const { description, hasVip } = useServer()
+  const { description, hasVip, likes, followers, cfxHash, clients, slots } =
+    useServer()
 
   return (
     <ContentContainer>
       <Description text={description} hasVip={hasVip} />
+
+      <WebsiteLinks
+        links={[
+          {
+            label: 'Nossa loja!',
+            url: 'https://google.com',
+          },
+          {
+            label: 'Nosso site!',
+            url: 'https://google.com',
+          },
+        ]}
+      />
+
+      <SocialMedia
+        links={[
+          {
+            platform: 'TWITTER' as any,
+            userId: '1combofn',
+          },
+          {
+            platform: 'INSTAGRAM' as any,
+            userId: 'jbfilhoreporter',
+          },
+          {
+            platform: 'FACEBOOK' as any,
+            userId: 'combo',
+          },
+          {
+            platform: 'TIKTOK' as any,
+            userId: 'lucadorea',
+          },
+          {
+            platform: 'YOUTUBE' as any,
+            userId: 'combo',
+          },
+        ]}
+      />
+
+      <Statistic
+        cfxHash={cfxHash}
+        likes={{ amount: likes, variation: 0 }}
+        followers={{ amount: followers, variation: 20 }}
+        hasVip={hasVip}
+      />
+
+      <CustomLink id={'narniaroleplay'} />
+
+      <Players
+        clients={clients.now}
+        slots={slots}
+        players={[
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+          {
+            name: 'Willian',
+            avatarURL:
+              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+            likes: 12744,
+            startedAt: new Date(1685825570941),
+          },
+        ]}
+      />
     </ContentContainer>
   )
 }

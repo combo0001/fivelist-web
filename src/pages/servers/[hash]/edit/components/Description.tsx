@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
-import { Button, Heading, Text } from '@5list-design-system/react'
+import { Button, Heading } from '@5list-design-system/react'
 import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 
-import { EditLink } from './EditLink'
+import { EditLink } from '../utils/Links'
 
 interface DescriptionProps {
   text: string
@@ -37,17 +39,34 @@ const DescriptionContainer = styled('div', {
 })
 
 const TitleContainer = styled('div', {
+  userSelect: 'none',
+
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
 })
 
-const DescriptionText = styled(Text, {
+const DescriptionText = styled('textarea', {
+  all: 'unset',
+
+  fontFamily: '$default',
+  fontWeight: '$regular',
+  fontSize: '$sm',
+  lineHeight: '$base',
+
+  color: '$neutral100',
+
   textOverflow: 'clip',
 
   whiteSpace: 'pre-wrap',
   wordBreak: 'break-word',
   textJustify: 'inter-character',
+
+  resize: 'none',
+
+  '&::placeholder': {
+    color: '$neutral300',
+  },
 })
 
 const DescriptionBlurContainer = styled('div', {
@@ -63,6 +82,44 @@ export const Description = ({
   text,
   hasVip,
 }: DescriptionProps): JSX.Element => {
+  const textAreaRef = useRef<HTMLTextAreaElement>()
+
+  const [isEditing, setEditing] = useState<boolean>(false)
+  const [description, setDescription] = useState<string>(text)
+
+  const startEdit = (): void => {
+    setTimeout(() => {
+      textAreaRef.current?.focus()
+    }, 0)
+
+    setEditing(true)
+  }
+
+  const confirmEdit = (): void => {
+    console.log('EDIT: ' + description)
+
+    setEditing(false)
+  }
+
+  const resizeTextArea = (): void => {
+    const element = textAreaRef.current
+
+    if (element) {
+      element.style.height = '0'
+      element.style.height = element.scrollHeight + 'px'
+    }
+  }
+
+  useEffect(() => {
+    if (textAreaRef.current) {
+      resizeTextArea()
+    }
+
+    window.addEventListener('resize', resizeTextArea)
+
+    return () => window.removeEventListener('resize', resizeTextArea)
+  }, [textAreaRef, description, resizeTextArea])
+
   return (
     <DescriptionWrapper>
       <DescriptionContainer>
@@ -71,10 +128,22 @@ export const Description = ({
             Descrição
           </Heading>
 
-          {hasVip && <EditLink text={'Editar descrição'} />}
+          {hasVip && (
+            <EditLink
+              onClick={isEditing ? confirmEdit : startEdit}
+              text={isEditing ? 'Confirmar edição' : 'Editar descrição'}
+            />
+          )}
         </TitleContainer>
 
-        <DescriptionText size={'sm'}>{text}</DescriptionText>
+        <DescriptionText
+          ref={textAreaRef as any}
+          placeholder={'Digite a descrição do servidor.'}
+          value={description}
+          onChange={({ target }) => setDescription(target.value)}
+          disabled={!isEditing}
+          spellCheck={false}
+        />
       </DescriptionContainer>
 
       {!hasVip && (

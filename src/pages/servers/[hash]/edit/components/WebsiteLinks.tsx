@@ -1,6 +1,9 @@
 import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
+import { useState } from 'react'
+
+import { AddLink, EditLink } from '../utils/Links'
 
 /* eslint-disable no-undef */
 interface WebsiteLinksProps {
@@ -21,7 +24,13 @@ const WebsiteLinksContainer = styled('div', {
   gap: '$6',
 })
 
-const WebsiteLinkBox = styled('a', {
+const TitleContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+})
+
+const WebsiteBox = styled('div', {
   textDecoration: 'none',
 
   cursor: 'pointer',
@@ -32,14 +41,27 @@ const WebsiteLinkBox = styled('a', {
 })
 
 export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
+  const [isEditing, setEditing] = useState<boolean>(false)
+
+  const toggleEditing = (): void => {
+    setEditing((state) => !state)
+  }
+
   return (
     <WebsiteLinksContainer>
-      <Heading as={'h4'} weight={'bold'}>
-        Links externos
-      </Heading>
+      <TitleContainer>
+        <Heading as={'h4'} weight={'bold'}>
+          Links externos
+        </Heading>
 
-      {links.map(({ label, url }, index) => (
-        <WebsiteLinkBox href={url} target={'_blank'} key={index}>
+        <EditLink
+          onClick={toggleEditing}
+          text={isEditing ? 'Finalizar edição' : 'Editar links'}
+        />
+      </TitleContainer>
+
+      {links.map(({ label }, index) => (
+        <WebsiteBox key={index}>
           <Button variation={'icon'} size={'sm'}>
             <WorldIcon css={{ fill: '$white', size: '$6' }} />
           </Button>
@@ -47,8 +69,10 @@ export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
           <Text size={'sm'} color={'$white'} weight={'bold'}>
             {label}
           </Text>
-        </WebsiteLinkBox>
+        </WebsiteBox>
       ))}
+
+      {links.length === 0 || (isEditing && <AddLink text={'Adicionar site'} />)}
     </WebsiteLinksContainer>
   )
 }

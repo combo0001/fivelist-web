@@ -44,6 +44,7 @@ declare namespace ServersType {
   interface PlayerObject {
     avatarURL: string
     name: string
+    likes: number
     startedAt: Date
   }
 
