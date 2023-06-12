@@ -1,5 +1,5 @@
 import { styled } from '@/styles'
-import { getPlatformIcon } from '@/utils/platformsIcons'
+import { getPlatformIcon } from '@/components/Platforms'
 import { Heading, Text } from '@5list-design-system/react'
 import { useState } from 'react'
 

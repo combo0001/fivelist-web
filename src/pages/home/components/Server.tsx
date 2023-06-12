@@ -3,13 +3,13 @@ import TrevorBackgroundImage from '@/assets/trevor.png'
 import {
   CopperPlaceIcon,
   GoldPlaceIcon,
-  LikeIcon,
   NormalPlaceIcon,
   SilverPlaceIcon,
 } from '@/components/Icons'
+import { LikeButton } from '@/components/LikeButton'
 import { Tag } from '@/components/Tag'
 import { styled } from '@/styles'
-import { Heading, Text } from '@5list-design-system/react'
+import { Heading } from '@5list-design-system/react'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 
@@ -82,27 +82,6 @@ const TagsContainer = styled('section', {
   gap: '$2',
 
   height: '$6',
-})
-
-const LikeButton = styled('button', {
-  border: 'none',
-  cursor: 'pointer',
-
-  width: '6.875rem',
-  height: '$10',
-
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '$2',
-
-  borderRadius: '$2xl',
-
-  background: '$neutral800',
-
-  '&:hover': {
-    background: '$neutral700',
-  },
 })
 
 const ServerContainer = styled('li', {
@@ -224,12 +203,8 @@ export const Server = ({
           </TagsContainer>
         </InformationsContainer>
 
-        <LikeButton ref={likeRef as any}>
-          <LikeIcon css={{ size: '$6' }} />
-
-          <Text size={'sm'} color={'$colors$white'}>
-            {likes.toLocaleString()}
-          </Text>
+        <LikeButton reference={likeRef as any}>
+          {likes.toLocaleString()}
         </LikeButton>
       </PageContainer>
     </ServerContainer>

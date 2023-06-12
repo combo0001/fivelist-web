@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 
+import { ReportIcon } from '@/components/Icons'
+import { LikeButton } from '@/components/LikeButton'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import { formatDistanceToNow } from 'date-fns'
@@ -110,8 +112,33 @@ const NameText = styled(Text, {
   whiteSpace: 'nowrap',
 })
 
+const ReportButton = styled('button', {
+  all: 'unset',
+
+  cursor: 'pointer',
+
+  display: 'flex',
+  gap: '$2',
+  alignItems: 'center',
+
+  [`${ReportIcon}`]: {
+    fill: '$error600',
+  },
+
+  '&:hover': {
+    [`${ReportIcon}`]: {
+      fill: '$error400',
+    },
+
+    '& > *:last-child': {
+      color: '$error400',
+    },
+  },
+})
+
 const Player = ({
   name,
+  likes,
   avatarURL,
   startedAt,
 }: ServersType.PlayerObject): JSX.Element => {
@@ -132,6 +159,16 @@ const Player = ({
         Jogando{' '}
         {formatDistanceToNow(startedAt, { addSuffix: true, locale: ptBR })}
       </Text>
+
+      <LikeButton outlined>{likes.toLocaleString()}</LikeButton>
+
+      <ReportButton>
+        <ReportIcon css={{ size: '$6' }} />
+
+        <Text size={'sm'} color={'$error600'}>
+          Reportar
+        </Text>
+      </ReportButton>
     </PlayerContainer>
   )
 }
