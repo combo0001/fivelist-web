@@ -8,31 +8,19 @@ const PageViewsContainer = styled('div', {
 
   padding: '$6',
 
-  display: 'grid',
-  gridTemplateRows: '$space$10 1fr',
-  gridTemplateColumns: '1fr $space$40',
-  gridGap: '$6 0',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$6',
 
   border: '0.0625rem solid $neutral700',
   borderRadius: '$lg',
+})
 
-  '& > *:nth-child(1)': {
-    gridArea: '1 / 1 / 2 / 2',
-  },
+const TitleContainer = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
 
-  '& > *:nth-child(2)': {
-    gridArea: '2 / 1 / 3 / 2',
-  },
-
-  '& > *:nth-child(3)': {
-    gridArea: '1 / 2 / 3 / 3',
-
-    '*': {
-      borderRadius: '1.25rem',
-      color: '$primary900',
-      fill: '$primary900',
-    },
-  },
+  height: '$10',
 })
 
 const InformationContainer = styled('div', {
@@ -61,9 +49,24 @@ export const PageViews = (): JSX.Element => {
 
   return (
     <PageViewsContainer>
-      <Heading as={'h4'} weight={'bold'}>
-        Visualizações do servidor
-      </Heading>
+      <TitleContainer>
+        <Heading as={'h4'} weight={'bold'}>
+          Visualizações do servidor
+        </Heading>
+
+        <Select
+          options={[
+            {
+              label: '12/10/2023',
+              value: '1702177200000',
+            },
+          ]}
+          defaultValue={'1702177200000'}
+          width={'$40'}
+          height={'$10'}
+          outlined={false}
+        />
+      </TitleContainer>
 
       <InformationContainer>
         <StatisticDataText>
@@ -80,19 +83,6 @@ export const PageViews = (): JSX.Element => {
 
         <Text size={'sm'}>Aumento em relação ao dia anterior</Text>
       </InformationContainer>
-
-      <Select
-        options={[
-          {
-            label: '12/10/2023',
-            value: '1702177200000',
-          },
-        ]}
-        defaultValue={'1702177200000'}
-        width={'$40'}
-        height={'$10'}
-        outlined
-      />
     </PageViewsContainer>
   )
 }

@@ -1,6 +1,11 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
+
+import { PageClicks } from './PageClicks'
+import { PageFollowers } from './PageFollowers'
 import { PageViews } from './PageViews'
+import { ServerAccesses } from './ServerAccesses'
+import { TimePlayed } from './TimePlayed'
 
 const ContentContainer = styled('section', {
   paddingTop: '$10',
@@ -33,9 +38,17 @@ export const ServerContent = (): JSX.Element => {
     <ContentContainer>
       <LargerSection>
         <PageViews />
+
+        <ServerAccesses />
+
+        <PageFollowers />
+
+        <PageClicks />
       </LargerSection>
 
-      <SmallSection></SmallSection>
+      <SmallSection>
+        <TimePlayed />
+      </SmallSection>
     </ContentContainer>
   )
 }

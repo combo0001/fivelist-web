@@ -17,10 +17,6 @@ const FilterContainer = styled('section', {
   gridTemplateRows: '1fr',
   gridTemplateColumns: 'repeat(4, 1fr)',
   gridGap: 'var(--grid-gap)',
-
-  [`${Select}`]: {
-    position: 'absolute',
-  },
 })
 
 export const ListFilters = (): JSX.Element => {
