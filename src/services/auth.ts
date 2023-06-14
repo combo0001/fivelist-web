@@ -1,4 +1,5 @@
 import { setCookie } from 'nookies'
+
 import api from '../utils/serverConnection'
 
 interface LoginCredentialsType {

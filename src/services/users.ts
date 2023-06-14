@@ -1,6 +1,5 @@
 import api from '@/utils/serverConnection'
-
-import { parseCookies } from 'nookies'
+import { destroyCookie, parseCookies } from 'nookies'
 
 interface UserRegisterType {
   name: string
@@ -23,7 +22,7 @@ export const postSignup = async (
 }
 
 // eslint-disable-next-line no-undef
-export const getUser = async (): Promise<UserType.UserObject> => {
+export const getUser = async (): Promise<UserType.UserObject | void> => {
   const cookies = parseCookies()
   const accessToken = cookies.FIVELIST_ACCESS_TOKEN
 
@@ -32,8 +31,12 @@ export const getUser = async (): Promise<UserType.UserObject> => {
       headers: { Authorization: `Bearer ${accessToken}` },
     })
 
-    if (response.status === 200) {
-      return response.data
+    try {
+      if (response.status === 200) {
+        return response.data
+      }
+    } catch (error) {
+      destroyCookie(null, 'FIVELIST_ACCESS_TOKEN')
     }
   }
 }

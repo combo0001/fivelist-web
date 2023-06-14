@@ -76,7 +76,6 @@ export const PageViews = (): JSX.Element => {
             size={'sm'}
             color={VARIATION >= 0 ? '$success500' : '$error500'}
           >
-            {VARIATION >= 0 ? '+' : '-'}
             {VARIATION}%
           </Text>
         </StatisticDataText>

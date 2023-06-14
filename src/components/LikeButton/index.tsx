@@ -2,6 +2,7 @@
 import { styled } from '@/styles'
 import { Text } from '@5list-design-system/react'
 import { ComponentProps } from 'react'
+
 import { LikeIcon, LikeOutlinedIcon } from '../Icons'
 
 const LikeButtonContainer = styled('button', {

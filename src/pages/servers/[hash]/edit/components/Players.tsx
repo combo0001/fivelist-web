@@ -37,7 +37,7 @@ const TitleContainer = styled('div', {
 const PlayersList = styled('ul', {
   display: 'flex',
   flexDirection: 'column',
-  gap: '$6',
+  gap: '$2',
 })
 
 export const Players = ({
@@ -95,6 +95,8 @@ const PlayerContainer = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '$4',
+
+  padding: '$2 0',
 })
 
 const AvatarImage = styled(Image, {

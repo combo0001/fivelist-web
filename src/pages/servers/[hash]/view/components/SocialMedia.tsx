@@ -1,5 +1,5 @@
-import { styled } from '@/styles'
 import { getPlatformIcon } from '@/components/Platforms'
+import { styled } from '@/styles'
 import { Heading, Text } from '@5list-design-system/react'
 
 /* eslint-disable no-undef */
@@ -48,7 +48,6 @@ export const SocialMedia = ({ links }: SocialMediaProps): JSX.Element => {
 
       <SocialLinksContainer>
         {links.map(({ platform, userId }, index) => {
-          console.log(platform)
           return (
             <SocialMediaLinkBox key={index}>
               {getPlatformIcon(platform)}
