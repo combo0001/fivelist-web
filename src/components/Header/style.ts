@@ -4,7 +4,7 @@ import NextLink from 'next/link'
 import { styled } from '../../styles'
 import {
   DiscordIcon as DiscordIconNoStylized,
-  PerfilIcon as PerfilIconNoStylized,
+  ProfileIcon as ProfileIconNoStylized,
 } from '../Icons'
 
 export const HeaderContainer = styled('header', {
@@ -20,7 +20,7 @@ export const HeaderContainer = styled('header', {
   borderBottom: '0.0625rem solid $neutral700',
 })
 
-export const PerfilSection = styled('section', {
+export const ProfileSection = styled('section', {
   height: '100%',
 
   padding: '0 $6',
@@ -30,12 +30,12 @@ export const PerfilSection = styled('section', {
   alignItems: 'center',
 })
 
-export const PerfilIcon = styled(PerfilIconNoStylized, {
+export const ProfileIcon = styled(ProfileIconNoStylized, {
   size: '$6',
   fill: '$neutral100',
 })
 
-export const PerfilAnchor = styled(NextLink, {
+export const ProfileAnchor = styled(NextLink, {
   textDecoration: 'none',
 
   display: 'flex',

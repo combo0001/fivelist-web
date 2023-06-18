@@ -8,9 +8,9 @@ import {
   DiscordIcon,
   DiscordSection,
   HeaderContainer,
-  PerfilAnchor,
-  PerfilIcon,
-  PerfilSection,
+  ProfileAnchor,
+  ProfileIcon,
+  ProfileSection,
 } from './style'
 
 interface HeaderProps {
@@ -23,7 +23,7 @@ export const Header = ({ user }: HeaderProps): JSX.Element => {
   let authSection: JSX.Element
 
   if (isLogged) {
-    authSection = <Perfil user={user} />
+    authSection = <Profile user={user} />
   } else {
     authSection = <AuthButtons />
   }
@@ -37,18 +37,18 @@ export const Header = ({ user }: HeaderProps): JSX.Element => {
   )
 }
 
-interface PerfilProps {
+interface ProfileProps {
   user: any
 }
 
-const Perfil = ({ user }: PerfilProps): JSX.Element => (
-  <PerfilSection>
-    <PerfilAnchor href={`/users/${user.customId}`}>
-      <PerfilIcon />
+const Profile = ({ user }: ProfileProps): JSX.Element => (
+  <ProfileSection>
+    <ProfileAnchor href={`/users/${user.customId}`}>
+      <ProfileIcon />
 
-      <Text size={'sm'}>Perfil</Text>
-    </PerfilAnchor>
-  </PerfilSection>
+      <Text size={'sm'}>Profile</Text>
+    </ProfileAnchor>
+  </ProfileSection>
 )
 
 interface DiscordProps {
