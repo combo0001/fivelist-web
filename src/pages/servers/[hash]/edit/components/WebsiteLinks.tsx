@@ -1,11 +1,11 @@
+/* eslint-disable no-undef */
 import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
-import { useState } from 'react'
 
-import { AddLink, EditLink } from '../utils/Links'
+import { AddLink } from '../utils/Links'
+import { LinkDialog } from './LinkDialog'
 
-/* eslint-disable no-undef */
 interface WebsiteLinksProps {
   links: ServersType.WebsiteLinksObject[]
 }
@@ -24,12 +24,6 @@ const WebsiteLinksContainer = styled('div', {
   gap: '$6',
 })
 
-const TitleContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-})
-
 const WebsiteBox = styled('div', {
   textDecoration: 'none',
 
@@ -41,24 +35,11 @@ const WebsiteBox = styled('div', {
 })
 
 export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
-  const [isEditing, setEditing] = useState<boolean>(false)
-
-  const toggleEditing = (): void => {
-    setEditing((state) => !state)
-  }
-
   return (
     <WebsiteLinksContainer>
-      <TitleContainer>
-        <Heading as={'h4'} weight={'bold'}>
-          Links externos
-        </Heading>
-
-        <EditLink
-          onClick={toggleEditing}
-          text={isEditing ? 'Finalizar edição' : 'Editar links'}
-        />
-      </TitleContainer>
+      <Heading as={'h4'} weight={'bold'}>
+        Links externos
+      </Heading>
 
       {links.map(({ label }, index) => (
         <WebsiteBox key={index}>
@@ -72,7 +53,10 @@ export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
         </WebsiteBox>
       ))}
 
-      {links.length === 0 || (isEditing && <AddLink text={'Adicionar site'} />)}
+      <LinkDialog
+        title={'Adicionar site'}
+        trigger={<AddLink text={'Adicionar site'} />}
+      />
     </WebsiteLinksContainer>
   )
 }

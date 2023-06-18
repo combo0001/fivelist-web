@@ -1,8 +1,8 @@
+/* eslint-disable no-undef */
 import { styled } from '@/styles'
 import { Heading, Link, Text } from '@5list-design-system/react'
 import NextLink from 'next/link'
 
-/* eslint-disable no-undef */
 interface StatisticProps {
   cfxHash: string
   likes: {

@@ -1,9 +1,9 @@
 import { getPlatformIcon } from '@/components/Platforms'
 import { styled } from '@/styles'
 import { Heading, Text } from '@5list-design-system/react'
-import { useState } from 'react'
 
-import { AddLink, EditLink } from '../utils/Links'
+import { AddLink } from '../utils/Links'
+import { LinkDialog } from './LinkDialog'
 
 /* eslint-disable no-undef */
 interface SocialMediaProps {
@@ -22,12 +22,6 @@ const SocialMediaContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$6',
-})
-
-const TitleContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
 })
 
 const SocialLinksContainer = styled('ul', {
@@ -49,24 +43,11 @@ const SocialMediaLinkBox = styled('li', {
 })
 
 export const SocialMedia = ({ links }: SocialMediaProps): JSX.Element => {
-  const [isEditing, setEditing] = useState<boolean>(false)
-
-  const toggleEditing = (): void => {
-    setEditing((state) => !state)
-  }
-
   return (
     <SocialMediaContainer>
-      <TitleContainer>
-        <Heading as={'h4'} weight={'bold'}>
-          Redes sociais
-        </Heading>
-
-        <EditLink
-          onClick={toggleEditing}
-          text={isEditing ? 'Finalizar edição' : 'Editar links'}
-        />
-      </TitleContainer>
+      <Heading as={'h4'} weight={'bold'}>
+        Redes sociais
+      </Heading>
 
       <SocialLinksContainer>
         {links.map(({ platform, userId }, index) => {
@@ -81,8 +62,10 @@ export const SocialMedia = ({ links }: SocialMediaProps): JSX.Element => {
           )
         })}
 
-        {links.length === 0 ||
-          (isEditing && <AddLink text={'Adicionar rede social'} />)}
+        <LinkDialog
+          title={'Adicionar rede social'}
+          trigger={<AddLink text={'Adicionar rede social'} />}
+        />
       </SocialLinksContainer>
     </SocialMediaContainer>
   )
