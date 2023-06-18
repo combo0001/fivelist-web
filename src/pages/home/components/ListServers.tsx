@@ -1,12 +1,16 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
-import { Server } from './Server'
+
+import { ServersHighlighted } from './ServersHighlighted'
+import { Servers } from './Servers'
+import { Advertising } from './Advertising'
 
 interface ListServersProps {
   servers: ServersType.ServerObject[]
+  newServers: ServersType.ServerObject[]
 }
 
-const ServersContainer = styled('ol', {
+const ListContainer = styled('ol', {
   width: '100%',
   maxHeight: '100%',
 
@@ -30,31 +34,17 @@ const ServersContainer = styled('ol', {
   },
 })
 
-const AdvertisingContainer = styled('div', {
-  width: '100%',
-  height: '5.625rem',
+export const ListServers = ({
+  newServers,
+  servers,
+}: ListServersProps): JSX.Element => {
+  return (
+    <ListContainer>
+      <Advertising />
 
-  background: '$neutral800',
-  borderRadius: '$lg',
-})
+      <ServersHighlighted servers={newServers} />
 
-export const ListServers = ({ servers }: ListServersProps): JSX.Element => {
-  const serversContent = servers.map((server, index) => {
-    let advertisingContent: React.ReactNode
-
-    if (index % 6 === 0) {
-      advertisingContent = (
-        <AdvertisingContainer key={index}></AdvertisingContainer>
-      )
-    }
-
-    return (
-      <>
-        {advertisingContent}
-        <Server key={index} position={index + 1} {...server} />
-      </>
-    )
-  })
-
-  return <ServersContainer>{serversContent}</ServersContainer>
+      <Servers servers={servers} />
+    </ListContainer>
+  )
 }

@@ -1,13 +1,12 @@
 /* eslint-disable no-undef */
 import TrevorBackgroundImage from '@/assets/trevor.png'
-import { ArrowNextIcon } from '@/components/Icons'
 import { Tag as InfoTag } from '@/components/Tag'
 import { styled } from '@/styles'
-import { Button, Heading, Text } from '@5list-design-system/react'
+import { Heading, Text } from '@5list-design-system/react'
 
 const HeaderWrapper = styled('section', {
   width: '100%',
-  height: 'calc($50 + $6)',
+  height: '14rem',
 
   display: 'flex',
   alignItems: 'center',
@@ -52,58 +51,6 @@ const InformationsContainer = styled('div', {
   gap: '$2',
 })
 
-const ServersContainer = styled('section', {
-  padding: '$4 $6',
-
-  background: '$neutral800',
-  borderRadius: '$2xl',
-
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 'calc($2 + 0.125rem)',
-})
-
-const ServersBox = styled('ul', {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gridTemplateRows: '1fr',
-  gridGap: 'calc($2 + 0.125rem)',
-
-  width: '50rem',
-  height: '$30',
-
-  '& > *': {
-    listStyleType: 'none',
-  },
-
-  '& > *:last-child, & > *:nth-child(3)': {
-    gridRow: 1,
-    gridColumn: 3,
-  },
-})
-
-const ServerContainer = styled('li', {
-  display: 'grid',
-  gridTemplateRows: '$20 $9',
-  gridTemplateColumns: '1fr',
-
-  background: '$neutral700',
-  borderRadius: '$lg',
-
-  overflow: 'hidden',
-})
-
-const NextButton = styled(Button, {
-  alignSelf: 'center',
-  justifySelf: 'end',
-  transform: 'translateX($space$2)',
-
-  [`${ArrowNextIcon}`]: {
-    size: '$6',
-    fill: '$white',
-  },
-})
-
 export const ListHeader = (props: any): JSX.Element => {
   return (
     <HeaderWrapper>
@@ -124,22 +71,6 @@ export const ListHeader = (props: any): JSX.Element => {
           <InfoTag active>13.346 Jogadores Online</InfoTag>
         </InformationsContainer>
       </OnlineContainer>
-
-      <ServersContainer>
-        <Heading as={'h5'} weight={'bold'}>
-          Novos servidores
-        </Heading>
-
-        <ServersBox>
-          <ServerContainer></ServerContainer>
-          <ServerContainer></ServerContainer>
-          <ServerContainer></ServerContainer>
-
-          <NextButton variation={'icon'}>
-            <ArrowNextIcon />
-          </NextButton>
-        </ServersBox>
-      </ServersContainer>
     </HeaderWrapper>
   )
 }
