@@ -27,11 +27,18 @@ const HeaderWrapper = styled('section', {
     gridRow: 1,
     gridColumn: 1,
   },
-})
 
-const BannerImage = styled(Image, {
-  width: '100%',
-  height: '30.25rem',
+  '& > *:nth-child(1)': {
+    zIndex: 0,
+  },
+
+  '& > *:nth-child(2)': {
+    zIndex: 1,
+  },
+
+  '& > *:nth-child(3)': {
+    zIndex: 2,
+  },
 })
 
 const HeaderContainer = styled('section', {
@@ -97,18 +104,14 @@ export const ServerHeader = (): JSX.Element => {
     name,
     bannerURL,
     cfxHash,
+    hasVip,
   } = useServer()
 
   const isOwner = true
 
   return (
     <HeaderWrapper>
-      <BannerImage
-        src={bannerURL}
-        alt={'Banner of server'}
-        width={1200}
-        height={484}
-      />
+      {hasVip && <Banner src={bannerURL} />}
 
       <HeaderContainer>
         {isOwner && (
@@ -153,6 +156,37 @@ export const ServerHeader = (): JSX.Element => {
         </InformationsContainer>
       </HeaderContainer>
     </HeaderWrapper>
+  )
+}
+
+interface BannerProps {
+  src?: string
+}
+
+const BannerImage = styled(Image, {
+  width: '100%',
+  height: '30.25rem',
+
+  objectFit: 'cover',
+  opacity: 1,
+})
+
+const BannerOverlay = styled('div', {
+  width: '100%',
+  height: '30.25rem',
+
+  background:
+    'linear-gradient(360deg, rgba(0, 0, 0, 1) 19.32%, rgba(0, 0, 0, 0) 75.31%)',
+  opacity: 0.8,
+})
+
+const Banner = ({ src }: BannerProps): JSX.Element => {
+  return (
+    <>
+      {src && <BannerImage src={src} alt={''} width={1200} height={484} />}
+
+      <BannerOverlay />
+    </>
   )
 }
 
