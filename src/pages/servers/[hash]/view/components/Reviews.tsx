@@ -1,13 +1,11 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
-
-import { ptBR } from 'date-fns/locale'
-import { formatDistanceToNow } from 'date-fns'
-
-import Image from 'next/image'
 import { useState } from 'react'
-import { StarIcon } from '@/components/Icons'
+
+import { ReplyDialog } from './ReplyDialog'
+import { Review } from './Review'
+import { ReviewDialog } from './ReviewDialog'
 
 interface ReviewsProps {
   reviews: ServersType.ReviewsObject[]
@@ -43,6 +41,27 @@ const ReviewsList = styled('ul', {
   },
 })
 
+const ReviewBox = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$1',
+})
+
+const ReplyText = styled(Text, {
+  width: 'fit-content',
+
+  cursor: 'pointer',
+  padding: '0.125rem $2',
+
+  position: 'relative',
+  left: '4.625rem',
+
+  '&:hover': {
+    color: '$neutral100 !important',
+    transition: 'color 200ms',
+  },
+})
+
 export const Reviews = ({ reviews }: ReviewsProps): JSX.Element => {
   const [showMore, setShowMore] = useState<boolean>(false)
 
@@ -55,7 +74,7 @@ export const Reviews = ({ reviews }: ReviewsProps): JSX.Element => {
       <TitleContainer>
         <Heading as={'h5'}>Avaliações</Heading>
 
-        <Button>Deixar avaliação</Button>
+        <ReviewDialog trigger={<Button>Deixar avaliação</Button>} />
       </TitleContainer>
 
       {reviews.length > 0 ? (
@@ -63,7 +82,18 @@ export const Reviews = ({ reviews }: ReviewsProps): JSX.Element => {
           {reviews
             .filter((_, index) => showMore || index < 4)
             .map((review, index) => (
-              <Review {...review} key={index} />
+              <ReviewBox key={index}>
+                <Review {...review} />
+
+                <ReplyDialog
+                  review={review}
+                  trigger={
+                    <ReplyText size={'sm'} color={'$white'}>
+                      Responder
+                    </ReplyText>
+                  }
+                />
+              </ReviewBox>
             ))}
         </ReviewsList>
       ) : (
@@ -84,94 +114,4 @@ export const Reviews = ({ reviews }: ReviewsProps): JSX.Element => {
       )}
     </ReviewsContainer>
   )
-}
-
-const ReviewContainer = styled('li', {
-  display: 'flex',
-  gap: '1.125rem',
-})
-
-const AvatarImage = styled(Image, {
-  borderRadius: '$full',
-
-  size: '3.5rem',
-})
-
-const ReviewMessageContainer = styled('div', {
-  flex: 1,
-
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$2',
-})
-
-const ReviewMessageContent = styled(Text, {
-  display: 'inline-block',
-
-  width: 'fit-content',
-  maxWidth: '100%',
-
-  background: '$neutral700',
-  borderRadius: '0 3rem 3rem 3rem',
-
-  textJustify: 'inter-word',
-
-  padding: '$3 $6',
-})
-
-const Review = ({
-  author,
-  message,
-  rate,
-  createdAt,
-}: ServersType.ReviewsObject): JSX.Element => {
-  return (
-    <ReviewContainer>
-      <AvatarImage
-        src={author.avatarURL}
-        alt={'Author avatar'}
-        width={56}
-        height={56}
-      />
-
-      <ReviewMessageContainer>
-        <Text size={'sm'} color={'$white'} weight={'bold'}>
-          {author.name},{' '}
-          <Text as={'span'} size={'sm'} weight={'bold'}>
-            {formatDistanceToNow(createdAt, { addSuffix: true, locale: ptBR })}
-          </Text>
-        </Text>
-
-        <StarsRate rate={rate} />
-
-        <ReviewMessageContent>{message}</ReviewMessageContent>
-      </ReviewMessageContainer>
-    </ReviewContainer>
-  )
-}
-
-interface StarsRateProps {
-  rate: number
-}
-
-const StarsContainer = styled('section', {
-  display: 'flex',
-})
-
-const StarsRate = ({ rate }: StarsRateProps): JSX.Element => {
-  const starsList = []
-
-  for (let index = 0; index < 5; index++) {
-    starsList.push(
-      <StarIcon
-        css={{
-          size: '$4',
-          fill: index + 1 <= rate ? '$primary800' : '$neutral700',
-        }}
-        key={index}
-      />,
-    )
-  }
-
-  return <StarsContainer>{starsList}</StarsContainer>
 }

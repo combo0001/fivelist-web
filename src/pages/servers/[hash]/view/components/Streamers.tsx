@@ -36,12 +36,12 @@ const StreamersList = styled(ScrollContainer, {
   },
 
   '&::-webkit-scrollbar-thumb': {
-    background: '$neutral700',
+    background: '$neutral400',
     borderRadius: '$md',
   },
 
   '&::-webkit-scrollbar-thumb:hover': {
-    background: '$neutral600',
+    background: '$neutral300',
   },
 })
 
