@@ -27,7 +27,360 @@ export const HomeMain = (): JSX.Element => {
       likes: 12834,
       reviews: 12,
       cfxHash: 'pooa23',
-      bannerURL: '',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
+      tags: {
+        discord: '#',
+        store: '#',
+        website: '#',
+      },
+      endpoint: '127.0.0.1',
+    },
+    {
+      clients: {
+        now: 1200,
+        onDay: 2562,
+      },
+      slots: 2023,
+      name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+      description: 'Venha jogar na cidade mais otimizada do FiveM',
+      followers: 10,
+      hasVip: true,
+      likes: 12834,
+      reviews: 12,
+      cfxHash: 'pooa23',
+      bannerURL:
+        'https://cdn.discordapp.com/attachments/923436122871308308/1119664784472805436/image.png',
       tags: {
         discord: '#',
         store: '#',
@@ -49,7 +402,7 @@ export const HomeMain = (): JSX.Element => {
 
           <ListFilters />
 
-          <ListServers servers={MOCK_SERVERS} />
+          <ListServers newServers={MOCK_SERVERS} servers={MOCK_SERVERS} />
         </FilterProvider>
       </ListContainer>
     </PageLayout>
