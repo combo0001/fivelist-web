@@ -1,6 +1,7 @@
 import AddSvg from '@/assets/add.svg'
 import ArrowNextSvg from '@/assets/arrow-next.svg'
 import CheckSvg from '@/assets/check.svg'
+import CloudSvg from '@/assets/cloud.svg'
 import CopperPlaceSvg from '@/assets/copper-place.svg'
 import CopySvg from '@/assets/copy.svg'
 import ErrorSvg from '@/assets/error.svg'
@@ -20,11 +21,11 @@ import TiktokSvg from '@/assets/platforms/tiktok.svg'
 import TwitchSvg from '@/assets/platforms/twitch.svg'
 import TwitterSvg from '@/assets/platforms/twitter.svg'
 import YoutubeSvg from '@/assets/platforms/youtube.svg'
+import ReportSvg from '@/assets/report.svg'
 import SilverPlaceSvg from '@/assets/silver-place.svg'
 import StarSvg from '@/assets/star.svg'
 import StoreSvg from '@/assets/store.svg'
 import WorldSvg from '@/assets/world.svg'
-import ReportSvg from '@/assets/report.svg'
 
 import { styled } from '../../styles'
 
@@ -56,3 +57,4 @@ export const WorldIcon = styled(WorldSvg, {})
 export const AddIcon = styled(AddSvg, {})
 export const CopyIcon = styled(CopySvg, {})
 export const ReportIcon = styled(ReportSvg, {})
+export const CloudIcon = styled(CloudSvg, {})

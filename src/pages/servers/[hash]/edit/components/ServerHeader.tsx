@@ -10,8 +10,10 @@ import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 import { useServer } from '../../providers/ServerProvider'
+import { DragDropImage } from './DragDropImage'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -96,8 +98,15 @@ const PremiumContainer = styled('div', {
 export const ServerHeader = (): JSX.Element => {
   const { clients, hasVip, reviews, tags, followers, name, bannerURL } =
     useServer()
+  const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
 
   const isOwner = true
+
+  const toggleBannerEdit = (): void => setBannerEdit((state) => !state)
+
+  const handleOnBannerSent = (file: string): void => {
+    toggleBannerEdit()
+  }
 
   return (
     <HeaderWrapper>
@@ -110,10 +119,14 @@ export const ServerHeader = (): JSX.Element => {
 
       <HeaderContainer>
         {isOwner && (
-          <EditButton size={'lg'}>
+          <EditButton size={'lg'} onClick={toggleBannerEdit}>
             Editar capa
             <PencilIcon css={{ size: '$4', fill: '$white' }} />
           </EditButton>
+        )}
+
+        {isBannerEditing && (
+          <DragDropImage onFileSelected={handleOnBannerSent} />
         )}
 
         <InformationsContainer>
