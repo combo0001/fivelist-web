@@ -60,7 +60,7 @@ export const PageClicks = (): JSX.Element => {
   return (
     <PageClicksContainer>
       <Heading as={'h4'} weight={'bold'}>
-        Seguidores
+        Estatisticas de clique
       </Heading>
 
       <Chart {...chartConfig} />
