@@ -6,6 +6,9 @@ import { useClientUser } from '@/providers/UserProvider'
 
 import { UsersProps } from './index.page'
 import { UsersContainer } from './style'
+import { ProfileProvider } from '../providers/ProfileProvider'
+import { ProfileHeader } from './components/ProfileHeader'
+import { ProfileContent } from './components/ProfilerContent'
 
 export const UsersViewMain = ({
   user: profileUser,
@@ -18,7 +21,13 @@ export const UsersViewMain = ({
 
       <Navigation user={clientUser} />
 
-      <UsersContainer></UsersContainer>
+      <UsersContainer>
+        <ProfileProvider user={profileUser}>
+          <ProfileHeader />
+
+          <ProfileContent />
+        </ProfileProvider>
+      </UsersContainer>
     </PageLayout>
   )
 }
