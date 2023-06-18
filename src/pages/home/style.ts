@@ -8,4 +8,8 @@ export const ListContainer = styled('section', {
 
   display: 'flex',
   flexDirection: 'column',
+
+  '& > *': {
+    flexShrink: 0,
+  },
 })
