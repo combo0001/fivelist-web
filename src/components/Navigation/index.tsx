@@ -2,7 +2,7 @@
 
 import { Text } from '@5list-design-system/react'
 
-import { ListIcon, PerfilIcon, StarIcon, TwitchIcon } from '../Icons'
+import { ListIcon, ProfileIcon, StarIcon, TwitchIcon } from '../Icons'
 import { LinkContainer, NavigationContainer } from './style'
 
 interface NavigationProps {
@@ -34,7 +34,7 @@ const ListLink = (): JSX.Element => (
 
 const CommunityLink = (): JSX.Element => (
   <LinkContainer href={'/community'}>
-    <PerfilIcon css={{ size: '$6', fill: '$neutral100' }} />
+    <ProfileIcon css={{ size: '$6', fill: '$neutral100' }} />
 
     <Text size={'sm'}>Comunidade</Text>
   </LinkContainer>
