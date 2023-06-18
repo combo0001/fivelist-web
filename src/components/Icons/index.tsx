@@ -12,7 +12,7 @@ import LinkSvg from '@/assets/link.svg'
 import ListSvg from '@/assets/list.svg'
 import NormalPlaceSvg from '@/assets/normal-place.svg'
 import PencilSvg from '@/assets/pencil.svg'
-import PerfilSvg from '@/assets/perfil.svg'
+import ProfileSvg from '@/assets/profile.svg'
 import AtSvg from '@/assets/platforms/at.svg'
 import DiscordSvg from '@/assets/platforms/discord.svg'
 import FacebookSvg from '@/assets/platforms/facebook.svg'
@@ -26,6 +26,9 @@ import SilverPlaceSvg from '@/assets/silver-place.svg'
 import StarSvg from '@/assets/star.svg'
 import StoreSvg from '@/assets/store.svg'
 import WorldSvg from '@/assets/world.svg'
+import EyeSvg from '@/assets/eye.svg'
+import StatusSvg from '@/assets/status.svg'
+import PointsSvg from '@/assets/points.svg'
 
 import { styled } from '../../styles'
 
@@ -38,7 +41,7 @@ export const TiktokIcon = styled(TiktokSvg, {})
 export const TwitchIcon = styled(TwitchSvg, {})
 export const AtIcon = styled(AtSvg, {})
 
-export const PerfilIcon = styled(PerfilSvg, {})
+export const ProfileIcon = styled(ProfileSvg, {})
 export const CheckIcon = styled(CheckSvg, {})
 export const ErrorIcon = styled(ErrorSvg, {})
 export const ListIcon = styled(ListSvg, {})
@@ -58,3 +61,6 @@ export const AddIcon = styled(AddSvg, {})
 export const CopyIcon = styled(CopySvg, {})
 export const ReportIcon = styled(ReportSvg, {})
 export const CloudIcon = styled(CloudSvg, {})
+export const EyeIcon = styled(EyeSvg, {})
+export const StatusIcon = styled(StatusSvg, {})
+export const PointsIcon = styled(PointsSvg, {})
