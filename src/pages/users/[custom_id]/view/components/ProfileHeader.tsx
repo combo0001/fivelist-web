@@ -182,7 +182,7 @@ const DataTags = ({ followers, views }: DataTagsProps): JSX.Element => {
 
       <TagBox>
         <EyeIcon css={{ size: '$6', fill: '$white' }} />
-        {views.toLocaleString()} vizualizações no Profile
+        {views.toLocaleString()} vizualizações no perfil
       </TagBox>
     </TagsContainer>
   )

@@ -46,7 +46,7 @@ const Profile = ({ user }: ProfileProps): JSX.Element => (
     <ProfileAnchor href={`/users/${user.customId}`}>
       <ProfileIcon />
 
-      <Text size={'sm'}>Profile</Text>
+      <Text size={'sm'}>Perfil</Text>
     </ProfileAnchor>
   </ProfileSection>
 )
