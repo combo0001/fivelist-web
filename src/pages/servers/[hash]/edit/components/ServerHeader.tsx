@@ -1,3 +1,5 @@
+import { ImageUploader } from '@/components/Dialogs/Image'
+/* eslint-disable no-undef */
 import {
   DiscordIcon,
   LinkIcon,
@@ -5,7 +7,6 @@ import {
   StoreIcon,
 } from '@/components/Icons'
 import { Tag } from '@/components/Tag'
-/* eslint-disable no-undef */
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import Image from 'next/image'
@@ -13,7 +14,6 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 import { useServer } from '../../providers/ServerProvider'
-import { DragDropImage } from './DragDropImage'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -29,11 +29,18 @@ const HeaderWrapper = styled('section', {
     gridRow: 1,
     gridColumn: 1,
   },
-})
 
-const BannerImage = styled(Image, {
-  width: '100%',
-  height: '30.25rem',
+  '& > *:nth-child(1)': {
+    zIndex: 0,
+  },
+
+  '& > *:nth-child(2)': {
+    zIndex: 1,
+  },
+
+  '& > *:nth-child(3)': {
+    zIndex: 2,
+  },
 })
 
 const HeaderContainer = styled('section', {
@@ -44,6 +51,17 @@ const HeaderContainer = styled('section', {
 
   display: 'flex',
   flexDirection: 'column',
+
+  position: 'relative',
+})
+
+const BannerContainer = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+
+  position: 'absolute',
+  alignSelf: 'end',
 })
 
 const EditButton = styled(Button, {
@@ -100,8 +118,6 @@ export const ServerHeader = (): JSX.Element => {
     useServer()
   const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
 
-  const isOwner = true
-
   const toggleBannerEdit = (): void => setBannerEdit((state) => !state)
 
   const handleOnBannerSent = (file: string): void => {
@@ -110,24 +126,19 @@ export const ServerHeader = (): JSX.Element => {
 
   return (
     <HeaderWrapper>
-      <BannerImage
-        src={bannerURL}
-        alt={'Banner of server'}
-        width={1200}
-        height={484}
-      />
+      {hasVip && <Banner src={bannerURL} />}
 
       <HeaderContainer>
-        {isOwner && (
+        <BannerContainer>
           <EditButton size={'lg'} onClick={toggleBannerEdit}>
             Editar capa
             <PencilIcon css={{ size: '$4', fill: '$white' }} />
           </EditButton>
-        )}
 
-        {isBannerEditing && (
-          <DragDropImage onFileSelected={handleOnBannerSent} />
-        )}
+          {isBannerEditing && (
+            <ImageUploader onFileSelected={handleOnBannerSent} />
+          )}
+        </BannerContainer>
 
         <InformationsContainer>
           <ServerTags
@@ -150,11 +161,11 @@ export const ServerHeader = (): JSX.Element => {
             <PremiumContainer>
               <Link href={'/premium/servers'} legacyBehavior>
                 <Button size={'lg'}>
-                  {isOwner && hasVip ? 'Renovar premium' : 'Obtenha o Premium'}
+                  {hasVip ? 'Renovar premium' : 'Obtenha o Premium'}
                 </Button>
               </Link>
 
-              {isOwner && hasVip && (
+              {hasVip && (
                 <Text size={'md'} weight={'bold'}>
                   Seu plano termina em 15 dias
                 </Text>
@@ -166,6 +177,37 @@ export const ServerHeader = (): JSX.Element => {
         </InformationsContainer>
       </HeaderContainer>
     </HeaderWrapper>
+  )
+}
+
+interface BannerProps {
+  src?: string
+}
+
+const BannerImage = styled(Image, {
+  width: '100%',
+  height: '30.25rem',
+
+  objectFit: 'cover',
+  opacity: 1,
+})
+
+const BannerOverlay = styled('div', {
+  width: '100%',
+  height: '30.25rem',
+
+  background:
+    'linear-gradient(360deg, rgba(0, 0, 0, 1) 19.32%, rgba(0, 0, 0, 0) 75.31%)',
+  opacity: 0.8,
+})
+
+const Banner = ({ src }: BannerProps): JSX.Element => {
+  return (
+    <>
+      {src && <BannerImage src={src} alt={''} width={1200} height={484} />}
+
+      <BannerOverlay />
+    </>
   )
 }
 
