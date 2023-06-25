@@ -214,7 +214,7 @@ const ServerTags = ({
 }: ServerTagsProps): JSX.Element => {
   return (
     <TagsContainer>
-      <TagHighlighted active>{clients} Online</TagHighlighted>
+      <TagHighlighted active>{clients} Jogando</TagHighlighted>
       <TagHighlighted>{followers} Seguidores</TagHighlighted>
       <TagHighlighted>{reviews} Avaliações</TagHighlighted>
     </TagsContainer>
