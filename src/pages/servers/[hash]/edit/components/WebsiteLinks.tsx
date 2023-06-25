@@ -1,10 +1,9 @@
 /* eslint-disable no-undef */
+import { LinkDialog } from '@/components/Dialogs/Link'
+import { AddLink } from '@/components/EditLinks'
 import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
-
-import { AddLink } from '../utils/Links'
-import { LinkDialog } from './LinkDialog'
 
 interface WebsiteLinksProps {
   links: ServersType.WebsiteLinksObject[]

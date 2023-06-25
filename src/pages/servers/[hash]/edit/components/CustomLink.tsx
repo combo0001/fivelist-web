@@ -1,10 +1,9 @@
 /* eslint-disable no-undef */
-
+import { EditLink } from '@/components/EditLinks'
+import { CopyIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading } from '@5list-design-system/react'
 import { useRef, useState } from 'react'
-import { EditLink } from '../utils/Links'
-import { CopyIcon } from '@/components/Icons'
 
 interface CustomLinkProps {
   id: string

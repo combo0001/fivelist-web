@@ -1,11 +1,10 @@
+import { DescriptionDialog } from '@/components/Dialogs/Description'
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
+import { EditLink } from '@/components/EditLinks'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import Link from 'next/link'
-
-import { EditLink } from '../utils/Links'
-import { DescriptionDialog } from './DescriptionDialog'
 
 interface DescriptionProps {
   text: string

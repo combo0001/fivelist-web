@@ -1,11 +1,10 @@
+/* eslint-disable no-undef */
+import { LinkDialog } from '@/components/Dialogs/Link'
+import { AddLink } from '@/components/EditLinks'
 import { getPlatformIcon } from '@/components/Platforms'
 import { styled } from '@/styles'
 import { Heading, Text } from '@5list-design-system/react'
 
-import { AddLink } from '../utils/Links'
-import { LinkDialog } from './LinkDialog'
-
-/* eslint-disable no-undef */
 interface SocialMediaProps {
   links: ServersType.SocialMediaLinksObject[]
 }
