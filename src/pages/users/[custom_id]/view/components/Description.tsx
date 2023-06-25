@@ -27,17 +27,9 @@ const DescriptionContainer = styled('div', {
 
   display: 'flex',
   flexDirection: 'column',
-  gap: '$3',
+  gap: '$4',
 
   overflow: 'hidden',
-})
-
-const DescriptionText = styled(Text, {
-  textOverflow: 'clip',
-
-  whiteSpace: 'pre-wrap',
-  wordBreak: 'break-word',
-  textJustify: 'inter-character',
 })
 
 export const Description = ({ text }: DescriptionProps): JSX.Element => {
@@ -48,7 +40,7 @@ export const Description = ({ text }: DescriptionProps): JSX.Element => {
           Descrição
         </Heading>
 
-        <DescriptionText size={'sm'}>{text}</DescriptionText>
+        <Text size={'sm'}>{text}</Text>
       </DescriptionContainer>
     </DescriptionWrapper>
   )
