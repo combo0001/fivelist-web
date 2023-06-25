@@ -194,7 +194,7 @@ export const Server = ({
 
           <TagsContainer>
             <Tag active>
-              {clients.now} Online de {slots}
+              {clients.now} online de {slots}
             </Tag>
 
             <Tag>{followers.toLocaleString()} Seguidores</Tag>
