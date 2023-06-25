@@ -11,6 +11,8 @@ interface LinkDialogProps {
 }
 
 const LinkDialogOverlay = styled(Dialog.Overlay, {
+  zIndex: 9999,
+
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -23,6 +25,8 @@ const LinkDialogOverlay = styled(Dialog.Overlay, {
 })
 
 const LinkDialogContent = styled(Dialog.Content, {
+  zIndex: 9999,
+
   padding: '$6',
 
   width: '27.375rem',

@@ -9,6 +9,7 @@ interface ImageUploaderProps {
 }
 
 const FileUploaderContainer = styled('div', {
+  zIndex: 9999,
   alignSelf: 'flex-end',
 
   width: '20.625rem',

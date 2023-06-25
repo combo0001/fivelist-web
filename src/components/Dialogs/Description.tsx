@@ -11,6 +11,8 @@ interface DescriptionDialogProps {
 }
 
 const DescriptionDialogOverlay = styled(Dialog.Overlay, {
+  zIndex: 9999,
+
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -23,6 +25,8 @@ const DescriptionDialogOverlay = styled(Dialog.Overlay, {
 })
 
 const DescriptionDialogContent = styled(Dialog.Content, {
+  zIndex: 9999,
+
   padding: '$6',
 
   width: '27.375rem',
