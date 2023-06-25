@@ -24,8 +24,6 @@ const TitleContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$1',
-
-  overflow: 'hidden',
 })
 
 const NameText = styled(Text, {
@@ -34,7 +32,6 @@ const NameText = styled(Text, {
 
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
-  overflow: 'hidden',
 
   maxWidth: '70%',
   cursor: 'pointer',

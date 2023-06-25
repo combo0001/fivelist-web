@@ -8,8 +8,6 @@ export const PageLayout = styled('main', {
   gridTemplateColumns: '$space$60 1fr',
   gridTemplateRows: '$space$20 1fr',
 
-  overflow: 'hidden',
-
   '& > *:nth-child(1)': {
     gridArea: '1 / 1 / 2 / 3',
   },

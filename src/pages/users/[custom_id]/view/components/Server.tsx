@@ -36,7 +36,6 @@ const NameText = styled(Text, {
 
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
-  overflow: 'hidden',
 })
 
 const TagsContainer = styled('div', {

@@ -26,8 +26,6 @@ const ServersContainer = styled('div', {
 
   border: '0.0625rem solid $neutral700',
   borderRadius: '$lg',
-
-  overflow: 'hidden',
 })
 
 const ListContainer = styled('ol', {

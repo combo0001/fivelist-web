@@ -31,8 +31,6 @@ const DescriptionContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$3',
-
-  overflow: 'hidden',
 })
 
 const DescriptionText = styled(Text, {

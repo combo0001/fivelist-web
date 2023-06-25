@@ -15,8 +15,6 @@ const ServerContainer = styled('div', {
   background: '$neutral800',
   borderRadius: '$lg',
 
-  overflow: 'hidden',
-
   display: 'flex',
   flexDirection: 'column',
 
@@ -39,7 +37,7 @@ const ServerInformationsBox = styled('div', {
 const ServerTitleText = styled(Text, {
   maxWidth: '100%',
   whiteSpace: 'nowrap',
-  overflow: 'hidden',
+
   textOverflow: 'ellipsis',
 })
 

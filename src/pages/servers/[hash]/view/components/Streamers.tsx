@@ -54,8 +54,6 @@ const StreamerLiveBox = styled('div', {
   background: '$neutral800',
   borderRadius: '$lg',
 
-  overflow: 'hidden',
-
   display: 'flex',
   flexDirection: 'column',
 })
@@ -79,7 +77,7 @@ const LiveInformationsBox = styled('div', {
 const LiveInformationText = styled(Text, {
   maxWidth: '100%',
   whiteSpace: 'nowrap',
-  overflow: 'hidden',
+
   textOverflow: 'ellipsis',
 })
 

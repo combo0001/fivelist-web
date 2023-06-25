@@ -9,7 +9,6 @@ export const Background = styled('main', {
   alignItems: 'center',
 
   backgroundColor: '$neutral900',
-  overflow: 'hidden',
 
   '> *:not(:first-child)': {
     zIndex: 1,

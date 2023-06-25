@@ -110,7 +110,7 @@ const NameText = styled(Text, {
 
   maxWidth: '100%',
   textOverflow: 'ellipsis',
-  overflow: 'hidden',
+
   whiteSpace: 'nowrap',
 })
 

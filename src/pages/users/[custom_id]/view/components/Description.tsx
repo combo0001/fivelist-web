@@ -28,8 +28,6 @@ const DescriptionContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$4',
-
-  overflow: 'hidden',
 })
 
 export const Description = ({ text }: DescriptionProps): JSX.Element => {
