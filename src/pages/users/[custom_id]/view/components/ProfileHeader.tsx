@@ -11,6 +11,8 @@ import { Button, Heading, Text } from '@5list-design-system/react'
 import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
 
+import { CurrentServer } from './CurrentServer'
+
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
 
@@ -82,11 +84,34 @@ const Divisor = styled('div', {
 })
 
 export const ProfileHeader = (): JSX.Element => {
-  const hasVip = true
+  const HAS_VIP = true
+  const CURRENT_SERVER = {
+    clients: {
+      now: 1200,
+      onDay: 2564,
+    },
+    slots: 2023,
+    bannerURL:
+      'https://cdn.discordapp.com/attachments/897332194811473951/1112740841988034600/Frame_1717.png',
+    name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
+    description:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+    followers: 10,
+    hasVip: true,
+    likes: 12834,
+    reviews: 12,
+    cfxHash: 'ppooo3',
+    tags: {
+      discord: '#',
+      store: '#',
+      website: '#',
+    },
+    endpoint: '127.0.0.1:30120',
+  } as ServersType.ServerObject
 
   return (
-    <HeaderWrapper hasVip={hasVip}>
-      {hasVip && (
+    <HeaderWrapper hasVip={HAS_VIP}>
+      {HAS_VIP && (
         <Banner
           src={
             'https://cdn.discordapp.com/attachments/923436122871308308/1120131816809046066/image.png'
@@ -95,6 +120,8 @@ export const ProfileHeader = (): JSX.Element => {
       )}
 
       <HeaderContainer>
+        <CurrentServer {...CURRENT_SERVER} />
+
         <InformationsContainer>
           <DataTags followers={2032} views={12433} />
 
