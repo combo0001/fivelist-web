@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
 
-import { ServersHighlighted } from './ServersHighlighted'
-import { Servers } from './Servers'
 import { Advertising } from './Advertising'
+import { Servers } from './Servers'
+import { ServersHighlighted } from './ServersHighlighted'
 
 interface ListServersProps {
   servers: ServersType.ServerObject[]
@@ -12,7 +12,7 @@ interface ListServersProps {
 
 const ListContainer = styled('ol', {
   width: '100%',
-  maxHeight: '100%',
+  flex: 1,
 
   display: 'flex',
   flexDirection: 'column',

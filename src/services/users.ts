@@ -1,5 +1,5 @@
 import api from '@/utils/serverConnection'
-import { destroyCookie, parseCookies } from 'nookies'
+import { destroyCookie, parseCookies, setCookie } from 'nookies'
 
 interface UserRegisterType {
   name: string
@@ -7,17 +7,48 @@ interface UserRegisterType {
   password: string
 }
 
-interface UserRegisterResponseType {
-  customId: string
+interface ApiResponseType<T = any, E = any> {
+  status: boolean
+  data: T | E
+}
+
+export interface ApiErrorType {
+  error: string
+  message: string
+}
+
+export interface UserRegisterResponseType {
+  expire_at: string
+  token: string
+  type: string
 }
 
 export const postSignup = async (
   user: UserRegisterType,
-): Promise<UserRegisterResponseType | void> => {
-  const response = await api.post('/v1/users/', user)
+): Promise<ApiResponseType<UserRegisterResponseType, ApiErrorType>> => {
+  try {
+    const response = await api.post('/v1/users/', user)
 
-  if (response.status === 201) {
-    return response.data
+    if (response.status !== 201)
+      return {
+        status: false,
+        data: {
+          error: 'INVALID_STATUS',
+          message: 'Status not expected',
+        },
+      }
+
+    setCookie(null, 'FIVELIST_ACCESS_TOKEN', response.data.token)
+
+    return {
+      status: true,
+      data: response.data as UserRegisterResponseType,
+    }
+  } catch ({ response }: any) {
+    return {
+      status: false,
+      data: response.data as ApiErrorType,
+    }
   }
 }
 

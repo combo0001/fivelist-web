@@ -14,7 +14,11 @@ import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { postSignup } from '../../services/users'
+import {
+  ApiErrorProps,
+  postSignup,
+  UserRegisterResponseType,
+} from '../../services/users'
 import { LoginButton } from './components/Login'
 import {
   ButtonsContainer,
@@ -63,6 +67,7 @@ export const SignupMain = (): JSX.Element => {
     register,
     handleSubmit,
     control,
+    setError,
     formState: { errors, submitCount, isSubmitting, isSubmitSuccessful },
   } = useForm<SignupSchemaType>({
     mode: 'onSubmit',
@@ -77,14 +82,20 @@ export const SignupMain = (): JSX.Element => {
   })
 
   const handleOnSubmit = async (data: SignupSchemaType): Promise<void> => {
-    try {
-      const userCreated = await postSignup(data)
+    const { status, data: responseData } = await postSignup(data)
 
-      if (userCreated && userCreated.customId) {
-        router.push('/signup/success')
-      }
-    } catch (error) {
-      console.log(error)
+    if (!status) {
+      const apiError = responseData as ApiErrorProps
+
+      setError('email', apiError.message)
+
+      return
+    }
+
+    const { token } = responseData as UserRegisterResponseType
+
+    if (token) {
+      router.push('/signup/success')
     }
   }
 
