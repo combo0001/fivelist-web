@@ -4,7 +4,7 @@ const nextConfig = {
     domains: ['cdn.discordapp.com'],
   },
   reactStrictMode: true,
-  pageExtensions: ['page.tsx', 'api.ts', 'api.tsx'],
+  pageExtensions: ['page.tsx', 'api.ts', 'api.tsx', 'ts'],
 
   webpack(config) {
     config.module.rules.push({
