@@ -10,15 +10,9 @@ import {
 import { Button, Checkbox, Text, TextInput } from '@5list-design-system/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import {
-  ApiErrorProps,
-  postSignup,
-  UserRegisterResponseType,
-} from '../../services/users'
 import { LoginButton } from './components/Login'
 import {
   ButtonsContainer,
@@ -26,6 +20,7 @@ import {
   Form,
   InputsContainer,
 } from './style'
+import { useClientUser } from '@/providers/UserProvider'
 
 const passwordSchema = z
   .string()
@@ -61,13 +56,10 @@ type SignupSchemaType = z.infer<typeof SignupSchema>
 
 // eslint-disable-next-line no-undef
 export const SignupMain = (): JSX.Element => {
-  const router = useRouter()
-
   const {
     register,
     handleSubmit,
     control,
-    setError,
     formState: { errors, submitCount, isSubmitting, isSubmitSuccessful },
   } = useForm<SignupSchemaType>({
     mode: 'onSubmit',
@@ -81,21 +73,13 @@ export const SignupMain = (): JSX.Element => {
     },
   })
 
+  const { signUp } = useClientUser()
+
   const handleOnSubmit = async (data: SignupSchemaType): Promise<void> => {
-    const { status, data: responseData } = await postSignup(data)
-
-    if (!status) {
-      const apiError = responseData as ApiErrorProps
-
-      setError('email', apiError.message)
-
-      return
-    }
-
-    const { token } = responseData as UserRegisterResponseType
-
-    if (token) {
-      router.push('/signup/success')
+    try {
+      await signUp(data.name, data.email, data.password)
+    } catch (error) {
+      console.log(error)
     }
   }
 

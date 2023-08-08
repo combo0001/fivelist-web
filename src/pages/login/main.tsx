@@ -20,7 +20,6 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { postLogin } from '../../services/auth'
 import { SignupButton } from './components/Signup'
 import { Form, InputsContainer } from './style'
 
@@ -36,7 +35,7 @@ type LoginSchemaType = z.infer<typeof LoginSchema>
 
 export const LoginMain = (): JSX.Element => {
   const router = useRouter()
-  const { user } = useClientUser()
+  const { user, signIn } = useClientUser()
 
   useEffect(() => {
     if (user) {
@@ -47,7 +46,6 @@ export const LoginMain = (): JSX.Element => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors, submitCount, isSubmitting, isSubmitSuccessful },
   } = useForm<LoginSchemaType>({
     mode: 'onSubmit',
@@ -59,18 +57,14 @@ export const LoginMain = (): JSX.Element => {
     },
   })
 
-  const handleOnSubmit = async (data: LoginSchemaType): Promise<void> => {
+  const handleOnSubmit = async ({
+    email,
+    password,
+  }: LoginSchemaType): Promise<void> => {
     try {
-      const isAuthorized = await postLogin(data)
-
-      if (isAuthorized) {
-        router.push('/')
-      }
+      await signIn(email, password)
     } catch (error) {
-      setError('password', {
-        type: 'INVALID_CREDENTIALS',
-        message: 'Senha incorreta tente outros credenciais.',
-      })
+      console.log(error)
     }
   }
 
