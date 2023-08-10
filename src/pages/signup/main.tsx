@@ -7,75 +7,50 @@ import {
   InputContainer,
   Success,
 } from '@/components/Auth'
+import { useClientUser } from '@/providers/UserProvider'
 import { Button, Checkbox, Text, TextInput } from '@5list-design-system/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
-import { Controller, useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { useForm } from 'react-hook-form'
 
-import { LoginButton } from './components/Login'
+import { SigninButton } from './components/Signin'
 import {
   ButtonsContainer,
   CheckContainer,
   Form,
   InputsContainer,
 } from './style'
-import { useClientUser } from '@/providers/UserProvider'
-
-const passwordSchema = z
-  .string()
-  .min(8, 'A senha deve ter pelo menos 8 caracteres')
-  .refine(
-    (value) => {
-      const hasLowerCase = /[a-z]/.test(value)
-      const hasUpperCase = /[A-Z]/.test(value)
-      const hasNumber = /\d/.test(value)
-
-      return value.length >= 8 && hasLowerCase && hasUpperCase && hasNumber
-    },
-    {
-      message: 'A senha deve incluir maiúsculas, minúsculas e números.',
-    },
-  )
-
-const SignupSchema = z.object({
-  name: z
-    .string()
-    .min(4, 'O nome é pequeno demais')
-    .max(64, 'O nome é grande demais')
-    .regex(
-      /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s+[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/,
-      'O nome é inválido',
-    ),
-  email: z.string().email('E-mail inválido'),
-  password: passwordSchema,
-  termStatus: z.boolean().refine((value) => value === true),
-})
-
-type SignupSchemaType = z.infer<typeof SignupSchema>
+import {
+  SignUpRequestSchema,
+  SignUpRequestSchemaType,
+} from '@/lib/schemas/SignUpSchema'
+import { useState } from 'react'
 
 // eslint-disable-next-line no-undef
 export const SignupMain = (): JSX.Element => {
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors, submitCount, isSubmitting, isSubmitSuccessful },
-  } = useForm<SignupSchemaType>({
+  } = useForm<SignUpRequestSchemaType>({
     mode: 'onSubmit',
     reValidateMode: 'onBlur',
-    resolver: zodResolver(SignupSchema),
+    resolver: zodResolver(SignUpRequestSchema),
     defaultValues: {
       name: '',
       email: '',
       password: '',
-      termStatus: false,
     },
   })
+  const [termsCheck, setTermsCheck] = useState<boolean>(false)
 
   const { signUp } = useClientUser()
 
-  const handleOnSubmit = async (data: SignupSchemaType): Promise<void> => {
+  const handleOnSubmit = async (
+    data: SignUpRequestSchemaType,
+  ): Promise<void> => {
+    if (!termsCheck) return
+
     try {
       await signUp(data.name, data.email, data.password)
     } catch (error) {
@@ -160,25 +135,14 @@ export const SignupMain = (): JSX.Element => {
           </InputsContainer>
 
           <CheckContainer>
-            <Controller
-              name={'termStatus'}
-              control={control}
-              render={({ field: { onChange, onBlur, ref } }) => (
-                <Checkbox
-                  ref={ref}
-                  onBlur={onBlur}
-                  onCheckedChange={(value: boolean) => onChange(value)}
-                  variant={'circle'}
-                  css={{ '&:not(:disabled)': { cursor: 'pointer' } }}
-                />
-              )}
+            <Checkbox
+              checked={termsCheck}
+              onCheckedChange={(value: boolean) => setTermsCheck(value)}
+              variant={'circle'}
+              css={{ '&:not(:disabled)': { cursor: 'pointer' } }}
             />
 
-            <Text
-              weight={'regular'}
-              size={'sm'}
-              color={errors.termStatus && '$colors$error600'}
-            >
+            <Text weight={'regular'} size={'sm'}>
               Aceito os termos de responsabilidade
             </Text>
           </CheckContainer>
@@ -188,8 +152,8 @@ export const SignupMain = (): JSX.Element => {
               Criar conta
             </Button>
 
-            <Link href={'/login'} legacyBehavior>
-              <LoginButton />
+            <Link href={'/signin'} legacyBehavior>
+              <SigninButton />
             </Link>
           </ButtonsContainer>
         </Form>

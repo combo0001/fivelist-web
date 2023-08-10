@@ -67,7 +67,7 @@ const Discord = ({ inviteUrl }: DiscordProps): JSX.Element => (
 
 const AuthButtons = (): JSX.Element => (
   <AuthButtonsSection>
-    <Link href={'/login'} legacyBehavior>
+    <Link href={'/signin'} legacyBehavior>
       <Button outlined>Conectar</Button>
     </Link>
 

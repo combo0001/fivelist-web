@@ -1,12 +1,12 @@
 import { Button, Text } from '@5list-design-system/react'
 import { ComponentProps, ElementType } from 'react'
 
-interface LoginButtonProps extends ComponentProps<typeof Button> {
+interface SigninButtonProps extends ComponentProps<typeof Button> {
   as?: ElementType
 }
 
 // eslint-disable-next-line no-undef
-export function LoginButton(props: LoginButtonProps): JSX.Element {
+export function SigninButton(props: SigninButtonProps): JSX.Element {
   return (
     <Button type={'button'} size={'lg'} outlined {...props} css={{ flex: 1 }}>
       <Text weight={'regular'} size={'sm'} color={'inherit'}>

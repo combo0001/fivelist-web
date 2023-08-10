@@ -18,6 +18,12 @@ const ServersContainer = styled('div', {
   gap: '$4',
 })
 
+const ServerWithAdvertisingBox = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+})
+
 export const Servers = ({ servers }: ServersProps): JSX.Element => {
   const serversContent = servers.map((server, index) => {
     let advertisingContent: React.ReactNode
@@ -27,10 +33,10 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
     }
 
     return (
-      <>
+      <ServerWithAdvertisingBox key={index}>
         {advertisingContent}
-        <Server key={index} position={index + 1} {...server} />
-      </>
+        <Server position={index + 1} {...server} />
+      </ServerWithAdvertisingBox>
     )
   })
 

@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import createClient from '@/lib/supabase-server'
-import { User, Session } from '@supabase/supabase-js'
+import createClient from '@/lib/supabase/supabase-server'
+import { trpc } from '@/utils/trpc'
+import { Session, User } from '@supabase/supabase-js'
 import React, {
   Context,
   createContext,
@@ -18,50 +19,39 @@ const UserCtx = createContext<ProviderProps | null>(null)
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null)
-  const supabase = createClient()
+  const { data: user } = trpc.users.getUser.useQuery()
+  const utils = trpc.useContext()
 
-  useEffect(() => {
-    if (!user) {
-      supabase.auth.getUser().then(({ data }) => {
-        setUser(data.user)
-      })
-    }
-  }, [user, supabase])
-
+  console.log(user)
   const signUp = useCallback(
     async (name: string, email: string, password: string) => {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: window.location.origin,
-          data: {
-            full_name: name,
-          },
-        },
-      })
-
-      if (error) throw error
-
-      return data
-    },
-    [supabase],
-  )
-
-  const signIn = useCallback(
-    async (email: string, password: string) => {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, status } = await utils.users.signup.fetch({
+        name,
         email,
         password,
       })
 
-      if (error) throw error
+      if (status !== 200) {
+        throw new Error(data as string)
+      }
 
-      return data
+      return data as any
     },
-    [supabase],
+    [utils],
   )
+
+  const signIn = useCallback(async (email: string, password: string) => {
+    // const { data, error } = await supabase.auth.signInWithPassword({
+    //   email,
+    //   password,
+    // })
+
+    // if (error) throw error
+
+    // setUser(data.user)
+
+    return {} as any
+  }, [])
 
   const signOut = useCallback(async () => {}, [])
 

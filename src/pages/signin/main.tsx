@@ -18,22 +18,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 import { SignupButton } from './components/Signup'
 import { Form, InputsContainer } from './style'
 
 import { useClientUser } from '@/providers/UserProvider'
 import { useEffect } from 'react'
+import { SignInSchema, SignInSchemaType } from '@/lib/schemas/SignInSchema'
 
-const LoginSchema = z.object({
-  email: z.string().email('E-mail invalido.'),
-  password: z.string(),
-})
-
-type LoginSchemaType = z.infer<typeof LoginSchema>
-
-export const LoginMain = (): JSX.Element => {
+export const SigninMain = (): JSX.Element => {
   const router = useRouter()
   const { user, signIn } = useClientUser()
 
@@ -47,10 +40,10 @@ export const LoginMain = (): JSX.Element => {
     register,
     handleSubmit,
     formState: { errors, submitCount, isSubmitting, isSubmitSuccessful },
-  } = useForm<LoginSchemaType>({
+  } = useForm<SignInSchemaType>({
     mode: 'onSubmit',
     reValidateMode: 'onBlur',
-    resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(SignInSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -60,7 +53,7 @@ export const LoginMain = (): JSX.Element => {
   const handleOnSubmit = async ({
     email,
     password,
-  }: LoginSchemaType): Promise<void> => {
+  }: SignInSchemaType): Promise<void> => {
     try {
       await signIn(email, password)
     } catch (error) {

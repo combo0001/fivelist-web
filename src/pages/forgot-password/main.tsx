@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { LoginButton } from './components/Login'
+import { SigninButton } from './components/signin'
 import { Form } from './style'
 
 const ForgotPasswordSchema = z.object({
@@ -90,8 +90,8 @@ export const ForgotPasswordMain = (): JSX.Element => {
           </Button>
         </Form>
 
-        <Link href={'/login'} legacyBehavior>
-          <LoginButton />
+        <Link href={'/signin'} legacyBehavior>
+          <SigninButton />
         </Link>
       </Box>
     </Background>
