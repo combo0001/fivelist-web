@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Back,
   Background,
@@ -7,13 +9,11 @@ import {
   InputContainer,
   Success,
 } from '@/components/Auth'
-import { useClientUser } from '@/providers/UserProvider'
-import { Button, Checkbox, Text, TextInput } from '@5list-design-system/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 
-import { SigninButton } from './components/Signin'
+import { SignInButton } from './components/SignIn'
 import {
   ButtonsContainer,
   CheckContainer,
@@ -24,14 +24,60 @@ import {
   SignUpRequestSchema,
   SignUpRequestSchemaType,
 } from '@/lib/schemas/SignUpSchema'
-import { useState } from 'react'
+import { useEffect, useReducer } from 'react'
+import { Button, Checkbox, Text, TextInput } from '@5list-design-system/react'
+
+import { useRouter } from 'next/navigation'
+import { useClientUser } from '@/providers/UserProvider'
+import { AuthError } from '@supabase/supabase-js'
+
+interface TermsReducerProps {
+  value: boolean
+  hasError: boolean
+}
+
+const termsReducer = (
+  prevState: TermsReducerProps,
+  action: 'check' | 'uncheck' | 'error',
+): TermsReducerProps => {
+  switch (action) {
+    case 'check':
+      return {
+        hasError: false,
+        value: true,
+      }
+    case 'uncheck':
+      return {
+        hasError: false,
+        value: false,
+      }
+    case 'error':
+      return {
+        ...prevState,
+        hasError: true,
+      }
+    default:
+      return prevState
+  }
+}
 
 // eslint-disable-next-line no-undef
-export const SignupMain = (): JSX.Element => {
+export const SignUpMain = (): JSX.Element => {
+  const { user, signUp } = useClientUser()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (user) {
+      router.push('/home')
+    }
+  }, [user, router])
+
   const {
     register,
     handleSubmit,
     formState: { errors, submitCount, isSubmitting, isSubmitSuccessful },
+    setError,
+    clearErrors,
   } = useForm<SignUpRequestSchemaType>({
     mode: 'onSubmit',
     reValidateMode: 'onBlur',
@@ -42,19 +88,41 @@ export const SignupMain = (): JSX.Element => {
       password: '',
     },
   })
-  const [termsCheck, setTermsCheck] = useState<boolean>(false)
 
-  const { signUp } = useClientUser()
+  const [terms, dispatchTerms] = useReducer<
+    typeof termsReducer,
+    TermsReducerProps
+  >(
+    termsReducer,
+    {
+      value: false,
+      hasError: false,
+    },
+    (state: TermsReducerProps) => state,
+  )
+  const { value: termsCheck, hasError: termsError } = terms as TermsReducerProps
 
-  const handleOnSubmit = async (
-    data: SignUpRequestSchemaType,
-  ): Promise<void> => {
-    if (!termsCheck) return
+  const handleOnSubmit = async ({
+    email,
+    password,
+    name,
+  }: SignUpRequestSchemaType): Promise<void> => {
+    if (!termsCheck) {
+      clearErrors()
+      dispatchTerms('error')
+
+      return
+    }
 
     try {
-      await signUp(data.name, data.email, data.password)
+      await signUp(email, password, name)
+
+      router.push('/signup/success')
     } catch (error) {
-      console.log(error)
+      setError('email', {
+        type: 'INVALID_CREDENTIAL',
+        message: (error as AuthError).message,
+      })
     }
   }
 
@@ -137,12 +205,18 @@ export const SignupMain = (): JSX.Element => {
           <CheckContainer>
             <Checkbox
               checked={termsCheck}
-              onCheckedChange={(value: boolean) => setTermsCheck(value)}
+              onCheckedChange={(value: boolean) =>
+                value ? dispatchTerms('check') : dispatchTerms('uncheck')
+              }
               variant={'circle'}
               css={{ '&:not(:disabled)': { cursor: 'pointer' } }}
             />
 
-            <Text weight={'regular'} size={'sm'}>
+            <Text
+              weight={'regular'}
+              size={'sm'}
+              color={termsError ? '$colors$error600' : ''}
+            >
               Aceito os termos de responsabilidade
             </Text>
           </CheckContainer>
@@ -153,7 +227,7 @@ export const SignupMain = (): JSX.Element => {
             </Button>
 
             <Link href={'/signin'} legacyBehavior>
-              <SigninButton />
+              <SignInButton />
             </Link>
           </ButtonsContainer>
         </Form>

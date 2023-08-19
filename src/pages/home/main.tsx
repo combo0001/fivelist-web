@@ -2,13 +2,13 @@
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { PageLayout } from '@/components/PageLayout'
-import { useClientUser } from '@/providers/UserProvider'
 
 import { ListFilters } from './components/ListFilters'
 import { ListHeader } from './components/ListHeader'
 import { ListServers } from './components/ListServers'
 import { FilterProvider } from './providers/FilterProvider'
 import { ListContainer } from './style'
+import { useClientUser } from '@/providers/UserProvider'
 
 export const HomeMain = (): JSX.Element => {
   const { user } = useClientUser()

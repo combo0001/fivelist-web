@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable no-undef */
 import {
   Back,
@@ -8,6 +10,8 @@ import {
   InputContainer,
   Success,
 } from '@/components/Auth'
+import { SignInSchema, SignInSchemaType } from '@/lib/schemas/SignInSchema'
+import { useClientUser } from '@/providers/UserProvider'
 import {
   Button,
   Link as LinkComponent,
@@ -17,18 +21,16 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { SignupButton } from './components/Signup'
+import { SignUpButton } from './components/SignUp'
 import { Form, InputsContainer } from './style'
+import { AuthError } from '@supabase/supabase-js'
 
-import { useClientUser } from '@/providers/UserProvider'
-import { useEffect } from 'react'
-import { SignInSchema, SignInSchemaType } from '@/lib/schemas/SignInSchema'
-
-export const SigninMain = (): JSX.Element => {
-  const router = useRouter()
+export const SignInMain = (): JSX.Element => {
   const { user, signIn } = useClientUser()
+  const router = useRouter()
 
   useEffect(() => {
     if (user) {
@@ -39,6 +41,7 @@ export const SigninMain = (): JSX.Element => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, submitCount, isSubmitting, isSubmitSuccessful },
   } = useForm<SignInSchemaType>({
     mode: 'onSubmit',
@@ -56,8 +59,13 @@ export const SigninMain = (): JSX.Element => {
   }: SignInSchemaType): Promise<void> => {
     try {
       await signIn(email, password)
+
+      router.push('/home')
     } catch (error) {
-      console.log(error)
+      setError('email', {
+        type: 'INVALID_CREDENTIAL',
+        message: (error as AuthError).message,
+      })
     }
   }
 
@@ -124,7 +132,7 @@ export const SigninMain = (): JSX.Element => {
         </Form>
 
         <Link href={'/signup'} legacyBehavior>
-          <SignupButton />
+          <SignUpButton />
         </Link>
       </Box>
     </Background>

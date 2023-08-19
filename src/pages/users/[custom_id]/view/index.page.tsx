@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 
-import { UserProvider } from '@/providers/UserProvider'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
 import { UsersViewMain } from './main'
@@ -20,7 +19,7 @@ export const getStaticProps: GetStaticProps<
   const props = {
     user: {
       customId,
-    } as UserType.UserObject,
+    } as any,
   }
 
   return {
@@ -30,13 +29,9 @@ export const getStaticProps: GetStaticProps<
 }
 
 export interface UsersProps {
-  user: UserType.UserObject
+  user: any
 }
 
 export default function UsersView({ user }: UsersProps): JSX.Element {
-  return (
-    <UserProvider>
-      <UsersViewMain user={user} />
-    </UserProvider>
-  )
+  return <UsersViewMain user={user} />
 }

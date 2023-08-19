@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 
-import { UserProvider } from '@/providers/UserProvider'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
 import { ServersViewMain } from './main'
@@ -53,9 +52,5 @@ export interface ServersProps {
 }
 
 export default function ServersView({ server }: ServersProps): JSX.Element {
-  return (
-    <UserProvider>
-      <ServersViewMain server={server} />
-    </UserProvider>
-  )
+  return <ServersViewMain server={server} />
 }

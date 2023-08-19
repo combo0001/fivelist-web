@@ -12,7 +12,6 @@ interface ListServersProps {
 
 const ListContainer = styled('ol', {
   width: '100%',
-  flex: 1,
 
   display: 'flex',
   flexDirection: 'column',
@@ -20,13 +19,6 @@ const ListContainer = styled('ol', {
   alignItems: 'center',
 
   padding: '0 $4 $4',
-
-  overflow: 'auto',
-  scrollbarWidth: 'none',
-
-  '&::-webkit-scrollbar': {
-    display: 'none',
-  },
 
   '& > *': {
     flexShrink: 0,

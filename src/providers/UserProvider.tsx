@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import createClient from '@/lib/supabase/supabase-server'
+import { Database } from '@/@types/supabase'
 import { trpc } from '@/utils/trpc'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Session, User } from '@supabase/supabase-js'
 import React, {
   Context,
@@ -19,39 +20,46 @@ const UserCtx = createContext<ProviderProps | null>(null)
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const supabase = createClientComponentClient<Database>()
   const { data: user } = trpc.users.getUser.useQuery()
-  const utils = trpc.useContext()
 
-  console.log(user)
   const signUp = useCallback(
-    async (name: string, email: string, password: string) => {
-      const { data, status } = await utils.users.signup.fetch({
-        name,
+    async (email: string, password: string, name: string) => {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: name,
+          },
+          emailRedirectTo: window.location.origin,
+        },
+      })
+
+      if (error) {
+        throw error
+      } else {
+        return data as any
+      }
+    },
+    [supabase],
+  )
+
+  const signIn = useCallback(
+    async (email: string, password: string) => {
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
 
-      if (status !== 200) {
-        throw new Error(data as string)
+      if (error) {
+        throw error
+      } else {
+        return data as any
       }
-
-      return data as any
     },
-    [utils],
+    [supabase],
   )
-
-  const signIn = useCallback(async (email: string, password: string) => {
-    // const { data, error } = await supabase.auth.signInWithPassword({
-    //   email,
-    //   password,
-    // })
-
-    // if (error) throw error
-
-    // setUser(data.user)
-
-    return {} as any
-  }, [])
 
   const signOut = useCallback(async () => {}, [])
 
@@ -61,7 +69,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         user,
         signUp,
         signIn,
-        signOut,
       }}
     >
       {children}

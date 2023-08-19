@@ -2,8 +2,6 @@
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { PageLayout } from '@/components/PageLayout'
-import { useClientUser } from '@/providers/UserProvider'
-
 import { UsersProps } from './index.page'
 import { UsersContainer } from './style'
 import { ProfileProvider } from '../providers/ProfileProvider'
@@ -13,8 +11,6 @@ import { ProfileContent } from './components/ProfilerContent'
 export const UsersViewMain = ({
   user: profileUser,
 }: UsersProps): JSX.Element => {
-  const { user: clientUser } = useClientUser()
-
   return (
     <PageLayout>
       <Header user={clientUser} />

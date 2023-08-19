@@ -1026,11 +1026,6 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@edge-runtime/cookies@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@edge-runtime/cookies/-/cookies-3.2.3.tgz#88391e3989b117dd9b33aeb194a659696e25a88d"
-  integrity sha512-xe8hUIsNe3+4ExjykueCMHknJ5tccme6HQgxhGcem7TepZMD8JYRY/XNI+SfMZLArzu1kO+7prOK2OHMPGe3zg==
-
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@eslint-community/eslint-utils/-/eslint-utils-4.3.0.tgz#a556790523a351b4e47e9d385f47265eaaf9780a"

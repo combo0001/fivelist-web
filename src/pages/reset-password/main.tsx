@@ -13,7 +13,7 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { SigninButton } from './components/signin'
+import { SignInButton } from './components/signin'
 import { Form, InputsContainer } from './style'
 
 const passwordSchema = z
@@ -132,7 +132,7 @@ export const ResetPasswordMain = (): JSX.Element => {
         </Form>
 
         <Link href={'/signin'} legacyBehavior>
-          <SigninButton />
+          <SignInButton />
         </Link>
       </Box>
     </Background>
