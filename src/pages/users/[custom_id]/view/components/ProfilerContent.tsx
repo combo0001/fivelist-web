@@ -9,6 +9,11 @@ import { Publications } from './Publications'
 import { RecentActivities } from './RecentActivities'
 import { ServersMostPlayed } from './ServersMostPlayed'
 import { StreamLink } from './StreamLink'
+import { UserPageSchemaType } from '@/lib/schemas/UserPageSchema'
+
+interface ProfileContentProps {
+  user: UserPageSchemaType
+}
 
 const ContentContainer = styled('section', {
   width: '100%',
@@ -35,7 +40,7 @@ const InformationsSide = styled('div', {
   gap: '$8',
 })
 
-export const ProfileContent = (): JSX.Element => {
+export const ProfileContent = ({ user }: ProfileContentProps): JSX.Element => {
   const HAS_VIP = true
 
   return (

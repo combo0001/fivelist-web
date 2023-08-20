@@ -61,5 +61,9 @@ export const getStaticProps = async ({
 export default function UsersView({
   userPage,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
+  if (!userPage) {
+    return <></>
+  }
+
   return <UsersViewMain user={userPage} />
 }

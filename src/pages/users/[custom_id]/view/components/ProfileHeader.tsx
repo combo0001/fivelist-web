@@ -12,7 +12,11 @@ import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
 
 import { CurrentServer } from './CurrentServer'
-import { useProfile } from '../../providers/ProfileProvider'
+import { UserPageSchemaType } from '@/lib/schemas/UserPageSchema'
+
+interface ProfileHeaderProps {
+  user: UserPageSchemaType
+}
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -84,9 +88,7 @@ const Divisor = styled('div', {
   opacity: 0.1,
 })
 
-export const ProfileHeader = (): JSX.Element => {
-  const { user } = useProfile()
-
+export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
   const HAS_VIP = true
   const CURRENT_SERVER = {
     clients: {

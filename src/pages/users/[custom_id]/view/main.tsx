@@ -5,7 +5,6 @@ import { PageLayout } from '@/components/PageLayout'
 import { UserPageSchemaType } from '@/lib/schemas/UserPageSchema'
 import { useClientUser } from '@/providers/UserProvider'
 
-import { ProfileProvider } from '../providers/ProfileProvider'
 import { ProfileHeader } from './components/ProfileHeader'
 import { ProfileContent } from './components/ProfilerContent'
 import { UsersContainer } from './style'
@@ -26,11 +25,9 @@ export const UsersViewMain = ({
       <Navigation user={clientUser} />
 
       <UsersContainer>
-        <ProfileProvider user={profileUser}>
-          <ProfileHeader />
+        <ProfileHeader user={profileUser} />
 
-          <ProfileContent />
-        </ProfileProvider>
+        <ProfileContent user={profileUser} />
       </UsersContainer>
     </PageLayout>
   )
