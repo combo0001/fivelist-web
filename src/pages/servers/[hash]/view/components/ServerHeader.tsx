@@ -133,9 +133,9 @@ export const ServerHeader = (): JSX.Element => {
           <ServerNameText as={'h2'}>{name}</ServerNameText>
 
           <ServerLinks
-            discordUrl={tags.discord}
-            storeUrl={tags.store}
-            websiteUrl={tags.website}
+            discordURL={tags.discord}
+            storeURL={tags.store}
+            websiteURL={tags.website}
           />
 
           <Divisor />
@@ -222,9 +222,9 @@ const ServerTags = ({
 }
 
 interface ServerLinksProps {
-  discordUrl?: string
-  websiteUrl?: string
-  storeUrl?: string
+  discordURL?: string
+  websiteURL?: string
+  storeURL?: string
 }
 
 const LinksContainer = styled('div', {
@@ -242,14 +242,14 @@ const LinkAnchor = styled('a', {
 })
 
 const ServerLinks = ({
-  discordUrl,
-  websiteUrl,
-  storeUrl,
+  discordURL,
+  websiteURL,
+  storeURL,
 }: ServerLinksProps): JSX.Element => {
   return (
     <LinksContainer>
-      {websiteUrl && (
-        <LinkAnchor href={websiteUrl} target={'_blank'}>
+      {websiteURL && (
+        <LinkAnchor href={websiteURL} target={'_blank'}>
           <LinkIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
@@ -258,8 +258,8 @@ const ServerLinks = ({
         </LinkAnchor>
       )}
 
-      {storeUrl && (
-        <LinkAnchor href={storeUrl} target={'_blank'}>
+      {storeURL && (
+        <LinkAnchor href={storeURL} target={'_blank'}>
           <StoreIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
@@ -268,8 +268,8 @@ const ServerLinks = ({
         </LinkAnchor>
       )}
 
-      {discordUrl && (
-        <LinkAnchor href={discordUrl} target={'_blank'}>
+      {discordURL && (
+        <LinkAnchor href={discordURL} target={'_blank'}>
           <DiscordIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>

@@ -1,15 +1,20 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+import { UserPageSchemaType } from '@/lib/schemas/UserPageSchema'
 import React, { Context, createContext, useContext } from 'react'
 
-const ProfileCtx = createContext<UserType.Provider | null>(null)
+interface ProfileProviderProps {
+  user: UserPageSchemaType
+}
+
+const ProfileCtx = createContext<ProfileProviderProps | null>(null)
 
 export const ProfileProvider: React.FC<{
   children: React.ReactNode
-  user: UserType.UserObject
+  user: UserPageSchemaType
 }> = ({ children, user }) => {
-  return <ProfileCtx.Provider value={user}>{children}</ProfileCtx.Provider>
+  return <ProfileCtx.Provider value={{ user }}>{children}</ProfileCtx.Provider>
 }
 
 export const useProfile = () =>
-  useContext<UserType.Provider>(ProfileCtx as Context<UserType.Provider>)
+  useContext<ProfileProviderProps>(ProfileCtx as Context<ProfileProviderProps>)

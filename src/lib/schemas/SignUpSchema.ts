@@ -16,15 +16,14 @@ const passwordSchema = z
     },
   )
 
+export const nameSchema = z
+  .string()
+  .min(4, 'O nome é pequeno demais')
+  .max(64, 'O nome é grande demais')
+  .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s+[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/, 'O nome é inválido')
+
 export const SignUpRequestSchema = z.object({
-  name: z
-    .string()
-    .min(4, 'O nome é pequeno demais')
-    .max(64, 'O nome é grande demais')
-    .regex(
-      /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s+[A-Za-zÀ-ÖØ-öø-ÿ]+)*$/,
-      'O nome é inválido',
-    ),
+  name: nameSchema,
   email: z.string().email('E-mail inválido'),
   password: passwordSchema,
 })

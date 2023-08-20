@@ -12,6 +12,7 @@ import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
 
 import { CurrentServer } from './CurrentServer'
+import { useProfile } from '../../providers/ProfileProvider'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -84,6 +85,8 @@ const Divisor = styled('div', {
 })
 
 export const ProfileHeader = (): JSX.Element => {
+  const { user } = useProfile()
+
   const HAS_VIP = true
   const CURRENT_SERVER = {
     clients: {
@@ -123,12 +126,11 @@ export const ProfileHeader = (): JSX.Element => {
         <CurrentServer {...CURRENT_SERVER} />
 
         <InformationsContainer>
-          <DataTags followers={2032} views={12433} />
+          <DataTags followers={user.followers} views={user.views} />
 
           <Profile
-            name={'Ryan Menezes'}
-            nickname={'RyanzinFive'}
-            years={19}
+            name={user.name.split(/\s/).at(0) as string}
+            nickname={user.customId}
             isOnline={true}
             avatarURL={
               'https://cdn.discordapp.com/attachments/923436122871308308/1120117167925501982/image.png'
@@ -218,7 +220,6 @@ const DataTags = ({ followers, views }: DataTagsProps): JSX.Element => {
 interface ProfileProps {
   name: string
   nickname: string
-  years: number
   isOnline: boolean
   avatarURL: string
 }
@@ -270,14 +271,6 @@ const AvatarImage = styled(Image, {
   size: '4.375rem',
 })
 
-const IdentityContainer = styled('div', {
-  flex: 1,
-
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$2',
-})
-
 const NameContainer = styled('div', {
   display: 'flex',
   alignItems: 'flex-end',
@@ -287,7 +280,6 @@ const NameContainer = styled('div', {
 const Profile = ({
   name,
   nickname,
-  years,
   isOnline,
   avatarURL,
 }: ProfileProps): JSX.Element => {
@@ -304,23 +296,17 @@ const Profile = ({
         <OnlineStatus online={isOnline} />
       </AvatarWrapper>
 
-      <IdentityContainer>
-        <NameContainer>
-          <Heading as={'h2'}>{nickname}</Heading>
+      <NameContainer>
+        <Heading as={'h2'}>{nickname}</Heading>
 
-          <Text
-            size={'md'}
-            css={{ fontSize: '1.125rem !important' }}
-            weight={'normal'}
-          >
-            {name}
-          </Text>
-        </NameContainer>
-
-        <Text size={'sm'} weight={'normal'}>
-          {years} anos
+        <Text
+          size={'md'}
+          css={{ fontSize: '1.125rem !important' }}
+          weight={'normal'}
+        >
+          {name}
         </Text>
-      </IdentityContainer>
+      </NameContainer>
     </ProfileContainer>
   )
 }

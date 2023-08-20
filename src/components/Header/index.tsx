@@ -32,7 +32,7 @@ export const Header = ({ user }: HeaderProps): JSX.Element => {
     <HeaderContainer>
       {authSection}
 
-      <Discord inviteUrl={'https://discord.gg/aTGQYBwexY'} />
+      <Discord inviteURL={'https://discord.gg/aTGQYBwexY'} />
     </HeaderContainer>
   )
 }
@@ -52,12 +52,12 @@ const Profile = ({ user }: ProfileProps): JSX.Element => (
 )
 
 interface DiscordProps {
-  inviteUrl: string
+  inviteURL: string
 }
 
-const Discord = ({ inviteUrl }: DiscordProps): JSX.Element => (
+const Discord = ({ inviteURL }: DiscordProps): JSX.Element => (
   <DiscordSection>
-    <DiscordAnchor target={'_blank'} href={inviteUrl}>
+    <DiscordAnchor target={'_blank'} href={inviteURL}>
       <DiscordIcon />
 
       <Text size={'sm'}>Acesse nosso discord</Text>

@@ -1,10 +1,10 @@
+import { AppRouter } from '@/server/routers/_app'
 import { httpBatchLink } from '@trpc/client'
 import { createTRPCNext } from '@trpc/next'
 
-import type { AppRouter } from '../server/routers/_app'
 import { transformer } from './transformer'
 
-function getBaseUrl() {
+function getBaseURL() {
   if (typeof window !== 'undefined') return ''
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
   if (process.env.RENDER_INTERNAL_HOSTNAME)
@@ -31,7 +31,7 @@ export const trpc = createTRPCNext<AppRouter>({
       transformer,
       links: [
         httpBatchLink({
-          url: `${getBaseUrl()}/api/`,
+          url: `${getBaseURL()}/api/`,
           headers() {
             if (!ctx?.req?.headers) {
               return {}

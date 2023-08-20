@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
 
-  const requestUrl = new URL(req.url)
-  const authCode = requestUrl.searchParams.get('code')
+  const requestURL = new URL(req.url)
+  const authCode = requestURL.searchParams.get('code')
 
   if (authCode) {
     const supabase = createMiddlewareClient({ req, res })

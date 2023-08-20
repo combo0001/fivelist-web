@@ -46,7 +46,7 @@ const InputLink = styled('input', {
 export const StreamLink = (): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>()
 
-  const [customUrl, setCustomUrl] = useState<string>('')
+  const [customURL, setCustomURL] = useState<string>('')
   const [isEditing, setEditing] = useState<boolean>(false)
 
   const toggleEditing = (): void => {
@@ -60,11 +60,11 @@ export const StreamLink = (): JSX.Element => {
   }
 
   const handleOnChange = (value: string): void => {
-    setCustomUrl(value)
+    setCustomURL(value)
   }
 
   const handleOnCopy = (): void => {
-    navigator.clipboard.writeText(customUrl)
+    navigator.clipboard.writeText(customURL)
   }
 
   return (
@@ -83,7 +83,7 @@ export const StreamLink = (): JSX.Element => {
       <InputLink
         ref={inputRef as any}
         disabled={!isEditing}
-        value={customUrl}
+        value={customURL}
         onChange={({ target }) => handleOnChange(target.value)}
       />
 

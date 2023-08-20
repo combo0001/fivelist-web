@@ -4,14 +4,7 @@ import { Database } from '@/@types/supabase'
 import { trpc } from '@/utils/trpc'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Session, User } from '@supabase/supabase-js'
-import React, {
-  Context,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import React, { Context, createContext, useCallback, useContext } from 'react'
 
 type ProviderProps = UserType.Provider<User, Session>
 

@@ -50,7 +50,7 @@ const InputLink = styled('input', {
 export const CustomLink = ({ id }: CustomLinkProps): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>()
 
-  const [customUrl, setCustomUrl] = useState<string>('fivelist.gg/' + id)
+  const [customURL, setCustomURL] = useState<string>('fivelist.gg/' + id)
   const [isEditing, setEditing] = useState<boolean>(false)
 
   const toggleEditing = (): void => {
@@ -67,12 +67,12 @@ export const CustomLink = ({ id }: CustomLinkProps): JSX.Element => {
     const isValid = value.startsWith('fivelist.gg/')
 
     if (isValid) {
-      setCustomUrl(value)
+      setCustomURL(value)
     }
   }
 
   const handleOnCopy = (): void => {
-    navigator.clipboard.writeText(customUrl)
+    navigator.clipboard.writeText(customURL)
   }
 
   return (
@@ -91,7 +91,7 @@ export const CustomLink = ({ id }: CustomLinkProps): JSX.Element => {
       <InputLink
         ref={inputRef as any}
         disabled={!isEditing}
-        value={customUrl}
+        value={customURL}
         onChange={({ target }) => handleOnChange(target.value)}
       />
 
