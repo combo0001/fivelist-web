@@ -2,16 +2,15 @@
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { PageLayout } from '@/components/PageLayout'
-import { UserSchemaType } from '@/@types/schemas/UserIdentitySchema'
 import { useClientUser } from '@/providers/UserProvider'
 
-import { ProfileProvider } from '../providers/ProfileProvider'
 import { ProfileHeader } from './components/ProfileHeader'
 import { ProfileContent } from './components/ProfilerContent'
 import { UsersContainer } from './style'
+import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
 
 interface UsersViewMainProps {
-  user: UserSchemaType
+  user: UserProfileSchemaType
 }
 
 export const UsersViewMain = ({
@@ -26,11 +25,9 @@ export const UsersViewMain = ({
       <Navigation user={clientUser} />
 
       <UsersContainer>
-        <ProfileProvider user={profileUser}>
-          <ProfileHeader />
+        <ProfileHeader user={profileUser} />
 
-          <ProfileContent />
-        </ProfileProvider>
+        <ProfileContent user={profileUser} />
       </UsersContainer>
     </PageLayout>
   )

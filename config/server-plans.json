@@ -1,10 +1,10 @@
 [
   {
-    "id": "FREE_TIER",
+    "name": "FREE_TIER",
     "privileges": {}
   },
   {
-    "id": "BASIC_TIER",
+    "name": "BASIC_TIER",
     "privileges": {
       "PAGE_DESCRIPTION": true,
       "PAGE_BANNER": true,
@@ -13,7 +13,7 @@
     }
   },
   {
-    "id": "PRO_TIER",
+    "name": "PRO_TIER",
     "privileges": {
       "PAGE_DESCRIPTION": true,
       "PAGE_BANNER": true,
@@ -25,7 +25,7 @@
     }
   },
   {
-    "id": "BUSINESS_TIER",
+    "name": "BUSINESS_TIER",
     "privileges": {
       "PAGE_DESCRIPTION": true,
       "PAGE_BANNER": true,

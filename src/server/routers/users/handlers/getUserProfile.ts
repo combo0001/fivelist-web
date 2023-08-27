@@ -45,8 +45,8 @@ export const getUserProfile = procedure
       likes = 0,
       views = 0,
       followers = 0,
-      avatar_url: avatarUrl,
-      banner_url: bannerUrl,
+      avatar_url: avatarURL,
+      banner_url: bannerURL,
       stream_url: streamURL,
       created_at: createdAt,
       updated_at: updatedAt,
@@ -69,8 +69,8 @@ export const getUserProfile = procedure
       customId,
       planTier,
       page: {
-        avatarUrl,
-        bannerUrl,
+        avatarURL,
+        bannerURL,
         name: userMetadata.full_name,
         description,
         statistics: {

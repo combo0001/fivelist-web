@@ -2,6 +2,7 @@
 
 import {
   EyeIcon,
+  PencilIcon,
   PointsIcon,
   ProfileIcon,
   StatusIcon,
@@ -12,6 +13,7 @@ import { Button, Heading, Text } from '@5list-design-system/react'
 import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
 import { useClientUser } from '@/providers/UserProvider'
+import Link from 'next/link'
 
 interface ProfileHeaderProps {
   user: UserProfileSchemaType
@@ -69,6 +71,12 @@ const HeaderContainer = styled('section', {
   flexDirection: 'column',
 })
 
+const EditButton = styled(Button, {
+  alignSelf: 'end',
+
+  gap: '$3',
+})
+
 const InformationsContainer = styled('section', {
   marginTop: 'auto',
 
@@ -91,15 +99,24 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
   const { user: clientUser } = useClientUser()
 
   const isClientProfile = clientUser?.id === user.id
-  const hasBanner = !!(user.planTier.PROFILE_HEADER && user.page.bannerUrl)
-
-  console.log(isClientProfile)
+  const hasBanner = !!(
+    user.planTier.privileges.PROFILE_HEADER && user.page.bannerURL
+  )
 
   return (
     <HeaderWrapper hasVip={hasBanner}>
-      {hasBanner && <Banner src={user.page.bannerUrl as string} />}
+      {hasBanner && <Banner src={user.page.bannerURL as string} />}
 
       <HeaderContainer>
+        {isClientProfile && (
+          <Link href={`/users/${user.customId}/edit`} legacyBehavior>
+            <EditButton size={'lg'}>
+              Editar
+              <PencilIcon css={{ size: '$4', fill: '$white' }} />
+            </EditButton>
+          </Link>
+        )}
+
         {/* <CurrentServer /> */}
 
         <InformationsContainer>
@@ -113,8 +130,8 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
             nickname={user.customId}
             isOnline={user.page.isOnline}
             avatarURL={
-              user.page.avatarUrl
-                ? user.page.avatarUrl
+              user.page.avatarURL
+                ? user.page.avatarURL
                 : 'https://cdn.discordapp.com/attachments/923436122871308308/1120117167925501982/image.png'
             }
           />

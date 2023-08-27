@@ -5,6 +5,10 @@ import { styled } from '@/styles'
 import { Button, Heading } from '@5list-design-system/react'
 import { useRef, useState } from 'react'
 
+interface StreamLinkProps {
+  streamURL: string
+}
+
 const StreamContainer = styled('div', {
   height: '$50',
 
@@ -43,10 +47,10 @@ const InputLink = styled('input', {
   color: '$neutral100',
 })
 
-export const StreamLink = (): JSX.Element => {
+export const StreamLink = ({ streamURL }: StreamLinkProps): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>()
 
-  const [customURL, setCustomURL] = useState<string>('')
+  const [customURL, setCustomURL] = useState<string>(streamURL)
   const [isEditing, setEditing] = useState<boolean>(false)
 
   const toggleEditing = (): void => {

@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 
+import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
 import { ImageUploader } from '@/components/Dialogs/Image'
 import {
   EyeIcon,
@@ -14,6 +15,10 @@ import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+
+interface ProfileHeaderProps {
+  user: UserProfileSchemaType
+}
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -108,9 +113,7 @@ const PremiumContainer = styled('div', {
   gap: '$2',
 })
 
-export const ProfileHeader = (): JSX.Element => {
-  const HAS_VIP = true
-
+export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
   const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
 
   const toggleBannerEdit = (): void => setBannerEdit((state) => !state)
@@ -119,15 +122,13 @@ export const ProfileHeader = (): JSX.Element => {
     toggleBannerEdit()
   }
 
+  const hasBanner = !!(
+    user.planTier.privileges.PROFILE_HEADER && user.page.bannerURL
+  )
+
   return (
-    <HeaderWrapper hasVip={HAS_VIP}>
-      {HAS_VIP && (
-        <Banner
-          src={
-            'https://cdn.discordapp.com/attachments/923436122871308308/1120131816809046066/image.png'
-          }
-        />
-      )}
+    <HeaderWrapper hasVip={hasBanner}>
+      {hasBanner && <Banner src={user.page.bannerURL as string} />}
 
       <HeaderContainer>
         <BannerContainer>
@@ -142,23 +143,33 @@ export const ProfileHeader = (): JSX.Element => {
         </BannerContainer>
 
         <InformationsContainer>
-          <DataTags followers={2032} views={12433} />
+          <DataTags
+            followers={user.page.statistics.followers}
+            views={user.page.statistics.views}
+          />
 
           <Profile
-            name={'Ryan Menezes'}
-            nickname={'RyanzinFive'}
-            years={19}
-            isOnline={true}
+            name={user.page.name.split(/\s/).at(0) as string}
+            nickname={user.customId}
+            isOnline={user.page.isOnline}
             avatarURL={
-              'https://cdn.discordapp.com/attachments/923436122871308308/1120117167925501982/image.png'
+              user.page.avatarURL
+                ? user.page.avatarURL
+                : 'https://cdn.discordapp.com/attachments/923436122871308308/1120117167925501982/image.png'
             }
           />
 
-          <Level level={{ id: 1, points: 1500 }} points={1150} />
+          <Level
+            level={{
+              id: user.page.level.currentLevel.id,
+              points: user.page.level.nextLevel.points,
+            }}
+            points={user.page.level.points}
+          />
 
           <Divisor />
 
-          {!HAS_VIP ? (
+          {user.planTier.id === 0 ? (
             <Link href={`/premium/users`} legacyBehavior>
               <Button size={'lg'}>Adquirir plano</Button>
             </Link>
@@ -251,7 +262,6 @@ const DataTags = ({ followers, views }: DataTagsProps): JSX.Element => {
 interface ProfileProps {
   name: string
   nickname: string
-  years: number
   isOnline: boolean
   avatarURL: string
 }
@@ -320,7 +330,6 @@ const NameContainer = styled('div', {
 const Profile = ({
   name,
   nickname,
-  years,
   isOnline,
   avatarURL,
 }: ProfileProps): JSX.Element => {
@@ -349,10 +358,6 @@ const Profile = ({
             {name}
           </Text>
         </NameContainer>
-
-        <Text size={'sm'} weight={'normal'}>
-          {years} anos
-        </Text>
       </IdentityContainer>
     </ProfileContainer>
   )

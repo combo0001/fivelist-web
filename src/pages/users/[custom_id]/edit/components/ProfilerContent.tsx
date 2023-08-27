@@ -4,6 +4,11 @@ import { styled } from '@/styles'
 import { Description } from './Description'
 import { Links } from './Links'
 import { StreamLink } from './StreamLink'
+import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
+
+interface ProfileHeaderProps {
+  user: UserProfileSchemaType
+}
 
 const ContentContainer = styled('section', {
   width: '100%',
@@ -30,43 +35,36 @@ const InformationsSide = styled('div', {
   gap: '$8',
 })
 
-export const ProfileContent = (): JSX.Element => {
-  const HAS_VIP = false
-
+export const ProfileContent = ({ user }: ProfileHeaderProps): JSX.Element => {
   return (
     <ContentContainer>
       <Description
-        hasVip={HAS_VIP}
-        text={
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
-        }
+        hasVip={user.planTier.privileges.PROFILE_DESCRIPTION}
+        text={user.page.description || 'Descrição não foi criada.'}
       />
 
       <InformationsWrapper>
         <InformationsSide>
           <Links
             title={'Redes sociais'}
-            links={[
-              { label: 'Github', url: 'https://github.com/combo0001' },
-              { label: 'Twitch', url: 'https://github.com/combo0001' },
-              { label: 'Instagram', url: 'https://github.com/combo0001' },
-              { label: 'Tiktok', url: 'https://github.com/combo0001' },
-              { label: 'Facebook', url: 'https://github.com/combo0001' },
-              { label: 'Discord', url: 'https://github.com/combo0001' },
-              { label: 'Youtube', url: 'https://github.com/combo0001' },
-            ]}
+            links={user.page.socialMedia.map(
+              ({ socialMedia: label, profileId }) => ({
+                label,
+                url: `https://youtube.com/${profileId}`,
+              }),
+            )}
           />
 
-          <StreamLink />
+          <StreamLink streamURL={user.page.streamURL || ''} />
         </InformationsSide>
 
         <InformationsSide>
           <Links
             title={'Conexões'}
-            links={[
-              { label: 'Github', url: 'https://github.com/combo0001' },
-              { label: 'Twitch', url: 'https://github.com/combo0001' },
-            ]}
+            links={user.page.connections.map(({ name: label, url }) => ({
+              label,
+              url,
+            }))}
           />
         </InformationsSide>
       </InformationsWrapper>

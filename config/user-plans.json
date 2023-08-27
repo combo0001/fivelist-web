@@ -1,10 +1,10 @@
 [
   {
-    "id": "FREE_TIER",
+    "name": "FREE_TIER",
     "privileges": {}
   },
   {
-    "id": "PREMIUM_TIER",
+    "name": "PREMIUM_TIER",
     "privileges": {
       "PROFILE_CUSTOM_ID": true,
       "PROFILE_HEADER": true,

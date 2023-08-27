@@ -12,8 +12,8 @@ export const UserStreamUrlSchema = z.string().max(256)
 export const UserImageUrlSchema = z.string().max(256)
 
 export const UserPageSchema = z.object({
-  avatarUrl: UserImageUrlSchema.nullable(),
-  bannerUrl: UserImageUrlSchema.nullable(),
+  avatarURL: UserImageUrlSchema.nullable(),
+  bannerURL: UserImageUrlSchema.nullable(),
   name: UserNameSchema,
   description: UserDescriptionSchema.nullable(),
   socialMedia: UserSocialMediaListSchema,

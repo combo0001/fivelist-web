@@ -42,7 +42,7 @@ const InformationsSide = styled('div', {
 export const ProfileContent = ({ user }: ProfileContentProps): JSX.Element => {
   return (
     <ContentContainer>
-      {user.planTier.PROFILE_DESCRIPTION && (
+      {user.planTier.privileges.PROFILE_DESCRIPTION && (
         <Description
           text={user.page.description || 'Descrição não foi criada.'}
         />
