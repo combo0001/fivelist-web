@@ -11,7 +11,7 @@ import { Button, Heading, Text } from '@5list-design-system/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useServer } from '../../providers/ServerProvider'
+import { useServer } from '../providers/ServerProvider'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',

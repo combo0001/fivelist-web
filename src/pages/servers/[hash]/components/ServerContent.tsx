@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
 
-import { useServer } from '../../providers/ServerProvider'
+import { useServer } from '../providers/ServerProvider'
 import { Description } from './Description'
 import { Players } from './Players'
 import { Reviews } from './Reviews'
