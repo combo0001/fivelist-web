@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+import { UserIdentitySchemaType } from '@/@types/schemas/users/IdentitySchema'
 import { Database } from '@/@types/supabase'
 import { trpc } from '@/utils/trpc'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Session, User } from '@supabase/supabase-js'
 import React, { Context, createContext, useCallback, useContext } from 'react'
 
-type ProviderProps = UserType.Provider<User, Session>
+type ProviderProps = UserProvider<UserIdentitySchemaType>
 
 const UserCtx = createContext<ProviderProps | null>(null)
 
@@ -14,7 +14,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const supabase = createClientComponentClient<Database>()
-  const { data: user } = trpc.users.getUser.useQuery()
+  const { data: user } = trpc.users.getUserIdentity.useQuery()
 
   const signUp = useCallback(
     async (email: string, password: string, name: string) => {

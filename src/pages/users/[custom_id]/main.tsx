@@ -2,7 +2,7 @@
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { PageLayout } from '@/components/PageLayout'
-import { UserPageSchemaType } from '@/lib/schemas/UserPageSchema'
+import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
 import { useClientUser } from '@/providers/UserProvider'
 
 import { ProfileHeader } from './components/ProfileHeader'
@@ -10,7 +10,7 @@ import { ProfileContent } from './components/ProfilerContent'
 import { UsersContainer } from './style'
 
 interface UsersViewMainProps {
-  user: UserPageSchemaType
+  user: UserProfileSchemaType
 }
 
 export const UsersViewMain = ({

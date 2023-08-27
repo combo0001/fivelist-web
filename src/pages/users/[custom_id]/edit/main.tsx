@@ -2,7 +2,7 @@
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { PageLayout } from '@/components/PageLayout'
-import { UserSchemaType } from '@/lib/schemas/UserSchema'
+import { UserSchemaType } from '@/@types/schemas/UserIdentitySchema'
 import { useClientUser } from '@/providers/UserProvider'
 
 import { ProfileProvider } from '../providers/ProfileProvider'

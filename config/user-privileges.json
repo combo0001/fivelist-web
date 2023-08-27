@@ -1,0 +1,18 @@
+{
+  "PROFILE_CUSTOM_ID": {
+    "name": "Alterar username do perfil",
+    "description": "Esse privilégio permite que você altere o username do seu pefil, e possa mandar ele para seus amigos com o link personalizado. Exemplo: fivelist.gg/meu_nome."
+  }, 
+  "PROFILE_HEADER": {
+    "name": "Alterar banner do perfil",
+    "description": "Esse privilégio permite que você altere o banner do seu pefil, deixando ele mais estiloso para todos que vêem!"
+  },
+  "PROFILE_DESCRIPTION": {
+    "name": "Alterar descrição do perfil",
+    "description": "Esse privilégio permite que você altere a descrição do seu pefil, assim todos podem te conhecer melhor!"
+  },
+  "DOUBLE_LIKE": {
+    "name": "Likes em dobro",
+    "description": "Esse privilégio pode ajudar muito seu servidor favorito! Com ele, você pode mandar 1 Like a cada 12 horas, a metade da espera dos usuários sem esse privilégio (24 horas)."
+  }
+}

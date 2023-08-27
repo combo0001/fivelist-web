@@ -1,28 +1,69 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
+/* eslint-disable no-undef */
+import { createContextInner } from '@/server/context'
+import { appRouter } from '@/server/routers/_app'
+import { DehydratedState } from '@tanstack/react-query'
+import { createServerSideHelpers } from '@trpc/react-query/server'
+import {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from 'next'
+import SuperJSON from 'superjson'
 
-export const getStaticPaths: GetStaticPaths = async (ctx) => {
+import { UsersViewMain } from './main'
+
+export interface UsersViewProps {
+  trpcState: DehydratedState
+  customId: string
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
     fallback: 'blocking',
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const customId = params?.custom_id as string | undefined
-  let destination = '/home'
+const getServerHelper = async () =>
+  createServerSideHelpers({
+    router: appRouter,
+    ctx: await createContextInner(),
+    transformer: SuperJSON,
+  })
 
-  if (customId) {
-    destination = `/users/${customId}/view`
-  }
+export const getStaticProps = async ({
+  params,
+}: GetStaticPropsContext<{ custom_id: string }>) => {
+  const helpers = await getServerHelper()
+  const customId = params?.custom_id as string
 
-  return {
-    redirect: {
-      permanent: false,
-      destination,
-    },
+  const userPage = await helpers.users.getUserProfile.fetch({ customId })
+
+  if (userPage) {
+    const props = {
+      userPage,
+    }
+
+    return {
+      props,
+      revalidate: 60,
+    }
+  } else {
+    return {
+      redirect: {
+        destination: '/home',
+        permanent: false,
+      },
+    }
   }
 }
 
-export default function Servers() {
-  return <></>
+export default function UsersView({
+  userPage,
+}: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
+  if (!userPage) {
+    return <></>
+  }
+
+  return <UsersViewMain user={userPage} />
 }

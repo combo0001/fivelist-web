@@ -21,9 +21,9 @@ import {
   InputsContainer,
 } from './style'
 import {
-  SignUpRequestSchema,
-  SignUpRequestSchemaType,
-} from '@/lib/schemas/SignUpSchema'
+  UserSignUpSchema,
+  UserSignUpSchemaType,
+} from '@/@types/schemas/users/SignUpSchema'
 import { useEffect, useReducer } from 'react'
 import { Button, Checkbox, Text, TextInput } from '@5list-design-system/react'
 
@@ -78,10 +78,10 @@ export const SignUpMain = (): JSX.Element => {
     formState: { errors, submitCount, isSubmitting, isSubmitSuccessful },
     setError,
     clearErrors,
-  } = useForm<SignUpRequestSchemaType>({
+  } = useForm<UserSignUpSchemaType>({
     mode: 'onSubmit',
     reValidateMode: 'onBlur',
-    resolver: zodResolver(SignUpRequestSchema),
+    resolver: zodResolver(UserSignUpSchema),
     defaultValues: {
       name: '',
       email: '',
@@ -106,7 +106,7 @@ export const SignUpMain = (): JSX.Element => {
     email,
     password,
     name,
-  }: SignUpRequestSchemaType): Promise<void> => {
+  }: UserSignUpSchemaType): Promise<void> => {
     if (!termsCheck) {
       clearErrors()
       dispatchTerms('error')

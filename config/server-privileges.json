@@ -1,0 +1,38 @@
+{
+  "PAGE_DESCRIPTION": {
+    "name": "",
+    "description": ""
+  }, 
+  "PAGE_BANNER": {
+    "name": "",
+    "description": ""
+  },
+  "REPLY_REVIEWS": {
+    "name": "",
+    "description": ""
+  },
+  "LIKE_SERVER_BOT": {
+    "name": "",
+    "description": ""
+  },
+  "PAGE_CUSTOM_ID": {
+    "name": "",
+    "description": ""
+  },
+  "LIKE_SERVER_SCRIPT": {
+    "name": "",
+    "description": ""
+  },
+  "PAGE_STATISTICS": {
+    "name": "",
+    "description": ""
+  },
+  "SERVER_STATISTICS": {
+    "name": "",
+    "description": ""
+  },
+  "MARKETING_SUPPORT": {
+    "name": "",
+    "description": ""
+  }
+}

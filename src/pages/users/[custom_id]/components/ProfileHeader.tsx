@@ -6,16 +6,15 @@ import {
   ProfileIcon,
   StatusIcon,
 } from '@/components/Icons'
+import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
-
-import { CurrentServer } from './CurrentServer'
-import { UserPageSchemaType } from '@/lib/schemas/UserPageSchema'
+import { useClientUser } from '@/providers/UserProvider'
 
 interface ProfileHeaderProps {
-  user: UserPageSchemaType
+  user: UserProfileSchemaType
 }
 
 const HeaderWrapper = styled('section', {
@@ -89,57 +88,44 @@ const Divisor = styled('div', {
 })
 
 export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
-  const HAS_VIP = true
-  const CURRENT_SERVER = {
-    clients: {
-      now: 1200,
-      onDay: 2564,
-    },
-    slots: 2023,
-    bannerURL:
-      'https://cdn.discordapp.com/attachments/897332194811473951/1112740841988034600/Frame_1717.png',
-    name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-    followers: 10,
-    hasVip: true,
-    likes: 12834,
-    reviews: 12,
-    cfxHash: 'ppooo3',
-    tags: {
-      discord: '#',
-      store: '#',
-      website: '#',
-    },
-    endpoint: '127.0.0.1:30120',
-  } as ServersType.ServerObject
+  const { user: clientUser } = useClientUser()
+
+  const isClientProfile = clientUser?.id === user.id
+  const hasBanner = !!(user.planTier.PROFILE_HEADER && user.page.bannerUrl)
+
+  console.log(isClientProfile)
 
   return (
-    <HeaderWrapper hasVip={HAS_VIP}>
-      {HAS_VIP && (
-        <Banner
-          src={
-            'https://cdn.discordapp.com/attachments/923436122871308308/1120131816809046066/image.png'
-          }
-        />
-      )}
+    <HeaderWrapper hasVip={hasBanner}>
+      {hasBanner && <Banner src={user.page.bannerUrl as string} />}
 
       <HeaderContainer>
-        <CurrentServer {...CURRENT_SERVER} />
+        {/* <CurrentServer /> */}
 
         <InformationsContainer>
-          <DataTags followers={user.followers} views={user.views} />
+          <DataTags
+            followers={user.page.statistics.followers}
+            views={user.page.statistics.views}
+          />
 
           <Profile
-            name={user.name.split(/\s/).at(0) as string}
+            name={user.page.name.split(/\s/).at(0) as string}
             nickname={user.customId}
-            isOnline={true}
+            isOnline={user.page.isOnline}
             avatarURL={
-              'https://cdn.discordapp.com/attachments/923436122871308308/1120117167925501982/image.png'
+              user.page.avatarUrl
+                ? user.page.avatarUrl
+                : 'https://cdn.discordapp.com/attachments/923436122871308308/1120117167925501982/image.png'
             }
           />
 
-          <Level level={{ id: 1, points: 1500 }} points={1150} />
+          <Level
+            level={{
+              id: user.page.level.currentLevel.id,
+              points: user.page.level.nextLevel.points,
+            }}
+            points={user.page.level.points}
+          />
 
           <Divisor />
 

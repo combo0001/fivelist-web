@@ -1,8 +1,8 @@
 import { router } from '../../trpc'
-import { getUser } from './handlers/getUser'
-import { getUserPage } from './handlers/getUserPage'
+import { getUserIdentity } from './handlers/getUserIdentity'
+import { getUserProfile } from './handlers/getUserProfile'
 
 export const usersRouter = router({
-  getUser,
-  getUserPage,
+  getUserIdentity,
+  getUserProfile,
 })
