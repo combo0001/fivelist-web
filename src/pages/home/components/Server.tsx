@@ -204,7 +204,7 @@ export const Server = ({
         </InformationsContainer>
 
         <LikeButton reference={likeRef as any}>
-          {likes.toLocaleString()}
+          {likes}
         </LikeButton>
       </PageContainer>
     </ServerContainer>

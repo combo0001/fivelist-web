@@ -3,6 +3,7 @@
 import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
 import { ImageUploader } from '@/components/Dialogs/Image'
 import {
+  ErrorIcon,
   EyeIcon,
   PencilIcon,
   PointsIcon,
@@ -66,12 +67,22 @@ const HeaderContainer = styled('section', {
   width: '100%',
   height: '100%',
 
-  padding: '$8 $8 $6 $8',
+  padding: '$5 $8 $6 $8',
 
   display: 'flex',
   flexDirection: 'column',
+})
+
+const HeaderTopContainer = styled('div', {
+  width: '100%',
+  height: '$10',
+
+  paddingRight: '$8',
+
+  display: 'flex',
 
   position: 'relative',
+  overflow: 'visible',
 })
 
 const BannerContainer = styled('div', {
@@ -80,12 +91,9 @@ const BannerContainer = styled('div', {
   gap: '$4',
 
   position: 'absolute',
-  alignSelf: 'end',
 })
 
 const EditButton = styled(Button, {
-  alignSelf: 'end',
-
   gap: '$3',
 })
 
@@ -131,16 +139,25 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
       {hasBanner && <Banner src={user.page.bannerURL as string} />}
 
       <HeaderContainer>
-        <BannerContainer>
-          <EditButton size={'lg'} onClick={toggleBannerEdit}>
-            Editar capa
-            <PencilIcon css={{ size: '$4', fill: '$white' }} />
-          </EditButton>
+        <HeaderTopContainer>
+          <BannerContainer>
+            <EditButton size={'sm'} onClick={toggleBannerEdit}>
+              Editar capa
+              <PencilIcon css={{ size: '$4', fill: '$white' }} />
+            </EditButton>
 
-          {isBannerEditing && (
-            <ImageUploader onFileSelected={handleOnBannerSent} />
-          )}
-        </BannerContainer>
+            {isBannerEditing && (
+              <ImageUploader onFileSelected={handleOnBannerSent} />
+            )}
+          </BannerContainer>
+
+          <Link href={`/users/${user.customId}`} legacyBehavior>
+            <EditButton size={'sm'} css={{ marginLeft: 'auto' }}>
+              Sair da edição
+              <ErrorIcon css={{ size: '$4', fill: '$white' }} />
+            </EditButton>
+          </Link>
+        </HeaderTopContainer>
 
         <InformationsContainer>
           <DataTags

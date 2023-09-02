@@ -71,8 +71,19 @@ const HeaderContainer = styled('section', {
   flexDirection: 'column',
 })
 
+const HeaderTopContainer = styled('div', {
+  width: '100%',
+  height: '$20',
+
+  padding: '0.9063rem $12',
+  
+  display: 'flex',
+  gap: '$6',
+  alignItems: 'center',
+})
+
 const EditButton = styled(Button, {
-  alignSelf: 'end',
+  marginLeft: 'auto',
 
   gap: '$3',
 })
@@ -108,16 +119,16 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
       {hasBanner && <Banner src={user.page.bannerURL as string} />}
 
       <HeaderContainer>
-        {isClientProfile && (
-          <Link href={`/users/${user.customId}/edit`} legacyBehavior>
-            <EditButton size={'lg'}>
-              Editar
-              <PencilIcon css={{ size: '$4', fill: '$white' }} />
-            </EditButton>
-          </Link>
-        )}
-
-        {/* <CurrentServer /> */}
+        <HeaderTopContainer>
+          {isClientProfile && (
+            <Link href={`/users/${user.customId}/edit`} legacyBehavior>
+              <EditButton size={'sm'}>
+                Editar
+                <PencilIcon css={{ size: '$4', fill: '$white' }} />
+              </EditButton>
+            </Link>
+          )}
+        </HeaderTopContainer>
 
         <InformationsContainer>
           <DataTags
