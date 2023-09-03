@@ -14,27 +14,26 @@ export const StorageProvider: React.FC<{ children: React.ReactNode }> = ({
   const supabase = createClientComponentClient<Database>()
 
   const getFileURL = useCallback(
-    async (bucket: string, path: string): Promise<string> => {
-        const { data } = await supabase.storage
-            .from(bucket)
-            .getPublicUrl(path)
+    (bucket: string, path: string): string => {
+      const { data } = supabase.storage
+        .from(bucket)
+        .getPublicUrl(path)
 
-        return data.publicUrl
+      return data.publicUrl
     },
     [supabase],
   )
 
   const uploadFile = useCallback(
-    async (bucket: string, fileName: string, fileBody: ArrayBuffer): Promise<string | null> => {
-        const { data, error } = await supabase.storage
-            .from(bucket)
-            .upload(fileName, fileBody, { upsert: true, contentType: 'image/png' })
-    
-        if (!error) {
-            return getFileURL(bucket, data.path)
-        } else {
-            return null
-        }
+    async (bucket: string, filePath: string,  file: File): Promise<string | null> => {
+      const { data, error } = await supabase.storage
+        .from(bucket)
+        .upload(filePath, file, { upsert: false })
+
+      console.log(error)
+      if (error) return null
+
+      return getFileURL(bucket, data.path)
     },
     [supabase],
   )

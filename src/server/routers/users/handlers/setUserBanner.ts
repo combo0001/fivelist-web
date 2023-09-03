@@ -5,10 +5,10 @@ import { inferAsyncReturnType } from '@trpc/server'
 import { z } from 'zod'
 
 const UserBannerInputSchema = z.object({
-  fileURL: UserBannerFile,
+  imageURL: UserBannerFile,
 })
 
-const UserBannerOutputSchema = z.boolean()
+const UserBannerOutputSchema = z.void()
 
 export const setUserBanner = procedure
   .input(UserBannerInputSchema)
@@ -16,13 +16,11 @@ export const setUserBanner = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return false
+    if (!supabase || !session) return
 
-    const { data: rowsData, error: updateError } = await supabase.from('users').update({ banner_url: input.fileURL }).eq('id', session.user.id).select()
+    const { data: rowsData, error: updateError } = await supabase.from('users').update({ banner_url: input.imageURL }).eq('id', session.user.id).select()
 
-    if (updateError) {
-      return false
-    }
+    if (updateError) return
 
     const user = rowsData[0]
     const { res } = ctx as inferAsyncReturnType<typeof createContext>
@@ -30,6 +28,4 @@ export const setUserBanner = procedure
     if (res) {
       res.revalidate(`/users/${user.custom_id}`).catch(() => {})
     }
-
-    return true
   })

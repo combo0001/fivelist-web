@@ -18,7 +18,7 @@ import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useReducer, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4, v4 } from 'uuid'
 
 interface ProfileHeaderProps {
   user: UserProfileSchemaType
@@ -30,8 +30,8 @@ interface UserEdittedProps {
 }
 
 interface UserEdittedDispatchProps {
-  type: string, 
-  payload: string 
+  type: string,
+  payload: string
 }
 
 const HeaderWrapper = styled('section', {
@@ -134,7 +134,7 @@ const PremiumContainer = styled('div', {
   gap: '$2',
 })
 
-const getBufferFromFile = (file: File): Promise<Buffer | null> => {
+const getBufferFromFile = (file: File): Promise<string | null> => {
   return new Promise((resolve) => {
     const reader = new FileReader()
 
@@ -146,9 +146,8 @@ const getBufferFromFile = (file: File): Promise<Buffer | null> => {
 
         if (fileContent) {
           const fileToString = fileContent.toString()
-          const fileBuffer = Buffer.from(fileToString, 'base64')
 
-          resolve(fileBuffer)
+          resolve(fileToString)
 
           return
         }
@@ -163,18 +162,18 @@ const getBufferFromFile = (file: File): Promise<Buffer | null> => {
 
 const userEditorReducer = (state: UserEdittedProps, action: UserEdittedDispatchProps): UserEdittedProps => {
   switch (action.type) {
-    case 'changeBanner': 
+    case 'changeBanner':
       return { ...state, bannerURL: action.payload }
-    case 'changeAvatar': 
+    case 'changeAvatar':
       return { ...state, avatarURL: action.payload }
     default:
       return state
-  } 
+  }
 }
 
 export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
   const { uploadFile } = useStorage()
-  
+
   const setUserBanner = trpc.users.setUserBanner.useMutation()
 
   const [userEditted, dispatch] = useReducer(
@@ -192,20 +191,12 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
   const updateBanner = async (file: File): Promise<void> => {
     setLoading(true)
 
-    const fileBuffer = await getBufferFromFile(file)
+    const imageURL = await uploadFile('banners', `${user.id}/${v4()}.png`, file)
 
-    if (fileBuffer) {
-      const imageURL = await uploadFile('banners', `${user.id}/${uuidv4()}.png`, fileBuffer)
-
-      if (imageURL) {
-        const hasError = await setUserBanner.mutateAsync({ 
-          fileURL: imageURL 
-        })
+    if (imageURL) {
+      await setUserBanner.mutateAsync({ imageURL })
   
-        if (!hasError) {
-          dispatch({ type: 'changeBanner', payload: imageURL })
-        }
-      }
+      dispatch({ type: 'changeBanner', payload: imageURL })
     }
 
     setLoading(false)
