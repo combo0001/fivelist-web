@@ -4,7 +4,7 @@ import { UserIdentitySchemaType } from '@/@types/schemas/users/IdentitySchema'
 import { Database } from '@/@types/supabase'
 import { trpc } from '@/utils/trpc'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import React, { Context, createContext, useCallback, useContext } from 'react'
+import React, { Context, createContext, useCallback, useContext, useEffect } from 'react'
 
 type ProviderProps = UserProvider<UserIdentitySchemaType>
 
@@ -14,7 +14,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const supabase = createClientComponentClient<Database>()
-  const { data: user } = trpc.users.getUserIdentity.useQuery()
+  const { data: user, refetch } = trpc.users.getUserIdentity.useQuery()
 
   const signUp = useCallback(
     async (email: string, password: string, name: string) => {
@@ -54,7 +54,28 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     [supabase],
   )
 
-  const signOut = useCallback(async () => {}, [])
+  const forgotPassword = useCallback(async (email: string) => {
+    await supabase.auth.resetPasswordForEmail(email, { 
+      redirectTo: window.location.origin + '/reset-password' 
+    })
+  }, [])
+
+  const signOut = useCallback(async () => { }, [])
+
+  useEffect(() => {
+    if (!user) {
+      const id = setInterval(() => {
+        supabase.auth.getSession()
+          .then(({ data }) => {
+            if (data.session) {
+              refetch()
+            }
+          })
+      }, 5000)
+  
+      return () => clearInterval(id)
+    }
+  }, [ user ])
 
   return (
     <UserCtx.Provider
@@ -62,6 +83,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         user,
         signUp,
         signIn,
+        forgotPassword
       }}
     >
       {children}
