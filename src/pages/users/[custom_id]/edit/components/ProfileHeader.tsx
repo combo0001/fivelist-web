@@ -10,15 +10,28 @@ import {
   ProfileIcon,
   StatusIcon,
 } from '@/components/Icons'
+import { useStorage } from '@/providers/StorageProvider'
 import { styled } from '@/styles'
+import { trpc } from '@/utils/trpc'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 interface ProfileHeaderProps {
   user: UserProfileSchemaType
+}
+
+interface UserEdittedProps {
+  avatarURL: string | null,
+  bannerURL: string | null
+}
+
+interface UserEdittedDispatchProps {
+  type: string, 
+  payload: string 
 }
 
 const HeaderWrapper = styled('section', {
@@ -121,22 +134,95 @@ const PremiumContainer = styled('div', {
   gap: '$2',
 })
 
+const getBufferFromFile = (file: File): Promise<Buffer | null> => {
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+
+    reader.onload = function (event) {
+      const targerResult = event.target
+
+      if (targerResult) {
+        const fileContent = event.target.result
+
+        if (fileContent) {
+          const fileToString = fileContent.toString()
+          const fileBuffer = Buffer.from(fileToString, 'base64')
+
+          resolve(fileBuffer)
+
+          return
+        }
+      }
+
+      resolve(null)
+    }
+
+    reader.readAsDataURL(file)
+  })
+}
+
+const userEditorReducer = (state: UserEdittedProps, action: UserEdittedDispatchProps): UserEdittedProps => {
+  switch (action.type) {
+    case 'changeBanner': 
+      return { ...state, bannerURL: action.payload }
+    case 'changeAvatar': 
+      return { ...state, avatarURL: action.payload }
+    default:
+      return state
+  } 
+}
+
 export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
+  const { uploadFile } = useStorage()
+  
+  const setUserBanner = trpc.users.setUserBanner.useMutation()
+
+  const [userEditted, dispatch] = useReducer(
+    userEditorReducer,
+    {
+      avatarURL: user.page.avatarURL as string,
+      bannerURL: user.page.bannerURL as string,
+    }
+  )
   const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
+  const [isLoading, setLoading] = useState<boolean>(false)
 
-  const toggleBannerEdit = (): void => setBannerEdit((state) => !state)
+  const toggleBannerEdit = (): void => !isLoading ? setBannerEdit((state) => !state) : undefined
 
-  const handleOnBannerSent = (file: string): void => {
+  const updateBanner = async (file: File): Promise<void> => {
+    setLoading(true)
+
+    const fileBuffer = await getBufferFromFile(file)
+
+    if (fileBuffer) {
+      const imageURL = await uploadFile('banners', `${user.id}/${uuidv4()}.png`, fileBuffer)
+
+      if (imageURL) {
+        const hasError = await setUserBanner.mutateAsync({ 
+          fileURL: imageURL 
+        })
+  
+        if (!hasError) {
+          dispatch({ type: 'changeBanner', payload: imageURL })
+        }
+      }
+    }
+
+    setLoading(false)
+  }
+
+  const handleOnBannerSent = (file: File): void => {
     toggleBannerEdit()
+    updateBanner(file)
   }
 
   const hasBanner = !!(
-    user.planTier.privileges.PROFILE_HEADER && user.page.bannerURL
+    user.planTier.privileges.PROFILE_HEADER && userEditted.bannerURL
   )
 
   return (
     <HeaderWrapper hasVip={hasBanner}>
-      {hasBanner && <Banner src={user.page.bannerURL as string} />}
+      {hasBanner && <Banner src={userEditted.bannerURL as string} />}
 
       <HeaderContainer>
         <HeaderTopContainer>

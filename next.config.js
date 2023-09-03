@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['cdn.discordapp.com'],
+    domains: ['cdn.discordapp.com','gnbufszcvbhrauxksshd.supabase.co'],
   },
   reactStrictMode: true,
   pageExtensions: ['page.tsx', 'api.ts', 'api.tsx', 'ts'],

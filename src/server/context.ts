@@ -25,6 +25,9 @@ export async function createContext({ req, res }: CreateNextContextOptions) {
 
   const supabase = createRouteHandlerClient<Database>({
     cookies: () => new RequestCookies(headers),
+  }, {
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!,
   })
 
   const {

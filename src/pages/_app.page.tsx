@@ -2,13 +2,16 @@ import type { AppType } from 'next/app'
 import { trpc } from '../utils/trpc'
 import { globalStyles } from '@/styles/global'
 import { UserProvider } from '@/providers/UserProvider'
+import { StorageProvider } from '@/providers/StorageProvider'
 
 globalStyles()
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <UserProvider>
-      <Component {...pageProps} />
+      <StorageProvider>
+        <Component {...pageProps} />
+      </StorageProvider>
     </UserProvider>
   )
 }

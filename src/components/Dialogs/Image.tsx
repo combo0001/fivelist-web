@@ -5,7 +5,7 @@ import { Text } from '@5list-design-system/react'
 import { ChangeEventHandler } from 'react'
 
 interface ImageUploaderProps {
-  onFileSelected: (file: string) => void
+  onFileSelected: (file: File) => void
 }
 
 const FileUploaderContainer = styled('div', {
@@ -76,7 +76,12 @@ export const ImageUploader = ({
   onFileSelected,
 }: ImageUploaderProps): JSX.Element => {
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    onFileSelected(target.value)
+    const fileList = target.files as FileList
+    const fileSent = fileList[0]
+
+    if (fileSent) {
+      onFileSelected(fileSent)
+    }
   }
 
   return (
