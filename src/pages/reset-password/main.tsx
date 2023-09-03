@@ -13,8 +13,13 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { SignInButton } from './components/signin'
+import { SignInButton } from './components/SignIn'
 import { Form, InputsContainer } from './style'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '@/@types/supabase'
+import { useClientUser } from '@/providers/UserProvider'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 const passwordSchema = z
   .string()
@@ -41,6 +46,11 @@ type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>
 
 // eslint-disable-next-line no-undef
 export const ResetPasswordMain = (): JSX.Element => {
+  const supabase = createClientComponentClient<Database>()
+  const router = useRouter()
+
+  const { user } = useClientUser()
+
   const {
     register,
     handleSubmit,
@@ -56,9 +66,11 @@ export const ResetPasswordMain = (): JSX.Element => {
     },
   })
 
-  const handleOnSubmit = (data: ResetPasswordSchemaType): void => {
-    if (data.password === data.confirmPassword) {
-      // Fazer request aqui :)
+  const handleOnSubmit = async ({ password, confirmPassword }: ResetPasswordSchemaType): Promise<void> => {
+    if (password === confirmPassword) {
+      await supabase.auth.updateUser({ password })
+
+      router.push('/')
     } else {
       setError('confirmPassword', {
         type: 'equal_password',
@@ -66,6 +78,12 @@ export const ResetPasswordMain = (): JSX.Element => {
       })
     }
   }
+  
+  useEffect(() => {
+    if (!user) {
+      router.push('/')
+    }
+  }, [ user ])
 
   return (
     <Background>
@@ -77,7 +95,7 @@ export const ResetPasswordMain = (): JSX.Element => {
         <Form onSubmit={handleSubmit(handleOnSubmit)} action="">
           <Header
             title={'Trocar senha'}
-            subtitle={'Criar uma nova senha para sua conta {email}'}
+            subtitle={`Criar uma nova senha para sua conta ${''}`}
           />
 
           <InputsContainer>

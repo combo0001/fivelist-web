@@ -14,8 +14,9 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { SignInButton } from './components/signin'
+import { SignInButton } from './components/SignIn'
 import { Form } from './style'
+import { useClientUser } from '@/providers/UserProvider'
 
 const ForgotPasswordSchema = z.object({
   email: z.string({ required_error: 'Campo vazio' }).email('E-mail inválido'),
@@ -25,6 +26,8 @@ type ForgotPasswordSchemaType = z.infer<typeof ForgotPasswordSchema>
 
 // eslint-disable-next-line no-undef
 export const ForgotPasswordMain = (): JSX.Element => {
+  const { forgotPassword } = useClientUser()
+
   const {
     register,
     handleSubmit,
@@ -48,7 +51,9 @@ export const ForgotPasswordMain = (): JSX.Element => {
     }
   }, [cooldown])
 
-  const handleOnSubmit = (data: ForgotPasswordSchemaType): void => {
+  const handleOnSubmit = async ({ email }: ForgotPasswordSchemaType): Promise<void> => {
+    await forgotPassword(email)
+
     setCooldown(60)
   }
 

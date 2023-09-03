@@ -10,11 +10,13 @@ export async function middleware(req: NextRequest) {
   if (authCode) {
     const supabase = createMiddlewareClient({ req, res })
 
-    const { data, error } = await supabase.auth.exchangeCodeForSession(authCode)
-
-    if (!error) {
-      await supabase.auth.setSession(data.session)
-    }
+    try { 
+      const { data, error } = await supabase.auth.exchangeCodeForSession(authCode)
+  
+      if (!error) {
+        await supabase.auth.setSession(data.session)
+      }
+    } catch(_) { }
   }
 
   return res
