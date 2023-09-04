@@ -1,15 +1,9 @@
 import { z } from 'zod'
+import { SocialMediaSchema } from '../SocialMediaSchema'
 
 export const UserSocialMediaSchema = z.object({
-  socialMedia: z.enum([
-    'TWITCH',
-    'YOUTUBE',
-    'FACEBOOK',
-    'TIKTOK',
-    'GITHUB',
-    'INSTAGRAM',
-  ]),
-  profileId: z.string(),
+  socialMedia: SocialMediaSchema,
+  profileId: z.string().max(64),
 })
 
 export type UserSocialMediaSchemaType = z.infer<typeof UserSocialMediaSchema>

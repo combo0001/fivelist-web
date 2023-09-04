@@ -1,18 +1,14 @@
 /* eslint-disable no-undef */
-import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
 import { styled } from '@/styles'
 
 import { Description } from './Description'
-import { LastServersPlayed } from './LastServersPlayed'
-import { Links } from './Links'
+import { SocialMediaLinks } from './SocialMedia'
 import { Publications } from './Publications'
 import { RecentActivities } from './RecentActivities'
-import { ServersMostPlayed } from './ServersMostPlayed'
 import { StreamLink } from './StreamLink'
+import { useUserView } from '../providers/UserViewProvider'
 
-interface ProfileContentProps {
-  user: UserProfileSchemaType
-}
+interface ProfileContentProps { }
 
 const ContentContainer = styled('section', {
   width: '100%',
@@ -39,7 +35,9 @@ const InformationsSide = styled('div', {
   gap: '$8',
 })
 
-export const ProfileContent = ({ user }: ProfileContentProps): JSX.Element => {
+export const ProfileContent = ({ }: ProfileContentProps): JSX.Element => {
+  const { user } = useUserView()
+
   return (
     <ContentContainer>
       {user.planTier.privileges.PROFILE_DESCRIPTION && (
@@ -50,17 +48,17 @@ export const ProfileContent = ({ user }: ProfileContentProps): JSX.Element => {
 
       <InformationsWrapper>
         <InformationsSide>
-          <Links
-            title={'Redes sociais'}
-            links={user.page.socialMedia.map(
-              ({ socialMedia: label, profileId }) => ({
-                label,
-                url: `https://youtube.com/${profileId}`,
-              }),
-            )}
+          <SocialMediaLinks
+            socialMedia={user.page.socialMedia}
           />
 
           {user.page.streamURL && <StreamLink url={user.page.streamURL} />}
+        </InformationsSide>
+
+        <InformationsSide>
+          <SocialMediaLinks
+            socialMedia={user.page.socialMedia}
+          />
 
           <RecentActivities
             posts={
@@ -73,84 +71,6 @@ export const ProfileContent = ({ user }: ProfileContentProps): JSX.Element => {
                 //   message:
                 //     'Curtiu um comentário no servidor Narnia Roleplay “Melhor servidor que já joguei”',
                 //   createdAt: new Date(1685825570941),
-                // },
-              ]
-            }
-          />
-        </InformationsSide>
-
-        <InformationsSide>
-          <Links
-            title={'Conexões'}
-            links={user.page.connections.map(({ name: label, url }) => ({
-              label,
-              url,
-            }))}
-          />
-
-          <ServersMostPlayed
-            servers={
-              [
-                // {
-                //   server: {
-                //     clients: {
-                //       now: 1200,
-                //       onDay: 2564,
-                //     },
-                //     slots: 2023,
-                //     bannerURL:
-                //       'https://cdn.discordapp.com/attachments/897332194811473951/1112740841988034600/Frame_1717.png',
-                //     name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
-                //     description:
-                //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-                //     followers: 10,
-                //     hasVip: true,
-                //     likes: 12834,
-                //     reviews: 12,
-                //     cfxHash: 'poa233',
-                //     tags: {
-                //       discord: '#',
-                //       store: '#',
-                //       website: '#',
-                //     },
-                //     endpoint: '127.0.0.1:30120',
-                //   },
-                //   hoursPlayed: 23,
-                //   isOnline: true,
-                // },
-              ]
-            }
-          />
-
-          <LastServersPlayed
-            servers={
-              [
-                // {
-                //   server: {
-                //     clients: {
-                //       now: 1200,
-                //       onDay: 2564,
-                //     },
-                //     slots: 2023,
-                //     bannerURL:
-                //       'https://cdn.discordapp.com/attachments/897332194811473951/1112740841988034600/Frame_1717.png',
-                //     name: 'NARNIA ROLEPLAY >>>ABRIU AGORA<<< 🌈 SEM WL, ENTRE AGORA E GANHE UM VIP! #LOTUSGROUP',
-                //     description:
-                //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-                //     followers: 10,
-                //     hasVip: true,
-                //     likes: 12834,
-                //     reviews: 12,
-                //     cfxHash: 'poa233',
-                //     tags: {
-                //       discord: '#',
-                //       store: '#',
-                //       website: '#',
-                //     },
-                //     endpoint: '127.0.0.1:30120',
-                //   },
-                //   hoursPlayed: 23,
-                //   isOnline: true,
                 // },
               ]
             }

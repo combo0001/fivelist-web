@@ -9,13 +9,9 @@ import { ProfileContent } from './components/ProfilerContent'
 import { UsersContainer } from './style'
 import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
 
-interface UsersViewMainProps {
-  user: UserProfileSchemaType
-}
+interface UsersViewMainProps {}
 
-export const UsersViewMain = ({
-  user: profileUser,
-}: UsersViewMainProps): JSX.Element => {
+export const UsersEditMain = ({}: UsersViewMainProps): JSX.Element => {
   const { user: clientUser } = useClientUser()
 
   return (
@@ -25,9 +21,9 @@ export const UsersViewMain = ({
       <Navigation user={clientUser} />
 
       <UsersContainer>
-        <ProfileHeader user={profileUser} />
+        <ProfileHeader />
 
-        <ProfileContent user={profileUser} />
+        <ProfileContent />
       </UsersContainer>
     </PageLayout>
   )

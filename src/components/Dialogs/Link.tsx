@@ -3,11 +3,16 @@ import { ErrorIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Select, Text, TextInput } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+
+type OptionRowProps = { label: string, value: string }
 
 interface LinkDialogProps {
   title: string
+  options: OptionRowProps[],
   trigger: React.ReactNode
+  placeHolder?: string
+  onSave?: (option: string, text: string) => Promise<void> | void
 }
 
 const LinkDialogOverlay = styled(Dialog.Overlay, {
@@ -42,6 +47,8 @@ const LinkDialogContent = styled(Dialog.Content, {
   display: 'flex',
   flexDirection: 'column',
   gap: '$6',
+
+  overflow: 'visible',
 
   '& > *:nth-child(3)': {
     maxHeight: '$10',
@@ -85,15 +92,38 @@ const ButtonContainer = styled('div', {
 
 export const LinkDialog = ({
   title,
+  placeHolder,
+  options,
   trigger,
+  onSave
 }: LinkDialogProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false)
 
+  const [currentOption, setOption] = useState<OptionRowProps | undefined>()
+  const textInput = useRef<HTMLInputElement>()
+
+  const handleOnOptionSelected = (value: string) =>{
+    const optionSelected = options.find(({ value: optionValue }) => value === optionValue)
+
+    if (optionSelected) setOption(optionSelected)
+  }
+  
   const toggleOpen = (): void => {
     setOpen((state) => !state)
+    setOption(undefined)
   }
 
-  const handleOnSave = (): void => {
+  const handleOnSave = async (): Promise<void> => {
+    if (!currentOption) return
+
+    if (onSave) {
+      const inputElement = textInput.current
+  
+      if (inputElement) {
+        await onSave(currentOption.value, inputElement.value)
+      }
+    }
+
     toggleOpen()
   }
 
@@ -120,15 +150,11 @@ export const LinkDialog = ({
           <Divisor />
 
           <Select
-            options={[
-              {
-                label: 'Abril',
-                value: '1702177200000',
-              },
-            ]}
+            options={options}
             width={'24.375rem'}
             height={'$10'}
             placeHolder="Selecione"
+            onValueChange={handleOnOptionSelected}
             outlined
           />
 
@@ -136,8 +162,9 @@ export const LinkDialog = ({
             <Text size={'sm'}>Link</Text>
 
             <TextInput
+              ref={textInput as any}
               spellCheck={false}
-              placeholder={'Digite o link aqui'}
+              placeholder={placeHolder}
               outlined
             />
           </InputContainer>

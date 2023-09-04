@@ -8,6 +8,7 @@ import { useState } from 'react'
 interface DescriptionDialogProps {
   defaultValue: string
   trigger: React.ReactNode
+  onChange?: (value: string) => PromiseLike<void> | void
 }
 
 const DescriptionDialogOverlay = styled(Dialog.Overlay, {
@@ -109,15 +110,25 @@ const ButtonContainer = styled('div', {
 export const DescriptionDialog = ({
   defaultValue,
   trigger,
+  onChange
 }: DescriptionDialogProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false)
   const [description, setDescription] = useState<string>(defaultValue)
+
+  const [isSaving, setSaving] = useState<boolean>(false)
 
   const toggleOpen = (): void => {
     setOpen((state) => !state)
   }
 
-  const handleOnSave = (): void => {
+  const handleOnSave = async (): Promise<void> => {
+    setSaving(true) 
+
+    if (onChange) {
+      await onChange(description)
+    }
+
+    setSaving(false)
     toggleOpen()
   }
 
@@ -151,7 +162,7 @@ export const DescriptionDialog = ({
             <TextDescriptionBox
               placeholder={'Digite a descrição do servidor.'}
               value={description}
-              onChange={({ target }) => setDescription(target.value)}
+              onChange={({ target }) => !isSaving && setDescription(target.value)}
               spellCheck={false}
             />
           </TextAreaContainer>

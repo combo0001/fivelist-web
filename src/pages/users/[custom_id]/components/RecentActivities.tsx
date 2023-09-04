@@ -12,7 +12,6 @@ interface RecentActivitiesProps {
 
 const RecentContainer = styled('div', {
   height: 'fit-content',
-  minHeight: '23.125rem',
 
   padding: '$6',
 
@@ -63,7 +62,7 @@ export const RecentActivities = ({
         </PostsList>
       ) : (
         <Heading as={'h5'} color={'$neutral100'}>
-          Nenhum streamer registrado.
+          Nenhuma atividade registrada.
         </Heading>
       )}
 

@@ -2,13 +2,13 @@ import { styled } from '@/styles'
 
 /* eslint-disable no-undef */
 import { Description } from './Description'
-import { Links } from './Links'
+import { SocialMediaLinks } from './SocialMedia'
 import { StreamLink } from './StreamLink'
-import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
+import { useUserEditor } from '../providers/UserEditorProvider'
+import { trpc } from '@/utils/trpc'
+import { SocialMediaSchemaType } from '@/@types/schemas/SocialMediaSchema'
 
-interface ProfileHeaderProps {
-  user: UserProfileSchemaType
-}
+interface ProfileHeaderProps {}
 
 const ContentContainer = styled('section', {
   width: '100%',
@@ -35,7 +35,31 @@ const InformationsSide = styled('div', {
   gap: '$8',
 })
 
-export const ProfileContent = ({ user }: ProfileHeaderProps): JSX.Element => {
+export const ProfileContent = ({}: ProfileHeaderProps): JSX.Element => {
+  const { user, refreshUser } = useUserEditor()
+
+  const setUserStreamLink = trpc.users.setUserStreamLink.useMutation()
+  const addUserSocialMedia = trpc.users.addUserSocialMedia.useMutation()
+  const removeUserSocialMedia = trpc.users.removeUserSocialMedia.useMutation()
+
+  const handleOnStreamLinkChange = async (streamURL: string): Promise<void> => {
+    await setUserStreamLink.mutateAsync({ streamURL })
+
+    await refreshUser()
+  }
+
+  const handleOnAddSocialMedia = async (socialMedia: SocialMediaSchemaType, profileId: string): Promise<void> => {
+    await addUserSocialMedia.mutateAsync({ socialMedia, profileId })
+
+    await refreshUser()
+  } 
+
+  const handleOnRemoveSocialMedia = async (socialMedia: SocialMediaSchemaType): Promise<void> => {
+    await removeUserSocialMedia.mutateAsync({ socialMedia })
+
+    await refreshUser()
+  } 
+
   return (
     <ContentContainer>
       <Description
@@ -45,27 +69,16 @@ export const ProfileContent = ({ user }: ProfileHeaderProps): JSX.Element => {
 
       <InformationsWrapper>
         <InformationsSide>
-          <Links
-            title={'Redes sociais'}
-            links={user.page.socialMedia.map(
-              ({ socialMedia: label, profileId }) => ({
-                label,
-                url: `https://youtube.com/${profileId}`,
-              }),
-            )}
+          <SocialMediaLinks
+            socialMedia={user.page.socialMedia}
+            onAddSocialMedia={handleOnAddSocialMedia}
+            onRemoveSocialMedia={handleOnRemoveSocialMedia}
           />
 
-          <StreamLink streamURL={user.page.streamURL || ''} />
+          <StreamLink streamURL={user.page.streamURL || ''} onChange={handleOnStreamLinkChange} />
         </InformationsSide>
 
         <InformationsSide>
-          <Links
-            title={'Conexões'}
-            links={user.page.connections.map(({ name: label, url }) => ({
-              label,
-              url,
-            }))}
-          />
         </InformationsSide>
       </InformationsWrapper>
     </ContentContainer>

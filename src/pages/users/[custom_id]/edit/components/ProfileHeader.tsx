@@ -19,20 +19,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useReducer, useState } from 'react'
 import { v4 as uuidv4, v4 } from 'uuid'
+import { useUserEditor } from '../providers/UserEditorProvider'
 
-interface ProfileHeaderProps {
-  user: UserProfileSchemaType
-}
-
-interface UserEdittedProps {
-  avatarURL: string | null,
-  bannerURL: string | null
-}
-
-interface UserEdittedDispatchProps {
-  type: string,
-  payload: string
-}
+interface ProfileHeaderProps {}
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -160,29 +149,12 @@ const getBufferFromFile = (file: File): Promise<string | null> => {
   })
 }
 
-const userEditorReducer = (state: UserEdittedProps, action: UserEdittedDispatchProps): UserEdittedProps => {
-  switch (action.type) {
-    case 'changeBanner':
-      return { ...state, bannerURL: action.payload }
-    case 'changeAvatar':
-      return { ...state, avatarURL: action.payload }
-    default:
-      return state
-  }
-}
-
-export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
+export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
   const { uploadFile } = useStorage()
+  const { user, refreshUser } = useUserEditor()
 
   const setUserBanner = trpc.users.setUserBanner.useMutation()
 
-  const [userEditted, dispatch] = useReducer(
-    userEditorReducer,
-    {
-      avatarURL: user.page.avatarURL as string,
-      bannerURL: user.page.bannerURL as string,
-    }
-  )
   const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
   const [isLoading, setLoading] = useState<boolean>(false)
 
@@ -195,8 +167,8 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
 
     if (imageURL) {
       await setUserBanner.mutateAsync({ imageURL })
-  
-      dispatch({ type: 'changeBanner', payload: imageURL })
+      
+      await refreshUser()
     }
 
     setLoading(false)
@@ -208,12 +180,12 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
   }
 
   const hasBanner = !!(
-    user.planTier.privileges.PROFILE_HEADER && userEditted.bannerURL
+    user.planTier.privileges.PROFILE_HEADER && user.page.bannerURL
   )
 
   return (
     <HeaderWrapper hasVip={hasBanner}>
-      {hasBanner && <Banner src={userEditted.bannerURL as string} />}
+      {hasBanner && <Banner src={user.page.bannerURL as string} />}
 
       <HeaderContainer>
         <HeaderTopContainer>

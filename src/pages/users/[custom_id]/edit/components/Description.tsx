@@ -2,8 +2,10 @@
 import { DescriptionDialog } from '@/components/Dialogs/Description'
 import { EditLink } from '@/components/EditLinks'
 import { styled } from '@/styles'
+import { trpc } from '@/utils/trpc'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import Link from 'next/link'
+import { useUserEditor } from '../providers/UserEditorProvider'
 
 interface DescriptionProps {
   text: string
@@ -55,6 +57,15 @@ export const Description = ({
   text,
   hasVip,
 }: DescriptionProps): JSX.Element => {
+  const { refreshUser } = useUserEditor()
+  const setUserBanner = trpc.users.setUserDescription.useMutation()
+
+  const handleOnChangeDescription = async (description: string): Promise<void> => {
+    await setUserBanner.mutateAsync({ description })
+
+    await refreshUser()
+  }
+
   return (
     <DescriptionWrapper>
       <DescriptionContainer>
@@ -66,7 +77,10 @@ export const Description = ({
           {hasVip && (
             <DescriptionDialog
               defaultValue={text}
-              trigger={<EditLink text={'Editar descrição'} />}
+              trigger={
+                <EditLink text={'Editar descrição'} />
+              }
+              onChange={handleOnChangeDescription}
             />
           )}
         </TitleContainer>

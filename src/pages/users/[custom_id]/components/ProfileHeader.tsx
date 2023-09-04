@@ -7,17 +7,15 @@ import {
   ProfileIcon,
   StatusIcon,
 } from '@/components/Icons'
-import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
 import { useClientUser } from '@/providers/UserProvider'
 import Link from 'next/link'
+import { useUserView } from '../providers/UserViewProvider'
 
-interface ProfileHeaderProps {
-  user: UserProfileSchemaType
-}
+interface ProfileHeaderProps {}
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -106,7 +104,8 @@ const Divisor = styled('div', {
   opacity: 0.1,
 })
 
-export const ProfileHeader = ({ user }: ProfileHeaderProps): JSX.Element => {
+export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
+  const { user } = useUserView()
   const { user: clientUser } = useClientUser()
 
   const isClientProfile = clientUser?.id === user.id

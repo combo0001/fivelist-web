@@ -107,28 +107,31 @@ export interface Database {
           }
         ]
       }
-      user_links: {
+      user_plans: {
         Row: {
           created_at: string
-          label: string | null
-          url: string
+          expire_at: string
+          payment_transaction_id: string
+          plan_id: number
           user_id: string
         }
         Insert: {
           created_at?: string
-          label?: string | null
-          url: string
+          expire_at: string
+          payment_transaction_id: string
+          plan_id: number
           user_id: string
         }
         Update: {
           created_at?: string
-          label?: string | null
-          url?: string
+          expire_at?: string
+          payment_transaction_id?: string
+          plan_id?: number
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_links_user_id_fkey"
+            foreignKeyName: "user_plans_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]

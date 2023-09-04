@@ -4,9 +4,11 @@ import { CopyIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading } from '@5list-design-system/react'
 import { useRef, useState } from 'react'
+import { useUserEditor } from '../providers/UserEditorProvider'
 
 interface StreamLinkProps {
   streamURL: string
+  onChange?: (value: string) => PromiseLike<void> | void
 }
 
 const StreamContainer = styled('div', {
@@ -47,17 +49,21 @@ const InputLink = styled('input', {
   color: '$neutral100',
 })
 
-export const StreamLink = ({ streamURL }: StreamLinkProps): JSX.Element => {
+export const StreamLink = ({ streamURL, onChange }: StreamLinkProps): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>()
 
   const [customURL, setCustomURL] = useState<string>(streamURL)
   const [isEditing, setEditing] = useState<boolean>(false)
 
-  const toggleEditing = (): void => {
+  const toggleEditing = async (): Promise<void> => {
     if (!isEditing) {
       setTimeout(() => {
         inputRef.current?.focus()
       }, 0)
+    }
+
+    if (onChange) {
+      await onChange(customURL)
     }
 
     setEditing((state) => !state)

@@ -33,23 +33,41 @@ export const getUserProfile = procedure
 
     const { data: fetchData } = await supabase
       .from('users')
-      .select('*')
+      .select(`
+        id,
+        customId:custom_id,
+        description,
+        likes,
+        views,
+        followers,
+        avatarURL:avatar_url,
+        bannerURL:banner_url, 
+        streamURL:stream_url, 
+        createdAt:created_at, 
+        updatedAt:updated_at, 
+        socialMedia:user_social_media (
+          socialMedia:social_media, 
+          profileId:profile_id
+        )
+      `)
       .eq('custom_id', input.customId)
+      .order('created_at', { foreignTable: 'user_social_media', ascending: true })
 
     if (!fetchData || !fetchData[0]) return null
 
     const {
       id,
-      custom_id: customId,
+      customId,
       description,
       likes = 0,
       views = 0,
       followers = 0,
-      avatar_url: avatarURL,
-      banner_url: bannerURL,
-      stream_url: streamURL,
-      created_at: createdAt,
-      updated_at: updatedAt,
+      avatarURL,
+      bannerURL,
+      streamURL,
+      socialMedia,
+      createdAt,
+      updatedAt
     } = fetchData[0]
 
     const {
@@ -62,7 +80,7 @@ export const getUserProfile = procedure
     const { user_metadata: userMetadata } = authUser
 
     const planTier = await getUserPlanTier(supabase, id)
-    const userLevel = await getUserLevel(supabase, id)
+    const level = await getUserLevel(supabase, id)
 
     return {
       id,
@@ -78,9 +96,8 @@ export const getUserProfile = procedure
           likes: likes as number,
           views: views as number,
         },
-        level: userLevel,
-        connections: [],
-        socialMedia: [],
+        level,
+        socialMedia,
         isOnline: true,
         streamURL,
       },

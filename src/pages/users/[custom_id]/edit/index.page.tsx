@@ -10,7 +10,8 @@ import {
 } from 'next'
 import SuperJSON from 'superjson'
 
-import { UsersViewMain } from './main'
+import { UsersEditMain } from './main'
+import { UserEditorProvider } from './providers/UserEditorProvider'
 
 export interface UsersViewProps {
   trpcState: DehydratedState
@@ -58,12 +59,16 @@ export const getStaticProps = async ({
   }
 }
 
-export default function UsersView({
+export default function UsersEdit({
   userPage,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
   if (!userPage) {
     return <></>
   }
 
-  return <UsersViewMain user={userPage} />
+  return (
+    <UserEditorProvider user={userPage}>
+      <UsersEditMain />
+    </UserEditorProvider>
+  )
 }

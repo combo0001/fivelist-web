@@ -11,6 +11,7 @@ import {
 import SuperJSON from 'superjson'
 
 import { UsersViewMain } from './main'
+import { UserViewProvider } from './providers/UserViewProvider'
 
 export interface UsersViewProps {
   trpcState: DehydratedState
@@ -65,5 +66,9 @@ export default function UsersView({
     return <></>
   }
 
-  return <UsersViewMain user={userPage} />
+  return (
+    <UserViewProvider user={userPage}>
+      <UsersViewMain />
+    </UserViewProvider>
+  )
 }
