@@ -5,11 +5,11 @@ import { Button, Select, Text, TextInput } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useRef, useState } from 'react'
 
-type OptionRowProps = { label: string, value: string }
+type OptionRowProps = { label: string; value: string }
 
 interface LinkDialogProps {
   title: string
-  options: OptionRowProps[],
+  options: OptionRowProps[]
   trigger: React.ReactNode
   placeHolder?: string
   onSave?: (option: string, text: string) => Promise<void> | void
@@ -95,19 +95,21 @@ export const LinkDialog = ({
   placeHolder,
   options,
   trigger,
-  onSave
+  onSave,
 }: LinkDialogProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false)
 
   const [currentOption, setOption] = useState<OptionRowProps | undefined>()
   const textInput = useRef<HTMLInputElement>()
 
-  const handleOnOptionSelected = (value: string) =>{
-    const optionSelected = options.find(({ value: optionValue }) => value === optionValue)
+  const handleOnOptionSelected = (value: string) => {
+    const optionSelected = options.find(
+      ({ value: optionValue }) => value === optionValue,
+    )
 
     if (optionSelected) setOption(optionSelected)
   }
-  
+
   const toggleOpen = (): void => {
     setOpen((state) => !state)
     setOption(undefined)
@@ -118,7 +120,7 @@ export const LinkDialog = ({
 
     if (onSave) {
       const inputElement = textInput.current
-  
+
       if (inputElement) {
         await onSave(currentOption.value, inputElement.value)
       }

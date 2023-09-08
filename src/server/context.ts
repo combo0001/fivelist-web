@@ -23,12 +23,15 @@ export async function createContextInner(opts?: CreateInnerContextOptions) {
 export async function createContext({ req, res }: CreateNextContextOptions) {
   const headers = new Headers(req.headers as any)
 
-  const supabase = createRouteHandlerClient<Database>({
-    cookies: () => new RequestCookies(headers),
-  }, {
-    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!,
-  })
+  const supabase = createRouteHandlerClient<Database>(
+    {
+      cookies: () => new RequestCookies(headers),
+    },
+    {
+      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!,
+    },
+  )
 
   const {
     data: { session },

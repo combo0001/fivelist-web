@@ -33,7 +33,8 @@ export const getUserProfile = procedure
 
     const { data: fetchData } = await supabase
       .from('users')
-      .select(`
+      .select(
+        `
         id,
         customId:custom_id,
         description,
@@ -49,9 +50,13 @@ export const getUserProfile = procedure
           socialMedia:social_media, 
           profileId:profile_id
         )
-      `)
+      `,
+      )
       .eq('custom_id', input.customId)
-      .order('created_at', { foreignTable: 'user_social_media', ascending: true })
+      .order('created_at', {
+        foreignTable: 'user_social_media',
+        ascending: true,
+      })
 
     if (!fetchData || !fetchData[0]) return null
 
@@ -67,7 +72,7 @@ export const getUserProfile = procedure
       streamURL,
       socialMedia,
       createdAt,
-      updatedAt
+      updatedAt,
     } = fetchData[0]
 
     const {

@@ -51,7 +51,9 @@ export const ForgotPasswordMain = (): JSX.Element => {
     }
   }, [cooldown])
 
-  const handleOnSubmit = async ({ email }: ForgotPasswordSchemaType): Promise<void> => {
+  const handleOnSubmit = async ({
+    email,
+  }: ForgotPasswordSchemaType): Promise<void> => {
     await forgotPassword(email)
 
     setCooldown(60)

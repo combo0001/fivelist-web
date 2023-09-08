@@ -74,7 +74,7 @@ const HeaderTopContainer = styled('div', {
   height: '$20',
 
   padding: '0.9063rem $12',
-  
+
   display: 'flex',
   gap: '$6',
   alignItems: 'center',

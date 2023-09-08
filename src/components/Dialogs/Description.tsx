@@ -110,7 +110,7 @@ const ButtonContainer = styled('div', {
 export const DescriptionDialog = ({
   defaultValue,
   trigger,
-  onChange
+  onChange,
 }: DescriptionDialogProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false)
   const [description, setDescription] = useState<string>(defaultValue)
@@ -122,7 +122,7 @@ export const DescriptionDialog = ({
   }
 
   const handleOnSave = async (): Promise<void> => {
-    setSaving(true) 
+    setSaving(true)
 
     if (onChange) {
       await onChange(description)
@@ -162,7 +162,9 @@ export const DescriptionDialog = ({
             <TextDescriptionBox
               placeholder={'Digite a descrição do servidor.'}
               value={description}
-              onChange={({ target }) => !isSaving && setDescription(target.value)}
+              onChange={({ target }) =>
+                !isSaving && setDescription(target.value)
+              }
               spellCheck={false}
             />
           </TextAreaContainer>

@@ -66,7 +66,10 @@ export const ResetPasswordMain = (): JSX.Element => {
     },
   })
 
-  const handleOnSubmit = async ({ password, confirmPassword }: ResetPasswordSchemaType): Promise<void> => {
+  const handleOnSubmit = async ({
+    password,
+    confirmPassword,
+  }: ResetPasswordSchemaType): Promise<void> => {
     if (password === confirmPassword) {
       await supabase.auth.updateUser({ password })
 
@@ -78,12 +81,12 @@ export const ResetPasswordMain = (): JSX.Element => {
       })
     }
   }
-  
+
   useEffect(() => {
     if (!user) {
       router.push('/')
     }
-  }, [ user ])
+  }, [user])
 
   return (
     <Background>

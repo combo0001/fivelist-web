@@ -60,7 +60,9 @@ export const Description = ({
   const { refreshUser } = useUserEditor()
   const setUserBanner = trpc.users.setUserDescription.useMutation()
 
-  const handleOnChangeDescription = async (description: string): Promise<void> => {
+  const handleOnChangeDescription = async (
+    description: string,
+  ): Promise<void> => {
     await setUserBanner.mutateAsync({ description })
 
     await refreshUser()
@@ -77,9 +79,7 @@ export const Description = ({
           {hasVip && (
             <DescriptionDialog
               defaultValue={text}
-              trigger={
-                <EditLink text={'Editar descrição'} />
-              }
+              trigger={<EditLink text={'Editar descrição'} />}
               onChange={handleOnChangeDescription}
             />
           )}

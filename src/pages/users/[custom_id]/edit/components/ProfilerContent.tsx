@@ -7,6 +7,7 @@ import { StreamLink } from './StreamLink'
 import { useUserEditor } from '../providers/UserEditorProvider'
 import { trpc } from '@/utils/trpc'
 import { SocialMediaSchemaType } from '@/@types/schemas/SocialMediaSchema'
+import { ConnectionsLinks } from './ConnectionsLinks'
 
 interface ProfileHeaderProps {}
 
@@ -48,17 +49,22 @@ export const ProfileContent = ({}: ProfileHeaderProps): JSX.Element => {
     await refreshUser()
   }
 
-  const handleOnAddSocialMedia = async (socialMedia: SocialMediaSchemaType, profileId: string): Promise<void> => {
+  const handleOnAddSocialMedia = async (
+    socialMedia: SocialMediaSchemaType,
+    profileId: string,
+  ): Promise<void> => {
     await addUserSocialMedia.mutateAsync({ socialMedia, profileId })
 
     await refreshUser()
-  } 
+  }
 
-  const handleOnRemoveSocialMedia = async (socialMedia: SocialMediaSchemaType): Promise<void> => {
+  const handleOnRemoveSocialMedia = async (
+    socialMedia: SocialMediaSchemaType,
+  ): Promise<void> => {
     await removeUserSocialMedia.mutateAsync({ socialMedia })
 
     await refreshUser()
-  } 
+  }
 
   return (
     <ContentContainer>
@@ -75,10 +81,14 @@ export const ProfileContent = ({}: ProfileHeaderProps): JSX.Element => {
             onRemoveSocialMedia={handleOnRemoveSocialMedia}
           />
 
-          <StreamLink streamURL={user.page.streamURL || ''} onChange={handleOnStreamLinkChange} />
+          <StreamLink
+            streamURL={user.page.streamURL || ''}
+            onChange={handleOnStreamLinkChange}
+          />
         </InformationsSide>
 
         <InformationsSide>
+          <ConnectionsLinks connections={[]} />
         </InformationsSide>
       </InformationsWrapper>
     </ContentContainer>

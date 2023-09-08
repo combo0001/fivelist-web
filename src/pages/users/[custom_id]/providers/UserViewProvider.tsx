@@ -7,10 +7,10 @@ interface ProviderProps {
 
 const UserViewCtx = createContext<ProviderProps | null>(null)
 
-export const UserViewProvider: React.FC<{ children: React.ReactNode, user: UserProfileSchemaType }> = ({
-  children,
-  user
-}) => {
+export const UserViewProvider: React.FC<{
+  children: React.ReactNode
+  user: UserProfileSchemaType
+}> = ({ children, user }) => {
   const [userToView, setUserToView] = useState(user)
 
   return (

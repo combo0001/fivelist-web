@@ -16,11 +16,12 @@ export const addUserSocialMedia = procedure
 
     if (!supabase || !session) return
 
-    const { error: upsertError } = await supabase.from('user_social_media')
-      .upsert({ 
+    const { error: upsertError } = await supabase
+      .from('user_social_media')
+      .upsert({
         user_id: session.user.id,
         social_media: input.socialMedia,
-        profile_id: input.profileId
+        profile_id: input.profileId,
       })
 
     if (upsertError) return
@@ -28,12 +29,13 @@ export const addUserSocialMedia = procedure
     const { res } = ctx as inferAsyncReturnType<typeof createContext>
 
     if (res) {
-      const { data, error: selectError } = await supabase.from('users')
+      const { data, error: selectError } = await supabase
+        .from('users')
         .select('customId:custom_id')
         .eq('id', session.user.id)
 
-      if (selectError) return 
-      
+      if (selectError) return
+
       const user = data[0]
 
       if (user) {

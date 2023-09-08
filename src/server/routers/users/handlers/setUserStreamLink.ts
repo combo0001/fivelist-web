@@ -18,7 +18,8 @@ export const setUserStreamLink = procedure
 
     if (!supabase || !session) return
 
-    const { data: rowsData, error: updateError } = await supabase.from('users')
+    const { data: rowsData, error: updateError } = await supabase
+      .from('users')
       .update({ stream_url: input.streamURL })
       .eq('id', session.user.id)
       .select('customId:custom_id')

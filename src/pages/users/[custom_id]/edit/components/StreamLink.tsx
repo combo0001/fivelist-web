@@ -49,7 +49,10 @@ const InputLink = styled('input', {
   color: '$neutral100',
 })
 
-export const StreamLink = ({ streamURL, onChange }: StreamLinkProps): JSX.Element => {
+export const StreamLink = ({
+  streamURL,
+  onChange,
+}: StreamLinkProps): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>()
 
   const [customURL, setCustomURL] = useState<string>(streamURL)

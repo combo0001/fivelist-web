@@ -58,7 +58,7 @@ const InformationsContainer = styled('section', {
 })
 
 const ServerFont = styled('span', {
-  fontFamily: "'Poppins', sans-serif",
+  fontFamily: `'Poppins', sans-serif`,
   fontStyle: 'normal',
 
   color: 'var(--text-color)',

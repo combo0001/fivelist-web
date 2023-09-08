@@ -1,7 +1,7 @@
 import { UserSocialMediaListSchemaType } from '@/@types/schemas/users/SocialMediaSchema'
 import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
-import { getSocialMediaLink } from '@/utils/getSocialMediaLink'
+import { getSocialMediaLink } from '@/utils/socialMediaLinks'
 import { Button, Heading, Text } from '@5list-design-system/react'
 
 /* eslint-disable no-undef */
@@ -44,7 +44,9 @@ const WebsiteLinkBox = styled('a', {
   gap: '$3',
 })
 
-export const SocialMediaLinks = ({ socialMedia }: SocialMediaProps): JSX.Element => {
+export const SocialMediaLinks = ({
+  socialMedia,
+}: SocialMediaProps): JSX.Element => {
   return (
     <SocialMediaContainer>
       <Heading as={'h4'} weight={'bold'}>
@@ -56,7 +58,11 @@ export const SocialMediaLinks = ({ socialMedia }: SocialMediaProps): JSX.Element
           const socialMediaURL = getSocialMediaLink(socialMedia, profileId)
 
           return (
-            <WebsiteLinkBox href={socialMediaURL} target={'_blank'} key={socialMedia}>
+            <WebsiteLinkBox
+              href={socialMediaURL}
+              target={'_blank'}
+              key={socialMedia}
+            >
               <Button variation={'icon'} size={'sm'}>
                 <WorldIcon css={{ fill: '$white', size: '$6' }} />
               </Button>

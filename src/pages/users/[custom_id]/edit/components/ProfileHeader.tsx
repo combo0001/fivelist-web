@@ -158,7 +158,8 @@ export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
   const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
   const [isLoading, setLoading] = useState<boolean>(false)
 
-  const toggleBannerEdit = (): void => !isLoading ? setBannerEdit((state) => !state) : undefined
+  const toggleBannerEdit = (): void =>
+    !isLoading ? setBannerEdit((state) => !state) : undefined
 
   const updateBanner = async (file: File): Promise<void> => {
     setLoading(true)
@@ -167,7 +168,7 @@ export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
 
     if (imageURL) {
       await setUserBanner.mutateAsync({ imageURL })
-      
+
       await refreshUser()
     }
 

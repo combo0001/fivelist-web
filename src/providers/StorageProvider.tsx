@@ -2,7 +2,13 @@
 /* eslint-disable no-unused-vars */
 import { Database } from '@/@types/supabase'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import React, { Context, createContext, useCallback, useContext, useEffect } from 'react'
+import React, {
+  Context,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+} from 'react'
 
 type ProviderProps = StorageProvider
 
@@ -15,9 +21,7 @@ export const StorageProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const getFileURL = useCallback(
     (bucket: string, path: string): string => {
-      const { data } = supabase.storage
-        .from(bucket)
-        .getPublicUrl(path)
+      const { data } = supabase.storage.from(bucket).getPublicUrl(path)
 
       return data.publicUrl
     },
@@ -25,7 +29,11 @@ export const StorageProvider: React.FC<{ children: React.ReactNode }> = ({
   )
 
   const uploadFile = useCallback(
-    async (bucket: string, filePath: string,  file: File): Promise<string | null> => {
+    async (
+      bucket: string,
+      filePath: string,
+      file: File,
+    ): Promise<string | null> => {
       const { data, error } = await supabase.storage
         .from(bucket)
         .upload(filePath, file, { upsert: false })
@@ -42,7 +50,7 @@ export const StorageProvider: React.FC<{ children: React.ReactNode }> = ({
     <StorageCtx.Provider
       value={{
         getFileURL,
-        uploadFile
+        uploadFile,
       }}
     >
       {children}

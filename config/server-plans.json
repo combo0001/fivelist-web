@@ -33,7 +33,7 @@
       "LIKE_SERVER_BOT": true,
       "PAGE_CUSTOM_ID": true,
       "LIKE_SERVER_SCRIPT": true,
-      "PAGE_STATISTICS": true, 
+      "PAGE_STATISTICS": true,
       "SERVER_STATISTICS": true,
       "MARKETING_SUPPORT": true
     }

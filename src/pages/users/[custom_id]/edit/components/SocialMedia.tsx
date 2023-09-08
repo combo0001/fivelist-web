@@ -4,15 +4,23 @@ import { LinkDialog } from '@/components/Dialogs/Link'
 import { AddLink } from '@/components/EditLinks'
 import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
-import { getAvailableSocialMedia, getSocialMediaLink } from '@/utils/getSocialMediaLink'
+import {
+  getAvailableSocialMedia,
+  getSocialMediaLink,
+} from '@/utils/socialMediaLinks'
 import { trpc } from '@/utils/trpc'
 import { Button, Heading, Text } from '@5list-design-system/react'
 
 /* eslint-disable no-undef */
 interface SocialMediaProps {
   socialMedia: UserSocialMediaListSchemaType
-  onAddSocialMedia: (socialMedia: SocialMediaSchemaType, profileId: string) => Promise<void> | void
-  onRemoveSocialMedia: (vsocialMedia: SocialMediaSchemaType) => Promise<void> | void
+  onAddSocialMedia: (
+    socialMedia: SocialMediaSchemaType,
+    profileId: string,
+  ) => Promise<void> | void
+  onRemoveSocialMedia: (
+    vsocialMedia: SocialMediaSchemaType,
+  ) => Promise<void> | void
 }
 
 const SocialMediaContainer = styled('div', {
@@ -51,14 +59,21 @@ const WebsiteLinkBox = styled('a', {
   gap: '$3',
 })
 
-export const SocialMediaLinks = ({ socialMedia, onAddSocialMedia, onRemoveSocialMedia }: SocialMediaProps): JSX.Element => {
+export const SocialMediaLinks = ({
+  socialMedia,
+  onAddSocialMedia,
+  onRemoveSocialMedia,
+}: SocialMediaProps): JSX.Element => {
   const availableSocialMedia = getAvailableSocialMedia()
-  
-  const handleOnChange = async (option: string, text: string): Promise<void> => {
+
+  const handleOnChange = async (
+    option: string,
+    text: string,
+  ): Promise<void> => {
     const socialMedia = option as SocialMediaSchemaType
 
     if (text) {
-      if (/\s/.test(text) && text.length > 64) return 
+      if (/\s/.test(text) && text.length > 64) return
 
       await onAddSocialMedia(socialMedia, text)
     } else {
@@ -77,7 +92,11 @@ export const SocialMediaLinks = ({ socialMedia, onAddSocialMedia, onRemoveSocial
           const socialMediaURL = getSocialMediaLink(socialMedia, profileId)
 
           return (
-            <WebsiteLinkBox href={socialMediaURL} target={'_blank'} key={socialMedia}>
+            <WebsiteLinkBox
+              href={socialMediaURL}
+              target={'_blank'}
+              key={socialMedia}
+            >
               <Button variation={'icon'} size={'sm'}>
                 <WorldIcon css={{ fill: '$white', size: '$6' }} />
               </Button>
@@ -98,12 +117,13 @@ export const SocialMediaLinks = ({ socialMedia, onAddSocialMedia, onRemoveSocial
           title={`Adicionar rede social`}
           placeHolder={'Digite o usuário do perfil'}
           options={availableSocialMedia.map((value) => {
-            return { label: value[0] + value.substring(1).toLowerCase(), value }
+            return {
+              label: value[0] + value.substring(1).toLowerCase(),
+              value,
+            }
           })}
           onSave={handleOnChange}
-          trigger={
-            <AddLink text={`Adicionar rede social`} />
-          }
+          trigger={<AddLink text={`Adicionar rede social`} />}
         />
       </SocialMediaList>
     </SocialMediaContainer>

@@ -14,5 +14,5 @@ export const usersRouter = router({
   setUserDescription,
   setUserStreamLink,
   addUserSocialMedia,
-  removeUserSocialMedia
+  removeUserSocialMedia,
 })

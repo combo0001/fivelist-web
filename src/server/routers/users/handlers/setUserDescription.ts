@@ -18,7 +18,8 @@ export const setUserDescription = procedure
 
     if (!supabase || !session) return
 
-    const { data: rowsData, error: updateError } = await supabase.from('users')
+    const { data: rowsData, error: updateError } = await supabase
+      .from('users')
       .update({ description: input.description })
       .eq('id', session.user.id)
       .select('customId:custom_id')

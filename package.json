@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix"
+    "lint": "eslint --fix '**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
     "@5list-design-system/react": "^20.0.0",

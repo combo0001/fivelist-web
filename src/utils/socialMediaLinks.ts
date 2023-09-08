@@ -1,6 +1,8 @@
-import { SocialMediaSchemaType } from "@/@types/schemas/SocialMediaSchema";
+import { SocialMediaSchemaType } from '@/@types/schemas/SocialMediaSchema'
 
-const SOCIAL_BASE_URL: { [key in SocialMediaSchemaType]: string } = {
+type SocialBaseUrlProps = { [key in SocialMediaSchemaType]: string }
+
+const SOCIAL_BASE_URL: SocialBaseUrlProps = {
   FACEBOOK: 'https://www.facebook.com/',
   INSTAGRAM: 'https://www.instagram.com/',
   TIKTOK: 'https://www.tiktok.com/',
@@ -9,12 +11,15 @@ const SOCIAL_BASE_URL: { [key in SocialMediaSchemaType]: string } = {
   GITHUB: 'https://github.com/',
 }
 
-export const getSocialMediaLink = (socialMedia: SocialMediaSchemaType, profileId: string) => {
+export const getSocialMediaLink = (
+  socialMedia: SocialMediaSchemaType,
+  profileId: string,
+): string => {
   return SOCIAL_BASE_URL[socialMedia] + profileId
 }
 
 export const getAvailableSocialMedia = (): SocialMediaSchemaType[] => {
-  const availableSocialMedia = [] 
+  const availableSocialMedia = []
 
   for (const socialMedia in SOCIAL_BASE_URL) {
     availableSocialMedia.push(socialMedia)
