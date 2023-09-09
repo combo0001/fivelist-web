@@ -27,7 +27,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { SignUpButton } from './components/SignUp'
+import { SignUpButton } from './components/Signup'
 import { Form, InputsContainer } from './style'
 import { AuthError } from '@supabase/supabase-js'
 

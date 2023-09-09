@@ -7,9 +7,9 @@ export async function middleware(req: NextRequest) {
   const requestURL = new URL(req.url)
   const authCode = requestURL.searchParams.get('code')
 
-  if (authCode) {
-    const supabase = createMiddlewareClient({ req, res })
+  const supabase = createMiddlewareClient({ req, res })
 
+  if (authCode) {
     try {
       const { data, error } = await supabase.auth.exchangeCodeForSession(
         authCode,
@@ -25,5 +25,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|reset-password).*)']
 }
