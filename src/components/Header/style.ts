@@ -30,6 +30,19 @@ export const ProfileSection = styled('section', {
   alignItems: 'center',
 })
 
+export const SignOutButton = styled('button', {
+  all: 'unset',
+  height: '100%',
+
+  padding: '0 $6',
+  borderLeft: '0.0625rem solid $neutral800',
+
+  cursor: 'pointer',
+
+  display: 'flex',
+  alignItems: 'center',
+})
+
 export const ProfileIcon = styled(ProfileIconNoStylized, {
   size: '$6',
   fill: '$neutral100',

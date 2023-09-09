@@ -66,7 +66,11 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     })
   }, [])
 
-  const signOut = useCallback(async () => {}, [])
+  const signOut = useCallback(async () => {
+    await supabase.auth.signOut()
+
+    refetch()
+  }, [])
 
   useEffect(() => {
     if (!user) {
@@ -89,6 +93,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         signUp,
         signIn,
         forgotPassword,
+        signOut,
       }}
     >
       {children}

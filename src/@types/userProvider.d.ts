@@ -3,5 +3,5 @@ declare interface UserProvider<User> {
   signUp: (email: string, password: string, name: string) => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
   forgotPassword: (email: string) => Promise<void>
-  // signOut: () => Promise<void>
+  signOut: () => Promise<void>
 }

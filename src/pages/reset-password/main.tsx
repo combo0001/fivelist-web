@@ -30,6 +30,12 @@ const ResetPasswordSchema = z.object({
 
 type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>
 
+const getCode = (): string | null => {
+  const url = new URL(window.location.href)
+
+  return url.searchParams.get('code')
+}
+
 // eslint-disable-next-line no-undef
 export const ResetPasswordMain = (): JSX.Element => {
   const supabase = createClientComponentClient<Database>()
@@ -50,23 +56,13 @@ export const ResetPasswordMain = (): JSX.Element => {
     },
   })
 
-  const getCode = (): string | null => {
-    const url = new URL(window.location.href)
-
-    return url.searchParams.get('code')
-  }
-
   const handleOnSubmit = async ({
     password,
     confirmPassword,
   }: ResetPasswordSchemaType): Promise<void> => {
     if (password === confirmPassword) {
-      const code = getCode()
-
-      if (code) {
-        await supabase.auth.updateUser({ password })
-      }
-
+      await supabase.auth.updateUser({ password })
+      
       router.push('/')
     } else {
       setError('confirmPassword', {

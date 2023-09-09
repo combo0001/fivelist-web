@@ -11,19 +11,34 @@ import {
   ProfileAnchor,
   ProfileIcon,
   ProfileSection,
+  SignOutButton
 } from './style'
+import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
+import { SignOutIcon } from '../Icons'
+import { useClientUser } from '@/providers/UserProvider'
 
 interface HeaderProps {
-  user: any
+  user: UserIdentitySchemaType | null
 }
 
 export const Header = ({ user }: HeaderProps): JSX.Element => {
-  const isLogged = !!user
+  const { signOut } = useClientUser()
 
+  const handleOnSignOut = async (): Promise<void> => {
+    await signOut()
+  }
+
+  const isLogged = !!user
   let authSection: JSX.Element
 
   if (isLogged) {
-    authSection = <Profile user={user} />
+    authSection = <>
+      <Profile user={user} />
+
+      <SignOutButton onClick={handleOnSignOut}>
+        <SignOutIcon css={{ fill: '$neutral100', size: '$6' }} />
+      </SignOutButton>
+    </>
   } else {
     authSection = <AuthButtons />
   }
