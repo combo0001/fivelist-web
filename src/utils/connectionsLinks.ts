@@ -1,11 +1,13 @@
 import { ConnectionsSchemaType } from '@/schemas/ConnectionSchema'
 
-import * as discordService from '@/services/discordOAuth2'
-import * as steamService from '@/services/discordOAuth2'
+import * as discordService from '@/services/discordAuth'
+import * as steamService from '@/services/steamAuth'
+import { URLSearchParams } from 'url'
 
 interface ConnectionOptionsProps {
   getRequestURL: (redirectURL: string) => string
   getPlatformIcon: () => React.ReactNode
+  getUserIdentifier: (url: URLSearchParams) => Promise<string | null>
 }
 
 type ConnectionsUrlProps = {

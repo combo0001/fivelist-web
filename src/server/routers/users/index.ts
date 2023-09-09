@@ -6,6 +6,7 @@ import { setUserDescription } from './handlers/setUserDescription'
 import { setUserStreamLink } from './handlers/setUserStreamLink'
 import { addUserSocialMedia } from './handlers/addUserSocialMedia'
 import { removeUserSocialMedia } from './handlers/removeUserSocialMedia'
+import { addUserConnection } from './handlers/addUserConnection'
 
 export const usersRouter = router({
   getUserIdentity,
@@ -15,4 +16,5 @@ export const usersRouter = router({
   setUserStreamLink,
   addUserSocialMedia,
   removeUserSocialMedia,
+  addUserConnection,
 })
