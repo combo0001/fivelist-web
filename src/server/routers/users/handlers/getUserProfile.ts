@@ -49,12 +49,20 @@ export const getUserProfile = procedure
         socialMedia:user_social_media (
           socialMedia:social_media, 
           profileId:profile_id
+        ),
+        connections:user_connections (
+          connection, 
+          identifier
         )
       `,
       )
       .eq('custom_id', input.customId)
       .order('created_at', {
         foreignTable: 'user_social_media',
+        ascending: true,
+      })
+      .order('created_at', {
+        foreignTable: 'user_connections',
         ascending: true,
       })
 
@@ -71,6 +79,7 @@ export const getUserProfile = procedure
       bannerURL,
       streamURL,
       socialMedia,
+      connections,
       createdAt,
       updatedAt,
     } = fetchData[0]
@@ -103,8 +112,9 @@ export const getUserProfile = procedure
         },
         level,
         socialMedia,
-        isOnline: true,
+        connections,
         streamURL,
+        isOnline: true,
       },
       createdAt: createdAt
         ? new Date(createdAt).toISOString()

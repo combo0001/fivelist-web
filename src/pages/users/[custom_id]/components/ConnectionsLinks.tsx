@@ -1,6 +1,5 @@
 import { UserConnectionsListSchemaType } from '@/schemas/users/ConnectionsSchema'
 import { ConnectionDialog } from '@/components/Dialogs/Connection'
-import { AddLink } from '@/components/EditLinks'
 import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { getAvailableConnections, getConnectionOptions } from '@/utils/connectionsLinks'
@@ -94,20 +93,6 @@ export const ConnectionsLinks = ({
             </WebsiteLinkBox>
           )
         })}
-
-        <ConnectionDialog
-          title={`Conectar plataforma`}
-          connections={availableConnections.map((connection) => {
-            const { getRequestURL, getPlatformIcon } = getConnectionOptions(connection)
-
-            return {
-              label: connection[0] + connection.substring(1).toLowerCase(),
-              icon: getPlatformIcon(),
-              requestURL: getRequestURL(typeof window !== 'undefined' ? window.location.origin : getBaseURL()),
-            }
-          })}
-          trigger={<AddLink text={`Conectar plataforma`} />}
-        />
       </ConnectionsList>
     </ConnectionsContainer>
   )

@@ -40,11 +40,12 @@ const PostsList = styled('ol', {
 export const RecentActivities = ({
   posts,
 }: RecentActivitiesProps): JSX.Element => {
+  const AMOUNT_OF_POSTS_TO_SHOW = 2
   const [showMore, setShowMore] = useState<boolean>(false)
 
   const toggleShowMore = () => setShowMore((status) => !status)
 
-  const isNeedShowMore = posts.length > 4
+  const isNeedShowMore = posts.length > AMOUNT_OF_POSTS_TO_SHOW
 
   return (
     <RecentContainer>
@@ -55,7 +56,7 @@ export const RecentActivities = ({
       {posts.length > 0 ? (
         <PostsList>
           {posts
-            .filter((_, index) => showMore || index < 4)
+            .filter((_, index) => showMore || index < AMOUNT_OF_POSTS_TO_SHOW)
             .map((activity, index) => (
               <Activity key={index} {...activity} />
             ))}

@@ -88,7 +88,7 @@ export const ProfileContent = ({}: ProfileHeaderProps): JSX.Element => {
         </InformationsSide>
 
         <InformationsSide>
-          <ConnectionsLinks connections={[]} />
+          <ConnectionsLinks connections={user.page.connections} />
         </InformationsSide>
       </InformationsWrapper>
     </ContentContainer>

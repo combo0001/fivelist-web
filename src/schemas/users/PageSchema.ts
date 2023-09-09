@@ -4,6 +4,7 @@ import { UserLevelSchema } from './LevelSchema'
 import { UserSocialMediaListSchema } from './SocialMediaSchema'
 import { UserStatisticSchema } from './StatisticsSchema'
 import { UserNameSchema } from './CredentialsSchema'
+import { UserConnectionsListSchema } from './ConnectionsSchema'
 
 export const UserDescriptionSchema = z.string().max(4096)
 
@@ -16,6 +17,7 @@ export const UserPageSchema = z.object({
   name: UserNameSchema,
   description: UserDescriptionSchema.nullable(),
   socialMedia: UserSocialMediaListSchema,
+  connections: UserConnectionsListSchema,
   statistics: UserStatisticSchema,
   level: UserLevelSchema,
   streamURL: UserStreamUrlSchema.nullable(),

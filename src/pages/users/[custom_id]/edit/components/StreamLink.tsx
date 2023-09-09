@@ -84,7 +84,7 @@ export const StreamLink = ({
     <StreamContainer>
       <TitleContainer>
         <Heading as={'h4'} weight={'bold'}>
-          Link Stream
+          Live
         </Heading>
 
         <EditLink

@@ -33,15 +33,7 @@ const DescriptionContainer = styled('div', {
 
   display: 'flex',
   flexDirection: 'column',
-  gap: '$6',
-})
-
-const TitleContainer = styled('div', {
-  userSelect: 'none',
-
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
+  gap: '$4',
 })
 
 const DescriptionBlurContainer = styled('div', {
@@ -51,6 +43,13 @@ const DescriptionBlurContainer = styled('div', {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+})
+
+const EditContainer = styled(EditLink, {
+  justifySelf: 'flex-end',
+  alignSelf: 'flex-start',
+
+  margin: '$9 $6',
 })
 
 export const Description = ({
@@ -71,22 +70,20 @@ export const Description = ({
   return (
     <DescriptionWrapper>
       <DescriptionContainer>
-        <TitleContainer>
-          <Heading as={'h5'} weight={'bold'}>
-            Descrição
-          </Heading>
-
-          {hasVip && (
-            <DescriptionDialog
-              defaultValue={text}
-              trigger={<EditLink text={'Editar descrição'} />}
-              onChange={handleOnChangeDescription}
-            />
-          )}
-        </TitleContainer>
+        <Heading as={'h5'} weight={'bold'}>
+          Descrição
+        </Heading>
 
         <Text size={'sm'}>{text}</Text>
       </DescriptionContainer>
+
+      {hasVip && (
+        <DescriptionDialog
+          defaultValue={text}
+          trigger={<EditContainer text={'Editar descrição'} />}
+          onChange={handleOnChangeDescription}
+        />
+      )}
 
       {!hasVip && (
         <DescriptionBlurContainer>

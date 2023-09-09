@@ -89,7 +89,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <UserCtx.Provider
       value={{
-        user,
+        user: user || null,
         signUp,
         signIn,
         forgotPassword,
