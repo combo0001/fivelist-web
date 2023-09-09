@@ -1,4 +1,4 @@
-import { UserDescriptionSchema } from '@/@types/schemas/users/PageSchema'
+import { UserDescriptionSchema } from '@/schemas/users/PageSchema'
 import { createContext } from '@/server/context'
 import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'

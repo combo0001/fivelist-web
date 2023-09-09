@@ -1,4 +1,4 @@
-import { SocialMediaSchemaType } from '@/@types/schemas/SocialMediaSchema'
+import { SocialMediaSchemaType } from '@/schemas/SocialMediaSchema'
 
 type SocialBaseUrlProps = { [key in SocialMediaSchemaType]: string }
 

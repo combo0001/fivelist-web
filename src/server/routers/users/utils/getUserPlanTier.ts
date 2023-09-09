@@ -1,4 +1,4 @@
-import { UserPlanTierSchemaType } from '@/@types/schemas/users/PlanTierSchema'
+import { UserPlanTierSchemaType } from '@/schemas/users/PlanTierSchema'
 import { Database } from '@/@types/supabase'
 import { SupabaseClient } from '@supabase/supabase-js'
 

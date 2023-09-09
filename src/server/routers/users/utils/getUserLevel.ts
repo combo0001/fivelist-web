@@ -1,4 +1,4 @@
-import { UserLevelSchemaType } from '@/@types/schemas/users/LevelSchema'
+import { UserLevelSchemaType } from '@/schemas/users/LevelSchema'
 import { Database } from '@/@types/supabase'
 import { SupabaseClient } from '@supabase/supabase-js'
 

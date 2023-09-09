@@ -13,7 +13,7 @@ import {
 import {
   SignInSchema,
   SignInSchemaType,
-} from '@/@types/schemas/users/SignInSchema'
+} from '@/schemas/users/SignInSchema'
 import { useClientUser } from '@/providers/UserProvider'
 import {
   Button,

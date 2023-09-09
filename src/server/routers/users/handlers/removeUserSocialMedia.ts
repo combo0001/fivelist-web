@@ -1,4 +1,4 @@
-import { SocialMediaSchema } from '@/@types/schemas/SocialMediaSchema'
+import { SocialMediaSchema } from '@/schemas/SocialMediaSchema'
 import { createContext } from '@/server/context'
 import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'

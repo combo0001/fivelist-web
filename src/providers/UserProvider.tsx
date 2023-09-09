@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import { UserIdentitySchemaType } from '@/@types/schemas/users/IdentitySchema'
+import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
 import { Database } from '@/@types/supabase'
 import { trpc } from '@/utils/trpc'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'

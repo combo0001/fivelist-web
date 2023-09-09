@@ -1,5 +1,5 @@
-import { SocialMediaSchemaType } from '@/@types/schemas/SocialMediaSchema'
-import { UserSocialMediaListSchemaType } from '@/@types/schemas/users/SocialMediaSchema'
+import { SocialMediaSchemaType } from '@/schemas/SocialMediaSchema'
+import { UserSocialMediaListSchemaType } from '@/schemas/users/SocialMediaSchema'
 import { LinkDialog } from '@/components/Dialogs/Link'
 import { AddLink } from '@/components/EditLinks'
 import { WorldIcon } from '@/components/Icons'

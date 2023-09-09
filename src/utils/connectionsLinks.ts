@@ -1,4 +1,4 @@
-import { ConnectionsSchemaType } from '@/@types/schemas/ConnectionSchema'
+import { ConnectionsSchemaType } from '@/schemas/ConnectionSchema'
 
 import * as discordService from '@/services/discordOAuth2'
 import * as steamService from '@/services/discordOAuth2'

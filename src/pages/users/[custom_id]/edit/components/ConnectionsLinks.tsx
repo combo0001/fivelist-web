@@ -1,4 +1,4 @@
-import { UserConnectionsListSchemaType } from '@/@types/schemas/users/ConnectionsSchema'
+import { UserConnectionsListSchemaType } from '@/schemas/users/ConnectionsSchema'
 import { ConnectionDialog } from '@/components/Dialogs/Connection'
 import { AddLink } from '@/components/EditLinks'
 import { DiscordIcon, WorldIcon } from '@/components/Icons'

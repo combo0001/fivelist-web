@@ -23,7 +23,7 @@ import {
 import {
   UserSignUpSchema,
   UserSignUpSchemaType,
-} from '@/@types/schemas/users/SignUpSchema'
+} from '@/schemas/users/SignUpSchema'
 import { useEffect, useReducer } from 'react'
 import { Button, Checkbox, Text, TextInput } from '@5list-design-system/react'
 

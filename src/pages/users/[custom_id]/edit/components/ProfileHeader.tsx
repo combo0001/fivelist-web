@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
+import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
 import { ImageUploader } from '@/components/Dialogs/Image'
 import {
   ErrorIcon,

@@ -6,7 +6,7 @@ import { SocialMediaLinks } from './SocialMedia'
 import { StreamLink } from './StreamLink'
 import { useUserEditor } from '../providers/UserEditorProvider'
 import { trpc } from '@/utils/trpc'
-import { SocialMediaSchemaType } from '@/@types/schemas/SocialMediaSchema'
+import { SocialMediaSchemaType } from '@/schemas/SocialMediaSchema'
 import { ConnectionsLinks } from './ConnectionsLinks'
 
 interface ProfileHeaderProps {}

@@ -1,4 +1,4 @@
-import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
+import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
 import { trpc } from '@/utils/trpc'
 import React, {
   Context,

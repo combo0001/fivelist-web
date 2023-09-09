@@ -1,4 +1,4 @@
-import { UserSocialMediaListSchemaType } from '@/@types/schemas/users/SocialMediaSchema'
+import { UserSocialMediaListSchemaType } from '@/schemas/users/SocialMediaSchema'
 import { Database } from '@/@types/supabase'
 import { SupabaseClient } from '@supabase/supabase-js'
 

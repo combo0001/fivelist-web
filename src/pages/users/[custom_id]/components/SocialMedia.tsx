@@ -1,4 +1,4 @@
-import { UserSocialMediaListSchemaType } from '@/@types/schemas/users/SocialMediaSchema'
+import { UserSocialMediaListSchemaType } from '@/schemas/users/SocialMediaSchema'
 import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { getSocialMediaLink } from '@/utils/socialMediaLinks'

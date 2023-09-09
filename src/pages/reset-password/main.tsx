@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Back,
   Background,
@@ -17,29 +19,13 @@ import { SignInButton } from './components/SignIn'
 import { Form, InputsContainer } from './style'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/@types/supabase'
-import { useClientUser } from '@/providers/UserProvider'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-
-const passwordSchema = z
-  .string()
-  .min(8, 'A senha deve ter pelo menos 8 caracteres')
-  .refine(
-    (value) => {
-      const hasLowerCase = /[a-z]/.test(value)
-      const hasUpperCase = /[A-Z]/.test(value)
-      const hasNumber = /\d/.test(value)
-
-      return value.length >= 8 && hasLowerCase && hasUpperCase && hasNumber
-    },
-    {
-      message: 'A senha deve incluir maiúsculas, minúsculas e números.',
-    },
-  )
+import { PasswordSchema } from '@/schemas/users/PasswordSchema'
 
 const ResetPasswordSchema = z.object({
-  password: passwordSchema,
-  confirmPassword: z.string(),
+  password: PasswordSchema,
+  confirmPassword: PasswordSchema
 })
 
 type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>
@@ -48,8 +34,6 @@ type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>
 export const ResetPasswordMain = (): JSX.Element => {
   const supabase = createClientComponentClient<Database>()
   const router = useRouter()
-
-  const { user } = useClientUser()
 
   const {
     register,
@@ -66,12 +50,22 @@ export const ResetPasswordMain = (): JSX.Element => {
     },
   })
 
+  const getCode = (): string | null => {
+    const url = new URL(window.location.href)
+
+    return url.searchParams.get('code')
+  }
+
   const handleOnSubmit = async ({
     password,
     confirmPassword,
   }: ResetPasswordSchemaType): Promise<void> => {
     if (password === confirmPassword) {
-      await supabase.auth.updateUser({ password })
+      const code = getCode()
+
+      if (code) {
+        await supabase.auth.updateUser({ password })
+      }
 
       router.push('/')
     } else {
@@ -83,10 +77,12 @@ export const ResetPasswordMain = (): JSX.Element => {
   }
 
   useEffect(() => {
-    if (!user) {
+    const code = getCode()
+
+    if (!code) {
       router.push('/')
     }
-  }, [user])
+  }, [])
 
   return (
     <Background>

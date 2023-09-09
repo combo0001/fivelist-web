@@ -1,4 +1,4 @@
-import { UserIdentitySchema } from '@/@types/schemas/users/IdentitySchema'
+import { UserIdentitySchema } from '@/schemas/users/IdentitySchema'
 import { procedure } from '@/server/trpc'
 import { z } from 'zod'
 import { createCustomId } from '../utils/createCustomId'

@@ -1,4 +1,4 @@
-import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
+import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
 import React, { Context, createContext, useContext, useState } from 'react'
 
 interface ProviderProps {

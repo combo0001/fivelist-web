@@ -1,4 +1,4 @@
-import { UserProfileSchema } from '@/@types/schemas/users/ProfileSchema'
+import { UserProfileSchema } from '@/schemas/users/ProfileSchema'
 import { Database } from '@/@types/supabase'
 import { procedure } from '@/server/trpc'
 import { createClient } from '@supabase/supabase-js'

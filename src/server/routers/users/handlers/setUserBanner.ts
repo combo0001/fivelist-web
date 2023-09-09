@@ -1,4 +1,4 @@
-import { UserBannerFile } from '@/@types/schemas/users/BannerFileSchema'
+import { UserBannerFile } from '@/schemas/users/BannerFileSchema'
 import { createContext } from '@/server/context'
 import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'

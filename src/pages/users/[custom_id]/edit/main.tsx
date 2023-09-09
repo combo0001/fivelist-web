@@ -7,7 +7,7 @@ import { useClientUser } from '@/providers/UserProvider'
 import { ProfileHeader } from './components/ProfileHeader'
 import { ProfileContent } from './components/ProfilerContent'
 import { UsersContainer } from './style'
-import { UserProfileSchemaType } from '@/@types/schemas/users/ProfileSchema'
+import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
 
 interface UsersViewMainProps {}
 
