@@ -1,13 +1,13 @@
 import { z } from 'zod'
 
 export const LevelSchema = z.object({
-  id: z.number(),
-  points: z.number(),
-  extension: z.number(),
+  id: z.number().int(),
+  points: z.number().int(),
+  extension: z.number().int(),
 })
 
 export const UserLevelSchema = z.object({
-  points: z.number(),
+  points: z.number().int(),
   currentLevel: LevelSchema,
   nextLevel: LevelSchema,
 })

@@ -14,8 +14,9 @@ import Image from 'next/image'
 import { useClientUser } from '@/providers/UserProvider'
 import Link from 'next/link'
 import { useUserView } from '../providers/UserViewProvider'
+import { useRouter } from 'next/navigation'
 
-interface ProfileHeaderProps {}
+interface ProfileHeaderProps { }
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -104,13 +105,61 @@ const Divisor = styled('div', {
   opacity: 0.1,
 })
 
-export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
-  const { user } = useUserView()
+const PremiumContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$2',
+})
+
+export const ProfileHeader = ({ }: ProfileHeaderProps): JSX.Element => {
+  const router = useRouter()
+
+  const { user, isFollower, followUser, unfollowUser } = useUserView()
   const { user: clientUser } = useClientUser()
 
   const isClientProfile = clientUser?.id === user.id
   const hasBanner = !!(
     user.planTier.privileges.PROFILE_HEADER && user.page.bannerURL
+  )
+
+  const handleOnToggleFollow = async (): Promise<void> => {
+    if (!clientUser) {
+      router.push('/signin')
+
+      return
+    }
+
+    if (!isClientProfile) {
+      if (isFollower) {
+        await unfollowUser()
+      } else {
+        await followUser()
+      }
+    }
+  }
+
+  const actionButton = isClientProfile ? (
+    user.planTier.id === 0 ? (
+      <Link href={`/premium/users`} legacyBehavior>
+        <Button size={'lg'}>Adquirir plano</Button>
+      </Link>
+    ) : (
+      <PremiumContainer>
+        <Link href={`/premium/users`} legacyBehavior>
+          <Button size={'lg'}>Renovar plano</Button>
+        </Link>
+
+        <Text size={'sm'} weight={'bold'}>
+          Seu plano termina em 15 dias
+        </Text>
+      </PremiumContainer>
+    )
+  ) : (
+    isFollower ? (
+      <Button size={'lg'} outlined onClick={handleOnToggleFollow}>Deixar de seguir</Button>
+    ) : (
+      <Button size={'lg'} onClick={handleOnToggleFollow}>Seguir</Button>
+    )
   )
 
   return (
@@ -156,7 +205,7 @@ export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
 
           <Divisor />
 
-          <Button size={'lg'}>Seguir</Button>
+          {actionButton}
         </InformationsContainer>
       </HeaderContainer>
     </HeaderWrapper>
@@ -221,12 +270,12 @@ const DataTags = ({ followers, views }: DataTagsProps): JSX.Element => {
     <TagsContainer>
       <TagBox>
         <ProfileIcon css={{ size: '$6', fill: '$white' }} />
-        {followers.toLocaleString()} seguidores
+        {followers.toLocaleString()} seguidor{followers !== 1 ? 'es' : ''}
       </TagBox>
 
       <TagBox>
         <EyeIcon css={{ size: '$6', fill: '$white' }} />
-        {views.toLocaleString()} vizualizações no perfil
+        {views.toLocaleString()} visualizaç{views !== 1 ? 'ões' : 'ão'} no perfil
       </TagBox>
     </TagsContainer>
   )

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const UserPlanTierSchema = z.object({
-  id: z.number(),
+  id: z.number().int(),
   name: z.string(),
   privileges: z.record(z.boolean()),
 })

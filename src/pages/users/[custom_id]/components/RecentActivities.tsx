@@ -5,9 +5,11 @@ import { Button, Heading } from '@5list-design-system/react'
 import { useState } from 'react'
 
 import { Activity } from './Activity'
+import { UserActivitiesListSchemaType } from '@/schemas/users/ActivitySchema'
+import { useUserView } from '../providers/UserViewProvider'
 
 interface RecentActivitiesProps {
-  posts: any[]
+  activities: UserActivitiesListSchemaType
 }
 
 const RecentContainer = styled('div', {
@@ -38,14 +40,16 @@ const PostsList = styled('ol', {
 })
 
 export const RecentActivities = ({
-  posts,
+  activities,
 }: RecentActivitiesProps): JSX.Element => {
+  const { user } = useUserView()
+
   const AMOUNT_OF_POSTS_TO_SHOW = 2
   const [showMore, setShowMore] = useState<boolean>(false)
 
   const toggleShowMore = () => setShowMore((status) => !status)
 
-  const isNeedShowMore = posts.length > AMOUNT_OF_POSTS_TO_SHOW
+  const isNeedShowMore = activities.length > AMOUNT_OF_POSTS_TO_SHOW
 
   return (
     <RecentContainer>
@@ -53,12 +57,12 @@ export const RecentActivities = ({
         Últimas atividades
       </Heading>
 
-      {posts.length > 0 ? (
+      {activities.length > 0 ? (
         <PostsList>
-          {posts
+          {activities
             .filter((_, index) => showMore || index < AMOUNT_OF_POSTS_TO_SHOW)
             .map((activity, index) => (
-              <Activity key={index} {...activity} />
+              <Activity key={index} page={user.page} {...activity} />
             ))}
         </PostsList>
       ) : (

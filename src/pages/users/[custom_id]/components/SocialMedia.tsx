@@ -54,30 +54,35 @@ export const SocialMediaLinks = ({
       </Heading>
 
       <WebsiteSocialMediaContainer>
-        {socialMedia.map(({ socialMedia, profileId }) => {
-          const socialMediaURL = getSocialMediaLink(socialMedia, profileId)
+        {socialMedia.length ? 
+          socialMedia.map(({ socialMedia, profileId }) => {
+            const socialMediaURL = getSocialMediaLink(socialMedia, profileId)
 
-          return (
-            <WebsiteLinkBox
-              href={socialMediaURL}
-              target={'_blank'}
-              key={socialMedia}
-            >
-              <Button variation={'icon'} size={'sm'}>
-                <WorldIcon css={{ fill: '$white', size: '$6' }} />
-              </Button>
-
-              <Text
-                size={'sm'}
-                color={'$white'}
-                weight={'bold'}
-                css={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+            return (
+              <WebsiteLinkBox
+                href={socialMediaURL}
+                target={'_blank'}
+                key={socialMedia}
               >
-                {socialMedia[0] + socialMedia.substring(1).toLowerCase()}
-              </Text>
-            </WebsiteLinkBox>
-          )
-        })}
+                <Button variation={'icon'} size={'sm'}>
+                  <WorldIcon css={{ fill: '$white', size: '$6' }} />
+                </Button>
+
+                <Text
+                  size={'sm'}
+                  color={'$white'}
+                  weight={'bold'}
+                  css={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+                >
+                  {socialMedia[0] + socialMedia.substring(1).toLowerCase()}
+                </Text>
+              </WebsiteLinkBox>
+            )
+          })
+          : <Text>
+            Nenhuma rede social registrada.
+          </Text>
+        }
       </WebsiteSocialMediaContainer>
     </SocialMediaContainer>
   )

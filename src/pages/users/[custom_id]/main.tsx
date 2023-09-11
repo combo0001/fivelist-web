@@ -8,11 +8,23 @@ import { useClientUser } from '@/providers/UserProvider'
 import { ProfileHeader } from './components/ProfileHeader'
 import { ProfileContent } from './components/ProfilerContent'
 import { UsersContainer } from './style'
+import { useEffect, useRef } from 'react'
+import { useUserView } from './providers/UserViewProvider'
 
 interface UsersViewMainProps {}
 
 export const UsersViewMain = ({}: UsersViewMainProps): JSX.Element => {
   const { user: clientUser } = useClientUser()
+  const { registerViewToUser } = useUserView()
+
+  const viewStatus = useRef<boolean>(false)
+
+  useEffect(() => {
+    if (viewStatus.current) return
+    
+    registerViewToUser()
+    viewStatus.current = true
+  }, [])
 
   return (
     <PageLayout>

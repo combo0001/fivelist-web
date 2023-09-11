@@ -107,6 +107,37 @@ export interface Database {
           }
         ]
       }
+      user_activities: {
+        Row: {
+          created_at: string
+          id: number
+          message: string
+          points: number
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          message?: string
+          points: number
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          message?: string
+          points?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_activities_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       user_connections: {
         Row: {
           connection: Database["public"]["Enums"]["connections_type"]
@@ -129,6 +160,37 @@ export interface Database {
         Relationships: [
           {
             foreignKeyName: "user_connections_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      user_follows: {
+        Row: {
+          author_id: string
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          author_id: string
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          author_id?: string
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_follows_author_id_fkey"
+            columns: ["author_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_follows_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -166,34 +228,6 @@ export interface Database {
           }
         ]
       }
-      user_rewards: {
-        Row: {
-          created_at: string | null
-          mission_name: string
-          points: number
-          user_id: string
-        }
-        Insert: {
-          created_at?: string | null
-          mission_name?: string
-          points: number
-          user_id: string
-        }
-        Update: {
-          created_at?: string | null
-          mission_name?: string
-          points?: number
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_rewards_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       user_social_media: {
         Row: {
           created_at: string
@@ -216,6 +250,37 @@ export interface Database {
         Relationships: [
           {
             foreignKeyName: "user_social_media_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      user_views: {
+        Row: {
+          author_id: string
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          author_id: string
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          author_id?: string
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_views_author_id_fkey"
+            columns: ["author_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_views_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]

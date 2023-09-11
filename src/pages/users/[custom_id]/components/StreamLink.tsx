@@ -5,7 +5,7 @@ import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 
 interface StreamLinkProps {
-  url: string
+  url: string | null
 }
 
 const StreamLinkContainer = styled('div', {
@@ -45,11 +45,11 @@ export const StreamLink = ({ url }: StreamLinkProps): JSX.Element => {
       </Heading>
 
       <LinkBox>
-        <Text size={'sm'}>{url}</Text>
+        <Text size={'sm'}>{url || 'Nenhum url encontrado.'}</Text>
       </LinkBox>
 
-      <ButtonAnchor href={url} target={'_blank'}>
-        <Button>
+      <ButtonAnchor aria-disabled={!url} href={url || '#'} target={'_blank'}>
+        <Button disabled={!url}>
           Acessar
           <PlayIcon css={{ size: '$4', fill: '$white' }} />
         </Button>

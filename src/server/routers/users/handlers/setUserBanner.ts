@@ -3,6 +3,7 @@ import { createContext } from '@/server/context'
 import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'
 import { z } from 'zod'
+import { revalidateUser } from '../utils/revalidateUser'
 
 const UserBannerInputSchema = z.object({
   imageURL: UserBannerFile,
@@ -22,14 +23,14 @@ export const setUserBanner = procedure
       .from('users')
       .update({ banner_url: input.imageURL })
       .eq('id', session.user.id)
-      .select()
+      .select('customId:custom_id')
 
     if (updateError) return
 
     const user = rowsData[0]
-    const { res } = ctx as inferAsyncReturnType<typeof createContext>
 
-    if (res) {
-      res.revalidate(`/users/${user.custom_id}`).catch(() => {})
-    }
+    await revalidateUser(
+      ctx as inferAsyncReturnType<typeof createContext>, 
+      { customId: user.customId }
+    )
   })

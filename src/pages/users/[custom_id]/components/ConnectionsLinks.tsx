@@ -63,36 +63,41 @@ export const ConnectionsLinks = ({
       </Heading>
 
       <ConnectionsList>
-        {connections.map(({ connection }) => {
-          return (
-            <WebsiteLinkBox
-              href={''}
-              target={'_blank'}
-              key={connection}
-            >
-              <Button variation={'icon'} size={'sm'}>
-                <WorldIcon css={{ fill: '$white', size: '$6' }} />
-              </Button>
-
-              <Text
-                size={'sm'}
-                color={'$white'}
-                weight={'bold'}
-                css={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+        {connections.length ?
+          connections.map(({ connection }) => {
+            return (
+              <WebsiteLinkBox
+                href={''}
+                target={'_blank'}
+                key={connection}
               >
-                {connection[0] + connection.substring(1).toLowerCase()}
+                <Button variation={'icon'} size={'sm'}>
+                  <WorldIcon css={{ fill: '$white', size: '$6' }} />
+                </Button>
 
-                <PointsText 
-                  as={'span'}
-                  size={'xs'}
-                  color={'$sucess600'} 
+                <Text
+                  size={'sm'}
+                  color={'$white'}
+                  weight={'bold'}
+                  css={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
                 >
-                  &nbsp;+ 10 pontos
-                </PointsText>
-              </Text>
-            </WebsiteLinkBox>
-          )
-        })}
+                  {connection[0] + connection.substring(1).toLowerCase()}
+
+                  <PointsText 
+                    as={'span'}
+                    size={'xs'}
+                    color={'$sucess600'} 
+                  >
+                    &nbsp;+ 10 pontos
+                  </PointsText>
+                </Text>
+              </WebsiteLinkBox>
+            )
+          })
+          : <Text>
+            Nenhuma conexão adicionada.
+          </Text>
+        }
       </ConnectionsList>
     </ConnectionsContainer>
   )

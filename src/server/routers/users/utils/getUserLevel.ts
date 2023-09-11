@@ -1,22 +1,29 @@
 import { UserLevelSchemaType } from '@/schemas/users/LevelSchema'
-import { Database } from '@/@types/supabase'
-import { SupabaseClient } from '@supabase/supabase-js'
+import { UserActivitiesListSchemaType } from '@/schemas/users/ActivitySchema'
 
 export const getUserLevel = async (
-  supabase: SupabaseClient<Database>,
-  userId: string,
+  activities: UserActivitiesListSchemaType,
 ): Promise<UserLevelSchemaType> => {
+  const EXTENSION = 20
+
+  const points = activities.reduce((acc, { points }) => acc + points, 0)
+  const level = Math.floor(points / EXTENSION)
+
+  const currentLevel = {
+    id: level,
+    extension: EXTENSION,
+    points: level * EXTENSION,
+  }
+
+  const nextLevel = {
+    id: level + 1,
+    extension: EXTENSION,  
+    points: (level + 1) * EXTENSION,
+  }
+
   return {
-    currentLevel: {
-      id: 2,
-      extension: 1000,
-      points: 2000,
-    },
-    nextLevel: {
-      id: 3,
-      extension: 1000,
-      points: 3000,
-    },
-    points: 2455,
+    currentLevel: currentLevel,
+    nextLevel: nextLevel,
+    points,
   }
 }

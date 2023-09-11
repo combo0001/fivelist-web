@@ -3,6 +3,7 @@ import { createContext } from '@/server/context'
 import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'
 import { z } from 'zod'
+import { revalidateUser } from '../utils/revalidateUser'
 
 const UserSocialMediaInputSchema = UserSocialMediaSchema
 
@@ -26,20 +27,8 @@ export const addUserSocialMedia = procedure
 
     if (upsertError) return
 
-    const { res } = ctx as inferAsyncReturnType<typeof createContext>
-
-    if (res) {
-      const { data, error: selectError } = await supabase
-        .from('users')
-        .select('customId:custom_id')
-        .eq('id', session.user.id)
-
-      if (selectError) return
-
-      const user = data[0]
-
-      if (user) {
-        res.revalidate(`/users/${user.customId}`).catch(() => {})
-      }
-    }
+    await revalidateUser(
+      ctx as inferAsyncReturnType<typeof createContext>, 
+      { id: session.user.id }
+    )
   })

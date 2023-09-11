@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { UserPageSchemaType } from '@/schemas/users/PageSchema'
 import { styled } from '@/styles'
 import { Text } from '@5list-design-system/react'
 import { formatDistanceToNow } from 'date-fns'
@@ -6,43 +7,51 @@ import { ptBR } from 'date-fns/locale'
 import Image from 'next/image'
 
 interface ActivityProps {
-  author: {
-    avatarURL: string
-  }
+  page: UserPageSchemaType,
   message: string
-  createdAt: Date
+  createdAt: string
 }
 
 const ActivityContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '1.125rem',
+  display: 'grid',
+  gridTemplateColumns: '3.5rem 1fr',
+  gridTemplateRows: '1fr',
+  gridGap: '1.125rem',
 })
 
 const AvatarImage = styled(Image, {
-  borderRadius: '$full',
+  width: '100%',
+  aspectRatio: 1,
 
-  size: '3.5rem',
+  borderRadius: '$full',
 })
 
 const ActivityMessageContainer = styled('div', {
-  flex: 1,
-
   display: 'flex',
   flexDirection: 'column',
   gap: '$2',
 })
 
+const MessageText = styled(Text, {
+  maxWidth: '100%',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+})
+
 export const Activity = ({
-  author,
+  page,
   message,
   createdAt,
 }: ActivityProps): JSX.Element => {
   return (
     <ActivityContainer>
       <AvatarImage
-        src={author.avatarURL}
-        alt={'Author avatar'}
+        src={page.avatarURL ?
+          page.avatarURL
+          : 'https://cdn.discordapp.com/attachments/923436122871308308/1120117167925501982/image.png'
+        }
+        alt={'Avatar do perfil'}
         width={56}
         height={56}
       />
@@ -50,12 +59,12 @@ export const Activity = ({
       <ActivityMessageContainer>
         <Text size={'xs'} color={'$neutral200'}>
           Publicado{' '}
-          {formatDistanceToNow(createdAt, { addSuffix: true, locale: ptBR })}
+          {formatDistanceToNow(new Date(createdAt), { addSuffix: true, locale: ptBR })}
         </Text>
 
-        <Text size={'sm'} color={'$white'}>
+        <MessageText size={'sm'} color={'$white'}>
           {message}
-        </Text>
+        </MessageText>
       </ActivityMessageContainer>
     </ActivityContainer>
   )

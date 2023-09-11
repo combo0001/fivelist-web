@@ -51,80 +51,14 @@ export const ProfileContent = ({}: ProfileContentProps): JSX.Element => {
         <InformationsSide>
           <SocialMediaLinks socialMedia={user.page.socialMedia} />
 
-          {user.page.streamURL && <StreamLink url={user.page.streamURL} />}
+          <StreamLink url={user.page.streamURL} />
         </InformationsSide>
 
         <InformationsSide>
           <ConnectionsLinks connections={user.page.connections} />
 
           <RecentActivities
-            posts={
-              [
-                {
-                  author: {
-                    avatarURL:
-                      'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-                  },
-                  message:
-                    'Curtiu um comentário no servidor Narnia Roleplay “Melhor servidor que já joguei”',
-                  createdAt: new Date(1685825570941),
-                },
-                {
-                  author: {
-                    avatarURL:
-                      'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-                  },
-                  message:
-                    'Curtiu um comentário no servidor Narnia Roleplay “Melhor servidor que já joguei”',
-                  createdAt: new Date(1685825570941),
-                },
-                {
-                  author: {
-                    avatarURL:
-                      'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-                  },
-                  message:
-                    'Curtiu um comentário no servidor Narnia Roleplay “Melhor servidor que já joguei”',
-                  createdAt: new Date(1685825570941),
-                },
-                {
-                  author: {
-                    avatarURL:
-                      'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-                  },
-                  message:
-                    'Curtiu um comentário no servidor Narnia Roleplay “Melhor servidor que já joguei”',
-                  createdAt: new Date(1685825570941),
-                },
-                {
-                  author: {
-                    avatarURL:
-                      'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-                  },
-                  message:
-                    'Curtiu um comentário no servidor Narnia Roleplay “Melhor servidor que já joguei”',
-                  createdAt: new Date(1685825570941),
-                },
-                {
-                  author: {
-                    avatarURL:
-                      'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-                  },
-                  message:
-                    'Curtiu um comentário no servidor Narnia Roleplay “Melhor servidor que já joguei”',
-                  createdAt: new Date(1685825570941),
-                },
-                {
-                  author: {
-                    avatarURL:
-                      'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-                  },
-                  message:
-                    'Curtiu um comentário no servidor Narnia Roleplay “Melhor servidor que já joguei”',
-                  createdAt: new Date(1685825570941),
-                },
-              ]
-            }
+            activities={user.page.activities}
           />
         </InformationsSide>
       </InformationsWrapper>

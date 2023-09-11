@@ -123,32 +123,6 @@ const PremiumContainer = styled('div', {
   gap: '$2',
 })
 
-const getBufferFromFile = (file: File): Promise<string | null> => {
-  return new Promise((resolve) => {
-    const reader = new FileReader()
-
-    reader.onload = function (event) {
-      const targerResult = event.target
-
-      if (targerResult) {
-        const fileContent = event.target.result
-
-        if (fileContent) {
-          const fileToString = fileContent.toString()
-
-          resolve(fileToString)
-
-          return
-        }
-      }
-
-      resolve(null)
-    }
-
-    reader.readAsDataURL(file)
-  })
-}
-
 export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
   const { uploadFile } = useStorage()
   const { user, refreshUser } = useUserEditor()

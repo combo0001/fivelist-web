@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js'
 import { z } from 'zod'
 import { getUserPlanTier } from '../utils/getUserPlanTier'
 import { getUserLevel } from '../utils/getUserLevel'
+import { getActivities } from '../utils/getActivities'
 
 const UserProfileInputSchema = z.object({
   customId: z.string().max(32),
@@ -53,6 +54,11 @@ export const getUserProfile = procedure
         connections:user_connections (
           connection, 
           identifier
+        ),
+        activities:user_activities (
+          message,
+          points,
+          createdAt:created_at
         )
       `,
       )
@@ -63,6 +69,10 @@ export const getUserProfile = procedure
       })
       .order('created_at', {
         foreignTable: 'user_connections',
+        ascending: true,
+      })
+      .order('created_at', {
+        foreignTable: 'user_activities',
         ascending: true,
       })
 
@@ -80,6 +90,7 @@ export const getUserProfile = procedure
       streamURL,
       socialMedia,
       connections,
+      activities: activitiesWithoutFormat,
       createdAt,
       updatedAt,
     } = fetchData[0]
@@ -93,8 +104,9 @@ export const getUserProfile = procedure
 
     const { user_metadata: userMetadata } = authUser
 
+    const activities = getActivities(activitiesWithoutFormat)
     const planTier = await getUserPlanTier(supabase, id)
-    const level = await getUserLevel(supabase, id)
+    const level = await getUserLevel(activities)
 
     return {
       id,
@@ -113,14 +125,11 @@ export const getUserProfile = procedure
         level,
         socialMedia,
         connections,
+        activities,
         streamURL,
         isOnline: true,
       },
-      createdAt: createdAt
-        ? new Date(createdAt).toISOString()
-        : new Date().toISOString(),
-      updatedAt: updatedAt
-        ? new Date(updatedAt).toISOString()
-        : new Date().toISOString(),
+      createdAt: createdAt ? new Date(createdAt).toISOString() : new Date().toISOString(),
+      updatedAt: updatedAt ? new Date(updatedAt).toISOString() : new Date().toISOString(),
     }
   })

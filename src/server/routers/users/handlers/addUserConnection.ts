@@ -3,6 +3,8 @@ import { createContext } from '@/server/context'
 import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'
 import { z } from 'zod'
+import { registerActivity } from '../utils/registerReward'
+import { revalidateUser } from '../utils/revalidateUser'
 
 const UserConnectionInputSchema = UserConnectionSchema
 
@@ -21,24 +23,13 @@ export const addUserConnection = procedure
         user_id: session.user.id,
         connection: input.connection,
         identifier: input.identifier,
-      })
+      })  
 
     if (upsertError) return 
 
-    const { res } = ctx as inferAsyncReturnType<typeof createContext>
-
-    if (res) {
-      const { data, error: selectError } = await supabase
-        .from('users')
-        .select('customId:custom_id')
-        .eq('id', session.user.id)
-
-      if (selectError) return
-
-      const user = data[0]
-
-      if (user) {
-        res.revalidate(`/users/${user.customId}`).catch(() => {})
-      }
-    }
+    await registerActivity(supabase, { userId: session.user.id, message: `Conexão com ${input.connection} adicionada`, points: 10 })
+    await revalidateUser(
+      ctx as inferAsyncReturnType<typeof createContext>, 
+      { id: session.user.id }
+    )
   })
