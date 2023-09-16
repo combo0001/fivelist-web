@@ -1,7 +1,7 @@
 import { ConnectionsSchemaType } from '@/schemas/ConnectionSchema'
 
-import * as discordService from '@/services/discordAuth'
-import * as steamService from '@/services/steamAuth'
+import * as discordService from '@/services/Discord'
+import * as steamService from '@/services/Steam'
 import { URLSearchParams } from 'url'
 
 interface ConnectionOptionsProps {
@@ -15,8 +15,8 @@ type ConnectionsUrlProps = {
 }
 
 const CONNECTIONS: ConnectionsUrlProps = {
-  DISCORD: discordService,
-  STEAM: steamService,
+  DISCORD: discordService as ConnectionOptionsProps,
+  STEAM: steamService as ConnectionOptionsProps,
 }
 
 export const getConnectionOptions = (

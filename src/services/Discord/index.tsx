@@ -39,6 +39,7 @@ const exchangeTokenForCode = async (code: string): Promise<string | null> => {
 
     return `${response.token_type} ${response.access_token}`
   } catch (_) {
+    console.log(_)
     return null
   }
 }

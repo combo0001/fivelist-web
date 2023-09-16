@@ -9,9 +9,12 @@ import { ListServers } from './components/ListServers'
 import { FilterProvider } from './providers/FilterProvider'
 import { ListContainer } from './style'
 import { useClientUser } from '@/providers/UserProvider'
+import { trpc } from '@/utils/trpc'
 
 export const HomeMain = (): JSX.Element => {
   const { user } = useClientUser()
+
+  const { data } = trpc.servers.getServerList.useQuery()
 
   const MOCK_SERVERS: ServersType.ServerObject[] = [
     {

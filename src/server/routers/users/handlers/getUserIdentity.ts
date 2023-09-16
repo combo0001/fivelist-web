@@ -44,6 +44,8 @@ export const getUserIdentity = procedure
     const { email, user_metadata: userMetadata } = session.user
     const planTier = await getUserPlanTier(supabase, id)
 
+    // console.log((session.user as any).amr)
+
     return {
       id,
       customId,
