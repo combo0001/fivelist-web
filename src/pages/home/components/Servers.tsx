@@ -1,13 +1,14 @@
 /* eslint-disable no-undef */
 
-import { styled } from '@/styles'
+import { styled, css } from '@/styles'
 import { Heading } from '@5list-design-system/react'
 
 import { Advertising } from './Advertising'
 import { Server } from './Server'
+import { ServerViewsSchemaType } from '@/schemas/servers/ViewSchema'
 
 interface ServersProps {
-  servers: ServersType.ServerObject[]
+  servers: ServerViewsSchemaType
 }
 
 const ServersContainer = styled('div', {
@@ -25,28 +26,29 @@ const ServerWithAdvertisingBox = styled('div', {
 })
 
 export const Servers = ({ servers }: ServersProps): JSX.Element => {
-  const serversContent = servers.map((server, index) => {
-    let advertisingContent: React.ReactNode
-
-    if (index > 0 && index % 6 === 0) {
-      advertisingContent = <Advertising key={index} />
-    }
-
-    return (
-      <ServerWithAdvertisingBox key={index}>
-        {advertisingContent}
-        <Server position={index + 1} {...server} />
-      </ServerWithAdvertisingBox>
-    )
-  })
-
   return (
     <ServersContainer>
       <Heading as={'h5'} weight={'bold'}>
         Lista de servidores
       </Heading>
 
-      {serversContent}
+      {
+        servers
+          .map((server, index) => {
+            let advertisingContent: React.ReactNode
+
+            if (index > 0 && index % 6 === 0) {
+              advertisingContent = <Advertising key={index} />
+            }
+
+            return (
+              <ServerWithAdvertisingBox key={index}>
+                {advertisingContent}
+                <Server position={index + 1} {...server} />
+              </ServerWithAdvertisingBox>
+            )
+          })
+      }
     </ServersContainer>
   )
 }

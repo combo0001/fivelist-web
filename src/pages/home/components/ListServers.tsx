@@ -4,10 +4,11 @@ import { styled } from '@/styles'
 import { Advertising } from './Advertising'
 import { Servers } from './Servers'
 import { ServersHighlighted } from './ServersHighlighted'
+import { useServersList } from '../providers/ServersListProvider'
+import { useEffect, useState } from 'react'
 
 interface ListServersProps {
-  servers: ServersType.ServerObject[]
-  newServers: ServersType.ServerObject[]
+  overflowComponent: HTMLDivElement | null
 }
 
 const ListContainer = styled('ol', {
@@ -26,17 +27,42 @@ const ListContainer = styled('ol', {
   },
 })
 
-export const ListServers = ({
-  newServers,
-  servers,
-}: ListServersProps): JSX.Element => {
+export const ListServers = ({ overflowComponent }: ListServersProps): JSX.Element => {
+  const { servers } = useServersList()
+
+  const [showAmount, setShowAmount] = useState<number>(20)
+
+  const handleScroll = (event: Event) => {
+    const target = event.target as HTMLDivElement
+
+    const { scrollTop, scrollWidth, scrollHeight } = target
+    const scrollPercent = (scrollTop / (scrollHeight - scrollWidth))
+
+    if (scrollPercent > 1) {
+      setShowAmount(showAmount + 20)
+    }
+  }
+
+  useEffect(()=>{
+    if (!overflowComponent) return
+
+    overflowComponent.addEventListener('scroll', handleScroll)
+
+    return () => overflowComponent.removeEventListener('scroll', handleScroll)
+  })
+
   return (
     <ListContainer>
       <Advertising />
 
-      <ServersHighlighted servers={newServers} />
+      <ServersHighlighted servers={[ ]} />
 
-      <Servers servers={servers} />
+      {
+        servers ? 
+          <Servers servers={servers.slice(0, showAmount)} />
+        :
+          <h1>Loading...</h1> 
+      }
     </ListContainer>
   )
 }

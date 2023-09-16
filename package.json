@@ -40,6 +40,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-indiana-drag-scroll": "^2.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "superjson": "^1.13.1",
     "typescript": "5.0.2",
     "user-agents": "^1.0.1444",

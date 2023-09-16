@@ -1,47 +1,44 @@
 import { master } from './proto/master'
 import { FrameReader } from './utils/frameReader'
 import { Deferred } from './utils/deferred'
-import { GameName, IServerView } from './types'
+import { GameName } from './types'
 import { masterListServerData2ServerView } from './utils/transformers'
+import { ServerCitizenSchemaType } from '@/schemas/servers/CitizenSchema'
 
 const FIVEM_FRONT_END_STREAM_URL = 'https://servers-frontend.fivem.net/api/servers/stream/'
-
 
 const decodeServer = (frame: Uint8Array): master.IServer => {
   return master.Server.decode(frame)
 }
 
-const readBodyToServers = async (gameName: GameName, onServer: (server: IServerView) => void, readerBody: ReadableStream<Uint8Array>): Promise<void> => {
+const readBodyToServers = async (readerBody: ReadableStream<Uint8Array>): Promise<ServerCitizenSchemaType[]> => {
   const deferred = new Deferred<void>()
+  const serverList: ServerCitizenSchemaType[] = []
 
-  const frame = new FrameReader(
+  new FrameReader(
     readerBody,
     (frame) => {
-      try {
-        const srv = decodeServer(frame)
-  
-        if (srv.EndPoint && srv.Data) {
-          const serverGameName = srv.Data?.vars?.gamename || GameName.FiveM
-  
-          if (gameName === serverGameName) {
-            const serverView = masterListServerData2ServerView(srv.EndPoint, srv.Data)
-  
-            onServer(serverView)
-          }
+      const srv = decodeServer(frame)
+
+      if (srv.EndPoint && srv.Data) {
+        const serverGameName = srv.Data?.vars?.gamename || GameName.FiveM
+
+        if (GameName.FiveM === serverGameName) {
+          const serverView = masterListServerData2ServerView(srv.EndPoint, srv.Data)
+
+          serverList.push(serverView)
         }
-      } catch (err) {
-        console.log('Error reading server', err)
       }
     },
     deferred.resolve,
   )
 
-  frame.read()
-
   await deferred.promise
-}
 
-export async function getAllMasterListServers(gameName: GameName, onServer: (server: IServerView) => void): Promise<void> {
+  return serverList
+} 
+
+export async function getAllMasterListServers(): Promise<ServerCitizenSchemaType[]> {
   'use client';
   if (typeof window === 'undefined') {
     throw new Error('Master list triggered by server')
@@ -56,5 +53,12 @@ export async function getAllMasterListServers(gameName: GameName, onServer: (ser
     throw new Error('Empty body of all servers stream')
   }
 
-  await readBodyToServers(gameName, onServer, response.body)
+  return await readBodyToServers(response.body)
+}
+
+export async function getServerEndpoint(cfxHash: string): Promise<void> {
+  'use server'
+  if (typeof window !== 'undefined') {
+    throw new Error('Server endpoint getter triggered by client')
+  }
 }

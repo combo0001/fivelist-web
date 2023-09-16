@@ -10,16 +10,11 @@ export class FrameReader {
     protected onFrame: (frame: Uint8Array) => void,
     protected onEnd: () => void,
   ) {
-
-  }
-
-  public read() {
-    this.doRead();
+    this.doRead()
   }
 
   private async doRead() {
     const { done, value } = await this.reader.read();
-    console.log(value?.length)
 
     if (done || !value) {
       return this.onEnd();

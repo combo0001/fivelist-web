@@ -8,12 +8,13 @@ import {
 } from '@/components/Icons'
 import { LikeButton } from '@/components/LikeButton'
 import { Tag } from '@/components/Tag'
+import { ServerViewSchemaType } from '@/schemas/servers/ViewSchema'
 import { styled } from '@/styles'
 import { Heading } from '@5list-design-system/react'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 
-interface ServerProps extends ServersType.ServerObject {
+interface ServerProps extends ServerViewSchemaType {
   position: number
 }
 
@@ -133,16 +134,12 @@ const ServerContainer = styled('li', {
 
 export const Server = ({
   position,
-  clients,
-  description,
-  followers,
-  likes,
-  name,
-  reviews,
-  slots,
-  hasVip,
-  cfxHash,
+  cfx,
+  preview,
 }: ServerProps): JSX.Element => {
+  const isRegistered = !!preview
+  const hasVip = isRegistered // to do
+
   const likeRef = useRef<HTMLButtonElement>()
   const router = useRouter()
 
@@ -171,7 +168,7 @@ export const Server = ({
       const isButton = likeRef.current.contains(clickedElement)
 
       if (!isButton) {
-        router.push(`/servers/${cfxHash}`)
+        router.push(`/servers/${isRegistered ? preview.joinId : cfx.joinId}`)
       }
     }
   }
@@ -186,25 +183,25 @@ export const Server = ({
 
       <PageContainer onClick={handleOnClick}>
         <InformationsContainer>
-          <ServerNameText>{name}</ServerNameText>
+          <ServerNameText>{cfx.projectName}</ServerNameText>
 
           {hasVip && (
-            <ServerDescriptionText>{description}</ServerDescriptionText>
+            <ServerDescriptionText>{preview.description}</ServerDescriptionText>
           )}
 
           <TagsContainer>
             <Tag active>
-              {clients.now} online de {slots}
+              {cfx.playersCurrent} online de {cfx.playersMax}
             </Tag>
 
-            <Tag>{followers.toLocaleString()} Seguidores</Tag>
+            <Tag>{isRegistered ? preview.followers.toLocaleString() : 0} Seguidores</Tag>
 
-            <Tag>{reviews.toLocaleString()} Avaliações</Tag>
+            <Tag>{isRegistered ? preview.reviews.toLocaleString() : 0} Avaliações</Tag>
           </TagsContainer>
         </InformationsContainer>
 
         <LikeButton reference={likeRef as any}>
-          {likes}
+          {isRegistered ? preview.likes.toLocaleString() : 0}
         </LikeButton>
       </PageContainer>
     </ServerContainer>

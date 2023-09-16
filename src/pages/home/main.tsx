@@ -9,12 +9,11 @@ import { ListServers } from './components/ListServers'
 import { FilterProvider } from './providers/FilterProvider'
 import { ListContainer } from './style'
 import { useClientUser } from '@/providers/UserProvider'
-import { trpc } from '@/utils/trpc'
+import { useRef } from 'react'
 
 export const HomeMain = (): JSX.Element => {
   const { user } = useClientUser()
-
-  const { data } = trpc.servers.getServerList.useQuery()
+  const overflowComponent = useRef<HTMLDivElement>(null)
 
   const MOCK_SERVERS: ServersType.ServerObject[] = [
     {
@@ -399,13 +398,11 @@ export const HomeMain = (): JSX.Element => {
 
       <Navigation user={user} />
 
-      <ListContainer>
+      <ListContainer ref={overflowComponent}>
         <FilterProvider>
           <ListHeader />
-
           <ListFilters />
-
-          <ListServers newServers={MOCK_SERVERS} servers={MOCK_SERVERS} />
+          <ListServers overflowComponent={overflowComponent.current} />
         </FilterProvider>
       </ListContainer>
     </PageLayout>
