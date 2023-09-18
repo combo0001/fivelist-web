@@ -11,98 +11,74 @@ export interface Database {
     Tables: {
       servers: {
         Row: {
-          cfx_hash: string
-          created_at: string | null
+          created_at: string
           endpoint: string | null
-          id: number
+          id: string
+          page_id: string
         }
         Insert: {
-          cfx_hash: string
-          created_at?: string | null
+          created_at?: string
           endpoint?: string | null
-          id?: number
+          id: string
+          page_id: string
         }
         Update: {
-          cfx_hash?: string
-          created_at?: string | null
+          created_at?: string
           endpoint?: string | null
-          id?: number
-        }
-        Relationships: []
-      }
-      servers_pages: {
-        Row: {
-          created_at: string | null
-          description: string | null
-          followers: number | null
-          id: number
-          likes: number | null
-          manager_id: string | null
-          views: number | null
-        }
-        Insert: {
-          created_at?: string | null
-          description?: string | null
-          followers?: number | null
-          id: number
-          likes?: number | null
-          manager_id?: string | null
-          views?: number | null
-        }
-        Update: {
-          created_at?: string | null
-          description?: string | null
-          followers?: number | null
-          id?: number
-          likes?: number | null
-          manager_id?: string | null
-          views?: number | null
+          id?: string
+          page_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "servers_pages_id_fkey"
-            columns: ["id"]
-            referencedRelation: "servers"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "servers_pages_manager_id_fkey"
-            columns: ["manager_id"]
-            referencedRelation: "users"
+            foreignKeyName: "servers_page_id_fkey"
+            columns: ["page_id"]
+            referencedRelation: "servers_page"
             referencedColumns: ["id"]
           }
         ]
       }
-      servers_pages_links: {
+      servers_page: {
         Row: {
-          created_at: string | null
-          id: number
-          platform: number | null
-          redirect_url: string
-          server_id: number
-          type: string | null
+          banner_url: string | null
+          created_at: string
+          custom_id: string
+          description: string | null
+          followers: number | null
+          id: string
+          likes: number | null
+          owner_id: string | null
+          reviews: number | null
+          views: number | null
         }
         Insert: {
-          created_at?: string | null
-          id?: number
-          platform?: number | null
-          redirect_url: string
-          server_id: number
-          type?: string | null
+          banner_url?: string | null
+          created_at?: string
+          custom_id: string
+          description?: string | null
+          followers?: number | null
+          id?: string
+          likes?: number | null
+          owner_id?: string | null
+          reviews?: number | null
+          views?: number | null
         }
         Update: {
-          created_at?: string | null
-          id?: number
-          platform?: number | null
-          redirect_url?: string
-          server_id?: number
-          type?: string | null
+          banner_url?: string | null
+          created_at?: string
+          custom_id?: string
+          description?: string | null
+          followers?: number | null
+          id?: string
+          likes?: number | null
+          owner_id?: string | null
+          reviews?: number | null
+          views?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "servers_pages_links_server_id_fkey"
-            columns: ["server_id"]
-            referencedRelation: "servers"
+            foreignKeyName: "servers_page_owner_id_fkey"
+            columns: ["owner_id"]
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]

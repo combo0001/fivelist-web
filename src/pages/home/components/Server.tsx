@@ -138,7 +138,7 @@ export const Server = ({
   preview,
 }: ServerProps): JSX.Element => {
   const isRegistered = !!preview
-  const hasVip = isRegistered // to do
+  const hasVip = isRegistered && preview.planTier.id > 0
 
   const likeRef = useRef<HTMLButtonElement>()
   const router = useRouter()
@@ -194,14 +194,14 @@ export const Server = ({
               {cfx.playersCurrent} online de {cfx.playersMax}
             </Tag>
 
-            <Tag>{isRegistered ? preview.followers.toLocaleString() : 0} Seguidores</Tag>
+            <Tag>{isRegistered ? preview.statistic.followers.toLocaleString() : 0} Seguidores</Tag>
 
-            <Tag>{isRegistered ? preview.reviews.toLocaleString() : 0} Avaliações</Tag>
+            <Tag>{isRegistered ? preview.statistic.toLocaleString() : 0} Avaliações</Tag>
           </TagsContainer>
         </InformationsContainer>
 
         <LikeButton reference={likeRef as any}>
-          {isRegistered ? preview.likes.toLocaleString() : 0}
+          {isRegistered ? preview.statistic.likes.toLocaleString() : 0}
         </LikeButton>
       </PageContainer>
     </ServerContainer>

@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import { JoinIdSchema } from './IdentitySchema'
+import { ServerJoinIdSchema } from './IdentitySchema'
 
 export const ServerCitizenSchema = z.object({
-  joinId: JoinIdSchema,
+  joinId: ServerJoinIdSchema,
   projectName: z.string(),
   country: z.string().regex(/^[a-zA-Z]{2}$/),
   gameName: z.string(),

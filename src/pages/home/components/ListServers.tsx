@@ -68,13 +68,13 @@ export const ListServers = ({ overflowComponent }: ListServersProps): JSX.Elemen
     .sort((a, b) => {
       switch (orderBy) {
         case OrderValueEnum.Likes:
-          const likesA = a.preview?.likes || 0
-          const likesB = b.preview?.likes || 0
+          const likesA = a.preview?.statistic.likes || 0
+          const likesB = b.preview?.statistic.likes || 0
 
           return likesB - likesA
         case OrderValueEnum.Followers:
-          const followersA = a.preview?.followers || 0
-          const followersB = b.preview?.followers || 0
+          const followersA = a.preview?.statistic.followers || 0
+          const followersB = b.preview?.statistic.followers || 0
 
           return followersB - followersA
         case OrderValueEnum.Players:

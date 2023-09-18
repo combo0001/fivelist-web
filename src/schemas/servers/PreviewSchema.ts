@@ -1,16 +1,20 @@
 import { z } from 'zod'
-import { JoinIdSchema, ServerIdSchema } from './IdentitySchema'
+import { ServerJoinIdSchema, ServerIdSchema } from './IdentitySchema'
 
-export const ServerDescriptionSchema = z.string().max(4096)
+import { ServerPlanTierSchema } from './PlanTierSchema'
+import { ServerDescriptionSchema } from './PageSchema'
 
-export const ServerPreviewSchema = z.object({
-  id: ServerIdSchema,
-  joinId: JoinIdSchema,
-  description: ServerDescriptionSchema,
-  views: z.number().int(),
+const ServerPreviewStatisticSchema = z.object({
   likes: z.number().int(),
   followers: z.number().int(),
   reviews: z.number().int(),
+})
+
+export const ServerPreviewSchema = z.object({
+  joinId: ServerJoinIdSchema,
+  description: ServerDescriptionSchema.nullable(),
+  statistic: ServerPreviewStatisticSchema,
+  planTier: ServerPlanTierSchema,
   createdAt: z.string().datetime(),
 })
 

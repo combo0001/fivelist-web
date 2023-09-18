@@ -13,11 +13,6 @@ import SuperJSON from 'superjson'
 import { UsersEditMain } from './main'
 import { UserEditorProvider } from './providers/UserEditorProvider'
 
-export interface UsersViewProps {
-  trpcState: DehydratedState
-  customId: string
-}
-
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
