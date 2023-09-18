@@ -6,6 +6,7 @@ import { Servers } from './Servers'
 import { ServersHighlighted } from './ServersHighlighted'
 import { useServersList } from '../providers/ServersListProvider'
 import { useEffect, useState } from 'react'
+import { OrderValueEnum, useFilter } from '../providers/FilterProvider'
 
 interface ListServersProps {
   overflowComponent: HTMLDivElement | null
@@ -28,7 +29,8 @@ const ListContainer = styled('ol', {
 })
 
 export const ListServers = ({ overflowComponent }: ListServersProps): JSX.Element => {
-  const { servers } = useServersList()
+  const { servers, newServers } = useServersList()
+  const { serverName, serverLocation, orderBy } = useFilter()
 
   const [showAmount, setShowAmount] = useState<number>(20)
 
@@ -51,17 +53,48 @@ export const ListServers = ({ overflowComponent }: ListServersProps): JSX.Elemen
     return () => overflowComponent.removeEventListener('scroll', handleScroll)
   })
 
+  const serversToShow = servers
+    .filter(({ cfx }) => {
+      const filterName = serverName.toLowerCase()
+
+      if (serverLocation && cfx.country.toUpperCase() !== serverLocation) {
+        return false
+      }
+
+      return cfx.projectName
+        .toLowerCase()
+        .includes(filterName)
+    })
+    .sort((a, b) => {
+      switch (orderBy) {
+        case OrderValueEnum.Likes:
+          const likesA = a.preview?.likes || 0
+          const likesB = b.preview?.likes || 0
+
+          return likesB - likesA
+        case OrderValueEnum.Followers:
+          const followersA = a.preview?.followers || 0
+          const followersB = b.preview?.followers || 0
+
+          return followersB - followersA
+        case OrderValueEnum.Players:
+          return b.cfx.playersCurrent - a.cfx.playersCurrent
+      }
+    })
+    .slice(0, showAmount)
+
   return (
     <ListContainer>
       <Advertising />
 
-      <ServersHighlighted servers={[ ]} />
+      {
+        newServers.length > 0 &&
+          <ServersHighlighted servers={newServers} />
+      }
 
       {
-        servers ? 
-          <Servers servers={servers.slice(0, showAmount)} />
-        :
-          <h1>Loading...</h1> 
+        servers.length > 0 &&
+          <Servers servers={serversToShow} />
       }
     </ListContainer>
   )

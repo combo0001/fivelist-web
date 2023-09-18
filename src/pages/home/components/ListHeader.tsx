@@ -3,6 +3,7 @@ import TrevorBackgroundImage from '@/assets/trevor.png'
 import { Tag as InfoTag } from '@/components/Tag'
 import { styled } from '@/styles'
 import { Heading, Text } from '@5list-design-system/react'
+import { useServersList } from '../providers/ServersListProvider'
 
 const HeaderWrapper = styled('section', {
   width: '100%',
@@ -51,7 +52,11 @@ const InformationsContainer = styled('div', {
   gap: '$2',
 })
 
-export const ListHeader = (props: any): JSX.Element => {
+export const ListHeader = (): JSX.Element => {
+  const { servers } = useServersList()
+
+  const playersAmount = servers.reduce((total, { cfx }) => total + cfx.playersCurrent, 0)
+
   return (
     <HeaderWrapper>
       <OnlineContainer>
@@ -66,9 +71,15 @@ export const ListHeader = (props: any): JSX.Element => {
         </Heading>
 
         <InformationsContainer>
-          <InfoTag active>138 Servidores</InfoTag>
+          <InfoTag active>
+            {servers.length.toLocaleString()}&nbsp;&nbsp;
+            Servidor{servers.length !== 1 ? 'es' : ''}
+          </InfoTag>
 
-          <InfoTag active>13.346 Jogadores Online</InfoTag>
+          <InfoTag active>
+            {playersAmount.toLocaleString()}&nbsp;&nbsp;
+            Jogador{playersAmount !== 1 ? 'es' : ''} online
+          </InfoTag>
         </InformationsContainer>
       </OnlineContainer>
     </HeaderWrapper>

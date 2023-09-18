@@ -9,7 +9,7 @@
     "lint": "eslint --fix '**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
-    "@5list-design-system/react": "^20.0.0",
+    "@5list-design-system/react": "^21.0.0",
     "@5list-design-system/tokens": "^6.0.0",
     "@hookform/resolvers": "^3.0.0",
     "@radix-ui/react-dialog": "^1.0.4",
@@ -28,6 +28,7 @@
     "@types/user-agents": "^1.0.2",
     "@types/uuid": "^9.0.3",
     "apexcharts": "^3.41.0",
+    "countries-list": "^3.0.1",
     "date-fns": "^2.30.0",
     "emoji-regex": "^10.2.1",
     "eslint": "^8.37.0",

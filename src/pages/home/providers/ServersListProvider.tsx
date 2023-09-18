@@ -8,7 +8,8 @@ import React, { Context, createContext, useContext, useEffect, useState } from '
 import { ServerViewsSchemaType } from '@/schemas/servers/ViewSchema'
 
 interface ServersListProviderProps {
-  servers: ServerViewsSchemaType,
+  servers: ServerViewsSchemaType
+  newServers: any[]
 }
 
 const ServersListCtx = createContext<ServersListProviderProps | null>(null)
@@ -16,10 +17,10 @@ const ServersListCtx = createContext<ServersListProviderProps | null>(null)
 export const ServersListProvider: React.FC<{
   children: React.ReactNode,
   servers: ServerPreviewsSchemaType,
-  newServers: ServerPreviewsSchemaType
+  newServers: any[]
 }> = ({
   children,
-  newServers: previewNewServers,
+  newServers,
   servers: previewServers
 }) => {
     const [servers, setServers] = useState<ServerViewsSchemaType | null>(null)
@@ -34,7 +35,10 @@ export const ServersListProvider: React.FC<{
 
             return {
               preview: previewServer || null,
-              cfx: cfxServer,
+              cfx: {
+                ...cfxServer,
+                projectName: cfxServer.projectName.replace(/\^\d/g, ''),
+              },
             }
           })
 
@@ -46,7 +50,8 @@ export const ServersListProvider: React.FC<{
     return (
       <ServersListCtx.Provider
         value={{
-          servers: servers as any,
+          servers: servers || [],
+          newServers,
         }}
       >
         {children}

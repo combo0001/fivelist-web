@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@5list-design-system/react@^20.0.0":
-  version "20.0.0"
-  resolved "https://registry.yarnpkg.com/@5list-design-system/react/-/react-20.0.0.tgz#ba56fcd1d36bfc43c4a176cafb3012040d0de573"
-  integrity sha512-Ll+ZpUZd69k/jJXc4/1ACApijG2Oh8wHUbOoe6MvQx32BvLA4BfDb5ImUWoJ17B5nuABd3nlFBdSL/WwLGvweQ==
+"@5list-design-system/react@^21.0.0":
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/@5list-design-system/react/-/react-21.0.0.tgz#b61aa20c2ca73f9dfd0e31342b7ae6490fa08195"
+  integrity sha512-u1bAB49yaYhWwIDz+879Rm2OxXJDsSq1/hrqE3qFce1gJg+3bRKQMyazExd6EdogJd7m5Vn0UGS5IqDHAYJw8w==
   dependencies:
     "@radix-ui/react-checkbox" "^1.0.3"
     "@radix-ui/react-select" "^1.2.1"
@@ -1073,20 +1073,20 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.49.0.tgz#86f79756004a97fa4df866835093f1df3d03c333"
   integrity sha512-1S8uAY/MTJqVx0SC4epBq+N2yhuwtNwLbJYNZyhL2pO1ZVKn5HFXav5T41Ryzy9K9V7ZId2JB2oy/W4aCd9/2w==
 
-"@floating-ui/core@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@floating-ui/core/-/core-1.4.1.tgz#0d633f4b76052668afb932492ac452f7ebe97f17"
-  integrity sha512-jk3WqquEJRlcyu7997NtR5PibI+y5bi+LS3hPmguVClypenMsCY3CBa3LAQnozRCtCrYWSEtAdiskpamuJRFOQ==
+"@floating-ui/core@^1.4.2":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@floating-ui/core/-/core-1.5.0.tgz#5c05c60d5ae2d05101c3021c1a2a350ddc027f8c"
+  integrity sha512-kK1h4m36DQ0UHGj5Ah4db7R0rHemTqqO0QLvUqi1/mUUp3LuAWbWxdxSIf/XsnH9VS6rRVPLJCncjRzUvyCLXg==
   dependencies:
-    "@floating-ui/utils" "^0.1.1"
+    "@floating-ui/utils" "^0.1.3"
 
 "@floating-ui/dom@^1.5.1":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@floating-ui/dom/-/dom-1.5.2.tgz#6812e89d1d4d4ea32f10d15c3b81feb7f9836d89"
-  integrity sha512-6ArmenS6qJEWmwzczWyhvrXRdI/rI78poBcW0h/456+onlabit+2G+QxHx5xTOX60NBJQXjsCLFbW2CmsXpUog==
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@floating-ui/dom/-/dom-1.5.3.tgz#54e50efcb432c06c23cd33de2b575102005436fa"
+  integrity sha512-ClAbQnEqJAKCJOEbbLo5IUlZHkNszqhuxS4fHAVxRPXPya6Ysf2G8KypnYcOTpx6I8xcgF9bbHb6g/2KpbV8qA==
   dependencies:
-    "@floating-ui/core" "^1.4.1"
-    "@floating-ui/utils" "^0.1.1"
+    "@floating-ui/core" "^1.4.2"
+    "@floating-ui/utils" "^0.1.3"
 
 "@floating-ui/react-dom@^2.0.0":
   version "2.0.2"
@@ -1095,10 +1095,10 @@
   dependencies:
     "@floating-ui/dom" "^1.5.1"
 
-"@floating-ui/utils@^0.1.1":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.2.tgz#b7e9309ccce5a0a40ac482cb894f120dba2b357f"
-  integrity sha512-ou3elfqG/hZsbmF4bxeJhPHIf3G2pm0ujc39hYEZrfVqt7Vk/Zji6CXc3W0pmYM8BW1g40U+akTl9DKZhFhInQ==
+"@floating-ui/utils@^0.1.3":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.4.tgz#19654d1026cc410975d46445180e70a5089b3e7d"
+  integrity sha512-qprfWkn82Iw821mcKofJ5Pk9wgioHicxcQMxx+5zt5GSKoqdWvgG5AxVmpmUUjzTLPVSH5auBrhI93Deayn/DA==
 
 "@hookform/resolvers@^3.0.0":
   version "3.3.1"
@@ -2395,6 +2395,11 @@ cosmiconfig@^8.1.3:
     js-yaml "^4.1.0"
     parse-json "^5.2.0"
     path-type "^4.0.0"
+
+countries-list@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/countries-list/-/countries-list-3.0.1.tgz#1aa25be6611c56e39b458a25ba22d2b6ff0623e4"
+  integrity sha512-SKsTld6jDTHVGGEg6/1FEQXMJ7EeAFWFq2u+flrvdIeb19BYtNwnqvfaCvutQv3Yb9B44Wfhly4WXNBePIaCuA==
 
 cross-spawn@^7.0.2:
   version "7.0.3"
