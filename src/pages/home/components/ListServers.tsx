@@ -1,15 +1,15 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
+import { RefObject, useEffect, useState } from 'react'
 
+import { OrderValueEnum, useFilter } from '../providers/FilterProvider'
+import { useServersList } from '../providers/ServersListProvider'
 import { Advertising } from './Advertising'
 import { Servers } from './Servers'
 import { ServersHighlighted } from './ServersHighlighted'
-import { useServersList } from '../providers/ServersListProvider'
-import { useEffect, useState } from 'react'
-import { OrderValueEnum, useFilter } from '../providers/FilterProvider'
 
 interface ListServersProps {
-  overflowComponent: HTMLDivElement | null
+  overflowComponent: RefObject<HTMLDivElement | null>
 }
 
 const ListContainer = styled('ol', {
@@ -28,7 +28,9 @@ const ListContainer = styled('ol', {
   },
 })
 
-export const ListServers = ({ overflowComponent }: ListServersProps): JSX.Element => {
+export const ListServers = ({
+  overflowComponent,
+}: ListServersProps): JSX.Element => {
   const { servers, newServers } = useServersList()
   const { serverName, serverLocation, orderBy } = useFilter()
 
@@ -38,19 +40,19 @@ export const ListServers = ({ overflowComponent }: ListServersProps): JSX.Elemen
     const target = event.target as HTMLDivElement
 
     const { scrollTop, scrollWidth, scrollHeight } = target
-    const scrollPercent = (scrollTop / (scrollHeight - scrollWidth))
+    const scrollPercent = scrollTop / (scrollHeight - scrollWidth)
 
     if (scrollPercent > 1) {
       setShowAmount(showAmount + 20)
     }
   }
 
-  useEffect(()=>{
-    if (!overflowComponent) return
+  useEffect(() => {
+    const scrollElement = overflowComponent.current
 
-    overflowComponent.addEventListener('scroll', handleScroll)
+    scrollElement?.addEventListener('scroll', handleScroll)
 
-    return () => overflowComponent.removeEventListener('scroll', handleScroll)
+    return () => scrollElement?.removeEventListener('scroll', handleScroll)
   })
 
   const serversToShow = servers
@@ -61,9 +63,7 @@ export const ListServers = ({ overflowComponent }: ListServersProps): JSX.Elemen
         return false
       }
 
-      return cfx.projectName
-        .toLowerCase()
-        .includes(filterName)
+      return cfx.projectName.toLowerCase().includes(filterName)
     })
     .sort((a, b) => {
       switch (orderBy) {
@@ -87,15 +87,9 @@ export const ListServers = ({ overflowComponent }: ListServersProps): JSX.Elemen
     <ListContainer>
       <Advertising />
 
-      {
-        newServers.length > 0 &&
-          <ServersHighlighted servers={newServers} />
-      }
+      {newServers.length > 0 && <ServersHighlighted servers={newServers} />}
 
-      {
-        servers.length > 0 &&
-          <Servers servers={serversToShow} />
-      }
+      {servers.length > 0 && <Servers servers={serversToShow} />}
     </ListContainer>
   )
 }
