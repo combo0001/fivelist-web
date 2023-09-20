@@ -1,8 +1,9 @@
 import { Database } from '@/@types/supabase'
-import { ServerPreviewsSchema } from '@/schemas/servers/PreviewSchema'
+import { ServerPreviewsSchema, ServerPreviewsSchemaType } from '@/schemas/servers/PreviewSchema'
 import { procedure } from '@/server/trpc'
 import { createClient } from '@supabase/supabase-js'
 import { z } from 'zod'
+import { getServerPlanTier } from '../utils/getServerPlanTier'
 
 const ServerListInputSchema = z.undefined()
 const ServerListOutputSchema = z.union([z.null(), ServerPreviewsSchema])
@@ -34,9 +35,14 @@ export const getServerList = procedure
       `)
 
     if (error || !fetchData) return null
-    
-    return fetchData.map(({ joinId, page, createdAt }) => {
-      return {
+
+    const servers: ServerPreviewsSchemaType = []
+
+    for (const server of fetchData) {
+      const { joinId, page, createdAt } = server
+      const planTier = await getServerPlanTier(supabase, page?.id || null)
+
+      servers.push({
         joinId,
         description: page?.description || null,
         statistic: {
@@ -44,12 +50,10 @@ export const getServerList = procedure
           followers: page?.followers || 0,
           reviews: page?.reviews || 0,
         },
-        planTier: {
-          id: 0,
-          name: 'Free',
-          privileges: {},
-        },
+        planTier,
         createdAt: createdAt ? new Date(createdAt).toISOString() : new Date().toISOString(),
-      }
-    })
+      })
+    }
+
+    return servers
   })
