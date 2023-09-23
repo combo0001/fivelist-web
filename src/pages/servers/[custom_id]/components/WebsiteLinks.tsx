@@ -1,14 +1,15 @@
 import { WorldIcon } from '@/components/Icons'
+import { ServerConnectionsListSchemaType } from '@/schemas/servers/ConnectionsSchema'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 
 /* eslint-disable no-undef */
 interface WebsiteLinksProps {
-  links: ServersType.WebsiteLinksObject[]
+  links: ServerConnectionsListSchemaType
 }
 
 const WebsiteLinksContainer = styled('div', {
-  minHeight: '13.875rem',
+  minHeight: 'fit-content',
 
   padding: '$6',
 
@@ -38,17 +39,23 @@ export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
         Links externos
       </Heading>
 
-      {links.map(({ label, url }, index) => (
-        <WebsiteLinkBox href={url} target={'_blank'} key={index}>
-          <Button variation={'icon'} size={'sm'}>
-            <WorldIcon css={{ fill: '$white', size: '$6' }} />
-          </Button>
+      {
+        links.length ?
+          links.map(({ label, url }, index) => (
+            <WebsiteLinkBox href={url} target={'_blank'} key={index}>
+              <Button variation={'icon'} size={'sm'}>
+                <WorldIcon css={{ fill: '$white', size: '$6' }} />
+              </Button>
 
-          <Text size={'sm'} color={'$white'} weight={'bold'}>
-            {label}
-          </Text>
-        </WebsiteLinkBox>
-      ))}
+              <Text size={'sm'} color={'$white'} weight={'bold'}>
+                {label}
+              </Text>
+            </WebsiteLinkBox>
+          ))
+        : <Text>
+          Nenhum site adicionado.
+        </Text>
+      }
     </WebsiteLinksContainer>
   )
 }

@@ -54,11 +54,7 @@ export const getUserIdentity = procedure
         email: email as string,
       },
       planTier,
-      createdAt: createdAt
-        ? new Date(createdAt).toISOString()
-        : new Date().toISOString(),
-      updatedAt: updatedAt
-        ? new Date(updatedAt).toISOString()
-        : new Date().toISOString(),
+      createdAt: new Date(createdAt).toISOString(),
+      updatedAt: new Date(updatedAt).toISOString(),
     }
   })

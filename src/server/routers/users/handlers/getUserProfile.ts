@@ -129,7 +129,7 @@ export const getUserProfile = procedure
         streamURL,
         isOnline: true,
       },
-      createdAt: createdAt ? new Date(createdAt).toISOString() : new Date().toISOString(),
-      updatedAt: updatedAt ? new Date(updatedAt).toISOString() : new Date().toISOString(),
+      createdAt: new Date(createdAt).toISOString(),
+      updatedAt: new Date(updatedAt).toISOString(),
     }
   })

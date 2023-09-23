@@ -1,14 +1,15 @@
 import { getPlatformIcon } from '@/components/Platforms'
+import { ServerSocialMediaListSchemaType } from '@/schemas/servers/SocialMediaSchema'
 import { styled } from '@/styles'
 import { Heading, Text } from '@5list-design-system/react'
 
 /* eslint-disable no-undef */
 interface SocialMediaProps {
-  links: ServersType.SocialMediaLinksObject[]
+  socialMedia: ServerSocialMediaListSchemaType
 }
 
 const SocialMediaContainer = styled('div', {
-  minHeight: '13.875rem',
+  minHeight: 'fit-content',
 
   padding: '$6',
 
@@ -39,7 +40,7 @@ const SocialMediaLinkBox = styled('li', {
   gap: '$3',
 })
 
-export const SocialMedia = ({ links }: SocialMediaProps): JSX.Element => {
+export const SocialMedia = ({ socialMedia }: SocialMediaProps): JSX.Element => {
   return (
     <SocialMediaContainer>
       <Heading as={'h4'} weight={'bold'}>
@@ -47,17 +48,23 @@ export const SocialMedia = ({ links }: SocialMediaProps): JSX.Element => {
       </Heading>
 
       <SocialLinksContainer>
-        {links.map(({ platform, userId }, index) => {
-          return (
-            <SocialMediaLinkBox key={index}>
-              {getPlatformIcon(platform)}
-
-              <Text size={'sm'} color={'$white'} weight={'bold'}>
-                @{userId}
-              </Text>
-            </SocialMediaLinkBox>
-          )
-        })}
+        {
+          socialMedia.length ?
+            socialMedia.map(({ socialMedia, profileId }, index) => {
+              return (
+                <SocialMediaLinkBox key={index}>
+                  {getPlatformIcon(socialMedia)}
+    
+                  <Text size={'sm'} color={'$white'} weight={'bold'}>
+                    @{profileId}
+                  </Text>
+                </SocialMediaLinkBox>
+              )
+            })
+          : <Text>
+            Nenhuma rede social adicionada.
+          </Text>
+        }
       </SocialLinksContainer>
     </SocialMediaContainer>
   )

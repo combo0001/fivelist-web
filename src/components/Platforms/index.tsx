@@ -8,8 +8,9 @@ import {
   TwitterIcon,
   YoutubeIcon,
 } from '@/components/Icons'
+import { SocialMediaSchemaType } from '@/schemas/SocialMediaSchema'
 
-export const getPlatformIcon = (platform: SocialMediaPlatform): JSX.Element => {
+export const getPlatformIcon = (platform: SocialMediaSchemaType): JSX.Element => {
   switch (platform) {
     case 'INSTAGRAM':
       return <InstagramIcon css={{ size: '$6', fill: '$white' }} />
@@ -17,8 +18,6 @@ export const getPlatformIcon = (platform: SocialMediaPlatform): JSX.Element => {
       return <FacebookIcon css={{ size: '$6', fill: '$white' }} />
     case 'TIKTOK':
       return <TiktokIcon css={{ size: '$6', fill: '$white' }} />
-    case 'TWITTER':
-      return <TwitterIcon css={{ size: '$6', fill: '$white' }} />
     case 'YOUTUBE':
       return <YoutubeIcon css={{ size: '$6', fill: '$white' }} />
     default:

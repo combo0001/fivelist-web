@@ -131,6 +131,15 @@ export interface IServerViewPlayer {
   ping: number,
 }
 
+export interface IServerDynamic {
+  clients: number
+  gametype: string
+  hostname: string
+  iv: number
+  mapname: string
+  sv_maxclients: number
+}
+
 export enum GameName {
   FiveM = 'gta5',
   RedM = 'rdr3',

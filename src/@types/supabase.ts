@@ -14,19 +14,19 @@ export interface Database {
           created_at: string
           endpoint: string | null
           id: string
-          page_id: string
+          page_id: string | null
         }
         Insert: {
           created_at?: string
           endpoint?: string | null
           id: string
-          page_id: string
+          page_id?: string | null
         }
         Update: {
           created_at?: string
           endpoint?: string | null
           id?: string
-          page_id?: string
+          page_id?: string | null
         }
         Relationships: [
           {
@@ -43,36 +43,36 @@ export interface Database {
           created_at: string
           custom_id: string
           description: string | null
-          followers: number | null
+          followers: number
           id: string
-          likes: number | null
+          likes: number
           owner_id: string | null
-          reviews: number | null
-          views: number | null
+          reviews: number
+          views: number
         }
         Insert: {
           banner_url?: string | null
           created_at?: string
           custom_id: string
           description?: string | null
-          followers?: number | null
+          followers?: number
           id?: string
-          likes?: number | null
+          likes?: number
           owner_id?: string | null
-          reviews?: number | null
-          views?: number | null
+          reviews?: number
+          views?: number
         }
         Update: {
           banner_url?: string | null
           created_at?: string
           custom_id?: string
           description?: string | null
-          followers?: number | null
+          followers?: number
           id?: string
-          likes?: number | null
+          likes?: number
           owner_id?: string | null
-          reviews?: number | null
-          views?: number | null
+          reviews?: number
+          views?: number
         }
         Relationships: [
           {
@@ -117,19 +117,19 @@ export interface Database {
       user_connections: {
         Row: {
           connection: Database["public"]["Enums"]["connections_type"]
-          created_at: string | null
+          created_at: string
           identifier: string
           user_id: string
         }
         Insert: {
           connection: Database["public"]["Enums"]["connections_type"]
-          created_at?: string | null
+          created_at?: string
           identifier?: string
           user_id: string
         }
         Update: {
           connection?: Database["public"]["Enums"]["connections_type"]
-          created_at?: string | null
+          created_at?: string
           identifier?: string
           user_id?: string
         }
@@ -267,41 +267,41 @@ export interface Database {
         Row: {
           avatar_url: string | null
           banner_url: string | null
-          created_at: string | null
+          created_at: string
           custom_id: string
           description: string | null
-          followers: number | null
+          followers: number
           id: string
-          likes: number | null
+          likes: number
           stream_url: string | null
-          updated_at: string | null
-          views: number | null
+          updated_at: string
+          views: number
         }
         Insert: {
           avatar_url?: string | null
           banner_url?: string | null
-          created_at?: string | null
+          created_at?: string
           custom_id: string
           description?: string | null
-          followers?: number | null
+          followers?: number
           id: string
-          likes?: number | null
+          likes?: number
           stream_url?: string | null
-          updated_at?: string | null
-          views?: number | null
+          updated_at?: string
+          views?: number
         }
         Update: {
           avatar_url?: string | null
           banner_url?: string | null
-          created_at?: string | null
+          created_at?: string
           custom_id?: string
           description?: string | null
-          followers?: number | null
+          followers?: number
           id?: string
-          likes?: number | null
+          likes?: number
           stream_url?: string | null
-          updated_at?: string | null
-          views?: number | null
+          updated_at?: string
+          views?: number
         }
         Relationships: [
           {

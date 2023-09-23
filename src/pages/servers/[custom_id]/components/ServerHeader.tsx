@@ -11,7 +11,7 @@ import { Button, Heading, Text } from '@5list-design-system/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useServer } from '../providers/ServerProvider'
+import { useServerView } from '../providers/ServerViewProvider'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -95,27 +95,20 @@ const ActionsContainer = styled('section', {
 })
 
 export const ServerHeader = (): JSX.Element => {
-  const {
-    clients,
-    endpoint,
-    reviews,
-    tags,
-    followers,
-    name,
-    bannerURL,
-    cfxHash,
-    hasVip,
-  } = useServer()
-
-  const isOwner = true
+  const { server } = useServerView()
+  
+  const hasBanner = server.page.planTier.privileges.PAGE_BANNER && server.page.bannerURL
 
   return (
     <HeaderWrapper>
-      {hasVip && <Banner src={bannerURL} />}
+      {
+        hasBanner &&
+        <Banner src={server.page.bannerURL as string} />
+      }
 
       <HeaderContainer>
-        {isOwner && (
-          <Link href={`/servers/${cfxHash}/edit`} legacyBehavior>
+        {false && (
+          <Link href={`/servers/${server.page.customId}/edit`} legacyBehavior>
             <EditButton size={'lg'}>
               Editar
               <PencilIcon css={{ size: '$4', fill: '$white' }} />
@@ -125,23 +118,23 @@ export const ServerHeader = (): JSX.Element => {
 
         <InformationsContainer>
           <ServerTags
-            clients={clients.now}
-            followers={followers}
-            reviews={reviews}
+            clients={server.playersCurrent}
+            followers={server.page.statistics.followers}
+            reviews={server.page.statistics.reviews}
           />
 
-          <ServerNameText as={'h2'}>{name}</ServerNameText>
+          <ServerNameText as={'h2'}>{server.hostName.replace(/\^\d/g, '')}</ServerNameText>
 
           <ServerLinks
-            discordURL={tags.discord}
-            storeURL={tags.store}
-            websiteURL={tags.website}
+            discordURL={'#Discord'}
+            storeURL={'#Store'}
+            websiteURL={'#Website'}
           />
 
           <Divisor />
 
           <ActionsContainer>
-            <Button as={'a'} href={`fivem://connect/${endpoint}`} size={'lg'}>
+            <Button as={'a'} href={`fivem://connect/${server.joinId}`} size={'lg'}>
               Conectar Servidor
             </Button>
 
@@ -151,7 +144,11 @@ export const ServerHeader = (): JSX.Element => {
               </Button>
             </Link>
 
-            <Tag>Gerenciado por @WILLZAO</Tag>
+            {
+              server.page.ownerUser ?
+                <Tag>Gerenciado por @{server.page.ownerUser.customId}</Tag>
+                : <Tag>Servidor não gerenciado</Tag>
+            }
           </ActionsContainer>
         </InformationsContainer>
       </HeaderContainer>

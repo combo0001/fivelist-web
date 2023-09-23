@@ -1,9 +1,9 @@
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { PageLayout } from '@/components/PageLayout'
-import { ServerProvider } from '../providers/ServerProvider'
+
+import { ServerProvider } from '../providers/ServerViewProvider'
 import { ServerContent } from './components/ServerContent'
-import { ServerHeader } from './components/ServerHeader'
 import { ServersProps } from './index.page'
 import { ServerContainer } from './style'
 import { useClientUser } from '@/providers/UserProvider'
@@ -20,8 +20,6 @@ export const ServersViewMain = ({ server }: ServersProps): JSX.Element => {
 
       <ServerContainer>
         <ServerProvider server={server}>
-          <ServerHeader />
-
           <ServerContent />
         </ServerProvider>
       </ServerContainer>

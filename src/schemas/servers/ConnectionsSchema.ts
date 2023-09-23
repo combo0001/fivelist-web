@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 export const ServerConnectionSchema = z.object({
-  connection: z.string().max(24),
-  identifier: z.string(),
+  label: z.string().max(24),
+  url: z.string(),
 })
 
 export type ServerConnectionSchemaType = z.infer<typeof ServerConnectionSchema>

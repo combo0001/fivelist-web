@@ -1,15 +1,15 @@
 import { z } from 'zod'
-import { ServerIdSchema, ServerJoinIdSchema } from './IdentitySchema'
 import { ServerPageSchema } from './PageSchema'
-import { ServerPlanTierSchema } from './PlanTierSchema'
-import { UserPreviewSchema } from '../users/PreviewSchema'
+import { ServerJoinIdSchema } from './IdentitySchema'
+
+export const ServerNameSchema = z.string()
 
 export const ServerProfileSchema = z.object({
-  id: ServerIdSchema,
-  joinId: ServerJoinIdSchema,
+  joinId: ServerJoinIdSchema, 
+  hostName: ServerNameSchema, 
+  playersCurrent: z.number().int(),
+  playersMax: z.number().int(),
   page: ServerPageSchema,
-  planTier: ServerPlanTierSchema,
-  ownerUser: UserPreviewSchema.nullable(),
   createdAt: z.string().datetime(),
 })
 
