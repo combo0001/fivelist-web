@@ -12,6 +12,9 @@ import SuperJSON from 'superjson'
 
 import { UsersEditMain } from './main'
 import { UserEditorProvider } from './providers/UserEditorProvider'
+import { useClientUser } from '@/providers/UserProvider'
+import { use, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -57,9 +60,18 @@ export const getStaticProps = async ({
 export default function UsersEdit({
   userPage,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
+  const router = useRouter()
+  const { user } = useClientUser()
+
   if (!userPage) {
     return <></>
   }
+
+  useEffect(() => {
+    if (user?.id !== userPage.id) {
+      router.push('/home')
+    }
+  })
 
   return (
     <UserEditorProvider user={userPage}>

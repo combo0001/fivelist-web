@@ -11,7 +11,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const customId = ctx.params?.custom_id
 
-  if (customId && typeof customId === 'string') {
+  if (typeof customId === 'string') {
     const helpers = await getServerHelper()
     const joinId = await helpers.servers.getPageJoinId.fetch({ customId })
 
@@ -34,6 +34,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   }
 }
 
-export default function Index() {
+export default function ServerCustomPage() {
   return <></>
 }

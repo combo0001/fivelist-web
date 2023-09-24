@@ -13,6 +13,7 @@ import Link from 'next/link'
 
 import { useServerView } from '../providers/ServerViewProvider'
 import { ServerDynamicSchemaType, ServerDynamicVariablesType } from '@/schemas/servers/DynamicSchema'
+import { useClientUser } from '@/providers/UserProvider'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -108,10 +109,13 @@ const searchVariable = (expressions: string[], variables: ServerDynamicVariables
 }
 
 export const ServerHeader = (): JSX.Element => {
+  const { user } = useClientUser()
+
   const { serverView, serverDynamic: dynamicNullable } = useServerView()
   const serverDynamic = dynamicNullable as ServerDynamicSchemaType
   
   const hasBanner = serverView.page.planTier.privileges.PAGE_BANNER && serverView.page.bannerURL
+  const isOwner = user && serverView.page.ownerUser && serverView.page.ownerUser?.id === user?.id 
 
   return (
     <HeaderWrapper>
@@ -121,7 +125,7 @@ export const ServerHeader = (): JSX.Element => {
       }
 
       <HeaderContainer>
-        {false && (
+        {isOwner && (
           <Link href={`/servers/${serverView.page.customId}/edit`} legacyBehavior>
             <EditButton size={'lg'}>
               Editar

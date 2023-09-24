@@ -36,5 +36,7 @@ export const getServerOwner = async (
     ...user,
     planTier,
     name: userMetadata.full_name,
+    createdAt: new Date(user.createdAt).toISOString(),
+    updatedAt: new Date(user.updatedAt).toISOString(),
   }
 }
