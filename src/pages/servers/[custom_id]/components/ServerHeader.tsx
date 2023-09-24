@@ -12,6 +12,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { useServerView } from '../providers/ServerViewProvider'
+import { ServerDynamicSchemaType, ServerDynamicVariablesType } from '@/schemas/servers/DynamicSchema'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -94,21 +95,34 @@ const ActionsContainer = styled('section', {
   },
 })
 
+const searchVariable = (expressions: string[], variables: ServerDynamicVariablesType): string | undefined => {
+  for (let variableName in variables) {
+    const variableNameFormatted = variableName.toLowerCase() 
+
+    if (!expressions.includes(variableNameFormatted)) continue
+
+    const variableValue = variables[variableName]
+
+    return variableValue
+  }
+}
+
 export const ServerHeader = (): JSX.Element => {
-  const { server } = useServerView()
+  const { serverView, serverDynamic: dynamicNullable } = useServerView()
+  const serverDynamic = dynamicNullable as ServerDynamicSchemaType
   
-  const hasBanner = server.page.planTier.privileges.PAGE_BANNER && server.page.bannerURL
+  const hasBanner = serverView.page.planTier.privileges.PAGE_BANNER && serverView.page.bannerURL
 
   return (
     <HeaderWrapper>
       {
         hasBanner &&
-        <Banner src={server.page.bannerURL as string} />
+        <Banner src={serverView.page.bannerURL as string} />
       }
 
       <HeaderContainer>
         {false && (
-          <Link href={`/servers/${server.page.customId}/edit`} legacyBehavior>
+          <Link href={`/servers/${serverView.page.customId}/edit`} legacyBehavior>
             <EditButton size={'lg'}>
               Editar
               <PencilIcon css={{ size: '$4', fill: '$white' }} />
@@ -118,23 +132,25 @@ export const ServerHeader = (): JSX.Element => {
 
         <InformationsContainer>
           <ServerTags
-            clients={server.playersCurrent}
-            followers={server.page.statistics.followers}
-            reviews={server.page.statistics.reviews}
+            clients={serverDynamic.playersCurrent || 0}
+            followers={serverView.page.statistics.followers}
+            reviews={serverView.page.statistics.reviews}
           />
 
-          <ServerNameText as={'h2'}>{server.hostName.replace(/\^\d/g, '')}</ServerNameText>
+          <ServerNameText as={'h2'}>
+            {serverDynamic.hostName.replace(/\^\d/g, '')}
+          </ServerNameText>
 
           <ServerLinks
-            discordURL={'#Discord'}
-            storeURL={'#Store'}
-            websiteURL={'#Website'}
+            discordURL={searchVariable(['discord', 'discord_url'], serverDynamic.variables)}
+            storeURL={searchVariable(['loja', 'store', 'marketplace'], serverDynamic.variables)}
+            websiteURL={searchVariable(['site', 'website'], serverDynamic.variables)}
           />
 
           <Divisor />
 
           <ActionsContainer>
-            <Button as={'a'} href={`fivem://connect/${server.joinId}`} size={'lg'}>
+            <Button as={'a'} href={`fivem://connect/${serverView.joinId}`} size={'lg'}>
               Conectar Servidor
             </Button>
 
@@ -145,8 +161,8 @@ export const ServerHeader = (): JSX.Element => {
             </Link>
 
             {
-              server.page.ownerUser ?
-                <Tag>Gerenciado por @{server.page.ownerUser.customId}</Tag>
+              serverView.page.ownerUser ?
+                <Tag>Gerenciado por @{serverView.page.ownerUser.customId}</Tag>
                 : <Tag>Servidor não gerenciado</Tag>
             }
           </ActionsContainer>
@@ -238,6 +254,13 @@ const LinkAnchor = styled('a', {
   alignItems: 'center',
 })
 
+const getCorrectUrl = (url: string) => {
+  if (url.startsWith('http')) return url
+  if (url.startsWith('https')) return url
+
+  return `https://${url}`
+}
+
 const ServerLinks = ({
   discordURL,
   websiteURL,
@@ -246,7 +269,7 @@ const ServerLinks = ({
   return (
     <LinksContainer>
       {websiteURL && (
-        <LinkAnchor href={websiteURL} target={'_blank'}>
+        <LinkAnchor href={getCorrectUrl(websiteURL)} target={'_blank'}>
           <LinkIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
@@ -256,7 +279,7 @@ const ServerLinks = ({
       )}
 
       {storeURL && (
-        <LinkAnchor href={storeURL} target={'_blank'}>
+        <LinkAnchor href={getCorrectUrl(storeURL)} target={'_blank'}>
           <StoreIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
@@ -266,7 +289,7 @@ const ServerLinks = ({
       )}
 
       {discordURL && (
-        <LinkAnchor href={discordURL} target={'_blank'}>
+        <LinkAnchor href={getCorrectUrl(discordURL)} target={'_blank'}>
           <DiscordIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>

@@ -6,9 +6,6 @@ export const ServerNameSchema = z.string()
 
 export const ServerProfileSchema = z.object({
   joinId: ServerJoinIdSchema, 
-  hostName: ServerNameSchema, 
-  playersCurrent: z.number().int(),
-  playersMax: z.number().int(),
   page: ServerPageSchema,
   createdAt: z.string().datetime(),
 })

@@ -17,26 +17,28 @@ export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<{ custom_id: string }>) => {
   const helpers = await getServerHelper()
-  const customId = params?.custom_id as string
+  const customId = params?.custom_id
 
-  const serverPage = await helpers.servers.getServerProfile.fetch({ joinId: customId })
+  if (typeof customId === 'string' && customId.length === 6) {
+    const serverPage = await helpers.servers.getServerProfile.fetch({ joinId: customId })
+  
+    if (serverPage) {
+      const props = {
+        serverPage,
+      }
+  
+      return {
+        props,
+        revalidate: 60,
+      }
+    }
+  }
 
-  if (serverPage) {
-    const props = {
-      serverPage,
-    }
-
-    return {
-      props,
-      revalidate: 300,
-    }
-  } else {
-    return {
-      redirect: {
-        destination: '/home',
-        permanent: false,
-      },
-    }
+  return {
+    redirect: {
+      destination: '/home',
+      permanent: false,
+    },
   }
 }
 

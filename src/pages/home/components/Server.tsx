@@ -196,7 +196,7 @@ export const Server = ({
 
             <Tag>{isRegistered ? preview.statistic.followers.toLocaleString() : 0} Seguidores</Tag>
 
-            <Tag>{isRegistered ? preview.statistic.toLocaleString() : 0} Avaliações</Tag>
+            <Tag>{isRegistered ? preview.statistic.reviews.toLocaleString() : 0} Avaliações</Tag>
           </TagsContainer>
         </InformationsContainer>
 

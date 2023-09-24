@@ -2,22 +2,30 @@ import { Database } from '@/@types/supabase'
 import { procedure } from '@/server/trpc'
 import { createClient } from '@supabase/supabase-js'
 import { z } from 'zod'
-import { ServerProfileSchema, ServerProfileSchemaType } from '@/schemas/servers/ProfileSchema'
+import { ServerProfileSchema } from '@/schemas/servers/ProfileSchema'
 import { ServerJoinIdSchema } from '@/schemas/servers/IdentitySchema'
 import { createServerPage } from '../utils/createServerPage'
 import { getServerCompletePage } from '../utils/getServerCompletePage'
-import { getServerDynamic } from '../utils/getServerDynamic'
+import { getServerEndpoint } from '@/services/Fivem'
 
-const ServerListInputSchema = z.object({
+const ServerProfileInputSchema = z.object({
   joinId: ServerJoinIdSchema,
 })
 
-const ServerListOutputSchema = z.union([z.null(), ServerProfileSchema])
+const ServerProfileOutputSchema = z.union([z.null(), ServerProfileSchema])
 
 export const getServerProfile = procedure
-  .input(ServerListInputSchema)
-  .output(ServerListOutputSchema)
+  .input(ServerProfileInputSchema)
+  .output(ServerProfileOutputSchema)
   .query(async ({ ctx, input }) => {
+    try {
+      const endpoint = await getServerEndpoint(input.joinId)
+  
+      if (!endpoint) return null
+    } catch (_) {
+      return null
+    }
+
     let { supabase } = ctx
 
     if (!supabase) {
@@ -102,13 +110,9 @@ export const getServerProfile = procedure
     } = serverProfile
 
     const page = await getServerCompletePage(supabase, pageInDatabase)
-    const serverDynamic = await getServerDynamic(joinId)
-    
-    if (!serverDynamic) return null
     
     return {
       joinId,
-      ...serverDynamic,
       page,
       createdAt: new Date(createdAt).toISOString(),
     }

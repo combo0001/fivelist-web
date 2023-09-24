@@ -45,22 +45,22 @@ const ContentContainer = styled('section', {
 })
 
 export const ServerContent = (): JSX.Element => {
-  const { server } = useServerView()
+  const { serverView, serverDynamic } = useServerView()
 
-  const description = server.page.description || 'Descrição não foi alterada'
+  const description = serverView.page.description || 'Descrição não foi alterada'
 
   return (
     <ContentContainer>
-      <Description text={description || 'Descrição não foi criada.'} hasVip={server.page.planTier.privileges.PAGE_DESCRIPTION} />
+      <Description text={description || 'Descrição não foi criada.'} hasVip={serverView.page.planTier.privileges.PAGE_DESCRIPTION} />
 
       <Statistic players={0} />
 
       <WebsiteLinks
-        links={server.page.connections}
+        links={serverView.page.connections}
       />
 
       <SocialMedia
-        socialMedia={server.page.socialMedia}
+        socialMedia={serverView.page.socialMedia}
       />
 
       <Reviews
@@ -79,8 +79,8 @@ export const ServerContent = (): JSX.Element => {
       />
 
       <Players
-        clients={server.playersCurrent}
-        slots={server.playersMax}
+        clients={serverDynamic?.playersCurrent || 0}
+        slots={serverDynamic?.playersMax || 0}
         players={[
           {
             name: 'Willian',

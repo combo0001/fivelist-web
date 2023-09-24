@@ -123,21 +123,53 @@ export interface IServer {
   data: master.IServerData,
 }
 
+export interface IFullServerData {
+  EndPoint: string,
+  Data: {
+    clients?: number,
+    selfReportedClients?: number,
+
+    server?: string,
+
+    support_status?: string,
+
+    svMaxclients?: number,
+    sv_maxclients?: number,
+
+    burstPower?: number,
+    upvotePower: number,
+
+    connectEndPoints: string[],
+
+    enhancedHostSupport?: boolean,
+    fallback?: boolean,
+    private?: boolean,
+    valid?: false, // only present if is `false`
+
+    gametype?: string,
+    hostname?: string,
+    iconVersion?: number,
+    lastSeen: string,
+    mapname?: string,
+
+    ownerID?: string,
+    ownerName?: string,
+    ownerAvatar?: string,
+    ownerProfile?: string,
+
+    players: IServerViewPlayer[],
+    resources?: string[],
+
+    vars?: Record<string, string>,
+  },
+}
+
 export interface IServerViewPlayer {
   endpoint: string,
   id: number,
   identifiers: string[],
   name: string,
   ping: number,
-}
-
-export interface IServerDynamic {
-  clients: number
-  gametype: string
-  hostname: string
-  iv: number
-  mapname: string
-  sv_maxclients: number
 }
 
 export enum GameName {

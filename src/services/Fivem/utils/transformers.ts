@@ -5,8 +5,9 @@ import {
   hasPrivateConnectEndpoint,
 } from "./serverUtils"
 import { master } from "../proto/master"
-import { GameName } from "../types"
+import { GameName, IFullServerData, IServerView, IServerViewPlayer } from "../types"
 import { ServerCitizenSchemaType } from "@/schemas/servers/CitizenSchema"
+import { ServerDynamicPlayerType, ServerDynamicSchemaType, ServerDynamicVariablesType } from "@/schemas/servers/DynamicSchema"
 
 const arrayAt = <T>(array: T[], index: number): T | undefined => {
   if (index < 0) {
@@ -91,4 +92,26 @@ function getCanonicalLocale(locale: string): string {
   } catch {
     return DEFAULT_SERVER_LOCALE
   }
+}
+
+export function masterListFullServerData2ServerView(joinId: string, data: IFullServerData['Data']): ServerDynamicSchemaType {
+  return Object.assign(
+    serverAddress2ServerView(joinId),
+    {
+      joinId,
+      hostName: data.hostname || '',
+
+      playersMax: data.svMaxclients || 0,
+      playersCurrent: data.clients || 0,
+
+      isPrivate: data.private || hasPrivateConnectEndpoint(data.connectEndPoints),
+      isOnline: data.fallback ? false : true,
+
+      resources: data.resources as string[],
+      players: 
+        data.players.map(({ identifiers, name, ping }: IServerViewPlayer) => ({ identifiers, name, ping })) as ServerDynamicPlayerType[],
+      variables: data.vars || {} as ServerDynamicVariablesType,
+    },
+    processServerDataVariables(data.vars),
+  )
 }

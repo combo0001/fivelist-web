@@ -21,26 +21,28 @@ export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<{ custom_id: string }>) => {
   const helpers = await getServerHelper()
-  const customId = params?.custom_id as string
+  const customId = params?.custom_id
 
-  const userPage = await helpers.users.getUserProfile.fetch({ customId })
+  if (customId && typeof customId === 'string') {
+    const userPage = await helpers.users.getUserProfile.fetch({ customId })
+  
+    if (userPage) {
+      const props = {
+        userPage,
+      }
+  
+      return {
+        props,
+        revalidate: false,
+      }
+    }
+  }
 
-  if (userPage) {
-    const props = {
-      userPage,
-    }
-
-    return {
-      props,
-      revalidate: false,
-    }
-  } else {
-    return {
-      redirect: {
-        destination: '/home',
-        permanent: false,
-      },
-    }
+  return {
+    redirect: {
+      destination: '/home',
+      permanent: false,
+    },
   }
 }
 
