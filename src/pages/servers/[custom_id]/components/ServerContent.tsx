@@ -5,7 +5,7 @@ import { useServerView } from '../providers/ServerViewProvider'
 import { Description } from './Description'
 import { Players } from './Players'
 import { Reviews } from './Reviews'
-import { SocialMedia } from './SocialMedia'
+import { SocialMediaLinks } from './SocialMedia'
 import { Statistic } from './Statistic'
 import { WebsiteLinks } from './WebsiteLinks'
 
@@ -51,7 +51,7 @@ export const ServerContent = (): JSX.Element => {
 
   return (
     <ContentContainer>
-      <Description text={description || 'Descrição não foi criada.'} hasVip={serverView.page.planTier.privileges.PAGE_DESCRIPTION} />
+      <Description text={description} hasVip={serverView.page.planTier.privileges.PAGE_DESCRIPTION} />
 
       <Statistic players={0} />
 
@@ -59,7 +59,7 @@ export const ServerContent = (): JSX.Element => {
         links={serverView.page.connections}
       />
 
-      <SocialMedia
+      <SocialMediaLinks
         socialMedia={serverView.page.socialMedia}
       />
 

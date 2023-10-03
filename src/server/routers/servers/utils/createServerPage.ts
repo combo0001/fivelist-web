@@ -4,7 +4,7 @@ import { Database } from "@/@types/supabase";
 
 export const createServerPage = async (supabase: SupabaseClient<Database>, joinId: string): Promise<ServerPageType | null> => {
   const { data: insertPageData, error: insertPageError } = await supabase
-    .from('servers_page')
+    .from('pages')
     .insert({
       custom_id: joinId,
     })
@@ -13,6 +13,10 @@ export const createServerPage = async (supabase: SupabaseClient<Database>, joinI
       createdAt:created_at,
       customId:custom_id,
       ownerId:owner_id,
+      socialMedia:page_social_media(
+        socialMedia:social_media, 
+        profileId:profile_id
+      ),
       description,
       followers,
       id,

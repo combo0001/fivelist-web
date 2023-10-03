@@ -79,8 +79,6 @@ const HeaderTopContainer = styled('div', {
   width: '100%',
   height: '$10',
 
-  paddingRight: '$8',
-
   display: 'flex',
 
   position: 'relative',
@@ -309,6 +307,7 @@ interface ProfileProps {
 
 const ProfileContainer = styled('section', {
   display: 'flex',
+  alignItems: 'flex-end',
   gap: '$4',
 })
 

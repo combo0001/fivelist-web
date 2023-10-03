@@ -1,3 +1,5 @@
+import { SocialMediaSchemaType } from "@/schemas/SocialMediaSchema";
+
 export interface ServerPageType {
   bannerUrl: string | null;
   createdAt: string;
@@ -7,6 +9,10 @@ export interface ServerPageType {
   id: string;
   likes: number;
   ownerId: string | null;
+  socialMedia: {
+    socialMedia: SocialMediaSchemaType
+    profileId: string
+  }[]
   reviews: number;
   views: number;
 }

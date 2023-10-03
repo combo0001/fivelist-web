@@ -2,6 +2,7 @@ import { ImageUploader } from '@/components/Dialogs/Image'
 /* eslint-disable no-undef */
 import {
   DiscordIcon,
+  ErrorIcon,
   LinkIcon,
   PencilIcon,
   StoreIcon,
@@ -13,7 +14,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
-import { useServer } from '../../providers/ServerViewProvider'
+import { useServerEditor } from '../providers/ServerEditorProvider'
+import { ServerDynamicSchemaType } from '@/schemas/servers/DynamicSchema'
+import { searchVariable } from '../../utils/searchVariable'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -47,12 +50,20 @@ const HeaderContainer = styled('section', {
   width: '100%',
   height: '100%',
 
-  padding: '$8 $8 $6 $8',
+  padding: '$5 $8 $6 $8',
 
   display: 'flex',
   flexDirection: 'column',
+})
+
+const HeaderTopContainer = styled('div', {
+  width: '100%',
+  height: '$10',
+
+  display: 'flex',
 
   position: 'relative',
+  overflow: 'visible',
 })
 
 const BannerContainer = styled('div', {
@@ -61,12 +72,9 @@ const BannerContainer = styled('div', {
   gap: '$4',
 
   position: 'absolute',
-  alignSelf: 'end',
 })
 
 const EditButton = styled(Button, {
-  alignSelf: 'end',
-
   gap: '$3',
 })
 
@@ -114,45 +122,63 @@ const PremiumContainer = styled('div', {
 })
 
 export const ServerHeader = (): JSX.Element => {
-  const { clients, hasVip, reviews, tags, followers, name, bannerURL } =
-    useServer()
+  const { serverDynamic: serverDynamicNullable, serverToEdit } = useServerEditor()
+  const serverDynamic = serverDynamicNullable as ServerDynamicSchemaType
+
+  const [isLoading, setLoading] = useState<boolean>(false)
   const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
 
-  const toggleBannerEdit = (): void => setBannerEdit((state) => !state)
+  const hasVip = serverToEdit.page.planTier.id
+  const hasBanner = serverToEdit.page.planTier.privileges.PAGE_BANNER && serverToEdit.page.bannerURL
 
-  const handleOnBannerSent = (file: string): void => {
+  const toggleBannerEdit = (): void =>
+    !isLoading ? setBannerEdit((state) => !state) : undefined
+
+  const handleOnBannerSent = (file: File): void => {
     toggleBannerEdit()
+    // updateBanner(file)
   }
 
   return (
     <HeaderWrapper>
-      {hasVip && <Banner src={bannerURL} />}
+      {hasBanner && <Banner src={serverToEdit.page.bannerURL as string} />}
 
       <HeaderContainer>
-        <BannerContainer>
-          <EditButton size={'lg'} onClick={toggleBannerEdit}>
-            Editar capa
-            <PencilIcon css={{ size: '$4', fill: '$white' }} />
-          </EditButton>
+        <HeaderTopContainer>
+          <BannerContainer>
+            <EditButton size={'sm'} onClick={toggleBannerEdit}>
+              Editar capa
+              <PencilIcon css={{ size: '$4', fill: '$white' }} />
+            </EditButton>
 
-          {isBannerEditing && (
-            <ImageUploader onFileSelected={handleOnBannerSent} />
-          )}
-        </BannerContainer>
+            {isBannerEditing && (
+              <ImageUploader onFileSelected={handleOnBannerSent} />
+            )}
+          </BannerContainer>
+
+          <Link href={`/servers/${serverToEdit.joinId}`} legacyBehavior>
+            <EditButton size={'sm'} css={{ marginLeft: 'auto' }}>
+              Sair da edição
+              <ErrorIcon css={{ size: '$4', fill: '$white' }} />
+            </EditButton>
+          </Link>
+        </HeaderTopContainer>
 
         <InformationsContainer>
           <ServerTags
-            clients={clients.now}
-            followers={followers}
-            reviews={reviews}
+            clients={serverDynamic.playersCurrent}
+            followers={serverToEdit.page.statistics.followers}
+            reviews={serverToEdit.page.statistics.reviews}
           />
 
-          <ServerNameText as={'h2'}>{name}</ServerNameText>
+          <ServerNameText as={'h2'}>
+            {serverDynamic.hostName.replace(/\^\d/g, '')}
+          </ServerNameText>
 
           <ServerLinks
-            discordURL={tags.discord}
-            storeURL={tags.store}
-            websiteURL={tags.website}
+            discordURL={searchVariable(['discord', 'discord_url'], serverDynamic.variables)}
+            storeURL={searchVariable(['loja', 'store', 'marketplace'], serverDynamic.variables)}
+            websiteURL={searchVariable(['site', 'website'], serverDynamic.variables)}
           />
 
           <Divisor />
@@ -172,7 +198,15 @@ export const ServerHeader = (): JSX.Element => {
               )}
             </PremiumContainer>
 
-            <Tag>Gerenciado por @WILLZAO</Tag>
+            {
+              serverToEdit.page.ownerUser ?
+                <Link href={`/users/${serverToEdit.page.ownerUser.customId}`} legacyBehavior>
+                  <Tag css={{ cursor: 'pointer' }}>
+                    Gerenciado por @{serverToEdit.page.ownerUser.customId}
+                  </Tag>
+                </Link>
+                : <Tag>Servidor não gerenciado</Tag>
+            }
           </ActionsContainer>
         </InformationsContainer>
       </HeaderContainer>

@@ -1,15 +1,16 @@
-import { getPlatformIcon } from '@/components/Platforms'
-import { ServerSocialMediaListSchemaType } from '@/schemas/servers/SocialMediaSchema'
+import { UserSocialMediaListSchemaType } from '@/schemas/users/SocialMediaSchema'
+import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
-import { Heading, Text } from '@5list-design-system/react'
+import { getSocialMediaLink } from '@/utils/socialMediaLinks'
+import { Button, Heading, Text } from '@5list-design-system/react'
 
 /* eslint-disable no-undef */
 interface SocialMediaProps {
-  socialMedia: ServerSocialMediaListSchemaType
+  socialMedia: UserSocialMediaListSchemaType
 }
 
 const SocialMediaContainer = styled('div', {
-  minHeight: 'fit-content',
+  minHeight: '9.25rem',
 
   padding: '$6',
 
@@ -22,50 +23,67 @@ const SocialMediaContainer = styled('div', {
   gap: '$6',
 })
 
-const SocialLinksContainer = styled('ul', {
-  width: '100%',
-
+const WebsiteSocialMediaContainer = styled('div', {
   display: 'flex',
-  flexDirection: 'column',
+  flexWrap: 'wrap',
+  alignItems: 'center',
   gap: '$4',
 
   '& > *': {
-    listStyleType: 'none',
+    flex: '1 0 34%',
   },
 })
 
-const SocialMediaLinkBox = styled('li', {
+const WebsiteLinkBox = styled('a', {
+  textDecoration: 'none',
+
+  cursor: 'pointer',
+
   display: 'flex',
   alignItems: 'center',
   gap: '$3',
 })
 
-export const SocialMedia = ({ socialMedia }: SocialMediaProps): JSX.Element => {
+export const SocialMediaLinks = ({
+  socialMedia,
+}: SocialMediaProps): JSX.Element => {
   return (
     <SocialMediaContainer>
       <Heading as={'h4'} weight={'bold'}>
         Redes sociais
       </Heading>
 
-      <SocialLinksContainer>
-        {
-          socialMedia.length ?
-            socialMedia.map(({ socialMedia, profileId }, index) => {
-              return (
-                <SocialMediaLinkBox key={index}>
-                  {getPlatformIcon(socialMedia)}
-    
-                  <Text size={'sm'} color={'$white'} weight={'bold'}>
-                    @{profileId}
-                  </Text>
-                </SocialMediaLinkBox>
-              )
-            })
+      <WebsiteSocialMediaContainer>
+        {socialMedia.length ? 
+          socialMedia.map(({ socialMedia, profileId }) => {
+            const socialMediaURL = getSocialMediaLink(socialMedia, profileId)
+
+            return (
+              <WebsiteLinkBox
+                href={socialMediaURL}
+                target={'_blank'}
+                key={socialMedia}
+              >
+                <Button variation={'icon'} size={'sm'}>
+                  <WorldIcon css={{ fill: '$white', size: '$6' }} />
+                </Button>
+
+                <Text
+                  size={'sm'}
+                  color={'$white'}
+                  weight={'bold'}
+                  css={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+                >
+                  {socialMedia[0] + socialMedia.substring(1).toLowerCase()}
+                </Text>
+              </WebsiteLinkBox>
+            )
+          })
           : <Text>
-            Nenhuma rede social adicionada.
+            Nenhuma rede social registrada.
           </Text>
         }
-      </SocialLinksContainer>
+      </WebsiteSocialMediaContainer>
     </SocialMediaContainer>
   )
 }

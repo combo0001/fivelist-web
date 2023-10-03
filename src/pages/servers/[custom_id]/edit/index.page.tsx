@@ -4,7 +4,11 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPr
 
 import { ServerEditMain } from './main'
 import { getServerHelper } from '@/utils/getServerHelper'
-import { ServerEditProvider } from './providers/ServerEditProvider'
+import { ServerEditorProvider } from './providers/ServerEditorProvider'
+import { useEffect } from 'react'
+import { useClientUser } from '@/providers/UserProvider'
+import { router } from '@/server/trpc'
+import { useRouter } from 'next/navigation'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -21,19 +25,19 @@ export const getStaticProps = async ({
 
   if (typeof customId === 'string' && customId.length === 6) {
     const serverPage = await helpers.servers.getServerProfile.fetch({ joinId: customId })
-  
+    
     if (serverPage) {
       const props = {
         serverPage,
       }
-  
+      
       return {
         props,
         revalidate: 60,
       }
     }
   }
-
+  
   return {
     redirect: {
       destination: '/home',
@@ -47,9 +51,22 @@ export default function ServerEdit({ serverPage }: InferGetStaticPropsType<typeo
     return <></>
   }
 
+  const router = useRouter()
+  const { user } = useClientUser()
+
+  useEffect(() => {
+    if (!user || !serverPage) return
+
+    const isOwner = user && serverPage.page.ownerUser && serverPage.page.ownerUser?.id === user?.id 
+
+    if (!isOwner) {
+      router.push(`/servers/${serverPage.joinId}`)
+    }
+  }, [ serverPage, user ])
+
   return (
-    <ServerEditProvider server={serverPage}>
+    <ServerEditorProvider server={serverPage}>
       <ServerEditMain />
-    </ServerEditProvider>
+    </ServerEditorProvider>
   )
 }

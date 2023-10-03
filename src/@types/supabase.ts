@@ -9,35 +9,63 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      servers: {
+      page_connections: {
         Row: {
           created_at: string
-          endpoint: string | null
-          id: string
-          page_id: string | null
+          name: string
+          page_id: string
+          redirect_url: string
         }
         Insert: {
           created_at?: string
-          endpoint?: string | null
-          id: string
-          page_id?: string | null
+          name: string
+          page_id: string
+          redirect_url: string
         }
         Update: {
           created_at?: string
-          endpoint?: string | null
-          id?: string
-          page_id?: string | null
+          name?: string
+          page_id?: string
+          redirect_url?: string
         }
         Relationships: [
           {
-            foreignKeyName: "servers_page_id_fkey"
+            foreignKeyName: "page_connections_page_id_fkey"
             columns: ["page_id"]
-            referencedRelation: "servers_page"
+            referencedRelation: "pages"
             referencedColumns: ["id"]
           }
         ]
       }
-      servers_page: {
+      page_social_media: {
+        Row: {
+          created_at: string
+          page_id: string
+          profile_id: string
+          social_media: Database["public"]["Enums"]["social_media_name"]
+        }
+        Insert: {
+          created_at?: string
+          page_id: string
+          profile_id: string
+          social_media: Database["public"]["Enums"]["social_media_name"]
+        }
+        Update: {
+          created_at?: string
+          page_id?: string
+          profile_id?: string
+          social_media?: Database["public"]["Enums"]["social_media_name"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "page_social_media_page_id_fkey"
+            columns: ["page_id"]
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      pages: {
         Row: {
           banner_url: string | null
           created_at: string
@@ -76,9 +104,37 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "servers_page_owner_id_fkey"
+            foreignKeyName: "pages_owner_id_fkey"
             columns: ["owner_id"]
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      servers: {
+        Row: {
+          created_at: string
+          endpoint: string | null
+          id: string
+          page_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          endpoint?: string | null
+          id: string
+          page_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          endpoint?: string | null
+          id?: string
+          page_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "servers_page_id_fkey"
+            columns: ["page_id"]
+            referencedRelation: "pages"
             referencedColumns: ["id"]
           }
         ]

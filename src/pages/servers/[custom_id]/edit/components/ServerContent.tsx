@@ -1,13 +1,16 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
 
-import { useServer } from '../../providers/ServerViewProvider'
 import { Description } from './Description'
-import { SocialMedia } from './SocialMedia'
+import { SocialMediaLinks } from './SocialMediaLinks'
 import { Statistic } from './Statistic'
 import { WebsiteLinks } from './WebsiteLinks'
 import { CustomLink } from './CustomLink'
 import { Players } from './Players'
+import { useServerEditor } from '../providers/ServerEditorProvider'
+import { ServerDynamicSchemaType } from '@/schemas/servers/DynamicSchema'
+import { trpc } from '@/utils/trpc'
+import { SocialMediaSchemaType } from '@/schemas/SocialMediaSchema'
 
 const ContentContainer = styled('section', {
   width: '94.5%',
@@ -45,218 +48,98 @@ const ContentContainer = styled('section', {
 })
 
 export const ServerContent = (): JSX.Element => {
-  const { description, hasVip, likes, followers, cfxHash, clients, slots } =
-    useServer()
+  const { serverDynamic: serverDynamicNullable, serverToEdit, refreshServer } = useServerEditor()
+  const serverDynamic = serverDynamicNullable as ServerDynamicSchemaType
+
+  const description = serverToEdit.page.description || 'Descrição não foi alterada'
+
+  const addServerSocialMedia = trpc.servers.addServerSocialMedia.useMutation()
+  const removeServerSocialMedia = trpc.servers.removeServerSocialMedia.useMutation()
+
+  const addServerLink = trpc.servers.addServerLink.useMutation()
+  const removeServerLink = trpc.servers.removeServerLink.useMutation()
+
+  const handleOnAddSocialMedia = async (
+    socialMedia: SocialMediaSchemaType,
+    profileId: string,
+  ): Promise<void> => {
+    await addServerSocialMedia.mutateAsync({ 
+      pageId: serverToEdit.page.id,
+      joinId: serverToEdit.joinId,
+      socialMedia, 
+      profileId 
+    })
+
+    await refreshServer()
+  }
+
+  const handleOnRemoveSocialMedia = async (
+    socialMedia: SocialMediaSchemaType,
+  ): Promise<void> => {
+    await removeServerSocialMedia.mutateAsync({ 
+      pageId: serverToEdit.page.id,
+      joinId: serverToEdit.joinId,
+      socialMedia 
+    })
+
+    await refreshServer()
+  }
+
+  const handleOnAddLink = async (
+    name: string,
+    redirectURL: string,
+  ): Promise<void> => {
+    await addServerLink.mutateAsync({ 
+      pageId: serverToEdit.page.id,
+      joinId: serverToEdit.joinId,
+      name, 
+      redirectURL 
+    })
+
+    await refreshServer()
+  }
+
+  const handleOnRemoveLink = async (
+    name: string,
+  ): Promise<void> => {
+    await removeServerLink.mutateAsync({ 
+      pageId: serverToEdit.page.id,
+      joinId: serverToEdit.joinId,
+      name 
+    })
+
+    await refreshServer()
+  }
 
   return (
     <ContentContainer>
-      <Description text={description} hasVip={hasVip} />
-
+      <Description text={description} hasVip={serverToEdit.page.planTier.privileges.PAGE_DESCRIPTION} />
+    
       <WebsiteLinks
-        links={[
-          {
-            label: 'Nossa loja!',
-            url: 'https://google.com',
-          },
-          {
-            label: 'Nosso site!',
-            url: 'https://google.com',
-          },
-        ]}
+        links={serverToEdit.page.connections}
+        onAddLink={handleOnAddLink}
+        onRemoveLink={handleOnRemoveLink}
       />
 
-      <SocialMedia
-        links={[
-          {
-            platform: 'TWITTER' as any,
-            userId: '1combofn',
-          },
-          {
-            platform: 'INSTAGRAM' as any,
-            userId: 'jbfilhoreporter',
-          },
-          {
-            platform: 'FACEBOOK' as any,
-            userId: 'combo',
-          },
-          {
-            platform: 'TIKTOK' as any,
-            userId: 'lucadorea',
-          },
-          {
-            platform: 'YOUTUBE' as any,
-            userId: 'combo',
-          },
-        ]}
+      <SocialMediaLinks
+        socialMedia={serverToEdit.page.socialMedia}
+        onAddSocialMedia={handleOnAddSocialMedia}
+        onRemoveSocialMedia={handleOnRemoveSocialMedia}
       />
 
       <Statistic
-        cfxHash={cfxHash}
-        likes={{ amount: likes, variation: 0 }}
-        followers={{ amount: followers, variation: 20 }}
-        hasVip={hasVip}
+        cfxHash={serverToEdit.joinId}
+        likes={{ amount: serverToEdit.page.statistics.likes, variation: 0 }}
+        followers={{ amount: serverToEdit.page.statistics.followers, variation: 0 }}
+        hasVip={serverToEdit.page.planTier.privileges.PAGE_STATISTICS}
       />
 
-      <CustomLink id={'narniaroleplay'} />
+      <CustomLink />
 
       <Players
-        clients={clients.now}
-        slots={slots}
+        clients={serverDynamic.playersCurrent}
+        slots={serverDynamic.playersMax}
         players={[
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
           {
             name: 'Willian',
             avatarURL:

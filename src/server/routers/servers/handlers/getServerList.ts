@@ -15,7 +15,6 @@ export const getServerList = procedure
     let { supabase } = ctx
 
     if (!supabase) {
-      console.log(process.env.SUPABASE_SERVICE_ROLE_KEY!)
       supabase = createClient<Database>(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -31,7 +30,7 @@ export const getServerList = procedure
     let { data: fetchData, error } = await supabase.from('servers')
       .select(`
         joinId:id,
-        page:servers_page(
+        page:pages(
           id,
           description,
           likes,

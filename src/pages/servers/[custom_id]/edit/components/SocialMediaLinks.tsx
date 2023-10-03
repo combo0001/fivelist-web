@@ -8,7 +8,6 @@ import {
   getAvailableSocialMedia,
   getSocialMediaLink,
 } from '@/utils/socialMediaLinks'
-import { trpc } from '@/utils/trpc'
 import { Button, Heading, Text } from '@5list-design-system/react'
 
 /* eslint-disable no-undef */

@@ -30,7 +30,7 @@ export const getPageJoinId = procedure
     }
 
     const { data: fetchPageData, error: fetchPageError } = await supabase
-      .from('servers_page')
+      .from('pages')
       .select('id')
       .eq('custom_id', input.customId)
 

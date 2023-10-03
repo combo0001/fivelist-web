@@ -57,12 +57,12 @@ export const Description = ({
   hasVip,
 }: DescriptionProps): JSX.Element => {
   const { refreshUser } = useUserEditor()
-  const setUserBanner = trpc.users.setUserDescription.useMutation()
+  const setUserDescription = trpc.users.setUserDescription.useMutation()
 
   const handleOnChangeDescription = async (
     description: string,
   ): Promise<void> => {
-    await setUserBanner.mutateAsync({ description })
+    await setUserDescription.mutateAsync({ description })
 
     await refreshUser()
   }

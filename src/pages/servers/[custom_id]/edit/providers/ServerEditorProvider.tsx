@@ -1,23 +1,38 @@
 import { ServerDynamicSchemaType } from '@/schemas/servers/DynamicSchema'
 import { ServerProfileSchemaType } from '@/schemas/servers/ProfileSchema'
 import { getMasterListServer } from '@/services/Fivem'
+import { trpc } from '@/utils/trpc'
 import { useRouter } from 'next/navigation'
 import React, { Context, createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 interface ProviderProps {
   serverToEdit: ServerProfileSchemaType
   serverDynamic: ServerDynamicSchemaType | null
+  refreshServer: () => Promise<void>
 }
 
 const ServerEditCtx = createContext<ProviderProps | null>(null)
 
-export const ServerEditProvider: React.FC<{
+export const ServerEditorProvider: React.FC<{
   children: React.ReactNode
   server: ServerProfileSchemaType
 }> = ({ children, server }) => {
-  const [serverDynamic, setServerDynamic] = useState<ServerDynamicSchemaType | null>(null)
+  const utils = trpc.useContext()
   const router = useRouter()
-  
+
+  const [serverDynamic, setServerDynamic] = useState<ServerDynamicSchemaType | null>(null)
+  const [serverToEdit, setServerToEdit] = useState<ServerProfileSchemaType>(server)
+
+  const refreshServer = useCallback(async (): Promise<void> => {
+    const serverProfile = await utils.servers.getServerProfile.fetch({
+      joinId: server.joinId,
+    })
+
+    if (serverProfile) {
+      setServerToEdit(serverProfile)
+    }
+  }, [server])
+
   useEffect(() => {
     if (serverDynamic) return
 
@@ -31,13 +46,14 @@ export const ServerEditProvider: React.FC<{
 
   return (
     <ServerEditCtx.Provider value={{ 
-      serverToEdit: server,
-      serverDynamic
+      serverToEdit,
+      serverDynamic,
+      refreshServer
     }}>
       {children}
     </ServerEditCtx.Provider>
   )
 }
 
-export const useServerEdit = () =>
+export const useServerEditor = () =>
   useContext<ProviderProps>(ServerEditCtx as Context<ProviderProps>)

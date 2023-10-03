@@ -45,11 +45,15 @@ export const getServerProfile = procedure
       .from('servers')
       .select(`
         joinId:id,
-        page:servers_page(
+        page:pages(
           bannerUrl:banner_url,
           createdAt:created_at,
           customId:custom_id,
           ownerId:owner_id,
+          socialMedia:page_social_media(
+            socialMedia:social_media, 
+            profileId:profile_id
+          ),
           description,
           followers,
           id,
@@ -71,11 +75,15 @@ export const getServerProfile = procedure
         })
         .select(`
           joinId:id,
-          page:servers_page(
+          page:pages(
             bannerUrl:banner_url,
             createdAt:created_at,
             customId:custom_id,
             ownerId:owner_id,
+            socialMedia:page_social_media(
+              socialMedia:social_media, 
+              profileId:profile_id
+            ),
             description,
             followers,
             id,

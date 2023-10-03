@@ -4,10 +4,10 @@ import { CopyIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading } from '@5list-design-system/react'
 import { useRef, useState } from 'react'
+import { useServerEditor } from '../providers/ServerEditorProvider'
+import { trpc } from '@/utils/trpc'
 
-interface CustomLinkProps {
-  id: string
-}
+interface CustomLinkProps {}
 
 const CustomLinkContainer = styled('div', {
   height: '$50',
@@ -47,17 +47,32 @@ const InputLink = styled('input', {
   color: '$neutral100',
 })
 
-export const CustomLink = ({ id }: CustomLinkProps): JSX.Element => {
+export const CustomLink = ({}: CustomLinkProps): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>()
 
-  const [customURL, setCustomURL] = useState<string>('fivelist.gg/' + id)
+  const { serverToEdit, refreshServer } = useServerEditor()
+  const setServerCustomId = trpc.servers.setServerCustomId.useMutation()
+
+  const [customURL, setCustomURL] = useState<string>('fivelist.gg/' + serverToEdit.page.customId)
   const [isEditing, setEditing] = useState<boolean>(false)
 
-  const toggleEditing = (): void => {
+  const toggleEditing = async (): Promise<void> => {
     if (!isEditing) {
       setTimeout(() => {
         inputRef.current?.focus()
       }, 0)
+    } else {
+      const savedCustomId = customURL.split('/').pop()
+
+      if (savedCustomId) {
+        await setServerCustomId.mutateAsync({ 
+          joinId: serverToEdit.joinId,
+          pageId: serverToEdit.page.id, 
+          customId: savedCustomId
+        })
+
+        await refreshServer()
+      }
     }
 
     setEditing((state) => !state)

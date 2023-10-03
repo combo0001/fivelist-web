@@ -42,7 +42,7 @@ export const ListServers = ({
     const { scrollTop, scrollWidth, scrollHeight } = target
     const scrollPercent = scrollTop / (scrollHeight - scrollWidth)
 
-    if (scrollPercent > 1) {
+    if (scrollPercent > 0.7) {
       setShowAmount(showAmount + 20)
     }
   }

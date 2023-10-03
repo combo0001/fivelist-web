@@ -1,12 +1,15 @@
 /* eslint-disable no-undef */
-import { LinkDialog } from '@/components/Dialogs/Link'
+import { FreeLinkDialog } from '@/components/Dialogs/FreeLink'
 import { AddLink } from '@/components/EditLinks'
 import { WorldIcon } from '@/components/Icons'
+import { ServerConnectionsListSchemaType } from '@/schemas/servers/ConnectionsSchema'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 
 interface WebsiteLinksProps {
-  links: ServersType.WebsiteLinksObject[]
+  links: ServerConnectionsListSchemaType
+  onAddLink: (label: string, url: string) => Promise<void> | void
+  onRemoveLink: (label: string) => Promise<void> | void
 }
 
 const WebsiteLinksContainer = styled('div', {
@@ -33,28 +36,42 @@ const WebsiteBox = styled('div', {
   gap: '$3',
 })
 
-export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
+export const WebsiteLinks = ({ links, onAddLink, onRemoveLink }: WebsiteLinksProps): JSX.Element => {
+  const handleOnChange = async (
+    name: string, 
+    url: string,
+  ): Promise<void> => {
+    if (url) {
+      if (/\s/.test(url) && url.length > 64 && name.length > 16) return
+
+      await onAddLink(name, url)
+    } else {
+      await onRemoveLink(name)
+    }
+  }
   return (
     <WebsiteLinksContainer>
       <Heading as={'h4'} weight={'bold'}>
         Links externos
       </Heading>
 
-      {links.map(({ label }, index) => (
+      {links.map(({ name }, index) => (
         <WebsiteBox key={index}>
           <Button variation={'icon'} size={'sm'}>
             <WorldIcon css={{ fill: '$white', size: '$6' }} />
           </Button>
 
           <Text size={'sm'} color={'$white'} weight={'bold'}>
-            {label}
+            {name}
           </Text>
         </WebsiteBox>
       ))}
 
-      <LinkDialog
-        title={'Adicionar site'}
-        trigger={<AddLink text={'Adicionar site'} />}
+      <FreeLinkDialog
+        title={`Adicionar site`}
+        placeHolder={'Digite o usuário do perfil'}
+        onSave={handleOnChange}
+        trigger={<AddLink text={`Adicionar site`} />}
       />
     </WebsiteLinksContainer>
   )

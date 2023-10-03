@@ -7,7 +7,7 @@ import { useRef, useState } from 'react'
 
 type OptionRowProps = { label: string; value: string }
 
-interface LinkDialogProps {
+interface RestrictLinkDialogProps {
   title: string
   options: OptionRowProps[]
   trigger: React.ReactNode
@@ -15,7 +15,7 @@ interface LinkDialogProps {
   onSave?: (option: string, text: string) => Promise<void> | void
 }
 
-const LinkDialogOverlay = styled(Dialog.Overlay, {
+const RestrictLinkDialogOverlay = styled(Dialog.Overlay, {
   zIndex: 9999,
 
   position: 'absolute',
@@ -29,7 +29,7 @@ const LinkDialogOverlay = styled(Dialog.Overlay, {
   background: 'rgba(0, 0, 0, 0.625)',
 })
 
-const LinkDialogContent = styled(Dialog.Content, {
+const RestrictLinkDialogContent = styled(Dialog.Content, {
   zIndex: 9999,
 
   padding: '$6',
@@ -90,13 +90,13 @@ const ButtonContainer = styled('div', {
   gap: '$4',
 })
 
-export const LinkDialog = ({
+export const RestrictLinkDialog = ({
   title,
   placeHolder,
   options,
   trigger,
   onSave,
-}: LinkDialogProps): JSX.Element => {
+}: RestrictLinkDialogProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false)
 
   const [currentOption, setOption] = useState<OptionRowProps | undefined>()
@@ -136,9 +136,9 @@ export const LinkDialog = ({
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <LinkDialogOverlay />
+        <RestrictLinkDialogOverlay />
 
-        <LinkDialogContent>
+        <RestrictLinkDialogContent>
           <TitleContainer>
             <Text color={'$white'} weight={'normal'}>
               {title}
@@ -182,7 +182,7 @@ export const LinkDialog = ({
               </Button>
             </Dialog.Close>
           </ButtonContainer>
-        </LinkDialogContent>
+        </RestrictLinkDialogContent>
       </Dialog.Portal>
     </Dialog.Root>
   )

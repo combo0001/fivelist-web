@@ -14,7 +14,7 @@ export const revalidateUser = async (ctx: inferAsyncReturnType<typeof createCont
     
     if (user.customId) {
       customId = user.customId
-    } else {
+    } else if (user.id) {
       if (!ctx.supabase) return
 
       const { data: selectData, error: selectError } = await ctx.supabase

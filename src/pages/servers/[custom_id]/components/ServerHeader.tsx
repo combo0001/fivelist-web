@@ -12,8 +12,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { useServerView } from '../providers/ServerViewProvider'
-import { ServerDynamicSchemaType, ServerDynamicVariablesType } from '@/schemas/servers/DynamicSchema'
+import { ServerDynamicSchemaType } from '@/schemas/servers/DynamicSchema'
 import { useClientUser } from '@/providers/UserProvider'
+import { searchVariable } from '../utils/searchVariable'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -47,14 +48,25 @@ const HeaderContainer = styled('section', {
   width: '100%',
   height: '100%',
 
-  padding: '$8 $8 $6 $8',
+  padding: '0 $8 $6 $8',
 
   display: 'flex',
   flexDirection: 'column',
 })
 
+const HeaderTopContainer = styled('div', {
+  width: '100%',
+  height: '$20',
+
+  padding: '0.9063rem 0',
+
+  display: 'flex',
+  gap: '$6',
+  alignItems: 'center',
+})
+
 const EditButton = styled(Button, {
-  alignSelf: 'end',
+  marginLeft: 'auto',
 
   gap: '$3',
 })
@@ -96,18 +108,6 @@ const ActionsContainer = styled('section', {
   },
 })
 
-const searchVariable = (expressions: string[], variables: ServerDynamicVariablesType): string | undefined => {
-  for (let variableName in variables) {
-    const variableNameFormatted = variableName.toLowerCase() 
-
-    if (!expressions.includes(variableNameFormatted)) continue
-
-    const variableValue = variables[variableName]
-
-    return variableValue
-  }
-}
-
 export const ServerHeader = (): JSX.Element => {
   const { user } = useClientUser()
 
@@ -125,14 +125,16 @@ export const ServerHeader = (): JSX.Element => {
       }
 
       <HeaderContainer>
-        {isOwner && (
-          <Link href={`/servers/${serverView.page.customId}/edit`} legacyBehavior>
-            <EditButton size={'lg'}>
-              Editar
-              <PencilIcon css={{ size: '$4', fill: '$white' }} />
-            </EditButton>
-          </Link>
-        )}
+        <HeaderTopContainer>
+          {isOwner && (
+            <Link href={`/servers/${serverView.joinId}/edit`} legacyBehavior>
+              <EditButton size={'sm'}>
+                Editar
+                <PencilIcon css={{ size: '$4', fill: '$white' }} />
+              </EditButton>
+            </Link>
+          )}
+        </HeaderTopContainer>
 
         <InformationsContainer>
           <ServerTags
@@ -166,7 +168,11 @@ export const ServerHeader = (): JSX.Element => {
 
             {
               serverView.page.ownerUser ?
-                <Tag>Gerenciado por @{serverView.page.ownerUser.customId}</Tag>
+                <Link href={`/users/${serverView.page.ownerUser.customId}`} legacyBehavior>
+                  <Tag css={{ cursor: 'pointer' }}>
+                    Gerenciado por @{serverView.page.ownerUser.customId}
+                  </Tag>
+                </Link>
                 : <Tag>Servidor não gerenciado</Tag>
             }
           </ActionsContainer>
