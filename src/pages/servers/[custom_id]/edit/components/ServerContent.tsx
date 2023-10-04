@@ -56,8 +56,8 @@ export const ServerContent = (): JSX.Element => {
   const addServerSocialMedia = trpc.servers.addServerSocialMedia.useMutation()
   const removeServerSocialMedia = trpc.servers.removeServerSocialMedia.useMutation()
 
-  const addServerLink = trpc.servers.addServerLink.useMutation()
-  const removeServerLink = trpc.servers.removeServerLink.useMutation()
+  const addServerConnection = trpc.servers.addServerConnection.useMutation()
+  const removeServerConnection = trpc.servers.removeServerConnection.useMutation()
 
   const handleOnAddSocialMedia = async (
     socialMedia: SocialMediaSchemaType,
@@ -89,7 +89,7 @@ export const ServerContent = (): JSX.Element => {
     name: string,
     redirectURL: string,
   ): Promise<void> => {
-    await addServerLink.mutateAsync({ 
+    await addServerConnection.mutateAsync({ 
       pageId: serverToEdit.page.id,
       joinId: serverToEdit.joinId,
       name, 
@@ -102,7 +102,7 @@ export const ServerContent = (): JSX.Element => {
   const handleOnRemoveLink = async (
     name: string,
   ): Promise<void> => {
-    await removeServerLink.mutateAsync({ 
+    await removeServerConnection.mutateAsync({ 
       pageId: serverToEdit.page.id,
       joinId: serverToEdit.joinId,
       name 

@@ -27,12 +27,13 @@ export const addServerSocialMedia = procedure
       .select('id')
       .eq('id', input.pageId)
       .eq('owner_id', session.user.id)
+      .single()
 
-    if (fetchError || !fetchData.length) return
+    if (fetchError || !fetchData) return
 
     const { error: upsertError } = await supabase.from('page_social_media')
       .upsert({
-        page_id: fetchData[0].id,
+        page_id: fetchData.id,
         social_media: input.socialMedia,
         profile_id: input.profileId,
       })  

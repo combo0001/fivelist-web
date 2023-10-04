@@ -17,6 +17,10 @@ export const createServerPage = async (supabase: SupabaseClient<Database>, joinI
         socialMedia:social_media, 
         profileId:profile_id
       ),
+      connections:page_connections(
+        name,
+        redirectURL:redirect_url
+      ),
       description,
       followers,
       id,

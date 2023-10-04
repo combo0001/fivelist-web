@@ -13,6 +13,10 @@ export interface ServerPageType {
     socialMedia: SocialMediaSchemaType
     profileId: string
   }[]
+  connections: {
+    name: string;
+    redirectURL: string;
+  }[];
   reviews: number;
   views: number;
 }

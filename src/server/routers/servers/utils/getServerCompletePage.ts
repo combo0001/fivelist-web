@@ -26,7 +26,7 @@ export const getServerCompletePage = async (
       views: page.views,
       reviews: page.reviews,
     },
-    connections: [],
+    connections: page.connections,
     socialMedia: page.socialMedia,
     planTier
   }

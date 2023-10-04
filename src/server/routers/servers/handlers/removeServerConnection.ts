@@ -1,4 +1,3 @@
-import { SocialMediaSchema } from '@/schemas/SocialMediaSchema'
 import { createContext } from '@/server/context'
 import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'
@@ -6,17 +5,17 @@ import { z } from 'zod'
 import { revalidateServer } from '../utils/revalidateServer'
 import { ServerJoinIdSchema } from '@/schemas/servers/IdentitySchema'
 
-const ServerSocialMediaInputSchema = z.object({
+const ServerConnectionInputSchema = z.object({
   joinId: ServerJoinIdSchema,
   pageId: z.string().uuid(),
-  socialMedia: SocialMediaSchema,
+  name: z.string().max(24),
 })
 
-const ServerSocialMediaOutputSchema = z.void()
+const ServerConnectionOutputSchema = z.void()
 
-export const removeServerSocialMedia = procedure
-  .input(ServerSocialMediaInputSchema)
-  .output(ServerSocialMediaOutputSchema)
+export const removeServerConnection = procedure
+  .input(ServerConnectionInputSchema)
+  .output(ServerConnectionOutputSchema)
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
@@ -32,10 +31,10 @@ export const removeServerSocialMedia = procedure
     if (fetchError || !fetchData) return
 
     const { error: deleteError } = await supabase
-      .from('page_social_media')
+      .from('page_connections')
       .delete()
       .eq('page_id', fetchData.id)
-      .eq('social_media', input.socialMedia)
+      .eq('name', input.name)
 
     if (deleteError) return
 

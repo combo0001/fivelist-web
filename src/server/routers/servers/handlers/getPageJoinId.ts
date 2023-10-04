@@ -33,10 +33,11 @@ export const getPageJoinId = procedure
       .from('pages')
       .select('id')
       .eq('custom_id', input.customId)
+      .single()
 
-    if (fetchPageError || !fetchPageData.length) return null 
+    if (fetchPageError || !fetchPageData) return null 
 
-    const serverPageId = fetchPageData[0].id
+    const serverPageId = fetchPageData.id
 
     const { data: fetchServerData, error: fetchServerError } = await supabase
       .from('servers')
@@ -44,8 +45,9 @@ export const getPageJoinId = procedure
         joinId:id
       `)
       .eq('page_id', serverPageId)
+      .single()
 
-    if (fetchServerError || !fetchServerData.length) return null
+    if (fetchServerError || !fetchServerData) return null
 
-    return fetchServerData[0].joinId
+    return fetchServerData.joinId
   })

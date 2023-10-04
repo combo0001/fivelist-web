@@ -46,10 +46,6 @@ const FreeLinkDialogContent = styled(Dialog.Content, {
   gap: '$6',
 
   overflow: 'visible',
-
-  '& > *:nth-child(3)': {
-    maxHeight: '$10',
-  },
 })
 
 const TitleContainer = styled(Dialog.Title, {
@@ -143,7 +139,7 @@ export const FreeLinkDialog = ({
             <TextInput
               ref={nameInput as any}
               spellCheck={false}
-              placeholder={placeHolder}
+              placeholder={'Digite o nome'}
               outlined
             />
           </InputContainer>

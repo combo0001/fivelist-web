@@ -37,6 +37,71 @@ export interface Database {
           }
         ]
       }
+      page_review_replies: {
+        Row: {
+          content: string
+          created_at: string
+          review_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          review_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          review_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "page_review_replies_review_id_fkey"
+            columns: ["review_id"]
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      page_reviews: {
+        Row: {
+          author_id: string
+          content: string
+          created_at: string
+          id: string
+          page_id: string
+          rating: number
+        }
+        Insert: {
+          author_id: string
+          content: string
+          created_at?: string
+          id?: string
+          page_id: string
+          rating: number
+        }
+        Update: {
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          page_id?: string
+          rating?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "page_reviews_author_id_fkey"
+            columns: ["author_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "page_reviews_page_id_fkey"
+            columns: ["page_id"]
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       page_social_media: {
         Row: {
           created_at: string

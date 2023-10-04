@@ -1,15 +1,15 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { ReplyDialog } from './ReplyDialog'
+import { ReplyDialog } from '../../../../components/Dialogs/ReplyReview'
 import { Review } from './Review'
-import { ReviewDialog } from './ReviewDialog'
-
-interface ReviewsProps {
-  reviews: ServersType.ReviewsObject[]
-}
+import { ReviewDialog } from '../../../../components/Dialogs/Review'
+import { useClientUser } from '@/providers/UserProvider'
+import { useServerView } from '../providers/ServerViewProvider'
+import Link from 'next/link'
+import { Reply } from './Reply'
 
 const ReviewsContainer = styled('div', {
   minHeight: '9rem',
@@ -62,38 +62,82 @@ const ReplyText = styled(Text, {
   },
 })
 
-export const Reviews = ({ reviews }: ReviewsProps): JSX.Element => {
-  const [showMore, setShowMore] = useState<boolean>(false)
+export const Reviews = (): JSX.Element => {
+  const [reviewsAmount, setReviewsAmount] = useState<number>(0)
+  const [isNeedShowMore, setNeedShowMore] = useState<boolean>(true)
 
-  const toggleShowMore = () => setShowMore((status) => !status)
+  const { user } = useClientUser()
+  const { serverView, serverReviews, createServerReplyOfReview, createServerReview } = useServerView()
 
-  const isNeedShowMore = reviews.length > 4
+  const reviews = serverReviews || []
+  const isUserOwnerOfServer = !!serverView.page.ownerUser && serverView.page.ownerUser.id === user?.id
+
+  const handleOnCreateReview = async (content: string, rating: number): Promise<void> => {
+    await createServerReview(content, rating)
+  }
+
+  const handleOnCreateReplyOfReview = async (reviewId: string, content: string): Promise<void> => {
+    await createServerReplyOfReview(reviewId, content)
+  }
+  
+  useEffect(() => {
+    if (!isNeedShowMore) return
+
+    const newReviewsAmount = reviews.length
+
+    if (newReviewsAmount > reviewsAmount) {
+      setReviewsAmount(newReviewsAmount)
+    } else {
+      setNeedShowMore(false)
+    }
+  }, [ reviews ])
 
   return (
     <ReviewsContainer>
       <TitleContainer>
         <Heading as={'h5'}>Avaliações</Heading>
 
-        <ReviewDialog trigger={<Button>Deixar avaliação</Button>} />
+        {
+          user ? 
+            <ReviewDialog
+              onFinish={handleOnCreateReview}
+              trigger={<Button>Deixar avaliação</Button>} 
+            />
+          : 
+            <Link href={'/signin'} legacyBehavior>
+              <Button>Deixar avaliação</Button>
+            </Link>
+        }
       </TitleContainer>
 
       {reviews.length > 0 ? (
         <ReviewsList>
           {reviews
-            .filter((_, index) => showMore || index < 4)
             .map((review, index) => (
-              <ReviewBox key={index}>
-                <Review {...review} />
+              <>
+                <ReviewBox key={index}>
+                  <Review review={review} />
 
-                <ReplyDialog
-                  review={review}
-                  trigger={
-                    <ReplyText size={'sm'} color={'$white'}>
-                      Responder
-                    </ReplyText>
+                  {
+                    review.replies.length === 0 && isUserOwnerOfServer &&
+                      <ReplyDialog
+                        review={review}
+                        onFinish={handleOnCreateReplyOfReview.bind(null, review.id)}
+                        trigger={
+                          <ReplyText size={'sm'} color={'$white'}>
+                            Responder
+                          </ReplyText>
+                        }
+                      /> 
                   }
-                />
-              </ReviewBox>
+                </ReviewBox>
+
+                {
+                  review.replies.map((reply, replyIndex) => (
+                    <Reply reply={reply} key={`${index}:${replyIndex}`} />
+                  ))
+                }
+              </>
             ))}
         </ReviewsList>
       ) : (
@@ -107,9 +151,9 @@ export const Reviews = ({ reviews }: ReviewsProps): JSX.Element => {
           css={{ marginTop: 'auto', alignSelf: 'center' }}
           size={'lg'}
           outlined
-          onClick={toggleShowMore}
+          onClick={() => {}}
         >
-          {!showMore ? 'Carregar Mais' : 'Carregar Menos'}
+          Carregar Mais
         </Button>
       )}
     </ReviewsContainer>

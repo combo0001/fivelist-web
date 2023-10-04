@@ -54,6 +54,10 @@ export const getServerProfile = procedure
             socialMedia:social_media, 
             profileId:profile_id
           ),
+          connections:page_connections(
+            name,
+            redirectURL:redirect_url
+          ),
           description,
           followers,
           id,
@@ -83,6 +87,10 @@ export const getServerProfile = procedure
             socialMedia:page_social_media(
               socialMedia:social_media, 
               profileId:profile_id
+            ),
+            connections:page_connections(
+              name,
+              redirectURL:redirect_url
             ),
             description,
             followers,

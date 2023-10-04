@@ -63,20 +63,7 @@ export const ServerContent = (): JSX.Element => {
         socialMedia={serverView.page.socialMedia}
       />
 
-      <Reviews
-        reviews={[
-          {
-            author: {
-              name: 'Willian',
-              avatarURL:
-                'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            },
-            rate: 4,
-            message: 'Achei legal o servidor mas acho que deveria melhorar.',
-            createdAt: new Date(1685825570941),
-          },
-        ]}
-      />
+      <Reviews />
 
       <Players
         clients={serverDynamic?.playersCurrent || 0}

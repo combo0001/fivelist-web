@@ -1,22 +1,22 @@
-import { SocialMediaSchema } from '@/schemas/SocialMediaSchema'
 import { createContext } from '@/server/context'
 import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'
 import { z } from 'zod'
 import { revalidateServer } from '../utils/revalidateServer'
 import { ServerJoinIdSchema } from '@/schemas/servers/IdentitySchema'
+import { ServerConnectionSchema } from '@/schemas/servers/ConnectionsSchema'
 
-const ServerSocialMediaInputSchema = z.object({
+const ServerConnectionInputSchema = z.object({
   joinId: ServerJoinIdSchema,
   pageId: z.string().uuid(),
-  socialMedia: SocialMediaSchema,
+  ...ServerConnectionSchema.shape
 })
 
-const ServerSocialMediaOutputSchema = z.void()
+const ServerConnectionOutputSchema = z.void()
 
-export const removeServerSocialMedia = procedure
-  .input(ServerSocialMediaInputSchema)
-  .output(ServerSocialMediaOutputSchema)
+export const addServerConnection = procedure
+  .input(ServerConnectionInputSchema)
+  .output(ServerConnectionOutputSchema)
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
@@ -31,13 +31,14 @@ export const removeServerSocialMedia = procedure
 
     if (fetchError || !fetchData) return
 
-    const { error: deleteError } = await supabase
-      .from('page_social_media')
-      .delete()
-      .eq('page_id', fetchData.id)
-      .eq('social_media', input.socialMedia)
+    const { error: upsertError } = await supabase.from('page_connections')
+      .upsert({
+        page_id: fetchData.id,
+        name: input.name,
+        redirect_url: input.redirectURL,
+      })  
 
-    if (deleteError) return
+    if (upsertError) return 
 
     await revalidateServer(
       ctx as inferAsyncReturnType<typeof createContext>, 

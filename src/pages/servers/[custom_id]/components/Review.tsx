@@ -1,12 +1,14 @@
 /* eslint-disable no-undef */
 import { StarIcon } from '@/components/Icons'
+import { ServerReviewSchemaType } from '@/schemas/servers/ReviewsSchema'
 import { styled } from '@/styles'
 import { Text } from '@5list-design-system/react'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import Image from 'next/image'
 
-interface ReviewProps extends ServersType.ReviewsObject {
+interface ReviewProps {
+  review: ServerReviewSchemaType
   hiddenAvatar?: boolean
 }
 
@@ -44,17 +46,17 @@ const ReviewMessageContent = styled(Text, {
 })
 
 export const Review = ({
-  author,
-  message,
-  rate,
-  createdAt,
+  review,
   hiddenAvatar,
 }: ReviewProps): JSX.Element => {
+  const reviewAuthorName = review.user.name.split(/\s/).shift()
+  const reviewCreatedAt = new Date(review.createdAt)
+
   return (
     <ReviewContainer>
       {!hiddenAvatar && (
         <AvatarImage
-          src={author.avatarURL}
+          src={'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png'}
           alt={'Author avatar'}
           width={56}
           height={56}
@@ -63,15 +65,15 @@ export const Review = ({
 
       <ReviewMessageContainer>
         <Text size={'sm'} color={'$white'} weight={'bold'}>
-          {author.name},{' '}
+          {reviewAuthorName},{' '}
           <Text as={'span'} size={'sm'} weight={'bold'}>
-            {formatDistanceToNow(createdAt, { addSuffix: true, locale: ptBR })}
+            {formatDistanceToNow(reviewCreatedAt, { addSuffix: true, locale: ptBR })}
           </Text>
         </Text>
 
-        <StarsRate rate={rate} />
+        <StarsRate rate={review.rating} />
 
-        <ReviewMessageContent>{message}</ReviewMessageContent>
+        <ReviewMessageContent>{review.content}</ReviewMessageContent>
       </ReviewMessageContainer>
     </ReviewContainer>
   )

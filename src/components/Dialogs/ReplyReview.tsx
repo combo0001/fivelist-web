@@ -1,18 +1,22 @@
 /* eslint-disable no-undef */
-import { ErrorIcon, StarIcon } from '@/components/Icons'
+import { ErrorIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ChangeEventHandler, useState } from 'react'
 
-interface ReviewDialogProps {
+import { Review } from '../../pages/servers/[custom_id]/components/Review'
+import { ServerReviewSchemaType } from '@/schemas/servers/ReviewsSchema'
+
+interface ReplyDialogProps {
   trigger: React.ReactNode
+  review: ServerReviewSchemaType
+  onFinish?: (content: string) => Promise<void> | void
 }
 
-type RateValueType = 0 | 1 | 2 | 3 | 4 | 5
 type StepType = 'answer' | 'finish'
 
-const ReviewDialogOverlay = styled(Dialog.Overlay, {
+const ReplyDialogOverlay = styled(Dialog.Overlay, {
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -24,7 +28,7 @@ const ReviewDialogOverlay = styled(Dialog.Overlay, {
   background: 'rgba(0, 0, 0, 0.625)',
 })
 
-const ReviewDialogContent = styled(Dialog.Content, {
+const ReplyDialogContent = styled(Dialog.Content, {
   padding: '$6',
 
   width: '27.375rem',
@@ -40,10 +44,6 @@ const ReviewDialogContent = styled(Dialog.Content, {
   display: 'flex',
   flexDirection: 'column',
   gap: '$6',
-
-  '& > *:nth-child(3)': {
-    maxHeight: '$10',
-  },
 })
 
 const TitleContainer = styled(Dialog.Title, {
@@ -67,12 +67,6 @@ const Divisor = styled('div', {
   height: '0.0625rem',
 
   background: '$neutral700',
-})
-
-const StarsContainer = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$2',
 })
 
 const TextAreaContainer = styled('div', {
@@ -108,55 +102,53 @@ const TextDescriptionBox = styled('textarea', {
   },
 })
 
-export const ReviewDialog = ({ trigger }: ReviewDialogProps): JSX.Element => {
+export const ReplyDialog = ({
+  trigger,
+  review,
+  onFinish,
+}: ReplyDialogProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false)
   const [step, setStep] = useState<StepType>('answer')
 
-  const [feedback, setFeedback] = useState<string>('')
-  const [rate, setRate] = useState<RateValueType>(0)
+  const [content, setContent] = useState<string>('')
 
   const toggleOpen = (): void => {
     setOpen((state) => !state)
   }
 
-  const handleOnSend = (): void => {
+  const handleOnSend = async (): Promise<void> => {
+    if (onFinish) {
+      await onFinish(content)
+    } 
+
     setStep('finish')
   }
 
   const handleOnFinish = (): void => {
     toggleOpen()
-  }
-
-  const onRateChange = (value: RateValueType) => {
-    setRate((currentValue) => (value !== currentValue ? value : 0))
+    setStep('answer')
   }
 
   const onFeedbackChange: ChangeEventHandler<HTMLTextAreaElement> = ({
     target,
-  }) => setFeedback(target.value)
+  }) => setContent(target.value)
 
   const reviewContent = (
     <>
       <Divisor />
 
-      <StarsContainer>
-        <ReviewRateInput value={rate} onChange={onRateChange} />
-
-        <Text size={'sm'} color={'$white'}>
-          Deixe sua nota
-        </Text>
-      </StarsContainer>
+      <Review review={review} hiddenAvatar />
 
       <Divisor />
 
       <TextAreaContainer>
         <Text size={'sm'} color={'$white'}>
-          Escreva sua experiência
+          Responder
         </Text>
 
         <TextDescriptionBox
-          placeholder={'Digite o seu feedback.'}
-          value={feedback}
+          placeholder={'Digite a sua resposta.'}
+          value={content}
           onChange={onFeedbackChange}
           spellCheck={false}
         />
@@ -171,7 +163,7 @@ export const ReviewDialog = ({ trigger }: ReviewDialogProps): JSX.Element => {
   const finishContent = (
     <>
       <Heading as={'h4'} css={{ alignSelf: 'center', textAlign: 'center' }}>
-        Obrigado por deixar seu depoimento
+        Obrigado por responder!
       </Heading>
 
       <Dialog.Close onClick={handleOnFinish} asChild>
@@ -189,12 +181,12 @@ export const ReviewDialog = ({ trigger }: ReviewDialogProps): JSX.Element => {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <ReviewDialogOverlay />
+        <ReplyDialogOverlay />
 
-        <ReviewDialogContent>
+        <ReplyDialogContent>
           <TitleContainer>
             <Text color={'$white'} weight={'normal'}>
-              Deixe seu depoimento
+              Responder, {review.user.name}
             </Text>
 
             <CloseButton onClick={toggleOpen}>
@@ -203,56 +195,8 @@ export const ReviewDialog = ({ trigger }: ReviewDialogProps): JSX.Element => {
           </TitleContainer>
 
           {step === 'answer' ? reviewContent : finishContent}
-        </ReviewDialogContent>
+        </ReplyDialogContent>
       </Dialog.Portal>
     </Dialog.Root>
   )
-}
-
-interface ReviewRateInputProps {
-  value: RateValueType
-  onChange: (value: RateValueType) => void
-}
-
-const StarsBox = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-})
-
-const RateStar = styled(StarIcon, {
-  size: '$4',
-  cursor: 'pointer',
-
-  variants: {
-    highlighted: {
-      true: {
-        fill: '$primary800',
-      },
-      false: {
-        fill: '$neutral500',
-      },
-    },
-  },
-
-  defaultVariants: {
-    highlighted: false,
-  },
-})
-
-const ReviewRateInput = ({
-  value,
-  onChange,
-}: ReviewRateInputProps): JSX.Element => {
-  const starsList = []
-
-  for (let starRate = 1; starRate < 6; starRate++) {
-    starsList.push(
-      <RateStar
-        highlighted={value >= starRate}
-        onClick={onChange.bind(null, starRate as RateValueType)}
-      />,
-    )
-  }
-
-  return <StarsBox>{starsList}</StarsBox>
 }

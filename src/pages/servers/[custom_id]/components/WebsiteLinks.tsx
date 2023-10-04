@@ -41,14 +41,14 @@ export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
 
       {
         links.length ?
-          links.map(({ label, url }, index) => (
-            <WebsiteLinkBox href={url} target={'_blank'} key={index}>
+          links.map(({ name, redirectURL }, index) => (
+            <WebsiteLinkBox href={redirectURL} target={'_blank'} key={index}>
               <Button variation={'icon'} size={'sm'}>
                 <WorldIcon css={{ fill: '$white', size: '$6' }} />
               </Button>
 
               <Text size={'sm'} color={'$white'} weight={'bold'}>
-                {label}
+                {name}
               </Text>
             </WebsiteLinkBox>
           ))

@@ -21,10 +21,11 @@ export const revalidateUser = async (ctx: inferAsyncReturnType<typeof createCont
         .from('users')
         .select('customId:custom_id')
         .eq('id', user.id)
+        .single()
 
       if (selectError) return
 
-      customId = selectData[0].customId
+      customId = selectData.customId
     }
 
     if (!customId) return

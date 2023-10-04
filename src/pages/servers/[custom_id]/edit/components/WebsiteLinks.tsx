@@ -29,8 +29,6 @@ const WebsiteLinksContainer = styled('div', {
 const WebsiteBox = styled('div', {
   textDecoration: 'none',
 
-  cursor: 'pointer',
-
   display: 'flex',
   alignItems: 'center',
   gap: '$3',
@@ -49,6 +47,7 @@ export const WebsiteLinks = ({ links, onAddLink, onRemoveLink }: WebsiteLinksPro
       await onRemoveLink(name)
     }
   }
+
   return (
     <WebsiteLinksContainer>
       <Heading as={'h4'} weight={'bold'}>
@@ -69,7 +68,7 @@ export const WebsiteLinks = ({ links, onAddLink, onRemoveLink }: WebsiteLinksPro
 
       <FreeLinkDialog
         title={`Adicionar site`}
-        placeHolder={'Digite o usuário do perfil'}
+        placeHolder={'Digite o link do perfil'}
         onSave={handleOnChange}
         trigger={<AddLink text={`Adicionar site`} />}
       />
