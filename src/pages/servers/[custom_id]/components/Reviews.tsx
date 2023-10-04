@@ -67,7 +67,7 @@ export const Reviews = (): JSX.Element => {
   const [isNeedShowMore, setNeedShowMore] = useState<boolean>(true)
 
   const { user } = useClientUser()
-  const { serverView, serverReviews, createServerReplyOfReview, createServerReview } = useServerView()
+  const { serverView, serverReviews, createServerReplyOfReview, createServerReview, showMoreReviews } = useServerView()
 
   const reviews = serverReviews || []
   const isUserOwnerOfServer = !!serverView.page.ownerUser && serverView.page.ownerUser.id === user?.id
@@ -79,8 +79,13 @@ export const Reviews = (): JSX.Element => {
   const handleOnCreateReplyOfReview = async (reviewId: string, content: string): Promise<void> => {
     await createServerReplyOfReview(reviewId, content)
   }
+
+  const handleOnShowMore = async (): Promise<void> => {
+    await showMoreReviews()
+  }
   
   useEffect(() => {
+    console.log(reviews.length, reviewsAmount)
     if (!isNeedShowMore) return
 
     const newReviewsAmount = reviews.length
@@ -151,7 +156,7 @@ export const Reviews = (): JSX.Element => {
           css={{ marginTop: 'auto', alignSelf: 'center' }}
           size={'lg'}
           outlined
-          onClick={() => {}}
+          onClick={handleOnShowMore}
         >
           Carregar Mais
         </Button>

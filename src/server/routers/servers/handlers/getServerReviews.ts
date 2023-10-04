@@ -48,6 +48,7 @@ export const getServerReviews = procedure
         rating,
         createdAt:created_at
       `)
+      .eq('page_id', input.pageId)
       .lt('created_at', input.offset.from)
       .order('created_at', { ascending: false })
       .limit(input.offset.amount)

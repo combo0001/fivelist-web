@@ -1,7 +1,6 @@
 import { ServerDynamicSchemaType } from '@/schemas/servers/DynamicSchema'
 import { ServerProfileSchemaType } from '@/schemas/servers/ProfileSchema'
-import { ServerReviewSchemaType, ServerReviewsSchemaType } from '@/schemas/servers/ReviewsSchema'
-import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
+import { ServerReviewsSchemaType } from '@/schemas/servers/ReviewsSchema'
 import { getMasterListServer } from '@/services/Fivem'
 import { trpc } from '@/utils/trpc'
 import { useRouter } from 'next/navigation'
@@ -42,17 +41,7 @@ export const ServerViewProvider: React.FC<{
         rating
       })
 
-      const reviewsRefetch = await utils.servers.getServerReviews.fetch({
-        pageId: server.page.id, 
-        offset: {
-          from: new Date().toISOString(), 
-          amount: 5
-        }
-      })
-
-      if (reviewsRefetch) {
-        setServerReviews(reviewsRefetch)
-      }
+      router.refresh()
     },
     []
   )
@@ -65,40 +54,30 @@ export const ServerViewProvider: React.FC<{
         content
       })
 
-      const reviewsRefetch = await utils.servers.getServerReviews.fetch({
-        pageId: server.page.id, 
-        offset: {
-          from: new Date().toISOString(), 
-          amount: 5
-        }
-      })
-
-      if (reviewsRefetch) {
-        setServerReviews(reviewsRefetch)
-      }
+      router.refresh()
     },
     []
   )
 
   const showMoreReviews = useCallback(
     async (): Promise<void> => {
-      const lastReview = serverReviews?.at(-1)
+      if (!serverReviews) return 
 
-      if (!lastReview) return
+      const lastReview = serverReviews[serverReviews.length - 1]
 
       const reviewsRefetch = await utils.servers.getServerReviews.fetch({
         pageId: server.page.id, 
         offset: {
-          from: lastReview.createdAt, 
+          from: lastReview?.createdAt || new Date().toISOString(), 
           amount: 5
         }
       })
 
       if (reviewsRefetch) {
-        setServerReviews(reviewsRefetch)
+        setServerReviews((state) => [...(state || []), ...reviewsRefetch])
       }
     },
-    []
+    [ serverReviews ]
   )
   
   useEffect(() => {
@@ -124,7 +103,6 @@ export const ServerViewProvider: React.FC<{
     })
       .then((serverReviews) => {
         if (!serverReviews) return  
-        console.log(serverReviews)
 
         setServerReviews(serverReviews)
       })

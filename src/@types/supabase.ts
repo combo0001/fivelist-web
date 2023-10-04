@@ -57,7 +57,7 @@ export interface Database {
           {
             foreignKeyName: "page_review_replies_review_id_fkey"
             columns: ["review_id"]
-            referencedRelation: "pages"
+            referencedRelation: "page_reviews"
             referencedColumns: ["id"]
           }
         ]
