@@ -68,10 +68,7 @@ export const ProfileContent = ({}: ProfileHeaderProps): JSX.Element => {
 
   return (
     <ContentContainer>
-      <Description
-        hasVip={user.planTier.privileges.PROFILE_DESCRIPTION}
-        text={user.page.description || 'Descrição não foi criada.'}
-      />
+      <Description />
 
       <InformationsWrapper>
         <InformationsSide>

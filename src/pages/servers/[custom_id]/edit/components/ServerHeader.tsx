@@ -17,6 +17,9 @@ import { useState } from 'react'
 import { useServerEditor } from '../providers/ServerEditorProvider'
 import { ServerDynamicSchemaType } from '@/schemas/servers/DynamicSchema'
 import { searchVariable } from '../../utils/searchVariable'
+import { v4 } from 'uuid'
+import { useStorage } from '@/providers/StorageProvider'
+import { trpc } from '@/utils/trpc'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -122,21 +125,38 @@ const PremiumContainer = styled('div', {
 })
 
 export const ServerHeader = (): JSX.Element => {
-  const { serverDynamic: serverDynamicNullable, serverToEdit } = useServerEditor()
+  const { uploadFile } = useStorage()
+
+  const { serverDynamic: serverDynamicNullable, serverToEdit, refreshServer } = useServerEditor()
   const serverDynamic = serverDynamicNullable as ServerDynamicSchemaType
+  const setServerBanner = trpc.servers.setServerBanner.useMutation()
 
   const [isLoading, setLoading] = useState<boolean>(false)
   const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
 
-  const hasVip = serverToEdit.page.planTier.id
+  const hasVip = serverToEdit.page.planTier.id > 0
   const hasBanner = serverToEdit.page.planTier.privileges.PAGE_BANNER && serverToEdit.page.bannerURL
 
   const toggleBannerEdit = (): void =>
     !isLoading ? setBannerEdit((state) => !state) : undefined
 
+  const updateBanner = async (file: File): Promise<void> => {
+    setLoading(true)
+
+    const imageURL = await uploadFile('banners', `${serverToEdit.page.id}/${v4()}.png`, file)
+
+    if (imageURL) {
+      await setServerBanner.mutateAsync({ imageURL, pageId: serverToEdit.page.id, joinId: serverToEdit.joinId })
+
+      await refreshServer()
+    }
+
+    setLoading(false)
+  }
+
   const handleOnBannerSent = (file: File): void => {
     toggleBannerEdit()
-    // updateBanner(file)
+    updateBanner(file)
   }
 
   return (

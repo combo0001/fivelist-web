@@ -47,11 +47,9 @@ const ContentContainer = styled('section', {
 export const ServerContent = (): JSX.Element => {
   const { serverView, serverDynamic } = useServerView()
 
-  const description = serverView.page.description || 'Descrição não foi alterada'
-
   return (
     <ContentContainer>
-      <Description text={description} hasVip={serverView.page.planTier.privileges.PAGE_DESCRIPTION} />
+      <Description />
 
       <Statistic players={0} />
 

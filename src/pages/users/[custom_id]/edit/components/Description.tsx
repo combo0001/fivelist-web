@@ -7,11 +7,6 @@ import { Button, Heading, Text } from '@5list-design-system/react'
 import Link from 'next/link'
 import { useUserEditor } from '../providers/UserEditorProvider'
 
-interface DescriptionProps {
-  text: string
-  hasVip: boolean
-}
-
 const DescriptionWrapper = styled('div', {
   minHeight: '10.75rem',
 
@@ -52,12 +47,12 @@ const EditContainer = styled(EditLink, {
   margin: '$9 $6',
 })
 
-export const Description = ({
-  text,
-  hasVip,
-}: DescriptionProps): JSX.Element => {
-  const { refreshUser } = useUserEditor()
+export const Description = (): JSX.Element => {
+  const { user, refreshUser } = useUserEditor()
   const setUserDescription = trpc.users.setUserDescription.useMutation()
+
+  const hasVip = user.planTier.privileges.PAGE_DESCRIPTION
+  const text = hasVip && user.page.description ? user.page.description : 'Descrição não foi editada'
 
   const handleOnChangeDescription = async (
     description: string,

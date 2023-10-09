@@ -38,7 +38,6 @@ export const StorageProvider: React.FC<{ children: React.ReactNode }> = ({
         .from(bucket)
         .upload(filePath, file, { upsert: false })
 
-      console.log(error)
       if (error) return null
 
       return getFileURL(bucket, data.path)

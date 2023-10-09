@@ -24,6 +24,20 @@ const LikeButtonContainer = styled('button', {
   '&:hover': {
     background: '$neutral700',
   },
+
+  variants: {
+    disabled: {
+      true: {
+        '& > *:first-child': {
+          fill: '$neutral500',
+        }, 
+
+        opacity: 0.5,
+        cursor: 'not-allowed',
+      },
+      false: {}
+    }
+  }
 })
 
 interface LikeButtonProps extends ComponentProps<typeof LikeButtonContainer> {

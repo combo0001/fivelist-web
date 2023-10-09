@@ -3,11 +3,7 @@ import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import Link from 'next/link'
 import { useState } from 'react'
-
-interface DescriptionProps {
-  text: string
-  hasVip: boolean
-}
+import { useServerView } from '../providers/ServerViewProvider'
 
 const DescriptionWrapper = styled('div', {
   minHeight: '11.25rem',
@@ -50,11 +46,13 @@ const DescriptionBlurContainer = styled('div', {
   alignItems: 'center',
 })
 
-export const Description = ({
-  text,
-  hasVip,
-}: DescriptionProps): JSX.Element => {
+export const Description = (): JSX.Element => {
   const [showMore, setShowMore] = useState<boolean>(false)
+
+  const { serverView } = useServerView()
+
+  const hasVip = serverView.page.planTier.privileges.PAGE_DESCRIPTION
+  const text = hasVip && serverView.page.description ? serverView.page.description : 'Descrição não foi editada'
 
   const toggleMode = (): void => {
     setShowMore((state) => !state)
@@ -89,9 +87,7 @@ export const Description = ({
 
       {!hasVip && (
         <DescriptionBlurContainer>
-          <Link href={'/premium/servers'} legacyBehavior>
-            <Button size={'lg'}>Servidor sem Premium</Button>
-          </Link>
+          <Button size={'lg'}>Servidor sem Premium</Button>
         </DescriptionBlurContainer>
       )}
     </DescriptionWrapper>

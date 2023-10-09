@@ -294,6 +294,40 @@ export interface Database {
           }
         ]
       }
+      user_likes: {
+        Row: {
+          author_id: string
+          created_at: string
+          id: number
+          page_id: string
+        }
+        Insert: {
+          author_id: string
+          created_at?: string
+          id?: number
+          page_id: string
+        }
+        Update: {
+          author_id?: string
+          created_at?: string
+          id?: number
+          page_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_likes_author_id_fkey"
+            columns: ["author_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_likes_page_id_fkey"
+            columns: ["page_id"]
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       user_plans: {
         Row: {
           created_at: string

@@ -39,12 +39,12 @@ const InformationsSide = styled('div', {
 export const ProfileContent = ({}: ProfileContentProps): JSX.Element => {
   const { user } = useUserView()
 
+  const hasDescription = user.planTier.privileges.PROFILE_DESCRIPTION
+
   return (
     <ContentContainer>
-      {user.planTier.privileges.PROFILE_DESCRIPTION && (
-        <Description
-          text={user.page.description || 'Descrição não foi criada.'}
-        />
+      {hasDescription && (
+        <Description />
       )}
 
       <InformationsWrapper>

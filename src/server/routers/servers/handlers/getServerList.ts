@@ -50,13 +50,16 @@ export const getServerList = procedure
 
       servers.push({
         joinId,
-        description: page?.description || null,
-        statistic: {
-          likes: page?.likes || 0,
-          followers: page?.followers || 0,
-          reviews: page?.reviews || 0,
+        page: page && {
+          id: page.id,
+          description: page.description,
+          statistic: {
+            likes: page.likes,
+            followers: page.followers,
+            reviews: page.reviews,
+          },
+          planTier,
         },
-        planTier,
         createdAt: createdAt ? new Date(createdAt).toISOString() : new Date().toISOString(),
       })
     }

@@ -8,6 +8,7 @@ import {
 } from '@/components/Icons'
 import { LikeButton } from '@/components/LikeButton'
 import { Tag } from '@/components/Tag'
+import { ServerPagePreviewSchemaType } from '@/schemas/servers/PagePreviewSchema'
 import { ServerViewSchemaType } from '@/schemas/servers/ViewSchema'
 import { styled } from '@/styles'
 import { Heading } from '@5list-design-system/react'
@@ -16,6 +17,9 @@ import { useRef } from 'react'
 
 interface ServerProps extends ServerViewSchemaType {
   position: number
+  canLike: boolean
+  isLiked: boolean
+  onLike: (pageId?: string) => Promise<void>
 }
 
 const PositionContainer = styled('div', {
@@ -136,9 +140,14 @@ export const Server = ({
   position,
   cfx,
   preview,
+  canLike,
+  isLiked,
+  onLike,
 }: ServerProps): JSX.Element => {
   const isRegistered = !!preview
-  const hasVip = isRegistered && preview.planTier.id > 0
+
+  const hasPage = !!isRegistered && !!preview.page
+  const hasVip = !!isRegistered && !!preview.page && preview.page.planTier.id > 0
 
   const likeRef = useRef<HTMLButtonElement>()
   const router = useRouter()
@@ -162,7 +171,7 @@ export const Server = ({
       positionIcon = <NormalPlaceIcon css={{ size: '$6' }} />
   }
 
-  const handleOnClick = ({ target }: React.MouseEvent): void => {
+  const handlePageOnClick = ({ target }: React.MouseEvent): void => {
     if (likeRef.current) {
       const clickedElement = target as unknown as HTMLElement
       const isButton = likeRef.current.contains(clickedElement)
@@ -170,6 +179,12 @@ export const Server = ({
       if (!isButton) {
         router.push(`/servers/${isRegistered ? preview.joinId : cfx.joinId}`)
       }
+    }
+  }
+
+  const handleLikeOnClick = async (): Promise<void> => {
+    if (canLike && !isLiked) {
+      await onLike()
     }
   }
 
@@ -181,12 +196,12 @@ export const Server = ({
         {positionIcon}
       </PositionContainer>
 
-      <PageContainer onClick={handleOnClick}>
+      <PageContainer onClick={handlePageOnClick}>
         <InformationsContainer>
           <ServerNameText>{cfx.projectName}</ServerNameText>
 
           {hasVip && (
-            <ServerDescriptionText>{preview.description}</ServerDescriptionText>
+            <ServerDescriptionText>{(preview.page as ServerPagePreviewSchemaType).description}</ServerDescriptionText>
           )}
 
           <TagsContainer>
@@ -194,14 +209,19 @@ export const Server = ({
               {cfx.playersCurrent} online de {cfx.playersMax}
             </Tag>
 
-            <Tag>{isRegistered ? preview.statistic.followers.toLocaleString() : 0} Seguidores</Tag>
+            <Tag>{hasPage ? (preview.page as ServerPagePreviewSchemaType).statistic.followers.toLocaleString() : 0} Seguidores</Tag>
 
-            <Tag>{isRegistered ? preview.statistic.reviews.toLocaleString() : 0} Avaliações</Tag>
+            <Tag>{hasPage ? (preview.page as ServerPagePreviewSchemaType).statistic.reviews.toLocaleString() : 0} Avaliações</Tag>
           </TagsContainer>
         </InformationsContainer>
 
-        <LikeButton reference={likeRef as any}>
-          {isRegistered ? preview.statistic.likes.toLocaleString() : 0}
+        <LikeButton 
+          outlined={!isLiked}
+          disabled={canLike ? false : !isLiked}
+          reference={likeRef as any}
+          onClick={handleLikeOnClick}
+        >
+          {hasPage ? (preview.page as ServerPagePreviewSchemaType).statistic.likes.toLocaleString() : 0}
         </LikeButton>
       </PageContainer>
     </ServerContainer>

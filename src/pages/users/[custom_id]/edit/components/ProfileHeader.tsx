@@ -209,12 +209,12 @@ export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
           <Divisor />
 
           {user.planTier.id === 0 ? (
-            <Link href={`/premium/users`} legacyBehavior>
+            <Link href={`/users/${user.customId}/premium`} legacyBehavior>
               <Button size={'lg'}>Adquirir plano</Button>
             </Link>
           ) : (
             <PremiumContainer>
-              <Link href={`/premium/users`} legacyBehavior>
+              <Link href={`/users/${user.customId}/premium`} legacyBehavior>
                 <Button size={'lg'}>Renovar plano</Button>
               </Link>
 

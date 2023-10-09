@@ -6,6 +6,7 @@ import { Heading } from '@5list-design-system/react'
 import { Advertising } from './Advertising'
 import { Server } from './Server'
 import { ServerViewsSchemaType } from '@/schemas/servers/ViewSchema'
+import { trpc } from '@/utils/trpc'
 
 interface ServersProps {
   servers: ServerViewsSchemaType
@@ -26,6 +27,15 @@ const ServerWithAdvertisingBox = styled('div', {
 })
 
 export const Servers = ({ servers }: ServersProps): JSX.Element => {
+  const { data: currentLike, refetch } = trpc.users.getUserCurrentLike.useQuery()
+  const setUserLike = trpc.users.setUserLike.useMutation()
+
+  const handleOnLike = async (pageId?: string): Promise<void> => {
+    if (!pageId) return 
+    
+    await setUserLike.mutateAsync({ pageId: pageId })
+    await refetch()
+  }
   return (
     <ServersContainer>
       <Heading as={'h5'} weight={'bold'}>
@@ -35,6 +45,8 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
       {
         servers
           .map((server, index) => {
+            const isLiked = !!server.preview?.page && currentLike?.page.id === server.preview.page.id
+
             let advertisingContent: React.ReactNode
 
             if (index > 0 && index % 6 === 0) {
@@ -44,7 +56,13 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
             return (
               <ServerWithAdvertisingBox key={index}>
                 {advertisingContent}
-                <Server position={index + 1} {...server} />
+                <Server 
+                  position={index + 1} 
+                  canLike={!currentLike}
+                  isLiked={isLiked}
+                  onLike={handleOnLike.bind(null, server.preview?.page?.id)}
+                  {...server} 
+                />
               </ServerWithAdvertisingBox>
             )
           })

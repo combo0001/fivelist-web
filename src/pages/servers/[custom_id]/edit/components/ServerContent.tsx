@@ -51,8 +51,6 @@ export const ServerContent = (): JSX.Element => {
   const { serverDynamic: serverDynamicNullable, serverToEdit, refreshServer } = useServerEditor()
   const serverDynamic = serverDynamicNullable as ServerDynamicSchemaType
 
-  const description = serverToEdit.page.description || 'Descrição não foi alterada'
-
   const addServerSocialMedia = trpc.servers.addServerSocialMedia.useMutation()
   const removeServerSocialMedia = trpc.servers.removeServerSocialMedia.useMutation()
 
@@ -113,7 +111,7 @@ export const ServerContent = (): JSX.Element => {
 
   return (
     <ContentContainer>
-      <Description text={description} hasVip={serverToEdit.page.planTier.privileges.PAGE_DESCRIPTION} />
+      <Description />
     
       <WebsiteLinks
         links={serverToEdit.page.connections}

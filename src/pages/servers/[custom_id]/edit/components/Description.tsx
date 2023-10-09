@@ -7,11 +7,6 @@ import { Button, Heading, Text } from '@5list-design-system/react'
 import Link from 'next/link'
 import { useServerEditor } from '../providers/ServerEditorProvider'
 
-interface DescriptionProps {
-  text: string
-  hasVip: boolean
-}
-
 const DescriptionWrapper = styled('div', {
   minHeight: '10.75rem',
 
@@ -52,12 +47,12 @@ const EditContainer = styled(EditLink, {
   margin: '$9 $6',
 })
 
-export const Description = ({
-  text,
-  hasVip,
-}: DescriptionProps): JSX.Element => {
+export const Description = (): JSX.Element => {
   const { serverToEdit, refreshServer } = useServerEditor()
   const setServerDescription = trpc.servers.setServerDescription.useMutation()
+
+  const hasVip = serverToEdit.page.planTier.privileges.PAGE_DESCRIPTION
+  const text = hasVip && serverToEdit.page.description ? serverToEdit.page.description : 'Descrição não foi editada'
 
   const handleOnChangeDescription = async (
     description: string,
@@ -91,7 +86,7 @@ export const Description = ({
 
       {!hasVip && (
         <DescriptionBlurContainer>
-          <Link href={'/premium/users'} legacyBehavior>
+          <Link href={`/servers/${serverToEdit.joinId}/premium`} legacyBehavior>
             <Button css={{ padding: '0 4.5rem' }} size={'lg'}>
               Obtenha o Premium
             </Button>
