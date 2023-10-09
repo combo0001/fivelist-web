@@ -1,12 +1,15 @@
 /* eslint-disable no-undef */
 
-import { styled, css } from '@/styles'
+import { styled } from '@/styles'
 import { Heading } from '@5list-design-system/react'
 
 import { Advertising } from './Advertising'
 import { Server } from './Server'
 import { ServerViewsSchemaType } from '@/schemas/servers/ViewSchema'
 import { trpc } from '@/utils/trpc'
+import { useServersList } from '../providers/ServersListProvider'
+
+import { toast } from 'react-toastify'
 
 interface ServersProps {
   servers: ServerViewsSchemaType
@@ -27,14 +30,37 @@ const ServerWithAdvertisingBox = styled('div', {
 })
 
 export const Servers = ({ servers }: ServersProps): JSX.Element => {
-  const { data: currentLike, refetch } = trpc.users.getUserCurrentLike.useQuery()
-  const setUserLike = trpc.users.setUserLike.useMutation()
+  const { data: currentLike, isFetched, refetch } = trpc.users.getUserCurrentLike.useQuery()
+  const { likeServer } = useServersList()
 
-  const handleOnLike = async (pageId?: string): Promise<void> => {
-    if (!pageId) return 
+  const handleOnLike = (pageId?: string): Promise<void> => {
+    const actionPromise: Promise<void> = new Promise((resolve, reject) => { 
+      if (pageId) {
+        likeServer(pageId)
+          .then(async (wasSuccess): Promise<void> => {
+            if (wasSuccess) {
+              await refetch()
+
+              return resolve()
+            } else {
+              return reject()
+            }
+          })
+      }
+
+      return resolve()
+    })
+
+    toast.promise(
+      actionPromise,
+      {
+        pending: 'Aplicando o Like...',
+        success: 'Like aplicado com sucesso',
+        error: 'Algo deu errado ao aplicar o Like'
+      }
+    )
     
-    await setUserLike.mutateAsync({ pageId: pageId })
-    await refetch()
+    return actionPromise 
   }
   return (
     <ServersContainer>
@@ -43,6 +69,7 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
       </Heading>
 
       {
+        isFetched && 
         servers
           .map((server, index) => {
             const isLiked = !!server.preview?.page && currentLike?.page.id === server.preview.page.id
@@ -65,6 +92,7 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
                 />
               </ServerWithAdvertisingBox>
             )
+
           })
       }
     </ServersContainer>

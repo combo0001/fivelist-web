@@ -37,6 +37,40 @@ export interface Database {
           }
         ]
       }
+      page_likes: {
+        Row: {
+          author_id: string
+          created_at: string
+          id: number
+          page_id: string
+        }
+        Insert: {
+          author_id: string
+          created_at?: string
+          id?: number
+          page_id: string
+        }
+        Update: {
+          author_id?: string
+          created_at?: string
+          id?: number
+          page_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "page_likes_author_id_fkey"
+            columns: ["author_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "page_likes_page_id_fkey"
+            columns: ["page_id"]
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       page_review_replies: {
         Row: {
           content: string
@@ -290,40 +324,6 @@ export interface Database {
             foreignKeyName: "user_follows_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      user_likes: {
-        Row: {
-          author_id: string
-          created_at: string
-          id: number
-          page_id: string
-        }
-        Insert: {
-          author_id: string
-          created_at?: string
-          id?: number
-          page_id: string
-        }
-        Update: {
-          author_id?: string
-          created_at?: string
-          id?: number
-          page_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_likes_author_id_fkey"
-            columns: ["author_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_likes_page_id_fkey"
-            columns: ["page_id"]
-            referencedRelation: "pages"
             referencedColumns: ["id"]
           }
         ]

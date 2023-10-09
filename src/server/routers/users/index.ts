@@ -3,7 +3,7 @@ import { getUserIdentity } from './handlers/getUserIdentity'
 import { getUserProfile } from './handlers/getUserProfile'
 import { getUserCurrentLike } from './handlers/getUserCurrentLike'
 import { setUserBanner } from './handlers/setUserBanner'
-import { setUserLike } from './handlers/setUserLike'
+import { trySetUserLike } from './handlers/trySetUserLike'
 import { setUserDescription } from './handlers/setUserDescription'
 import { setUserStreamLink } from './handlers/setUserStreamLink'
 import { addUserSocialMedia } from './handlers/addUserSocialMedia'
@@ -18,7 +18,7 @@ export const usersRouter = router({
   getUserIdentity,
   getUserProfile,
   getUserCurrentLike,
-  setUserLike,
+  trySetUserLike,
   setUserBanner,
   setUserDescription,
   setUserStreamLink,

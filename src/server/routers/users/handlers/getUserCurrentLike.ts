@@ -21,7 +21,7 @@ export const getUserCurrentLike = procedure
     const limitDateString = new Date(Date.now() - (hasDouble ? 12 : 24) * 60 * 60 * 1000).toISOString()
 
     const { data: likeData, error: likeError } = await supabase
-      .from('user_likes')
+      .from('page_likes')
       .select(`
         page:pages(
           id,

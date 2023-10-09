@@ -6,15 +6,15 @@ const UserLikeInputSchema = z.object({
   pageId: z.string().uuid(),
 })
 
-const UserLikeOutputSchema = z.void()
+const UserLikeOutputSchema = z.boolean()
 
-export const setUserLike = procedure
+export const trySetUserLike = procedure
   .input(UserLikeInputSchema)
   .output(UserLikeOutputSchema)
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return
+    if (!supabase || !session) return false
 
     const userPlanTier = await getUserPlanTier(supabase, session.user.id)
 
@@ -22,20 +22,22 @@ export const setUserLike = procedure
     const limitDateString = new Date(Date.now() - (hasDouble ? 12 : 24) * 60 * 60 * 1000).toISOString()
 
     const { data: likeData, error: likeError } = await supabase
-      .from('user_likes')
+      .from('page_likes')
       .select('id')
       .eq('author_id', session.user.id)
       .gte('created_at', limitDateString)
       .order('created_at', { ascending: false })
 
-    if (likeError || likeData.length) return
+    if (likeError || likeData.length) return false
 
     const { error: insertError } = await supabase
-      .from('user_likes')
+      .from('page_likes')
       .insert({
         author_id: session.user.id,
         page_id: input.pageId,
       })
 
-    if (insertError) return 
+    if (insertError) return false 
+
+    return true
   })
