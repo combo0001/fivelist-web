@@ -119,7 +119,7 @@ export const ProfileHeader = ({ }: ProfileHeaderProps): JSX.Element => {
 
   const isClientProfile = clientUser?.id === user.id
   const hasBanner = !!(
-    user.planTier.privileges.PROFILE_HEADER && user.page.bannerURL
+    user.planTier.privileges.PROFILE_BANNER && user.page.bannerURL
   )
 
   const handleOnToggleFollow = async (): Promise<void> => {
@@ -140,12 +140,12 @@ export const ProfileHeader = ({ }: ProfileHeaderProps): JSX.Element => {
 
   const actionButton = isClientProfile ? (
     user.planTier.id === 0 ? (
-      <Link href={`/premium/users`} legacyBehavior>
+      <Link href={`/users/${user.customId}/premium`} legacyBehavior>
         <Button size={'lg'}>Adquirir plano</Button>
       </Link>
     ) : (
       <PremiumContainer>
-        <Link href={`/premium/users`} legacyBehavior>
+        <Link href={`/users/${user.customId}/premium`} legacyBehavior>
           <Button size={'lg'}>Renovar plano</Button>
         </Link>
 

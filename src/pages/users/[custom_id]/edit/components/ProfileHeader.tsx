@@ -153,7 +153,7 @@ export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
   }
 
   const hasBanner = !!(
-    user.planTier.privileges.PROFILE_HEADER && user.page.bannerURL
+    user.planTier.privileges.PROFILE_BANNER && user.page.bannerURL
   )
 
   return (

@@ -10,6 +10,8 @@ import { trpc } from '@/utils/trpc'
 import { useServersList } from '../providers/ServersListProvider'
 
 import { toast } from 'react-toastify'
+import { useClientUser } from '@/providers/UserProvider'
+import { useRouter } from 'next/navigation'
 
 interface ServersProps {
   servers: ServerViewsSchemaType
@@ -30,25 +32,34 @@ const ServerWithAdvertisingBox = styled('div', {
 })
 
 export const Servers = ({ servers }: ServersProps): JSX.Element => {
-  const { data: currentLike, isFetched, refetch } = trpc.users.getUserCurrentLike.useQuery()
+  const { user } = useClientUser()
   const { likeServer } = useServersList()
+  const router = useRouter()
 
-  const handleOnLike = (pageId?: string): Promise<void> => {
+  const { data: currentLike, isFetched, refetch } = trpc.users.getUserCurrentLike.useQuery()
+
+  const handleOnLike = async (pageId?: string): Promise<void> => {
+    if (!user) {
+      router.push('/signin')
+
+      return 
+    }
+
     const actionPromise: Promise<void> = new Promise((resolve, reject) => { 
       if (pageId) {
         likeServer(pageId)
-          .then(async (wasSuccess): Promise<void> => {
+          .then((wasSuccess): void => {
             if (wasSuccess) {
-              await refetch()
+              refetch()
 
               return resolve()
             } else {
               return reject()
             }
           })
+      } else {
+        return reject()
       }
-
-      return resolve()
     })
 
     toast.promise(
@@ -60,7 +71,7 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
       }
     )
     
-    return actionPromise 
+    return await actionPromise 
   }
   return (
     <ServersContainer>

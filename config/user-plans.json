@@ -6,8 +6,7 @@
   {
     "name": "PREMIUM_TIER",
     "privileges": {
-      "PROFILE_CUSTOM_ID": true,
-      "PROFILE_HEADER": true,
+      "PROFILE_BANNER": true,
       "PROFILE_DESCRIPTION": true,
       "DOUBLE_LIKE": true
     }
