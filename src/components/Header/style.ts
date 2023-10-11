@@ -9,7 +9,7 @@ import {
 
 export const HeaderContainer = styled('header', {
   width: '100%',
-  padding: '0 $4',
+  padding: '0 $4 0 $10',
 
   background: '$neutral900',
 
@@ -84,4 +84,9 @@ export const AuthButtonsSection = styled('section', {
   display: 'flex',
   alignItems: 'center',
   gap: '$4',
+})
+
+export const LogoContainer = styled(Link, {
+  size: '$10',
+  marginRight: 'auto',
 })

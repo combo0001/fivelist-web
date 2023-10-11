@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     domains: ['cdn.discordapp.com', 'gnbufszcvbhrauxksshd.supabase.co'],
   },
+
   reactStrictMode: true,
   pageExtensions: ['page.tsx', 'api.ts', 'api.tsx', 'ts'],
 
@@ -15,6 +16,8 @@ const nextConfig = {
 
     return config
   },
+
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
 }
 
 module.exports = nextConfig

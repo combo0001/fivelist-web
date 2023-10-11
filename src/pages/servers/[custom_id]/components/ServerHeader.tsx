@@ -160,12 +160,15 @@ export const ServerHeader = (): JSX.Element => {
               Conectar Servidor
             </Button>
 
-            <Link href={'/home'} legacyBehavior>
-              <Button size={'lg'} outlined>
-                Obtenha o Premium
-              </Button>
-            </Link>
-
+            {
+              isOwner &&
+              <Link href={`/servers/${serverView.joinId}/premium`} legacyBehavior>
+                <Button size={'lg'} outlined>
+                  Obtenha o Premium
+                </Button>
+              </Link>
+            }
+            
             {
               serverView.page.ownerUser ?
                 <Link href={`/users/${serverView.page.ownerUser.customId}`} legacyBehavior>

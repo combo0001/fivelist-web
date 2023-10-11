@@ -1,0 +1,31 @@
+[
+  {
+    "id": "FREE_TIER",
+    "tag": "FREE",
+    "price": {
+      "MONTHLY": 0,
+      "QUARTERLY": 0,
+      "YEARLY": 0
+    },
+    "privileges": {
+      "BASIC_LIKE": true, 
+      "SERVER_REVIEW": true
+    }
+  },
+  {
+    "id": "PREMIUM_TIER",
+    "tag": "RECOMMENDED",
+    "price": {
+      "MONTHLY": 17,
+      "QUARTERLY": 13,
+      "YEARLY": 9.7
+    },
+    "privileges": {
+      "BASIC_LIKE": true, 
+      "SERVER_REVIEW": true, 
+      "PROFILE_BANNER": true,
+      "PROFILE_DESCRIPTION": true,
+      "DOUBLE_LIKE": true
+    }
+  }
+]

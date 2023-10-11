@@ -82,7 +82,7 @@ export const Description = (): JSX.Element => {
 
       {!hasVip && (
         <DescriptionBlurContainer>
-          <Link href={'/premium/users'} legacyBehavior>
+          <Link href={`/users/${user.customId}/premium`} legacyBehavior>
             <Button css={{ padding: '0 4.5rem' }} size={'lg'}>
               Obtenha o Premium
             </Button>

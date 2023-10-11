@@ -1,0 +1,68 @@
+[
+  {
+    "id": "FREE_TIER",
+    "tag": "FREE",
+    "price": {
+      "MONTHLY": 0,
+      "QUARTERLY": 0,
+      "YEARLY": 0
+    },
+    "privileges": {
+      "EXCLUSIVE_PAGE": true
+    }
+  },
+  {
+    "id": "BASIC_TIER",
+    "tag": null,
+    "price": {
+      "MONTHLY": 97,
+      "QUARTERLY": 87,
+      "YEARLY": 77
+    },
+    "privileges": {
+      "EXCLUSIVE_PAGE": true,
+      "PAGE_DESCRIPTION": true,
+      "PAGE_BANNER": true,
+      "REPLY_REVIEWS": true,
+      "LIKE_SERVER_BOT": true
+    }
+  },
+  {
+    "id": "PRO_TIER",
+    "tag": "BEST_SELLER",
+    "price": {
+      "MONTHLY": 297,
+      "QUARTERLY": 267,
+      "YEARLY": 237
+    },
+    "privileges": {
+      "EXCLUSIVE_PAGE": true,
+      "PAGE_DESCRIPTION": true,
+      "PAGE_BANNER": true,
+      "REPLY_REVIEWS": true,
+      "LIKE_SERVER_BOT": true,
+      "PAGE_CUSTOM_ID": true,
+      "LIKE_SERVER_SCRIPT": true
+    }
+  },
+  {
+    "id": "BUSINESS_TIER",
+    "tag": "RECOMMENDED",
+    "price": {
+      "MONTHLY": null,
+      "QUARTERLY": null,
+      "YEARLY": null
+    },
+    "privileges": {
+      "EXCLUSIVE_PAGE": true,
+      "PAGE_DESCRIPTION": true,
+      "PAGE_BANNER": true,
+      "REPLY_REVIEWS": true,
+      "LIKE_SERVER_BOT": true,
+      "PAGE_CUSTOM_ID": true,
+      "LIKE_SERVER_SCRIPT": true,
+      "SERVER_STATISTICS": true,
+      "MARKETING_SUPPORT": true
+    }
+  }
+]

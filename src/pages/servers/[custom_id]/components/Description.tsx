@@ -87,7 +87,7 @@ export const Description = (): JSX.Element => {
 
       {!hasVip && (
         <DescriptionBlurContainer>
-          <Button size={'lg'}>Servidor sem Premium</Button>
+          <Button size={'lg'} css={{ pointerEvents: 'none' }}>Servidor sem Premium</Button>
         </DescriptionBlurContainer>
       )}
     </DescriptionWrapper>

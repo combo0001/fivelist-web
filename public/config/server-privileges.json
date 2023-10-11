@@ -1,34 +1,47 @@
-{
-  "PAGE_DESCRIPTION": {
+[
+  {
+    "id": "EXCLUSIVE_PAGE",
+    "name": "Página exclusiva do servidor",
+    "description": "Esse privilégio permite que seu servidor tenha uma página exclusiva e profissional para ser divulgada!"
+  },
+  {
+    "id": "PAGE_DESCRIPTION",
     "name": "Alterar descrição do servidor",
     "description": "Esse privilégio permite que você altere a descrição do servidor, assim todos podem conhecê-lo melhor!"
   },
-  "PAGE_BANNER": {
+  {
+    "id": "PAGE_BANNER",
     "name": "Alterar banner do servidor",
     "description": "Esse privilégio permite que você altere o banner do servidor, deixando ele mais estiloso para todos que vêem!"
   },
-  "REPLY_REVIEWS": {
+  {
+    "id": "REPLY_REVIEWS",
     "name": "Responder avaliações",
     "description": "Esse privilégio permite que você respondas as avaliações do servidor, assim você pode esclarecer qualquer dúvida ou mal entendido!"
   },
-  "LIKE_SERVER_BOT": {
+  {
+    "id": "LIKE_SERVER_BOT",
     "name": "Ferramenta Discord",
     "description": "Esse privilégio te dá acesso à integração com o Discord, assim você terá uma ferramenta poderosa que estimula seus players a curtirem seu servidor!"
   },
-  "PAGE_CUSTOM_ID": {
+  {
+    "id": "PAGE_CUSTOM_ID",
     "name": "Alterar link do servidor",
     "description": "Esse privilégio permite que seu servidor tenha um link personalizado, assim você pode colocar o nome real da cidade e divulgar seu servidor de uma forma mais fácil!"
   },
-  "LIKE_SERVER_SCRIPT": {
+  {
+    "id": "LIKE_SERVER_SCRIPT",
     "name": "Ferramenta Exclusiva In-Game",
     "description": "Esse privilégio te dá acesso à todas as funcionalidades da nossa ferramenta in-game, isso inclui um painel com vários gatilhos e funções incríveis para estimular seus jogadores a curtirem seu servidor, além de um relatório de estatísticas completo!"
   },
-  "SERVER_STATISTICS": {
+  {
+    "id": "SERVER_STATISTICS",
     "name": "Estatísticas do servidor",
     "description": "Esse privilégio te dá acesso a todas as estatísticas do seu servidor, assim você pode ter dados valiosos de tráfego de jogadores, e entender padrões para melhorar seu servidor!"
   },
-  "MARKETING_SUPPORT": {
+  {
+    "id": "MARKETING_SUPPORT",
     "name": "Marketing especializado",
     "description": "Esse privilégio permite que você tenha consultoria de marketing para seu servidor, assim você pode ter um crescimento impressionante utilizando dicas da nossa equipe especializada em Marketing Digital!"
   }
-}
+]

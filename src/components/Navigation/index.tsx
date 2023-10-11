@@ -7,7 +7,7 @@ import { LinkContainer, NavigationContainer } from './style'
 import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
 
 interface NavigationProps {
-  user: UserIdentitySchemaType
+  user: UserIdentitySchemaType | null
 }
 
 export const Navigation = ({ user }: NavigationProps): JSX.Element => {

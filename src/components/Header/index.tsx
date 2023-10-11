@@ -1,13 +1,12 @@
-import { Button, Text } from '@5list-design-system/react'
-import Link from 'next/link'
-
 /* eslint-disable no-undef */
+import { Button, Text } from '@5list-design-system/react'
 import {
   AuthButtonsSection,
   DiscordAnchor,
   DiscordIcon,
   DiscordSection,
   HeaderContainer,
+  LogoContainer,
   ProfileAnchor,
   ProfileIcon,
   ProfileSection,
@@ -16,6 +15,9 @@ import {
 import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
 import { SignOutIcon } from '../Icons'
 import { useClientUser } from '@/providers/UserProvider'
+import LogoImage from '@/assets/logo.png'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface HeaderProps {
   user: UserIdentitySchemaType | null
@@ -48,6 +50,15 @@ export const Header = ({ user }: HeaderProps): JSX.Element => {
       {authSection}
 
       <Discord inviteURL={'https://discord.gg/aTGQYBwexY'} />
+
+      <LogoContainer href={'/home'}>
+        <Image
+          src={LogoImage}
+          alt=""
+          width={40}
+          height={40}
+        />
+      </LogoContainer>
     </HeaderContainer>
   )
 }

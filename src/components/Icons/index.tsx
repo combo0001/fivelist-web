@@ -31,6 +31,8 @@ import StatusSvg from '@/assets/status.svg'
 import StoreSvg from '@/assets/store.svg'
 import WorldSvg from '@/assets/world.svg'
 import SignOutSvg from '@/assets/logout.svg'
+import CheckedSvg from '@/assets/checked.svg'
+import NotCheckedSvg from '@/assets/not-checked.svg'
 
 import { styled } from '../../styles'
 
@@ -68,3 +70,5 @@ export const StatusIcon = styled(StatusSvg, {})
 export const PointsIcon = styled(PointsSvg, {})
 export const PlayIcon = styled(PlaySvg, {})
 export const SignOutIcon = styled(SignOutSvg, {})
+export const CheckedIcon = styled(CheckedSvg, {})
+export const NotCheckedIcon = styled(NotCheckedSvg, {})
