@@ -3,6 +3,7 @@ import { procedure } from '@/server/trpc'
 import { z } from 'zod'
 import { getUserPlanTier } from '../utils/getUserPlanTier'
 import { getServerPlanTier } from '../../servers/utils/getServerPlanTier'
+import { isUserValid } from '../utils/isUserValid'
 
 const UserLikeInputSchema = z.undefined()
 const UserLikeOutputSchema = z.union([z.null(), UserLikeSchema])
@@ -13,7 +14,7 @@ export const getUserCurrentLike = procedure
   .query(async ({ ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return null
+    if (!supabase || !session || !isUserValid(session)) return null
 
     const userPlanTier = await getUserPlanTier(supabase, session.user.id)
 

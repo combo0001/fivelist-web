@@ -20,7 +20,7 @@ export const setServerBanner = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return
+    if (!supabase || !session || !isUserValid(session)) return
 
     const { data: updateData, error: updateError } = await supabase
       .from('pages')

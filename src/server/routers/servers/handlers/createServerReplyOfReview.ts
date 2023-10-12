@@ -20,7 +20,7 @@ export const createServerReplyOfReview = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return
+    if (!supabase || !session || !isUserValid(session)) return
 
     const { data: reviewData, error: fetchError } = await supabase
       .from('page_reviews')

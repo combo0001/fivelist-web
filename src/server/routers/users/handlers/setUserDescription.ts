@@ -4,6 +4,7 @@ import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'
 import { z } from 'zod'
 import { revalidateUser } from '../utils/revalidateUser'
+import { isUserValid } from '../utils/isUserValid'
 
 const UserDescriptionInputSchema = z.object({
   description: UserDescriptionSchema,
@@ -17,7 +18,7 @@ export const setUserDescription = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return
+    if (!supabase || !session || !isUserValid(session)) return
 
     const { data: rowsData, error: updateError } = await supabase
       .from('users')

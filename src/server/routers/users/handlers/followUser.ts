@@ -4,6 +4,7 @@ import { UserIdSchema } from '@/schemas/users/CredentialsSchema'
 import { inferAsyncReturnType } from '@trpc/server'
 import { createContext } from '@/server/context'
 import { revalidateUser } from '../utils/revalidateUser'
+import { isUserValid } from '../utils/isUserValid'
 
 const UserFollowInputSchema = z.object({
   userId: UserIdSchema,
@@ -17,7 +18,7 @@ export const followUser = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return false
+    if (!supabase || !session || !isUserValid(session)) return false
     if (session.user.id === input.userId) return false
 
     const { status } = await supabase.from('user_follows')

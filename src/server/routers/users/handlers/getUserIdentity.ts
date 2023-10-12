@@ -3,6 +3,10 @@ import { procedure } from '@/server/trpc'
 import { z } from 'zod'
 import { createCustomId } from '../utils/createCustomId'
 import { getUserPlanTier } from '../utils/getUserPlanTier'
+import { User } from '@supabase/supabase-js'
+import { isUserValid } from '../utils/isUserValid'
+
+
 
 const UserInputSchema = z.undefined()
 const UserOutputSchema = z.union([z.null(), UserIdentitySchema])
@@ -13,7 +17,7 @@ export const getUserIdentity = procedure
   .query(async ({ ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return null
+    if (!supabase || !session || !isUserValid(session)) return null    
 
     const { data: fetchData } = await supabase
       .from('users')
@@ -43,8 +47,6 @@ export const getUserIdentity = procedure
     } = user
     const { email, user_metadata: userMetadata } = session.user
     const planTier = await getUserPlanTier(supabase, id)
-
-    // console.log((session.user as any).amr)
 
     return {
       id,

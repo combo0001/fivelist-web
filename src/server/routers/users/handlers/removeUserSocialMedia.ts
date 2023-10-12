@@ -4,6 +4,7 @@ import { procedure } from '@/server/trpc'
 import { inferAsyncReturnType } from '@trpc/server'
 import { z } from 'zod'
 import { revalidateUser } from '../utils/revalidateUser'
+import { isUserValid } from '../utils/isUserValid'
 
 const UserSocialMediaInputSchema = z.object({
   socialMedia: SocialMediaSchema,
@@ -17,7 +18,7 @@ export const removeUserSocialMedia = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return
+    if (!supabase || !session || !isUserValid(session)) return
 
     const { error: deleteError } = await supabase
       .from('user_social_media')

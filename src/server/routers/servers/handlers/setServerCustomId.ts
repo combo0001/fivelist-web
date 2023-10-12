@@ -19,7 +19,7 @@ export const setServerCustomId = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return
+    if (!supabase || !session || !isUserValid(session)) return
 
     const { error: updateError, data: updateData } = await supabase
       .from('pages')

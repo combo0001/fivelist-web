@@ -15,7 +15,7 @@ export const addUserSocialMedia = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return
+    if (!supabase || !session || !isUserValid(session)) return
 
     const { error: upsertError } = await supabase
       .from('user_social_media')

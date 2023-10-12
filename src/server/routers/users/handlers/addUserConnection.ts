@@ -5,6 +5,7 @@ import { inferAsyncReturnType } from '@trpc/server'
 import { z } from 'zod'
 import { registerActivity } from '../utils/registerReward'
 import { revalidateUser } from '../utils/revalidateUser'
+import { isUserValid } from '../utils/isUserValid'
 
 const UserConnectionInputSchema = UserConnectionSchema
 
@@ -16,7 +17,7 @@ export const addUserConnection = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return
+    if (!supabase || !session || !isUserValid(session)) return
 
     const { error: upsertError } = await supabase.from('user_connections')
       .upsert({

@@ -1,6 +1,7 @@
 import { procedure } from '@/server/trpc'
 import { z } from 'zod'
 import { UserIdSchema } from '@/schemas/users/CredentialsSchema'
+import { isUserValid } from '../utils/isUserValid'
 
 const UserFollowInputSchema = z.object({
   userId: UserIdSchema,
@@ -14,7 +15,7 @@ export const isUserFollower = procedure
   .query(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return false
+    if (!supabase || !session || !isUserValid(session)) return false
     if (session.user.id === input.userId) return false
 
     const { count, error: selectError } = await supabase.from('user_follows')

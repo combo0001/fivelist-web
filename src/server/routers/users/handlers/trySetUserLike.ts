@@ -1,6 +1,7 @@
 import { procedure } from '@/server/trpc'
 import { z } from 'zod'
 import { getUserPlanTier } from '../utils/getUserPlanTier'
+import { isUserValid } from '../utils/isUserValid'
 
 const UserLikeInputSchema = z.object({
   pageId: z.string().uuid(),
@@ -14,7 +15,7 @@ export const trySetUserLike = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session) return false
+    if (!supabase || !session || !isUserValid(session)) return false
 
     const userPlanTier = await getUserPlanTier(supabase, session.user.id)
 
