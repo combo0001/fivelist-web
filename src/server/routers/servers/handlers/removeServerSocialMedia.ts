@@ -5,6 +5,7 @@ import { inferAsyncReturnType } from '@trpc/server'
 import { z } from 'zod'
 import { revalidateServer } from '../utils/revalidateServer'
 import { ServerJoinIdSchema } from '@/schemas/servers/IdentitySchema'
+import { isUserValid } from '../../users/utils/isUserValid'
 
 const ServerSocialMediaInputSchema = z.object({
   joinId: ServerJoinIdSchema,

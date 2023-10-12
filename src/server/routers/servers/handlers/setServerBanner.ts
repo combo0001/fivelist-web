@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { ServerJoinIdSchema } from '@/schemas/servers/IdentitySchema'
 import { ServerImageUrlSchema } from '@/schemas/servers/PageSchema'
 import { revalidateServer } from '../utils/revalidateServer'
+import { isUserValid } from '../../users/utils/isUserValid'
 
 const ServerBannerInputSchema = z.object({
   joinId: ServerJoinIdSchema,

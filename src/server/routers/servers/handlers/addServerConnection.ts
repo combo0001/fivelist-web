@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { revalidateServer } from '../utils/revalidateServer'
 import { ServerJoinIdSchema } from '@/schemas/servers/IdentitySchema'
 import { ServerConnectionSchema } from '@/schemas/servers/ConnectionsSchema'
+import { isUserValid } from '../../users/utils/isUserValid'
 
 const ServerConnectionInputSchema = z.object({
   joinId: ServerJoinIdSchema,

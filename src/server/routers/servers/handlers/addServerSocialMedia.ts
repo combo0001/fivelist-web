@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { revalidateServer } from '../utils/revalidateServer'
 import { ServerJoinIdSchema } from '@/schemas/servers/IdentitySchema'
 import { ServerSocialMediaSchema } from '@/schemas/servers/SocialMediaSchema'
+import { isUserValid } from '../../users/utils/isUserValid'
 
 const ServerSocialMediaInputSchema = z.object({
   joinId: ServerJoinIdSchema,
