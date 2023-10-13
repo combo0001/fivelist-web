@@ -5,7 +5,8 @@ import { useRouter } from 'next/router'
 import { useRouter as useNavigation } from 'next/navigation'
 import { CheckoutMain } from './main'
 import { trpc } from '@/utils/trpc'
-import { PlansProvider } from '../providers/PlansProvider'
+import { PaymentProvider } from './providers/PaymentProvider'
+import { OfferEnumSchema, OfferEnumSchemaType } from '@/schemas/PremiumSchema'
 
 export default function Checkout(): JSX.Element {
   const router = useNavigation()
@@ -24,7 +25,13 @@ export default function Checkout(): JSX.Element {
       }
     }
     
-    if (!query.plan || !query.offer) {
+    try {
+      const isValidOffer = OfferEnumSchema.parse(query.offer)
+
+      if (!query.plan || !isValidOffer) {
+        throw new Error()
+      }
+    } catch (error) {
       router.push('/home')
     }
   })
@@ -34,8 +41,11 @@ export default function Checkout(): JSX.Element {
   }
 
   return (
-    <PlansProvider>
+    <PaymentProvider
+      plan={query.plan as string}
+      offer={query.offer as OfferEnumSchemaType}
+    >
       <CheckoutMain />
-    </PlansProvider>
+    </PaymentProvider>
   )
 }

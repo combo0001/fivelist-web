@@ -33,6 +33,9 @@ import WorldSvg from '@/assets/world.svg'
 import SignOutSvg from '@/assets/logout.svg'
 import CheckedSvg from '@/assets/checked.svg'
 import NotCheckedSvg from '@/assets/not-checked.svg'
+import MethodPixSvg from '@/assets/method-pix.svg'
+import MethodTicketSvg from '@/assets/method-ticket.svg'
+import MethodCreditCardSvg from '@/assets/method-credit-card.svg'
 
 import { styled } from '../../styles'
 
@@ -44,6 +47,9 @@ export const TwitterIcon = styled(TwitterSvg, {})
 export const TiktokIcon = styled(TiktokSvg, {})
 export const TwitchIcon = styled(TwitchSvg, {})
 export const AtIcon = styled(AtSvg, {})
+export const MethodPixIcon = styled(MethodPixSvg, {})
+export const MethodTicketIcon = styled(MethodTicketSvg, {})
+export const MethodCreditCardIcon = styled(MethodCreditCardSvg, {})
 
 export const ProfileIcon = styled(ProfileSvg, {})
 export const CheckIcon = styled(CheckSvg, {})
