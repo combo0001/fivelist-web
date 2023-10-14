@@ -8,6 +8,8 @@ import { ComponentProps } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 import { MethodCreditCardIcon, MethodPixIcon, MethodTicketIcon } from '@/components/Icons'
+import { useCheckout } from '../providers/CheckoutProvider'
+import { useRouter } from 'next/navigation'
 
 const PaymentFormSchema = z.object({
   ...PayerIdentitySchema.shape,
@@ -138,6 +140,9 @@ const PaymentMethodButton = ({ paymentMethod, selected, ...props }: PaymentMetho
 }
 
 export const Payment = (): JSX.Element => {
+  const { finishOrder } = useCheckout()
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -161,8 +166,28 @@ export const Payment = (): JSX.Element => {
     },
   })
 
-  const handleOnSubmit = (data: PaymentFormSchemaType) => {
-    console.log(data)
+  const handleOnSubmit = async (data: PaymentFormSchemaType): Promise<void> => {
+    const redirectURL = await finishOrder(
+      data.paymentMethod,
+      {
+        identification: data.identification,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        address: {
+            houseNumber: data.houseNumber,
+            street: data.street,
+            complement: data.complement,
+            zipCode: data.zipCode,
+            neighborhood: data.neighborhood,
+            city: data.city,
+            state: data.state
+        }
+      }
+    )
+
+    if (redirectURL)
+      router.push(redirectURL)
   }
 
   return (

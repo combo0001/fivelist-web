@@ -7,24 +7,27 @@ import { Heading } from '@5list-design-system/react'
 import { useRouter } from 'next/navigation'
 import { Payment } from './components/Payment'
 import { Summary } from './components/Summary'
-import { usePayment } from './providers/PaymentProvider'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useCheckout } from './providers/CheckoutProvider'
 
 export const CheckoutMain = (): JSX.Element => {
-  const { user: clientUser } = useClientUser()
   const router = useRouter()
+  const { user: clientUser } = useClientUser()
 
-  const { plan } = usePayment()
+  const [ isBacking, setBacking ] = useState<boolean>(false)
+  const { order } = useCheckout()
 
   const handleOnBack = () => {
-    router.back()
+    if (isBacking) return 
+
+    setBacking(true)
   }
 
   useEffect(() => {
-    if (plan === null) {
-      router.push('/home')
+    if (isBacking) {
+      router.back()
     }
-  }, [ plan ])
+  }, [ isBacking ])
 
   return (
     <PageLayout>
@@ -46,7 +49,7 @@ export const CheckoutMain = (): JSX.Element => {
         >
           Voltar
         </Heading>
-
+       
         <Summary />
         <Payment />
       </CheckoutWrapper>

@@ -12,7 +12,6 @@ import { removeServerConnection } from './handlers/removeServerConnection'
 import { getServerReviews } from './handlers/getServerReviews'
 import { createServerReview } from './handlers/createServerReview'
 import { createServerReplyOfReview } from './handlers/createServerReplyOfReview'
-import { subscribePlan } from './handlers/subscribePlan'
 
 export const serversRouter = router({
   getServerList,
@@ -28,5 +27,4 @@ export const serversRouter = router({
   removeServerConnection,
   createServerReview,
   createServerReplyOfReview,
-  subscribePlan
 })

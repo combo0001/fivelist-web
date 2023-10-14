@@ -7,6 +7,7 @@ import React, {
   useState,
 } from 'react'
 import { useRouter } from 'next/navigation'
+import { trpc } from '@/utils/trpc'
 
 interface ProviderProps {
   offer: OfferEnumSchemaType
@@ -21,6 +22,8 @@ export const PremiumProvider: React.FC<{
   server: ServerProfileSchemaType
 }> = ({ children, server }) => {
   const router = useRouter()
+  const createOrder = trpc.payment.createOrder.useMutation()
+
   const [ offer, setOffer ] = useState<OfferEnumSchemaType>('MONTHLY')
 
   const changeOffer = async (offer: OfferEnumSchemaType) => {
@@ -28,7 +31,17 @@ export const PremiumProvider: React.FC<{
   }
 
   const goToCheckout = async (plan: PlanSchemaType) => {
-    router.push(`/servers/${server.joinId}/premium/new?plan=${plan.id}&offer=${offer}`)
+    const orderId = await createOrder.mutateAsync({
+      orderData: {
+        pageId: server.page.id,
+        planId: plan.id,
+        offer,
+      }
+    })
+
+    if (orderId) {
+      router.push(`/checkout?order=${orderId}`)
+    }
   }
 
   return (

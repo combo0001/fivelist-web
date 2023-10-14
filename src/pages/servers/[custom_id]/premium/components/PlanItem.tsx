@@ -125,8 +125,6 @@ const IconContainer = styled('div', {
 })
 
 export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
-  const router = useRouter()
-
   const { privileges } = usePlans()
   const { offer, goToCheckout } = usePremium()
 

@@ -2,7 +2,7 @@ import { OfferEnumSchemaType, PlanSchemaType } from "@/schemas/PremiumSchema"
 import { Heading, Text } from "@5list-design-system/react"
 import { styled } from "@/styles"
 import { useState } from "react"
-import { usePayment } from "../providers/PaymentProvider"
+import { useCheckout } from "../providers/CheckoutProvider"
 
 interface SummaryItemProps {
   offer: OfferEnumSchemaType,
@@ -124,19 +124,18 @@ const SummaryItem = ({ offer, price, isEditing, onClick }: SummaryItemProps) => 
 
 export const Summary = (): JSX.Element => {
   const [isEditing, setEditing] = useState<boolean>(false)
-
-  const { plan, offer, changeOffer } = usePayment()
+  const { plan, order, changeOffer } = useCheckout()
 
   const handleOnEdit = (): void => {
     setEditing((state) => !state)
   }
 
-  const handleOnSelect = (offer: OfferEnumSchemaType): void => {
-    changeOffer(offer)
+  const handleOnSelect = async (offer: OfferEnumSchemaType): Promise<void> => {
+    await changeOffer(offer)
     setEditing(false)
   }
 
-  if (!plan) {
+  if (!plan || !order) {
     return <></>
   }
 
@@ -188,8 +187,8 @@ export const Summary = (): JSX.Element => {
           </>
         : 
           <SummaryItem 
-            offer={offer}
-            price={plan.price[offer] as number}
+            offer={order.orderData.offer}
+            price={plan.price[order.orderData.offer] as number}
           />
       }     
     </SummaryWrapper>

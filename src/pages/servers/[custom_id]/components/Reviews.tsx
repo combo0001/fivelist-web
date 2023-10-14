@@ -85,7 +85,6 @@ export const Reviews = (): JSX.Element => {
   }
   
   useEffect(() => {
-    console.log(reviews.length, reviewsAmount)
     if (!isNeedShowMore) return
 
     const newReviewsAmount = reviews.length

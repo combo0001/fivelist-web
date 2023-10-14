@@ -9,6 +9,43 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      orders: {
+        Row: {
+          created_at: string
+          id: string
+          order_data: Json
+          owner_id: string
+          payment_data: Json | null
+          transaction_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          order_data: Json
+          owner_id: string
+          payment_data?: Json | null
+          transaction_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          order_data?: Json
+          owner_id?: string
+          payment_data?: Json | null
+          transaction_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_owner_id_fkey"
+            columns: ["owner_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       page_connections: {
         Row: {
           created_at: string
@@ -476,6 +513,7 @@ export interface Database {
     }
     Enums: {
       connections_type: "DISCORD" | "STEAM"
+      payment_method_type: "PIX" | "TICKET" | "CREDIT_CARD"
       payment_status_type: "APPROVED" | "CANCELED" | "PENDING"
       social_media_name:
         | "TWITCH"

@@ -1,5 +1,6 @@
 import { OfferEnumSchemaType, PlanSchemaType } from '@/schemas/PremiumSchema'
 import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
+import { trpc } from '@/utils/trpc'
 import { useRouter } from 'next/navigation'
 import React, {
   Context,
@@ -21,14 +22,25 @@ export const PremiumProvider: React.FC<{
   user: UserProfileSchemaType
 }> = ({ children, user }) => {
   const router = useRouter()
+  const createOrder = trpc.payment.createOrder.useMutation()
+
   const [ offer, setOffer ] = useState<OfferEnumSchemaType>('MONTHLY')
 
   const changeOffer = async (offer: OfferEnumSchemaType) => {
     setOffer(offer)
   }
 
-  const goToCheckout = async (plan: PlanSchemaType): Promise<void> => {
-    router.push(`/users/${user.customId}/premium/new?plan=${plan.id}&offer=${offer}`)
+  const goToCheckout = async (plan: PlanSchemaType) => {
+    const orderId = await createOrder.mutateAsync({
+      orderData: {
+        planId: plan.id,
+        offer,
+      }
+    })
+
+    if (orderId) {
+      router.push(`/checkout?order=${orderId}`)
+    }
   }
 
   return (
