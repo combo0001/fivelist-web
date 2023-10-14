@@ -9,8 +9,7 @@ export const getUserPlanTier = async (
   return {
     id: 0,
     name: 'FREE_TIER',
-    privileges: {
-    },
+    privileges: {},
     // id: 1,
     // name: 'PREMIUM_TIER',
     // privileges: {

@@ -17,4 +17,6 @@ export const ServerPagePreviewSchema = z.object({
   planTier: ServerPlanTierSchema,
 })
 
-export type ServerPagePreviewSchemaType = z.infer<typeof ServerPagePreviewSchema>
+export type ServerPagePreviewSchemaType = z.infer<
+  typeof ServerPagePreviewSchema
+>

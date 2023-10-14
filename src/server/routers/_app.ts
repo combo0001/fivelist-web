@@ -7,7 +7,7 @@ import { paymentsRouter } from './payments'
 export const appRouter = router({
   users: usersRouter,
   servers: serversRouter,
-  payment: paymentsRouter
+  payment: paymentsRouter,
 })
 
 export type AppRouter = typeof appRouter

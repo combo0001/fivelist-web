@@ -25,27 +25,29 @@ export const createServerReplyOfReview = procedure
 
     const { data: reviewData, error: fetchError } = await supabase
       .from('page_reviews')
-      .select(`
+      .select(
+        `
         id, 
         pages(id)
-      `)
+      `,
+      )
       .eq('id', input.reviewId)
       .eq('pages.owner_id', session.user.id)
       .single()
 
     if (fetchError || !reviewData) return
-    
+
     const { error: insertError } = await supabase
       .from('page_review_replies')
       .insert({
         review_id: reviewData.id,
         content: input.content,
       })
-    
+
     if (insertError) return
 
     await revalidateServer(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      input.joinId
+      ctx as inferAsyncReturnType<typeof createContext>,
+      input.joinId,
     )
   })

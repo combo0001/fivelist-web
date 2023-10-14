@@ -15,7 +15,7 @@ export const ServerPageSchema = z.object({
   bannerURL: ServerImageUrlSchema.nullable(),
   description: ServerDescriptionSchema.nullable(),
   socialMedia: ServerSocialMediaListSchema,
-  connections: ServerConnectionsListSchema, 
+  connections: ServerConnectionsListSchema,
   statistics: ServerStatisticSchema,
   planTier: ServerPlanTierSchema,
   ownerUser: UserPreviewSchema.nullable(),

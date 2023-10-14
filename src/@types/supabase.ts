@@ -39,11 +39,11 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "orders_owner_id_fkey"
-            columns: ["owner_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'orders_owner_id_fkey'
+            columns: ['owner_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
       page_connections: {
@@ -67,11 +67,11 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "page_connections_page_id_fkey"
-            columns: ["page_id"]
-            referencedRelation: "pages"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'page_connections_page_id_fkey'
+            columns: ['page_id']
+            referencedRelation: 'pages'
+            referencedColumns: ['id']
+          },
         ]
       }
       page_likes: {
@@ -95,17 +95,17 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "page_likes_author_id_fkey"
-            columns: ["author_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'page_likes_author_id_fkey'
+            columns: ['author_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "page_likes_page_id_fkey"
-            columns: ["page_id"]
-            referencedRelation: "pages"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'page_likes_page_id_fkey'
+            columns: ['page_id']
+            referencedRelation: 'pages'
+            referencedColumns: ['id']
+          },
         ]
       }
       page_review_replies: {
@@ -126,11 +126,11 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "page_review_replies_review_id_fkey"
-            columns: ["review_id"]
-            referencedRelation: "page_reviews"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'page_review_replies_review_id_fkey'
+            columns: ['review_id']
+            referencedRelation: 'page_reviews'
+            referencedColumns: ['id']
+          },
         ]
       }
       page_reviews: {
@@ -160,17 +160,17 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "page_reviews_author_id_fkey"
-            columns: ["author_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'page_reviews_author_id_fkey'
+            columns: ['author_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "page_reviews_page_id_fkey"
-            columns: ["page_id"]
-            referencedRelation: "pages"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'page_reviews_page_id_fkey'
+            columns: ['page_id']
+            referencedRelation: 'pages'
+            referencedColumns: ['id']
+          },
         ]
       }
       page_social_media: {
@@ -178,27 +178,27 @@ export interface Database {
           created_at: string
           page_id: string
           profile_id: string
-          social_media: Database["public"]["Enums"]["social_media_name"]
+          social_media: Database['public']['Enums']['social_media_name']
         }
         Insert: {
           created_at?: string
           page_id: string
           profile_id: string
-          social_media: Database["public"]["Enums"]["social_media_name"]
+          social_media: Database['public']['Enums']['social_media_name']
         }
         Update: {
           created_at?: string
           page_id?: string
           profile_id?: string
-          social_media?: Database["public"]["Enums"]["social_media_name"]
+          social_media?: Database['public']['Enums']['social_media_name']
         }
         Relationships: [
           {
-            foreignKeyName: "page_social_media_page_id_fkey"
-            columns: ["page_id"]
-            referencedRelation: "pages"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'page_social_media_page_id_fkey'
+            columns: ['page_id']
+            referencedRelation: 'pages'
+            referencedColumns: ['id']
+          },
         ]
       }
       pages: {
@@ -240,11 +240,11 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "pages_owner_id_fkey"
-            columns: ["owner_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'pages_owner_id_fkey'
+            columns: ['owner_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
       servers: {
@@ -268,11 +268,11 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "servers_page_id_fkey"
-            columns: ["page_id"]
-            referencedRelation: "pages"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'servers_page_id_fkey'
+            columns: ['page_id']
+            referencedRelation: 'pages'
+            referencedColumns: ['id']
+          },
         ]
       }
       user_activities: {
@@ -299,39 +299,39 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "user_activities_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'user_activities_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
       user_connections: {
         Row: {
-          connection: Database["public"]["Enums"]["connections_type"]
+          connection: Database['public']['Enums']['connections_type']
           created_at: string
           identifier: string
           user_id: string
         }
         Insert: {
-          connection: Database["public"]["Enums"]["connections_type"]
+          connection: Database['public']['Enums']['connections_type']
           created_at?: string
           identifier?: string
           user_id: string
         }
         Update: {
-          connection?: Database["public"]["Enums"]["connections_type"]
+          connection?: Database['public']['Enums']['connections_type']
           created_at?: string
           identifier?: string
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_connections_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'user_connections_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
       user_follows: {
@@ -352,17 +352,17 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "user_follows_author_id_fkey"
-            columns: ["author_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'user_follows_author_id_fkey'
+            columns: ['author_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "user_follows_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'user_follows_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
       user_plans: {
@@ -389,39 +389,39 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "user_plans_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'user_plans_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
       user_social_media: {
         Row: {
           created_at: string
           profile_id: string
-          social_media: Database["public"]["Enums"]["social_media_name"]
+          social_media: Database['public']['Enums']['social_media_name']
           user_id: string
         }
         Insert: {
           created_at?: string
           profile_id: string
-          social_media: Database["public"]["Enums"]["social_media_name"]
+          social_media: Database['public']['Enums']['social_media_name']
           user_id: string
         }
         Update: {
           created_at?: string
           profile_id?: string
-          social_media?: Database["public"]["Enums"]["social_media_name"]
+          social_media?: Database['public']['Enums']['social_media_name']
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_social_media_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'user_social_media_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
       user_views: {
@@ -442,17 +442,17 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "user_views_author_id_fkey"
-            columns: ["author_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'user_views_author_id_fkey'
+            columns: ['author_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "user_views_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'user_views_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
       users: {
@@ -497,11 +497,11 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "users_id_fkey"
-            columns: ["id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'users_id_fkey'
+            columns: ['id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
     }
@@ -512,16 +512,16 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      connections_type: "DISCORD" | "STEAM"
-      payment_method_type: "PIX" | "TICKET" | "CREDIT_CARD"
-      payment_status_type: "APPROVED" | "CANCELED" | "PENDING"
+      connections_type: 'DISCORD' | 'STEAM'
+      payment_method_type: 'PIX' | 'TICKET' | 'CREDIT_CARD'
+      payment_status_type: 'APPROVED' | 'CANCELED' | 'PENDING'
       social_media_name:
-        | "TWITCH"
-        | "YOUTUBE"
-        | "FACEBOOK"
-        | "TIKTOK"
-        | "GITHUB"
-        | "INSTAGRAM"
+        | 'TWITCH'
+        | 'YOUTUBE'
+        | 'FACEBOOK'
+        | 'TIKTOK'
+        | 'GITHUB'
+        | 'INSTAGRAM'
     }
     CompositeTypes: {
       [_ in never]: never

@@ -30,8 +30,7 @@ export const setUserStreamLink = procedure
 
     const user = rowsData[0]
 
-    await revalidateUser(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      { customId: user.customId }
-    )
+    await revalidateUser(ctx as inferAsyncReturnType<typeof createContext>, {
+      customId: user.customId,
+    })
   })

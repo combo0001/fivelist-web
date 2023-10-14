@@ -4,7 +4,6 @@ import { CopyIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading } from '@5list-design-system/react'
 import { useRef, useState } from 'react'
-import { useUserEditor } from '../providers/UserEditorProvider'
 
 interface StreamLinkProps {
   streamURL: string

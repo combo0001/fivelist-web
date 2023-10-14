@@ -1,4 +1,4 @@
-import { OfferEnumSchemaType } from "@/schemas/PremiumSchema";
+import { OfferEnumSchemaType } from '@/schemas/PremiumSchema'
 
 export const getOfferMultiplier = (offer: OfferEnumSchemaType): number => {
   switch (offer) {

@@ -109,7 +109,10 @@ const TextDescriptionBox = styled('textarea', {
   },
 })
 
-export const ReviewDialog = ({ trigger, onFinish }: ReviewDialogProps): JSX.Element => {
+export const ReviewDialog = ({
+  trigger,
+  onFinish,
+}: ReviewDialogProps): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false)
   const [step, setStep] = useState<StepType>('answer')
 

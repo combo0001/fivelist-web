@@ -53,13 +53,9 @@ export const ServerContent = (): JSX.Element => {
 
       <Statistic players={0} />
 
-      <WebsiteLinks
-        links={serverView.page.connections}
-      />
+      <WebsiteLinks links={serverView.page.connections} />
 
-      <SocialMediaLinks
-        socialMedia={serverView.page.socialMedia}
-      />
+      <SocialMediaLinks socialMedia={serverView.page.socialMedia} />
 
       <Reviews />
 

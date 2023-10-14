@@ -1,7 +1,7 @@
-import { Session, User } from "@supabase/supabase-js";
+import { Session, User } from '@supabase/supabase-js'
 
 interface SessionUser extends User {
-  amr: { method: string, timestamp: number }[]
+  amr: { method: string; timestamp: number }[]
 }
 
 export const isUserValid = (session: Session): boolean => {
@@ -13,5 +13,5 @@ export const isUserValid = (session: Session): boolean => {
     }
   }
 
-  return true 
+  return true
 }

@@ -1,12 +1,11 @@
-import { OfferEnumSchemaType, PlanSchemaType } from '@/schemas/PremiumSchema'
+import { PlanSchemaType } from '@/schemas/PremiumSchema'
 import { styled } from '@/styles'
 import { usePremium } from '../providers/PremiumProvider'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import { CheckedIcon, NotCheckedIcon } from '@/components/Icons'
 import { usePlans } from '../providers/PlansProvider'
-import { useRouter } from 'next/navigation'
 
-interface PlansContainerProps extends PlanSchemaType {}
+type PlansContainerProps = PlanSchemaType
 
 const PlanWrapper = styled('li', {
   display: 'flex',
@@ -33,12 +32,12 @@ const PlanWrapper = styled('li', {
         outline: '0.0625rem solid $neutral700',
       },
     },
-  }
+  },
 })
 
 const TitleContainer = styled('section', {
   display: 'flex',
-  justifyContent: 'space-between', 
+  justifyContent: 'space-between',
   alignItems: 'center',
 
   '& > *:first-child': {
@@ -59,14 +58,14 @@ const TagContainer = styled('div', {
       true: {
         background: '$primary900',
       },
-      false: {} 
+      false: {},
     },
     secondary: {
       true: {
         background: '$neutral300',
       },
-      false: {}
-    }
+      false: {},
+    },
   },
 })
 
@@ -77,13 +76,13 @@ const PrivilegesContainer = styled('ol', {
 
   '& > *:first-child': {
     listStyleType: 'none',
-  }
+  },
 })
 
 const PrivilegeItem = styled('li', {
   maxWidth: 'fit-content',
 
-  display: 'flex', 
+  display: 'flex',
   alignItems: 'center',
   gap: '$4',
 })
@@ -129,10 +128,12 @@ export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
   const { offer, goToCheckout } = usePremium()
 
   let planName = null
-  let tagName = null 
+  let tagName = null
 
   const price = plan.price[offer]
-  const priceFormatted = price?.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) || price
+  const priceFormatted =
+    price?.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) ||
+    price
 
   const handleOnBuyPlan = (plan: PlanSchemaType) => {
     goToCheckout(plan)
@@ -173,64 +174,72 @@ export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
       <TitleContainer>
         <Heading as={'h5'}>{planName}</Heading>
 
-        {
-          tagName &&
-          <TagContainer primary={plan.tag !== 'FREE'} secondary={plan.tag === 'FREE'}>
-            <Text size={'xs'} weight={'bold'} color={'$white'} css={{ lineHeight: '100%' }}>{tagName}</Text>
+        {tagName && (
+          <TagContainer
+            primary={plan.tag !== 'FREE'}
+            secondary={plan.tag === 'FREE'}
+          >
+            <Text
+              size={'xs'}
+              weight={'bold'}
+              color={'$white'}
+              css={{ lineHeight: '100%' }}
+            >
+              {tagName}
+            </Text>
           </TagContainer>
-        }
+        )}
       </TitleContainer>
 
-      <Heading as={'h3'} weight={'bold'}>{priceFormatted ? priceFormatted : 'Contato'}</Heading>
+      <Heading as={'h3'} weight={'bold'}>
+        {priceFormatted || 'Contato'}
+      </Heading>
 
       <PrivilegesContainer>
-        {
-          privileges?.map(({ id, name, description }) => (
-            <PrivilegeItem key={id}>
-              {
-                plan.privileges[id] ? 
-                  <>
-                    <IconContainer css={{ '&::after': { content: description } }}>
-                      <CheckedIcon css={{ stroke: '$primary600' }} />
-                    </IconContainer>
-                    
-                    <Text size={'sm'} color={'$white'}>{name}</Text>
-                  </>
-                :
-                  <>
-                    <IconContainer css={{ '&::after': { content: description } }}>
-                      <NotCheckedIcon css={{ fill: '$error600' }} />
-                    </IconContainer>
+        {privileges?.map(({ id, name, description }) => (
+          <PrivilegeItem key={id}>
+            {plan.privileges[id] ? (
+              <>
+                <IconContainer css={{ '&::after': { content: description } }}>
+                  <CheckedIcon css={{ stroke: '$primary600' }} />
+                </IconContainer>
 
-                    <Text 
-                      size={'sm'} 
-                      color={'$neutral200'} 
-                      css={{ textDecoration: 'line-through' }}
-                    >
-                      {name}
-                    </Text>
-                  </>
-              }
-            </PrivilegeItem>
-          ))
-        }
+                <Text size={'sm'} color={'$white'}>
+                  {name}
+                </Text>
+              </>
+            ) : (
+              <>
+                <IconContainer css={{ '&::after': { content: description } }}>
+                  <NotCheckedIcon css={{ fill: '$error600' }} />
+                </IconContainer>
+
+                <Text
+                  size={'sm'}
+                  color={'$neutral200'}
+                  css={{ textDecoration: 'line-through' }}
+                >
+                  {name}
+                </Text>
+              </>
+            )}
+          </PrivilegeItem>
+        ))}
       </PrivilegesContainer>
 
       <DivisorLine />
 
-      {
-        plan.tag !== 'FREE' ?
-          <Button
-            size={'lg'}
-            onClick={handleOnBuyPlan.bind(null, plan)}
-          >
-            {priceFormatted ? 'Assinar plano' : 'Entre em contato'}
-          </Button>
-        :
-          <Button size={'lg'} disabled>
-            <Text size={'sm'} color={'$neutral200'}>Já assinado</Text>
-          </Button>
-      }
+      {plan.tag !== 'FREE' ? (
+        <Button size={'lg'} onClick={handleOnBuyPlan.bind(null, plan)}>
+          {priceFormatted ? 'Assinar plano' : 'Entre em contato'}
+        </Button>
+      ) : (
+        <Button size={'lg'} disabled>
+          <Text size={'sm'} color={'$neutral200'}>
+            Já assinado
+          </Text>
+        </Button>
+      )}
     </PlanWrapper>
   )
 }

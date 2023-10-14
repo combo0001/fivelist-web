@@ -13,7 +13,7 @@ export const OrderDataSchema = z.object({
 })
 export const PaymentDataSchema = z.object({
   payer: PayerSchema,
-  paymentMethod: PayerPaymentMethodEnum
+  paymentMethod: PayerPaymentMethodEnum,
 })
 
 export type OrderIdSchemaType = z.infer<typeof OrderIdSchema>
@@ -22,7 +22,7 @@ export type PaymentDataSchemaType = z.infer<typeof PaymentDataSchema>
 
 export const OrderSchema = z.object({
   id: OrderIdSchema,
-  ownerUser: UserPreviewSchema, 
+  ownerUser: UserPreviewSchema,
   transactionId: z.string().nullable(),
   orderData: OrderDataSchema,
   paymentData: PaymentDataSchema.nullable(),

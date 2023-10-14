@@ -10,7 +10,7 @@ import {
   ProfileAnchor,
   ProfileIcon,
   ProfileSection,
-  SignOutButton
+  SignOutButton,
 } from './style'
 import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
 import { SignOutIcon } from '../Icons'
@@ -34,13 +34,15 @@ export const Header = ({ user }: HeaderProps): JSX.Element => {
   let authSection: JSX.Element
 
   if (isLogged) {
-    authSection = <>
-      <Profile user={user} />
+    authSection = (
+      <>
+        <Profile user={user} />
 
-      <SignOutButton onClick={handleOnSignOut}>
-        <SignOutIcon css={{ fill: '$neutral100', size: '$6' }} />
-      </SignOutButton>
-    </>
+        <SignOutButton onClick={handleOnSignOut}>
+          <SignOutIcon css={{ fill: '$neutral100', size: '$6' }} />
+        </SignOutButton>
+      </>
+    )
   } else {
     authSection = <AuthButtons />
   }
@@ -52,12 +54,7 @@ export const Header = ({ user }: HeaderProps): JSX.Element => {
       <Discord inviteURL={'https://discord.gg/aTGQYBwexY'} />
 
       <LogoContainer href={'/home'}>
-        <Image
-          src={LogoImage}
-          alt=""
-          width={40}
-          height={40}
-        />
+        <Image src={LogoImage} alt="" width={40} height={40} />
       </LogoContainer>
     </HeaderContainer>
   )

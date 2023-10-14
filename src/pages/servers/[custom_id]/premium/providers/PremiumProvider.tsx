@@ -1,11 +1,6 @@
-import { OfferEnumSchemaType, PlanSchemaType, PrivilegeSchemaType } from '@/schemas/PremiumSchema'
+import { OfferEnumSchemaType, PlanSchemaType } from '@/schemas/PremiumSchema'
 import { ServerProfileSchemaType } from '@/schemas/servers/ProfileSchema'
-import React, {
-  Context,
-  createContext,
-  useContext,
-  useState,
-} from 'react'
+import React, { Context, createContext, useContext, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { trpc } from '@/utils/trpc'
 
@@ -24,7 +19,7 @@ export const PremiumProvider: React.FC<{
   const router = useRouter()
   const createOrder = trpc.payment.createOrder.useMutation()
 
-  const [ offer, setOffer ] = useState<OfferEnumSchemaType>('MONTHLY')
+  const [offer, setOffer] = useState<OfferEnumSchemaType>('MONTHLY')
 
   const changeOffer = async (offer: OfferEnumSchemaType) => {
     setOffer(offer)
@@ -36,7 +31,7 @@ export const PremiumProvider: React.FC<{
         pageId: server.page.id,
         planId: plan.id,
         offer,
-      }
+      },
     })
 
     if (orderId) {

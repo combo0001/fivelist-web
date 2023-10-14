@@ -10,7 +10,7 @@ import { isUserValid } from '../../users/utils/isUserValid'
 const ServerConnectionInputSchema = z.object({
   joinId: ServerJoinIdSchema,
   pageId: z.string().uuid(),
-  ...ServerConnectionSchema.shape
+  ...ServerConnectionSchema.shape,
 })
 
 const ServerConnectionOutputSchema = z.void()
@@ -32,17 +32,18 @@ export const addServerConnection = procedure
 
     if (fetchError || !fetchData) return
 
-    const { error: upsertError } = await supabase.from('page_connections')
+    const { error: upsertError } = await supabase
+      .from('page_connections')
       .upsert({
         page_id: fetchData.id,
         name: input.name,
         redirect_url: input.redirectURL,
-      })  
+      })
 
-    if (upsertError) return 
+    if (upsertError) return
 
     await revalidateServer(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      input.joinId
+      ctx as inferAsyncReturnType<typeof createContext>,
+      input.joinId,
     )
   })

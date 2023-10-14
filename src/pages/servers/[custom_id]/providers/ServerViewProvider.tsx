@@ -4,14 +4,24 @@ import { ServerReviewsSchemaType } from '@/schemas/servers/ReviewsSchema'
 import { getMasterListServer } from '@/services/Fivem'
 import { trpc } from '@/utils/trpc'
 import { useRouter } from 'next/navigation'
-import React, { Context, createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, {
+  Context,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
 interface ProviderProps {
   serverView: ServerProfileSchemaType
   serverReviews: ServerReviewsSchemaType | null
   serverDynamic: ServerDynamicSchemaType | null
   createServerReview: (content: string, rating: number) => Promise<void>
-  createServerReplyOfReview: (reviewId: string, content: string) => Promise<void>
+  createServerReplyOfReview: (
+    reviewId: string,
+    content: string,
+  ) => Promise<void>
   showMoreReviews: () => Promise<void>
 }
 
@@ -21,7 +31,8 @@ export const ServerViewProvider: React.FC<{
   children: React.ReactNode
   server: ServerProfileSchemaType
 }> = ({ children, server }) => {
-  const [serverDynamic, setServerDynamic] = useState<ServerDynamicSchemaType | null>(null)
+  const [serverDynamic, setServerDynamic] =
+    useState<ServerDynamicSchemaType | null>(null)
 
   const router = useRouter()
 
@@ -30,7 +41,8 @@ export const ServerViewProvider: React.FC<{
 
   const utils = trpc.useContext()
 
-  const [serverReviews, setServerReviews] = useState<ServerReviewsSchemaType | null>(null)
+  const [serverReviews, setServerReviews] =
+    useState<ServerReviewsSchemaType | null>(null)
 
   const createServerReview = useCallback(
     async (content: string, rating: number): Promise<void> => {
@@ -38,12 +50,12 @@ export const ServerViewProvider: React.FC<{
         joinId: server.joinId,
         pageId: server.page.id,
         content,
-        rating
+        rating,
       })
 
       router.refresh()
     },
-    []
+    [server.joinId, server.page.id, createReview, router],
   )
 
   const createServerReplyOfReview = useCallback(
@@ -51,72 +63,71 @@ export const ServerViewProvider: React.FC<{
       await createReplyOfUser.mutateAsync({
         joinId: server.joinId,
         reviewId,
-        content
+        content,
       })
 
       router.refresh()
     },
-    []
+    [server.joinId, createReplyOfUser, router],
   )
 
-  const showMoreReviews = useCallback(
-    async (): Promise<void> => {
-      if (!serverReviews) return 
+  const showMoreReviews = useCallback(async (): Promise<void> => {
+    if (!serverReviews) return
 
-      const lastReview = serverReviews[serverReviews.length - 1]
+    const lastReview = serverReviews[serverReviews.length - 1]
 
-      const reviewsRefetch = await utils.servers.getServerReviews.fetch({
-        pageId: server.page.id, 
-        offset: {
-          from: lastReview?.createdAt || new Date().toISOString(), 
-          amount: 5
-        }
-      })
+    const reviewsRefetch = await utils.servers.getServerReviews.fetch({
+      pageId: server.page.id,
+      offset: {
+        from: lastReview?.createdAt || new Date().toISOString(),
+        amount: 5,
+      },
+    })
 
-      if (reviewsRefetch) {
-        setServerReviews((state) => [...(state || []), ...reviewsRefetch])
-      }
-    },
-    [ serverReviews ]
-  )
-  
+    if (reviewsRefetch) {
+      setServerReviews((state) => [...(state || []), ...reviewsRefetch])
+    }
+  }, [serverReviews, server.page.id, utils.servers.getServerReviews])
+
   useEffect(() => {
     if (serverDynamic) return
 
-    getMasterListServer(server.joinId)
-      .then((serverDynamic) => {
-        if (!serverDynamic) return router.push('/home')
+    getMasterListServer(server.joinId).then((serverDynamic) => {
+      if (!serverDynamic) return router.push('/home')
 
-        setServerDynamic(serverDynamic)
-      })
-  }, [ serverDynamic ])
+      setServerDynamic(serverDynamic)
+    })
+  }, [serverDynamic, router, server.joinId])
 
   useEffect(() => {
     if (serverReviews) return
 
-    utils.servers.getServerReviews.fetch({
-      pageId: server.page.id, 
-      offset: {
-        from: new Date().toISOString(), 
-        amount: 5
-      }
-    })
+    utils.servers.getServerReviews
+      .fetch({
+        pageId: server.page.id,
+        offset: {
+          from: new Date().toISOString(),
+          amount: 5,
+        },
+      })
       .then((serverReviews) => {
-        if (!serverReviews) return  
+        if (!serverReviews) return
 
         setServerReviews(serverReviews)
       })
-  }, [ serverReviews ])
+  }, [serverReviews, server.page.id, utils.servers.getServerReviews])
 
   return (
-    <ServerViewCtx.Provider value={{ 
-      serverView: server,
-      serverReviews,
-      serverDynamic,
-      createServerReview,
-      createServerReplyOfReview,
-      showMoreReviews
-    }}>
+    <ServerViewCtx.Provider
+      value={{
+        serverView: server,
+        serverReviews,
+        serverDynamic,
+        createServerReview,
+        createServerReplyOfReview,
+        showMoreReviews,
+      }}
+    >
       {children}
     </ServerViewCtx.Provider>
   )

@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
-import Link from 'next/link'
 import { useState } from 'react'
 import { useServerView } from '../providers/ServerViewProvider'
 
@@ -52,7 +51,10 @@ export const Description = (): JSX.Element => {
   const { serverView } = useServerView()
 
   const hasVip = serverView.page.planTier.privileges.PAGE_DESCRIPTION
-  const text = hasVip && serverView.page.description ? serverView.page.description : 'Descrição não foi editada'
+  const text =
+    hasVip && serverView.page.description
+      ? serverView.page.description
+      : 'Descrição não foi editada'
 
   const toggleMode = (): void => {
     setShowMore((state) => !state)
@@ -87,7 +89,9 @@ export const Description = (): JSX.Element => {
 
       {!hasVip && (
         <DescriptionBlurContainer>
-          <Button size={'lg'} css={{ pointerEvents: 'none' }}>Servidor sem Premium</Button>
+          <Button size={'lg'} css={{ pointerEvents: 'none' }}>
+            Servidor sem Premium
+          </Button>
         </DescriptionBlurContainer>
       )}
     </DescriptionWrapper>

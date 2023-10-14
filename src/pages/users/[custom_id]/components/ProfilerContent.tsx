@@ -9,8 +9,6 @@ import { StreamLink } from './StreamLink'
 import { useUserView } from '../providers/UserViewProvider'
 import { ConnectionsLinks } from './ConnectionsLinks'
 
-interface ProfileContentProps {}
-
 const ContentContainer = styled('section', {
   width: '100%',
 
@@ -36,16 +34,14 @@ const InformationsSide = styled('div', {
   gap: '$8',
 })
 
-export const ProfileContent = ({}: ProfileContentProps): JSX.Element => {
+export const ProfileContent = (): JSX.Element => {
   const { user } = useUserView()
 
   const hasDescription = user.planTier.privileges.PROFILE_DESCRIPTION
 
   return (
     <ContentContainer>
-      {hasDescription && (
-        <Description />
-      )}
+      {hasDescription && <Description />}
 
       <InformationsWrapper>
         <InformationsSide>
@@ -57,9 +53,7 @@ export const ProfileContent = ({}: ProfileContentProps): JSX.Element => {
         <InformationsSide>
           <ConnectionsLinks connections={user.page.connections} />
 
-          <RecentActivities
-            activities={user.page.activities}
-          />
+          <RecentActivities activities={user.page.activities} />
         </InformationsSide>
       </InformationsWrapper>
 

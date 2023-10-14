@@ -27,8 +27,7 @@ export const addUserSocialMedia = procedure
 
     if (upsertError) return
 
-    await revalidateUser(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      { id: session.user.id }
-    )
+    await revalidateUser(ctx as inferAsyncReturnType<typeof createContext>, {
+      id: session.user.id,
+    })
   })

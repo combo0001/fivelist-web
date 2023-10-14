@@ -1,13 +1,20 @@
 import { PayerAddressSchema } from '@/schemas/payment/PayerAddressSchema'
 import { PayerIdentitySchema } from '@/schemas/payment/PayerIdentitySchema'
-import { PayerPaymentMethodEnum, PayerPaymentMethodEnumType } from '@/schemas/payment/PayerPaymentMethodSchema'
+import {
+  PayerPaymentMethodEnum,
+  PayerPaymentMethodEnumType,
+} from '@/schemas/payment/PayerPaymentMethodSchema'
 import { Button, Heading, Text, TextInput } from '@5list-design-system/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { styled } from '@/styles'
 import { ComponentProps } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
-import { MethodCreditCardIcon, MethodPixIcon, MethodTicketIcon } from '@/components/Icons'
+import {
+  MethodCreditCardIcon,
+  MethodPixIcon,
+  MethodTicketIcon,
+} from '@/components/Icons'
 import { useCheckout } from '../providers/CheckoutProvider'
 import { useRouter } from 'next/navigation'
 
@@ -32,7 +39,7 @@ const PaymentWrapper = styled('form', {
 
   '& > *': {
     listStyleType: 'none',
-  }
+  },
 })
 
 const UserDataContainer = styled('div', {
@@ -80,8 +87,8 @@ const PaymentMethodButtonWrapper = styled('button', {
 
   display: 'flex',
   alignItems: 'center',
-  gap: '$4', 
-  
+  gap: '$4',
+
   background: 'transparent',
   borderRadius: '$md',
   padding: '$4 $2',
@@ -99,16 +106,21 @@ const PaymentMethodButtonWrapper = styled('button', {
         height: '$12',
         border: '0.0625rem solid $neutral600',
       },
-    }
-  }
+    },
+  },
 })
 
-interface PaymentMethodButtonProps extends ComponentProps<typeof PaymentMethodButtonWrapper> {
-  paymentMethod: PayerPaymentMethodEnumType,
-  selected?: boolean,
+interface PaymentMethodButtonProps
+  extends ComponentProps<typeof PaymentMethodButtonWrapper> {
+  paymentMethod: PayerPaymentMethodEnumType
+  selected?: boolean
 }
 
-const PaymentMethodButton = ({ paymentMethod, selected, ...props }: PaymentMethodButtonProps): JSX.Element => {
+const PaymentMethodButton = ({
+  paymentMethod,
+  selected,
+  ...props
+}: PaymentMethodButtonProps): JSX.Element => {
   let iconComponent: React.ReactNode | null = null
   let methodName: string | null = null
 
@@ -116,12 +128,12 @@ const PaymentMethodButton = ({ paymentMethod, selected, ...props }: PaymentMetho
     case 'TICKET':
       iconComponent = <MethodTicketIcon css={{ size: '$6' }} />
       methodName = 'Boleto bancário'
-      
+
       break
     case 'PIX':
       iconComponent = <MethodPixIcon css={{ size: '$6' }} />
       methodName = 'Pagamento por PIX'
-      
+
       break
     case 'CREDIT_CARD':
       iconComponent = <MethodCreditCardIcon css={{ size: '$6' }} />
@@ -129,12 +141,14 @@ const PaymentMethodButton = ({ paymentMethod, selected, ...props }: PaymentMetho
 
       break
   }
-  
+
   return (
-    <PaymentMethodButtonWrapper {...props as any} selected={!!selected}>
+    <PaymentMethodButtonWrapper {...(props as any)} selected={!!selected}>
       {iconComponent}
 
-      <Text size={'sm'} color={'white'}>{methodName}</Text>
+      <Text size={'sm'} color={'white'}>
+        {methodName}
+      </Text>
     </PaymentMethodButtonWrapper>
   )
 }
@@ -167,35 +181,33 @@ export const Payment = (): JSX.Element => {
   })
 
   const handleOnSubmit = async (data: PaymentFormSchemaType): Promise<void> => {
-    const redirectURL = await finishOrder(
-      data.paymentMethod,
-      {
-        identification: data.identification,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        address: {
-            houseNumber: data.houseNumber,
-            street: data.street,
-            complement: data.complement,
-            zipCode: data.zipCode,
-            neighborhood: data.neighborhood,
-            city: data.city,
-            state: data.state
-        }
-      }
-    )
+    const redirectURL = await finishOrder(data.paymentMethod, {
+      identification: data.identification,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      address: {
+        houseNumber: data.houseNumber,
+        street: data.street,
+        complement: data.complement,
+        zipCode: data.zipCode,
+        neighborhood: data.neighborhood,
+        city: data.city,
+        state: data.state,
+      },
+    })
 
-    if (redirectURL)
-      router.push(redirectURL)
+    if (redirectURL) router.push(redirectURL)
   }
 
   return (
     <PaymentWrapper onSubmit={handleSubmit(handleOnSubmit, console.log)}>
-      <Heading as={'h5'} weight={'bold'}>Dados para pagamento</Heading>
+      <Heading as={'h5'} weight={'bold'}>
+        Dados para pagamento
+      </Heading>
 
       <UserDataContainer>
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'Nome'}
@@ -203,7 +215,7 @@ export const Payment = (): JSX.Element => {
           {...register('firstName')}
         />
 
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'Sobrenome'}
@@ -211,7 +223,7 @@ export const Payment = (): JSX.Element => {
           {...register('lastName')}
         />
 
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'CPF'}
@@ -219,7 +231,7 @@ export const Payment = (): JSX.Element => {
           {...register('identification')}
         />
 
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'E-mail'}
@@ -228,10 +240,12 @@ export const Payment = (): JSX.Element => {
         />
       </UserDataContainer>
 
-      <Heading as={'h5'} weight={'bold'}>Endereço</Heading>
+      <Heading as={'h5'} weight={'bold'}>
+        Endereço
+      </Heading>
 
       <UserAddressContainer>
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'Rua'}
@@ -239,7 +253,7 @@ export const Payment = (): JSX.Element => {
           {...register('street')}
         />
 
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'Número da casa'}
@@ -247,7 +261,7 @@ export const Payment = (): JSX.Element => {
           {...register('houseNumber', { valueAsNumber: true })}
         />
 
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'Complemento'}
@@ -255,7 +269,7 @@ export const Payment = (): JSX.Element => {
           {...register('complement')}
         />
 
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'Bairro'}
@@ -263,7 +277,7 @@ export const Payment = (): JSX.Element => {
           {...register('neighborhood')}
         />
 
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'Cidade'}
@@ -271,7 +285,7 @@ export const Payment = (): JSX.Element => {
           {...register('city')}
         />
 
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'Estado'}
@@ -279,7 +293,7 @@ export const Payment = (): JSX.Element => {
           {...register('state')}
         />
 
-        <TextInput 
+        <TextInput
           disabled={isSubmitting || isSubmitSuccessful}
           spellCheck={false}
           placeholder={'CEP'}
@@ -288,29 +302,31 @@ export const Payment = (): JSX.Element => {
         />
       </UserAddressContainer>
 
-      <Heading as={'h5'} weight={'bold'}>Pagamento</Heading>
+      <Heading as={'h5'} weight={'bold'}>
+        Pagamento
+      </Heading>
 
       <PaymentMethodContainer>
-        <Controller 
+        <Controller
           name={'paymentMethod'}
           control={control}
           render={({ field: { value, onChange } }) => (
             <>
-              <PaymentMethodButton 
+              <PaymentMethodButton
                 paymentMethod={'CREDIT_CARD'}
                 type={'button'}
                 onClick={() => onChange('CREDIT_CARD')}
                 selected={value === 'CREDIT_CARD'}
               />
 
-              <PaymentMethodButton 
+              <PaymentMethodButton
                 paymentMethod={'PIX'}
                 type={'button'}
                 onClick={() => onChange('PIX')}
                 selected={value === 'PIX'}
               />
 
-              <PaymentMethodButton 
+              <PaymentMethodButton
                 paymentMethod={'TICKET'}
                 type={'button'}
                 onClick={() => onChange('TICKET')}

@@ -21,16 +21,14 @@ export const followUser = procedure
     if (!supabase || !session || !isUserValid(session)) return false
     if (session.user.id === input.userId) return false
 
-    const { status } = await supabase.from('user_follows')
-      .insert({
-        author_id: session.user.id,
-        user_id: input.userId,
-      })
-    
-    await revalidateUser(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      { id: input.userId }
-    )
+    const { status } = await supabase.from('user_follows').insert({
+      author_id: session.user.id,
+      user_id: input.userId,
+    })
+
+    await revalidateUser(ctx as inferAsyncReturnType<typeof createContext>, {
+      id: input.userId,
+    })
 
     return status === 201
   })

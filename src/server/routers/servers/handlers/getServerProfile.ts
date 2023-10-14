@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { Database } from '@/@types/supabase'
 import { procedure } from '@/server/trpc'
 import { createClient } from '@supabase/supabase-js'
@@ -20,7 +22,7 @@ export const getServerProfile = procedure
   .query(async ({ ctx, input }) => {
     try {
       const endpoint = await getServerEndpoint(input.joinId)
-  
+
       if (!endpoint) return null
     } catch (_) {
       return null
@@ -43,7 +45,8 @@ export const getServerProfile = procedure
 
     const { data: fetchData } = await supabase
       .from('servers')
-      .select(`
+      .select(
+        `
         joinId:id,
         page:pages(
           bannerUrl:banner_url,
@@ -66,18 +69,17 @@ export const getServerProfile = procedure
           views
         ),
         createdAt:created_at
-      `)
+      `,
+      )
       .eq('id', input.joinId)
 
     let serverProfile = fetchData?.length ? fetchData[0] : null
 
     if (!serverProfile) {
-      const { data: insertServerData, error: insertServerError } = await supabase
-        .from('servers')
-        .insert({
-          id: input.joinId
-        })
-        .select(`
+      const { data: insertServerData, error: insertServerError } =
+        await supabase.from('servers').insert({
+          id: input.joinId,
+        }).select(`
           joinId:id,
           page:pages(
             bannerUrl:banner_url,
@@ -104,29 +106,25 @@ export const getServerProfile = procedure
 
       if (insertServerError || !insertServerData.length) return null
 
-      const [ server ] = insertServerData
+      const [server] = insertServerData
 
       serverProfile = {
-        ...server, 
+        ...server,
       }
     }
 
     if (!serverProfile.page) {
       const page = await createServerPage(supabase, serverProfile.joinId)
-      
+
       if (!page) return null
-      
+
       serverProfile.page = page
     }
-    
-    const {
-       joinId,
-       page: pageInDatabase,
-       createdAt
-    } = serverProfile
+
+    const { joinId, page: pageInDatabase, createdAt } = serverProfile
 
     const page = await getServerCompletePage(supabase, pageInDatabase)
-    
+
     return {
       joinId,
       page,

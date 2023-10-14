@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 export const PayerPaymentMethodEnum = z.enum(['TICKET', 'PIX', 'CREDIT_CARD'])
 

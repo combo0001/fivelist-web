@@ -1,8 +1,11 @@
+/* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
+
 export class Deferred<T = undefined> {
   public resolve: {
     (): void
     (v: T): void
   } = () => {}
+
   public reject: (err?: any) => void = () => {}
 
   public promise: Promise<T>

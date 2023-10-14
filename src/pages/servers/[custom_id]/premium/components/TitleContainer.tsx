@@ -1,20 +1,20 @@
 /* eslint-disable no-undef */
-import { styled } from "@/styles"
-import { Heading, Text } from "@5list-design-system/react"
-import { OfferContainer } from "./OfferSelection"
-import { usePremium } from "../providers/PremiumProvider"
+import { styled } from '@/styles'
+import { Heading, Text } from '@5list-design-system/react'
+import { OfferContainer } from './OfferSelection'
+import { usePremium } from '../providers/PremiumProvider'
 
 const TitleWrapper = styled('section', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '$6', 
+  gap: '$6',
 
   width: '35.5rem',
 })
 
 const TagContainer = styled('div', {
-  padding: '$2', 
+  padding: '$2',
 
   display: 'flex',
   justifyContent: 'center',
@@ -30,21 +30,16 @@ export const TitleContainer = (): JSX.Element => {
   return (
     <TitleWrapper>
       <TagContainer>
-        <Text size={'xs'} weight={'bold'} css={{ lineHeight: '100%' }}>Planos para servidores</Text>
+        <Text size={'xs'} weight={'bold'} css={{ lineHeight: '100%' }}>
+          Planos para servidores
+        </Text>
       </TagContainer>
 
-      <Heading 
-        as={'h3'} 
-        weight={'bold'}
-        css={{ textAlign: 'center' }}
-      >
+      <Heading as={'h3'} weight={'bold'} css={{ textAlign: 'center' }}>
         Os melhores planos para seu servidor de Fivem
       </Heading>
 
-      <OfferContainer
-        offer={offer}
-        onChange={changeOffer}
-      />
+      <OfferContainer offer={offer} onChange={changeOffer} />
     </TitleWrapper>
   )
 }

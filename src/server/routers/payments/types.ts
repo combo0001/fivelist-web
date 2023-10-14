@@ -27,16 +27,16 @@ export interface TransactionResponseType {
   gwTransactionId: number
   gwTransactionStatus: TransactionStatusEnum
   gwTransactionUrl: string
-  gwTransactionAmount: number 
+  gwTransactionAmount: number
   gwTransactionType: PaymentTypeIdEnum
   gwTransactionIdempotency: string
 }
 
 export interface SubscriptionRequestType {
-  reason: string,
-  billing_day: string,
-  amount: number,
-  payment_type: string,
+  reason: string
+  billing_day: string
+  amount: number
+  payment_type: string
 }
 
 export interface SubscriptionResponseType {

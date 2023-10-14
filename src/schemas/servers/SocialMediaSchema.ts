@@ -6,7 +6,9 @@ export const ServerSocialMediaSchema = z.object({
   profileId: z.string().max(64),
 })
 
-export type ServerSocialMediaSchemaType = z.infer<typeof ServerSocialMediaSchema>
+export type ServerSocialMediaSchemaType = z.infer<
+  typeof ServerSocialMediaSchema
+>
 
 export const ServerSocialMediaListSchema = z.array(ServerSocialMediaSchema)
 

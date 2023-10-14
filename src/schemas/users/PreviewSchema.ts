@@ -1,6 +1,10 @@
 import { z } from 'zod'
 
-import { UserCustomIdSchema, UserIdSchema, UserNameSchema } from './CredentialsSchema'
+import {
+  UserCustomIdSchema,
+  UserIdSchema,
+  UserNameSchema,
+} from './CredentialsSchema'
 import { UserPlanTierSchema } from './PlanTierSchema'
 
 export const UserPreviewSchema = z.object({

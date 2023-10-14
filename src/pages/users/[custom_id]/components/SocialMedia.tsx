@@ -54,7 +54,7 @@ export const SocialMediaLinks = ({
       </Heading>
 
       <WebsiteSocialMediaContainer>
-        {socialMedia.length ? 
+        {socialMedia.length ? (
           socialMedia.map(({ socialMedia, profileId }) => {
             const socialMediaURL = getSocialMediaLink(socialMedia, profileId)
 
@@ -79,10 +79,9 @@ export const SocialMediaLinks = ({
               </WebsiteLinkBox>
             )
           })
-          : <Text>
-            Nenhuma rede social registrada.
-          </Text>
-        }
+        ) : (
+          <Text>Nenhuma rede social registrada.</Text>
+        )}
       </WebsiteSocialMediaContainer>
     </SocialMediaContainer>
   )

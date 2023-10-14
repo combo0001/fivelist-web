@@ -67,23 +67,36 @@ export const Reviews = (): JSX.Element => {
   const [isNeedShowMore, setNeedShowMore] = useState<boolean>(true)
 
   const { user } = useClientUser()
-  const { serverView, serverReviews, createServerReplyOfReview, createServerReview, showMoreReviews } = useServerView()
+  const {
+    serverView,
+    serverReviews,
+    createServerReplyOfReview,
+    createServerReview,
+    showMoreReviews,
+  } = useServerView()
 
   const reviews = serverReviews || []
-  const isUserOwnerOfServer = !!serverView.page.ownerUser && serverView.page.ownerUser.id === user?.id
+  const isUserOwnerOfServer =
+    !!serverView.page.ownerUser && serverView.page.ownerUser.id === user?.id
 
-  const handleOnCreateReview = async (content: string, rating: number): Promise<void> => {
+  const handleOnCreateReview = async (
+    content: string,
+    rating: number,
+  ): Promise<void> => {
     await createServerReview(content, rating)
   }
 
-  const handleOnCreateReplyOfReview = async (reviewId: string, content: string): Promise<void> => {
+  const handleOnCreateReplyOfReview = async (
+    reviewId: string,
+    content: string,
+  ): Promise<void> => {
     await createServerReplyOfReview(reviewId, content)
   }
 
   const handleOnShowMore = async (): Promise<void> => {
     await showMoreReviews()
   }
-  
+
   useEffect(() => {
     if (!isNeedShowMore) return
 
@@ -94,55 +107,50 @@ export const Reviews = (): JSX.Element => {
     } else {
       setNeedShowMore(false)
     }
-  }, [ reviews ])
+  }, [reviews.length, reviewsAmount, isNeedShowMore])
 
   return (
     <ReviewsContainer>
       <TitleContainer>
         <Heading as={'h5'}>Avaliações</Heading>
 
-        {
-          user ? 
-            <ReviewDialog
-              onFinish={handleOnCreateReview}
-              trigger={<Button>Deixar avaliação</Button>} 
-            />
-          : 
-            <Link href={'/signin'} legacyBehavior>
-              <Button>Deixar avaliação</Button>
-            </Link>
-        }
+        {user ? (
+          <ReviewDialog
+            onFinish={handleOnCreateReview}
+            trigger={<Button>Deixar avaliação</Button>}
+          />
+        ) : (
+          <Link href={'/signin'} legacyBehavior>
+            <Button>Deixar avaliação</Button>
+          </Link>
+        )}
       </TitleContainer>
 
       {reviews.length > 0 ? (
         <ReviewsList>
-          {reviews
-            .map((review, index) => (
-              <>
-                <ReviewBox key={index}>
-                  <Review review={review} />
+          {reviews.map((review, index) => (
+            <>
+              <ReviewBox key={index}>
+                <Review review={review} />
 
-                  {
-                    review.replies.length === 0 && isUserOwnerOfServer &&
-                      <ReplyDialog
-                        review={review}
-                        onFinish={handleOnCreateReplyOfReview.bind(null, review.id)}
-                        trigger={
-                          <ReplyText size={'sm'} color={'$white'}>
-                            Responder
-                          </ReplyText>
-                        }
-                      /> 
-                  }
-                </ReviewBox>
+                {review.replies.length === 0 && isUserOwnerOfServer && (
+                  <ReplyDialog
+                    review={review}
+                    onFinish={handleOnCreateReplyOfReview.bind(null, review.id)}
+                    trigger={
+                      <ReplyText size={'sm'} color={'$white'}>
+                        Responder
+                      </ReplyText>
+                    }
+                  />
+                )}
+              </ReviewBox>
 
-                {
-                  review.replies.map((reply, replyIndex) => (
-                    <Reply reply={reply} key={`${index}:${replyIndex}`} />
-                  ))
-                }
-              </>
-            ))}
+              {review.replies.map((reply, replyIndex) => (
+                <Reply reply={reply} key={`${index}:${replyIndex}`} />
+              ))}
+            </>
+          ))}
         </ReviewsList>
       ) : (
         <Heading as={'h5'} color={'$neutral100'}>

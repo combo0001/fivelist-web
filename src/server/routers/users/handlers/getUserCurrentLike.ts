@@ -19,11 +19,14 @@ export const getUserCurrentLike = procedure
     const userPlanTier = await getUserPlanTier(supabase, session.user.id)
 
     const hasDouble = userPlanTier.privileges.DOUBLE_LIKE
-    const limitDateString = new Date(Date.now() - (hasDouble ? 12 : 24) * 60 * 60 * 1000).toISOString()
+    const limitDateString = new Date(
+      Date.now() - (hasDouble ? 12 : 24) * 60 * 60 * 1000,
+    ).toISOString()
 
     const { data: likeData, error: likeError } = await supabase
       .from('page_likes')
-      .select(`
+      .select(
+        `
         page:pages(
           id,
           description,
@@ -32,7 +35,8 @@ export const getUserCurrentLike = procedure
           reviews
         ),
         createdAt:created_at
-      `)
+      `,
+      )
       .eq('author_id', session.user.id)
       .gte('created_at', limitDateString)
       .order('created_at', { ascending: false })

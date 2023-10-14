@@ -18,7 +18,7 @@ export const UserPageSchema = z.object({
   name: UserNameSchema,
   description: UserDescriptionSchema.nullable(),
   socialMedia: UserSocialMediaListSchema,
-  connections: UserConnectionsListSchema, 
+  connections: UserConnectionsListSchema,
   activities: UserActivitiesListSchema,
   statistics: UserStatisticSchema,
   level: UserLevelSchema,

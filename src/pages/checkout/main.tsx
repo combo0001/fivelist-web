@@ -8,17 +8,15 @@ import { useRouter } from 'next/navigation'
 import { Payment } from './components/Payment'
 import { Summary } from './components/Summary'
 import { useEffect, useState } from 'react'
-import { useCheckout } from './providers/CheckoutProvider'
 
 export const CheckoutMain = (): JSX.Element => {
   const router = useRouter()
   const { user: clientUser } = useClientUser()
 
-  const [ isBacking, setBacking ] = useState<boolean>(false)
-  const { order } = useCheckout()
+  const [isBacking, setBacking] = useState<boolean>(false)
 
   const handleOnBack = () => {
-    if (isBacking) return 
+    if (isBacking) return
 
     setBacking(true)
   }
@@ -27,7 +25,7 @@ export const CheckoutMain = (): JSX.Element => {
     if (isBacking) {
       router.back()
     }
-  }, [ isBacking ])
+  }, [isBacking, router])
 
   return (
     <PageLayout>
@@ -49,7 +47,7 @@ export const CheckoutMain = (): JSX.Element => {
         >
           Voltar
         </Heading>
-       
+
         <Summary />
         <Payment />
       </CheckoutWrapper>

@@ -15,11 +15,13 @@ export default function UsersPremium(): JSX.Element {
   const { user } = useClientUser()
   const { query } = useRouter()
 
-  const { data: userPage, isFetched } = trpc.users.getUserProfile.useQuery({ customId: query.custom_id as string })
+  const { data: userPage, isFetched } = trpc.users.getUserProfile.useQuery({
+    customId: query.custom_id as string,
+  })
 
   useEffect(() => {
     if (isFetched) {
-      const page = (userPage as UserProfileSchemaType | null)
+      const page = userPage as UserProfileSchemaType | null
 
       if (!page || user?.id !== page.id) {
         router.push('/home')

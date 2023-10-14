@@ -36,42 +36,42 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
   const { likeServer } = useServersList()
   const router = useRouter()
 
-  const { data: currentLike, isFetched, refetch } = trpc.users.getUserCurrentLike.useQuery()
+  const {
+    data: currentLike,
+    isFetched,
+    refetch,
+  } = trpc.users.getUserCurrentLike.useQuery()
 
   const handleOnLike = async (pageId?: string): Promise<void> => {
     if (!user) {
       router.push('/signin')
 
-      return 
+      return
     }
 
-    const actionPromise: Promise<void> = new Promise((resolve, reject) => { 
+    const actionPromise: Promise<void> = new Promise((resolve, reject) => {
       if (pageId) {
-        likeServer(pageId)
-          .then((wasSuccess): void => {
-            if (wasSuccess) {
-              refetch()
+        likeServer(pageId).then((wasSuccess): void => {
+          if (wasSuccess) {
+            refetch()
 
-              return resolve()
-            } else {
-              return reject()
-            }
-          })
+            return resolve()
+          } else {
+            return reject(new Error('Something went wrong'))
+          }
+        })
       } else {
-        return reject()
+        return reject(new Error('PageId is not defined'))
       }
     })
 
-    toast.promise(
-      actionPromise,
-      {
-        pending: 'Aplicando o Like...',
-        success: 'Like aplicado com sucesso',
-        error: 'Algo deu errado ao aplicar o Like'
-      }
-    )
-    
-    return await actionPromise 
+    toast.promise(actionPromise, {
+      pending: 'Aplicando o Like...',
+      success: 'Like aplicado com sucesso',
+      error: 'Algo deu errado ao aplicar o Like',
+    })
+
+    return await actionPromise
   }
   return (
     <ServersContainer>
@@ -79,33 +79,31 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
         Lista de servidores
       </Heading>
 
-      {
-        isFetched && 
-        servers
-          .map((server, index) => {
-            const isLiked = !!server.preview?.page && currentLike?.page.id === server.preview.page.id
+      {isFetched &&
+        servers.map((server, index) => {
+          const isLiked =
+            !!server.preview?.page &&
+            currentLike?.page.id === server.preview.page.id
 
-            let advertisingContent: React.ReactNode
+          let advertisingContent: React.ReactNode
 
-            if (index > 0 && index % 6 === 0) {
-              advertisingContent = <Advertising key={index} />
-            }
+          if (index > 0 && index % 6 === 0) {
+            advertisingContent = <Advertising key={index} />
+          }
 
-            return (
-              <ServerWithAdvertisingBox key={index}>
-                {advertisingContent}
-                <Server 
-                  position={index + 1} 
-                  canLike={!currentLike}
-                  isLiked={isLiked}
-                  onLike={handleOnLike.bind(null, server.preview?.page?.id)}
-                  {...server} 
-                />
-              </ServerWithAdvertisingBox>
-            )
-
-          })
-      }
+          return (
+            <ServerWithAdvertisingBox key={index}>
+              {advertisingContent}
+              <Server
+                position={index + 1}
+                canLike={!currentLike}
+                isLiked={isLiked}
+                onLike={handleOnLike.bind(null, server.preview?.page?.id)}
+                {...server}
+              />
+            </ServerWithAdvertisingBox>
+          )
+        })}
     </ServersContainer>
   )
 }

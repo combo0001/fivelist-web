@@ -15,7 +15,10 @@ export default function UsersPremium(): JSX.Element {
   const { query } = useRouter()
   const { user } = useClientUser()
 
-  const { data: serverPage, isFetched } = trpc.servers.getServerProfile.useQuery({ joinId: query.custom_id as string })
+  const { data: serverPage, isFetched } =
+    trpc.servers.getServerProfile.useQuery({
+      joinId: query.custom_id as string,
+    })
 
   useEffect(() => {
     if (isFetched) {

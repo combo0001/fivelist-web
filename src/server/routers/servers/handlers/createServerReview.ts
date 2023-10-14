@@ -24,19 +24,17 @@ export const createServerReview = procedure
 
     if (!supabase || !session || !isUserValid(session)) return
 
-    const { error: insertError } = await supabase
-      .from('page_reviews')
-      .insert({
-        page_id: input.pageId,
-        author_id: session.user.id,
-        content: input.content,
-        rating: input.rating,
-      })
+    const { error: insertError } = await supabase.from('page_reviews').insert({
+      page_id: input.pageId,
+      author_id: session.user.id,
+      content: input.content,
+      rating: input.rating,
+    })
 
     if (insertError) return
 
     await revalidateServer(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      input.joinId
+      ctx as inferAsyncReturnType<typeof createContext>,
+      input.joinId,
     )
   })

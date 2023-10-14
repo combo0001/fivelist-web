@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 
-import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
 import { ImageUploader } from '@/components/Dialogs/Image'
 import {
   ErrorIcon,
@@ -17,11 +16,9 @@ import { Button, Heading, Text } from '@5list-design-system/react'
 import * as Progress from '@radix-ui/react-progress'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useReducer, useState } from 'react'
-import { v4 as uuidv4, v4 } from 'uuid'
+import { useState } from 'react'
+import { v4 } from 'uuid'
 import { useUserEditor } from '../providers/UserEditorProvider'
-
-interface ProfileHeaderProps {}
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -121,7 +118,7 @@ const PremiumContainer = styled('div', {
   gap: '$2',
 })
 
-export const ProfileHeader = ({}: ProfileHeaderProps): JSX.Element => {
+export const ProfileHeader = (): JSX.Element => {
   const { uploadFile } = useStorage()
   const { user, refreshUser } = useUserEditor()
 

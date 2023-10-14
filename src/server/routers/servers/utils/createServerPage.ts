@@ -1,14 +1,16 @@
-import { SupabaseClient } from "@supabase/supabase-js";
-import { ServerPageType } from "../types";
-import { Database } from "@/@types/supabase";
+import { SupabaseClient } from '@supabase/supabase-js'
+import { ServerPageType } from '../types'
+import { Database } from '@/@types/supabase'
 
-export const createServerPage = async (supabase: SupabaseClient<Database>, joinId: string): Promise<ServerPageType | null> => {
+export const createServerPage = async (
+  supabase: SupabaseClient<Database>,
+  joinId: string,
+): Promise<ServerPageType | null> => {
   const { data: insertPageData, error: insertPageError } = await supabase
     .from('pages')
     .insert({
       custom_id: joinId,
-    })
-    .select(`
+    }).select(`
       bannerUrl:banner_url,
       createdAt:created_at,
       customId:custom_id,
@@ -32,7 +34,8 @@ export const createServerPage = async (supabase: SupabaseClient<Database>, joinI
   if (insertPageError || !insertPageData.length) return null
 
   const serverPage = insertPageData[0]
-  const { error: updateServerError } = await supabase.from('servers')
+  const { error: updateServerError } = await supabase
+    .from('servers')
     .update({
       page_id: serverPage.id,
     })

@@ -18,7 +18,8 @@ export const isUserFollower = procedure
     if (!supabase || !session || !isUserValid(session)) return false
     if (session.user.id === input.userId) return false
 
-    const { count, error: selectError } = await supabase.from('user_follows')
+    const { count, error: selectError } = await supabase
+      .from('user_follows')
       .select('*', { count: 'exact', head: true })
       .eq('author_id', session.user.id)
       .eq('user_id', input.userId)

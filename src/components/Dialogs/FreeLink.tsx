@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { ErrorIcon } from '@/components/Icons'
 import { styled } from '@/styles'
-import { Button, Select, Text, TextInput } from '@5list-design-system/react'
+import { Button, Text, TextInput } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useRef, useState } from 'react'
 

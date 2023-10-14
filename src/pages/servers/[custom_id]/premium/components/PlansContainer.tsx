@@ -17,17 +17,12 @@ const PlansWrapper = styled('ul', {
 
 export const PlansContainer = (): JSX.Element => {
   const { plans } = usePlans()
-  
+
   return (
     <PlansWrapper>
-      {
-        plans?.map((plan) => (
-          <PlanItem 
-            key={plan.id}
-            {...plan}
-          />
-        ))
-      }
+      {plans?.map((plan) => (
+        <PlanItem key={plan.id} {...plan} />
+      ))}
     </PlansWrapper>
   )
 }

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
 import { Database } from '@/@types/supabase'
+import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
 import { trpc } from '@/utils/trpc'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import React, {
@@ -12,7 +12,13 @@ import React, {
   useEffect,
 } from 'react'
 
-type ProviderProps = UserProvider<UserIdentitySchemaType>
+interface ProviderProps {
+  user: UserIdentitySchemaType | null
+  signUp: (email: string, password: string, name: string) => Promise<void>
+  signIn: (email: string, password: string) => Promise<void>
+  forgotPassword: (email: string) => Promise<void>
+  signOut: () => Promise<void>
+}
 
 const UserCtx = createContext<ProviderProps | null>(null)
 
@@ -60,17 +66,20 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     [supabase],
   )
 
-  const forgotPassword = useCallback(async (email: string) => {
-    await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + '/reset-password',
-    })
-  }, [])
+  const forgotPassword = useCallback(
+    async (email: string) => {
+      await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/reset-password',
+      })
+    },
+    [supabase.auth],
+  )
 
   const signOut = useCallback(async () => {
     await supabase.auth.signOut()
 
     refetch()
-  }, [])
+  }, [refetch, supabase.auth])
 
   useEffect(() => {
     if (!user) {
@@ -84,7 +93,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
       return () => clearInterval(id)
     }
-  }, [user])
+  }, [user, refetch, supabase.auth])
 
   return (
     <UserCtx.Provider

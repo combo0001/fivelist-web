@@ -2,13 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { Database } from '@/@types/supabase'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import React, {
-  Context,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-} from 'react'
+import React, { Context, createContext, useCallback, useContext } from 'react'
 
 type ProviderProps = StorageProvider
 
@@ -42,7 +36,7 @@ export const StorageProvider: React.FC<{ children: React.ReactNode }> = ({
 
       return getFileURL(bucket, data.path)
     },
-    [supabase],
+    [supabase, getFileURL],
   )
 
   return (

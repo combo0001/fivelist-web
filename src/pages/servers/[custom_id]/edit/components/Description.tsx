@@ -52,15 +52,18 @@ export const Description = (): JSX.Element => {
   const setServerDescription = trpc.servers.setServerDescription.useMutation()
 
   const hasVip = serverToEdit.page.planTier.privileges.PAGE_DESCRIPTION
-  const text = hasVip && serverToEdit.page.description ? serverToEdit.page.description : 'Descrição não foi editada'
+  const text =
+    hasVip && serverToEdit.page.description
+      ? serverToEdit.page.description
+      : 'Descrição não foi editada'
 
   const handleOnChangeDescription = async (
     description: string,
   ): Promise<void> => {
-    await setServerDescription.mutateAsync({ 
+    await setServerDescription.mutateAsync({
       joinId: serverToEdit.joinId,
       pageId: serverToEdit.page.id,
-      description 
+      description,
     })
 
     await refreshServer()

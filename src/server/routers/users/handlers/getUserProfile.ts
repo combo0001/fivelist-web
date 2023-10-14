@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { UserProfileSchema } from '@/schemas/users/ProfileSchema'
 import { Database } from '@/@types/supabase'
 import { procedure } from '@/server/trpc'

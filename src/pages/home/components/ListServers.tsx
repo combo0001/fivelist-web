@@ -65,20 +65,24 @@ export const ListServers = ({
 
       return cfx.projectName.toLowerCase().includes(filterName)
     })
-    .sort((a, b) => {
+    .sort((a, b): number => {
       switch (orderBy) {
-        case OrderValueEnum.Likes:
+        case OrderValueEnum.Likes: {
           const likesA = a.preview?.page?.statistic.likes || 0
           const likesB = b.preview?.page?.statistic.likes || 0
 
           return likesB - likesA
-        case OrderValueEnum.Followers:
+        }
+        case OrderValueEnum.Followers: {
           const followersA = a.preview?.page?.statistic.followers || 0
           const followersB = b.preview?.page?.statistic.followers || 0
 
           return followersB - followersA
+        }
         case OrderValueEnum.Players:
           return b.cfx.playersCurrent - a.cfx.playersCurrent
+        default:
+          return 0
       }
     })
     .slice(0, showAmount)

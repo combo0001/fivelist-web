@@ -4,8 +4,8 @@ import { globalStyles } from '@/styles/global'
 import { UserProvider } from '@/providers/UserProvider'
 import { StorageProvider } from '@/providers/StorageProvider'
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 globalStyles()
 
@@ -15,7 +15,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       <StorageProvider>
         <Component {...pageProps} />
 
-        <ToastContainer 
+        <ToastContainer
           theme={'dark'}
           position={'bottom-right'}
           autoClose={5000}
@@ -26,7 +26,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-        /> 
+        />
       </StorageProvider>
     </UserProvider>
   )

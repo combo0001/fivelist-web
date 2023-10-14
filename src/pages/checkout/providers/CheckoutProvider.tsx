@@ -7,7 +7,10 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import { OrderIdSchemaType, OrderSchemaType } from '@/schemas/payment/OrderSchema'
+import {
+  OrderIdSchemaType,
+  OrderSchemaType,
+} from '@/schemas/payment/OrderSchema'
 import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
 import { trpc } from '@/utils/trpc'
 import { OfferEnumSchemaType, PlanSchemaType } from '@/schemas/PremiumSchema'
@@ -18,30 +21,46 @@ interface ProviderProps {
   order: OrderSchemaType
   plan: PlanSchemaType | null
   changeOffer: (offer: OfferEnumSchemaType) => Promise<void>
-  finishOrder: (paymentMethod: PayerPaymentMethodEnumType, payer: PayerSchemaType) => Promise<string | void>
+  finishOrder: (
+    paymentMethod: PayerPaymentMethodEnumType,
+    payer: PayerSchemaType,
+  ) => Promise<string | void>
 }
 
-const getPlanObject = async (isServer: boolean, planId: string): Promise<PlanSchemaType | null> => {
-  const plansResponse = await fetch(isServer ? '/config/server-plans.json' : '/config/user-plans.json')
+const getPlanObject = async (
+  isServer: boolean,
+  planId: string,
+): Promise<PlanSchemaType | null> => {
+  const plansResponse = await fetch(
+    isServer ? '/config/server-plans.json' : '/config/user-plans.json',
+  )
   const plansResult = await plansResponse.json()
 
-  return plansResult.find((planObject: PlanSchemaType) => planObject.id === planId) || null
+  return (
+    plansResult.find(
+      (planObject: PlanSchemaType) => planObject.id === planId,
+    ) || null
+  )
 }
 
 const CheckoutCtx = createContext<ProviderProps | null>(null)
 
 export const CheckoutProvider: React.FC<{
-  children: React.ReactNode,
-  user: UserIdentitySchemaType | null,
-  order: OrderIdSchemaType | undefined,
+  children: React.ReactNode
+  user: UserIdentitySchemaType | null
+  order: OrderIdSchemaType | undefined
 }> = ({ children, order: orderId }) => {
   const router = useNavigation()
 
   const payOrder = trpc.payment.payOrder.useMutation()
   const updateOrderData = trpc.payment.updateOrderData.useMutation()
 
-  const { data: order, isFetching, refetch } = trpc.payment.getOrder.useQuery({ id: orderId })
-  const [ plan, setPlan ] = useState<PlanSchemaType | null>(null)
+  const {
+    data: order,
+    isFetching,
+    refetch,
+  } = trpc.payment.getOrder.useQuery({ id: orderId })
+  const [plan, setPlan] = useState<PlanSchemaType | null>(null)
 
   const changeOffer = useCallback(
     async (offer: OfferEnumSchemaType): Promise<void> => {
@@ -51,19 +70,22 @@ export const CheckoutProvider: React.FC<{
         orderId: order.id,
         orderData: {
           ...order.orderData,
-          offer
-        }
+          offer,
+        },
       })
 
       if (wasSuccess) {
         await refetch()
       }
     },
-    [ order ],
+    [order, refetch, updateOrderData],
   )
 
   const finishOrder = useCallback(
-    async (paymentMethod: PayerPaymentMethodEnumType, payer: PayerSchemaType): Promise<string | void> => {
+    async (
+      paymentMethod: PayerPaymentMethodEnumType,
+      payer: PayerSchemaType,
+    ): Promise<string | void> => {
       if (!order || order.transactionId) return
 
       const { success, redirectURL } = await payOrder.mutateAsync({
@@ -71,32 +93,33 @@ export const CheckoutProvider: React.FC<{
         paymentData: {
           paymentMethod,
           payer,
-        }
+        },
       })
-      
+
       if (!success) return
-      
+
       return redirectURL
     },
-    [ order ],
+    [order, payOrder],
   )
 
   useEffect(() => {
-    if (isFetching) return 
+    if (isFetching) return
 
     if (!order || order.transactionId) {
       router.push('/home')
 
-      return 
-    } 
+      return
+    }
 
     if (plan && plan.id === order.orderData.planId) return
 
-    getPlanObject(!!order.orderData.pageId, order.orderData.planId)
-      .then((plan) => {
+    getPlanObject(!!order.orderData.pageId, order.orderData.planId).then(
+      (plan) => {
         setPlan(plan)
-      })
-  }, [ isFetching ])
+      },
+    )
+  }, [isFetching, order, plan, router])
 
   if (!order || order.transactionId) {
     return <></>

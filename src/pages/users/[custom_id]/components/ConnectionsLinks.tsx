@@ -1,9 +1,6 @@
 import { UserConnectionsListSchemaType } from '@/schemas/users/ConnectionsSchema'
-import { ConnectionDialog } from '@/components/Dialogs/Connection'
 import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
-import { getAvailableConnections, getConnectionOptions } from '@/utils/connectionsLinks'
-import { getBaseURL } from '@/utils/getBaseURL'
 import { Button, Heading, Text } from '@5list-design-system/react'
 
 /* eslint-disable no-undef */
@@ -54,8 +51,6 @@ const WebsiteLinkBox = styled('a', {
 export const ConnectionsLinks = ({
   connections,
 }: ConnectionsProps): JSX.Element => {
-  const availableConnections = getAvailableConnections()
-
   return (
     <ConnectionsContainer>
       <Heading as={'h4'} weight={'bold'}>
@@ -63,14 +58,10 @@ export const ConnectionsLinks = ({
       </Heading>
 
       <ConnectionsList>
-        {connections.length ?
+        {connections.length ? (
           connections.map(({ connection }) => {
             return (
-              <WebsiteLinkBox
-                href={''}
-                target={'_blank'}
-                key={connection}
-              >
+              <WebsiteLinkBox href={''} target={'_blank'} key={connection}>
                 <Button variation={'icon'} size={'sm'}>
                   <WorldIcon css={{ fill: '$white', size: '$6' }} />
                 </Button>
@@ -83,21 +74,16 @@ export const ConnectionsLinks = ({
                 >
                   {connection[0] + connection.substring(1).toLowerCase()}
 
-                  <PointsText 
-                    as={'span'}
-                    size={'xs'}
-                    color={'$sucess600'} 
-                  >
+                  <PointsText as={'span'} size={'xs'} color={'$sucess600'}>
                     &nbsp;+ 10 pontos
                   </PointsText>
                 </Text>
               </WebsiteLinkBox>
             )
           })
-          : <Text>
-            Nenhuma conexão adicionada.
-          </Text>
-        }
+        ) : (
+          <Text>Nenhuma conexão adicionada.</Text>
+        )}
       </ConnectionsList>
     </ConnectionsContainer>
   )

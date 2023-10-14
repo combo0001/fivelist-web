@@ -34,11 +34,12 @@ const WebsiteBox = styled('div', {
   gap: '$3',
 })
 
-export const WebsiteLinks = ({ links, onAddLink, onRemoveLink }: WebsiteLinksProps): JSX.Element => {
-  const handleOnChange = async (
-    name: string, 
-    url: string,
-  ): Promise<void> => {
+export const WebsiteLinks = ({
+  links,
+  onAddLink,
+  onRemoveLink,
+}: WebsiteLinksProps): JSX.Element => {
+  const handleOnChange = async (name: string, url: string): Promise<void> => {
     if (url) {
       if (/\s/.test(url) && url.length > 64 && name.length > 16) return
 

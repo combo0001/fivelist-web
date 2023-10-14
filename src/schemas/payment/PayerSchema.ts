@@ -4,7 +4,7 @@ import { PayerAddressSchema } from './PayerAddressSchema'
 
 export const PayerSchema = z.object({
   ...PayerIdentitySchema.shape,
-  address: PayerAddressSchema
+  address: PayerAddressSchema,
 })
 
 export type PayerSchemaType = z.infer<typeof PayerSchema>

@@ -21,15 +21,15 @@ export const unfollowUser = procedure
     if (!supabase || !session || !isUserValid(session)) return false
     if (session.user.id === input.userId) return false
 
-    const { status } = await supabase.from('user_follows')
+    const { status } = await supabase
+      .from('user_follows')
       .delete()
       .eq('author_id', session.user.id)
       .eq('user_id', input.userId)
 
-    await revalidateUser(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      { id: input.userId }
-    )
+    await revalidateUser(ctx as inferAsyncReturnType<typeof createContext>, {
+      id: input.userId,
+    })
 
     return status === 204
   })

@@ -20,7 +20,9 @@ export const trySetUserLike = procedure
     const userPlanTier = await getUserPlanTier(supabase, session.user.id)
 
     const hasDouble = userPlanTier.privileges.DOUBLE_LIKE
-    const limitDateString = new Date(Date.now() - (hasDouble ? 12 : 24) * 60 * 60 * 1000).toISOString()
+    const limitDateString = new Date(
+      Date.now() - (hasDouble ? 12 : 24) * 60 * 60 * 1000,
+    ).toISOString()
 
     const { data: likeData, error: likeError } = await supabase
       .from('page_likes')
@@ -31,14 +33,12 @@ export const trySetUserLike = procedure
 
     if (likeError || likeData.length) return false
 
-    const { error: insertError } = await supabase
-      .from('page_likes')
-      .insert({
-        author_id: session.user.id,
-        page_id: input.pageId,
-      })
+    const { error: insertError } = await supabase.from('page_likes').insert({
+      author_id: session.user.id,
+      page_id: input.pageId,
+    })
 
-    if (insertError) return false 
+    if (insertError) return false
 
     return true
   })

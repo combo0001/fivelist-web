@@ -147,7 +147,8 @@ export const Server = ({
   const isRegistered = !!preview
 
   const hasPage = !!isRegistered && !!preview.page
-  const hasVip = !!isRegistered && !!preview.page && preview.page.planTier.id > 0
+  const hasVip =
+    !!isRegistered && !!preview.page && preview.page.planTier.id > 0
 
   const likeRef = useRef<HTMLButtonElement>()
   const router = useRouter()
@@ -201,7 +202,9 @@ export const Server = ({
           <ServerNameText>{cfx.projectName}</ServerNameText>
 
           {hasVip && (
-            <ServerDescriptionText>{(preview.page as ServerPagePreviewSchemaType).description}</ServerDescriptionText>
+            <ServerDescriptionText>
+              {(preview.page as ServerPagePreviewSchemaType).description}
+            </ServerDescriptionText>
           )}
 
           <TagsContainer>
@@ -209,19 +212,37 @@ export const Server = ({
               {cfx.playersCurrent} online de {cfx.playersMax}
             </Tag>
 
-            <Tag>{hasPage ? (preview.page as ServerPagePreviewSchemaType).statistic.followers.toLocaleString() : 0} Seguidores</Tag>
+            <Tag>
+              {hasPage
+                ? (
+                    preview.page as ServerPagePreviewSchemaType
+                  ).statistic.followers.toLocaleString()
+                : 0}{' '}
+              Seguidores
+            </Tag>
 
-            <Tag>{hasPage ? (preview.page as ServerPagePreviewSchemaType).statistic.reviews.toLocaleString() : 0} Avaliações</Tag>
+            <Tag>
+              {hasPage
+                ? (
+                    preview.page as ServerPagePreviewSchemaType
+                  ).statistic.reviews.toLocaleString()
+                : 0}{' '}
+              Avaliações
+            </Tag>
           </TagsContainer>
         </InformationsContainer>
 
-        <LikeButton 
+        <LikeButton
           outlined={!isLiked}
           disabled={canLike ? false : !isLiked}
           reference={likeRef as any}
           onClick={handleLikeOnClick}
         >
-          {hasPage ? (preview.page as ServerPagePreviewSchemaType).statistic.likes.toLocaleString() : 0}
+          {hasPage
+            ? (
+                preview.page as ServerPagePreviewSchemaType
+              ).statistic.likes.toLocaleString()
+            : 0}
         </LikeButton>
       </PageContainer>
     </ServerContainer>

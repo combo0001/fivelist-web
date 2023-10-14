@@ -1,13 +1,13 @@
-import { ServerPageSchemaType } from "@/schemas/servers/PageSchema";
-import { ServerPageType } from "../types";
-import { Database } from "@/@types/supabase";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { getServerPlanTier } from "./getServerPlanTier";
-import { getServerOwner } from "./getServerOwner";
+import { ServerPageSchemaType } from '@/schemas/servers/PageSchema'
+import { ServerPageType } from '../types'
+import { Database } from '@/@types/supabase'
+import { SupabaseClient } from '@supabase/supabase-js'
+import { getServerPlanTier } from './getServerPlanTier'
+import { getServerOwner } from './getServerOwner'
 
 export const getServerCompletePage = async (
-  supabase: SupabaseClient<Database>, 
-  page: ServerPageType
+  supabase: SupabaseClient<Database>,
+  page: ServerPageType,
 ): Promise<ServerPageSchemaType> => {
   const bannerURL = page.bannerUrl || null
 
@@ -28,6 +28,6 @@ export const getServerCompletePage = async (
     },
     connections: page.connections,
     socialMedia: page.socialMedia,
-    planTier
+    planTier,
   }
 }

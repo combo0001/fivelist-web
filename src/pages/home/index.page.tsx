@@ -4,7 +4,7 @@ import { HomeMain } from './main'
 import { ServersListProvider } from './providers/ServersListProvider'
 import { getServerHelper } from '@/utils/getServerHelper'
 
-export const getStaticProps = async ({}) => {
+export const getStaticProps = async () => {
   const helpers = await getServerHelper()
 
   const servers = await helpers.servers.getServerList.fetch()
@@ -21,13 +21,13 @@ export const getStaticProps = async ({}) => {
 export default function UsersView({
   servers,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
-  if (!servers) { 
+  if (!servers) {
     return <></>
   }
 
   return (
-    <ServersListProvider servers={servers} newServers={[]}> 
-      <HomeMain /> 
+    <ServersListProvider servers={servers} newServers={[]}>
+      <HomeMain />
     </ServersListProvider>
   )
 }

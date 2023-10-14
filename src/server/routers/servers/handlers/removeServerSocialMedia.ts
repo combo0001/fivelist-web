@@ -41,7 +41,7 @@ export const removeServerSocialMedia = procedure
     if (deleteError) return
 
     await revalidateServer(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      input.joinId
+      ctx as inferAsyncReturnType<typeof createContext>,
+      input.joinId,
     )
   })

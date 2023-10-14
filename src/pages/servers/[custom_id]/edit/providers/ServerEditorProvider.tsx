@@ -3,7 +3,14 @@ import { ServerProfileSchemaType } from '@/schemas/servers/ProfileSchema'
 import { getMasterListServer } from '@/services/Fivem'
 import { trpc } from '@/utils/trpc'
 import { useRouter } from 'next/navigation'
-import React, { Context, createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, {
+  Context,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
 interface ProviderProps {
   serverToEdit: ServerProfileSchemaType
@@ -20,8 +27,10 @@ export const ServerEditorProvider: React.FC<{
   const utils = trpc.useContext()
   const router = useRouter()
 
-  const [serverDynamic, setServerDynamic] = useState<ServerDynamicSchemaType | null>(null)
-  const [serverToEdit, setServerToEdit] = useState<ServerProfileSchemaType>(server)
+  const [serverDynamic, setServerDynamic] =
+    useState<ServerDynamicSchemaType | null>(null)
+  const [serverToEdit, setServerToEdit] =
+    useState<ServerProfileSchemaType>(server)
 
   const refreshServer = useCallback(async (): Promise<void> => {
     const serverProfile = await utils.servers.getServerProfile.fetch({
@@ -31,25 +40,26 @@ export const ServerEditorProvider: React.FC<{
     if (serverProfile) {
       setServerToEdit(serverProfile)
     }
-  }, [server])
+  }, [server, utils.servers.getServerProfile])
 
   useEffect(() => {
     if (serverDynamic) return
 
-    getMasterListServer(server.joinId)
-      .then((serverDynamic) => {
-        if (!serverDynamic) return router.push('/home')
+    getMasterListServer(server.joinId).then((serverDynamic) => {
+      if (!serverDynamic) return router.push('/home')
 
-        setServerDynamic(serverDynamic)
-      })
-  }, [ serverDynamic ])
+      setServerDynamic(serverDynamic)
+    })
+  }, [serverDynamic, router, server.joinId])
 
   return (
-    <ServerEditCtx.Provider value={{ 
-      serverToEdit,
-      serverDynamic,
-      refreshServer
-    }}>
+    <ServerEditCtx.Provider
+      value={{
+        serverToEdit,
+        serverDynamic,
+        refreshServer,
+      }}
+    >
       {children}
     </ServerEditCtx.Provider>
   )

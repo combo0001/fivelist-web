@@ -34,36 +34,39 @@ const OfferButton = styled('button', {
   },
 
   variants: {
-    selected : {
+    selected: {
       true: {
         background: '$neutral700',
       },
       false: {
         background: '$neutral800',
-      }
-    }
-  }
+      },
+    },
+  },
 })
 
-export const OfferContainer = ({ offer, onChange }: OfferContainerProps): JSX.Element => {
+export const OfferContainer = ({
+  offer,
+  onChange,
+}: OfferContainerProps): JSX.Element => {
   return (
     <OfferWrapper>
-      <OfferButton 
-        selected={offer === 'MONTHLY'} 
+      <OfferButton
+        selected={offer === 'MONTHLY'}
         onClick={onChange.bind(null, 'MONTHLY')}
       >
         Mensal
       </OfferButton>
-      
-      <OfferButton 
-        selected={offer === 'QUARTERLY'} 
+
+      <OfferButton
+        selected={offer === 'QUARTERLY'}
         onClick={onChange.bind(null, 'QUARTERLY')}
       >
         Trimestral
       </OfferButton>
 
-      <OfferButton 
-        selected={offer === 'YEARLY'} 
+      <OfferButton
+        selected={offer === 'YEARLY'}
         onClick={onChange.bind(null, 'YEARLY')}
       >
         Anual

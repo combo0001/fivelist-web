@@ -31,7 +31,7 @@ export const UserEditorProvider: React.FC<{
     if (user) {
       setUserInEdit(user)
     }
-  }, [userInEdit])
+  }, [userInEdit, utils.users.getUserProfile])
 
   return (
     <UserEditorCtx.Provider value={{ user: userInEdit, refreshUser }}>

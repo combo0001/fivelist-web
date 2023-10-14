@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
 import { SearchInput, Select } from '@5list-design-system/react'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useRef } from 'react'
 
 import { OrderValueEnum, useFilter } from '../providers/FilterProvider'
 
@@ -75,7 +75,7 @@ export const ListFilters = (): JSX.Element => {
         options={orders}
         defaultValue={orderBy}
         onValueChange={handleOnChangeOrderBy}
-        prefix='Ordenar por:'
+        prefix="Ordenar por:"
       />
     </FilterContainer>
   )

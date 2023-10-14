@@ -55,7 +55,10 @@ const InformationsContainer = styled('div', {
 export const ListHeader = (): JSX.Element => {
   const { servers } = useServersList()
 
-  const playersAmount = servers.reduce((total, { cfx }) => total + cfx.playersCurrent, 0)
+  const playersAmount = servers.reduce(
+    (total, { cfx }) => total + cfx.playersCurrent,
+    0,
+  )
 
   return (
     <HeaderWrapper>
@@ -72,13 +75,13 @@ export const ListHeader = (): JSX.Element => {
 
         <InformationsContainer>
           <InfoTag active>
-            {servers.length.toLocaleString()}&nbsp;&nbsp;
-            Servidor{servers.length !== 1 ? 'es' : ''}
+            {servers.length.toLocaleString()}&nbsp;&nbsp; Servidor
+            {servers.length !== 1 ? 'es' : ''}
           </InfoTag>
 
           <InfoTag active>
-            {playersAmount.toLocaleString()}&nbsp;&nbsp;
-            Jogador{playersAmount !== 1 ? 'es' : ''} online
+            {playersAmount.toLocaleString()}&nbsp;&nbsp; Jogador
+            {playersAmount !== 1 ? 'es' : ''} online
           </InfoTag>
         </InformationsContainer>
       </OnlineContainer>

@@ -3,7 +3,7 @@
 import React, { Context, createContext, useContext, useState } from 'react'
 import { countries } from 'countries-list'
 
-type OptionsProps = { label: string, value: string }
+type OptionsProps = { label: string; value: string }
 
 export enum OrderValueEnum {
   Likes = 'LIKES',
@@ -14,7 +14,7 @@ export enum OrderValueEnum {
 interface FilterProviderProps {
   serverName: string
   serverLocation: string
-  orderBy: OrderValueEnum 
+  orderBy: OrderValueEnum
   setServerName: (value: string) => void
   setServerLocation: (value: string) => void
   setOrderBy: (value: OrderValueEnum) => void
@@ -44,7 +44,7 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
     return countriesList
   }
 
-  const getOrders = (): { label: string, value: OrderValueEnum }[] => {
+  const getOrders = (): { label: string; value: OrderValueEnum }[] => {
     return [
       { label: 'Mais votados', value: OrderValueEnum.Likes },
       { label: 'Mais seguidos', value: OrderValueEnum.Followers },

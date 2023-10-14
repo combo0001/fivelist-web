@@ -9,8 +9,6 @@ import { trpc } from '@/utils/trpc'
 import { SocialMediaSchemaType } from '@/schemas/SocialMediaSchema'
 import { ConnectionsLinks } from './ConnectionsLinks'
 
-interface ProfileHeaderProps {}
-
 const ContentContainer = styled('section', {
   width: '100%',
 
@@ -36,7 +34,7 @@ const InformationsSide = styled('div', {
   gap: '$8',
 })
 
-export const ProfileContent = ({}: ProfileHeaderProps): JSX.Element => {
+export const ProfileContent = (): JSX.Element => {
   const { user, refreshUser } = useUserEditor()
 
   const setUserStreamLink = trpc.users.setUserStreamLink.useMutation()

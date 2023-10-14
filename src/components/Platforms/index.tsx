@@ -5,12 +5,13 @@ import {
   FacebookIcon,
   InstagramIcon,
   TiktokIcon,
-  TwitterIcon,
   YoutubeIcon,
 } from '@/components/Icons'
 import { SocialMediaSchemaType } from '@/schemas/SocialMediaSchema'
 
-export const getPlatformIcon = (platform: SocialMediaSchemaType): JSX.Element => {
+export const getPlatformIcon = (
+  platform: SocialMediaSchemaType,
+): JSX.Element => {
   switch (platform) {
     case 'INSTAGRAM':
       return <InstagramIcon css={{ size: '$6', fill: '$white' }} />

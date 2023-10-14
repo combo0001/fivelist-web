@@ -1,12 +1,12 @@
-import { OfferEnumSchemaType, PlanSchemaType } from "@/schemas/PremiumSchema"
-import { Heading, Text } from "@5list-design-system/react"
-import { styled } from "@/styles"
-import { useState } from "react"
-import { useCheckout } from "../providers/CheckoutProvider"
+import { OfferEnumSchemaType } from '@/schemas/PremiumSchema'
+import { Heading, Text } from '@5list-design-system/react'
+import { styled } from '@/styles'
+import { useState } from 'react'
+import { useCheckout } from '../providers/CheckoutProvider'
 
 interface SummaryItemProps {
-  offer: OfferEnumSchemaType,
-  price: number,
+  offer: OfferEnumSchemaType
+  price: number
   isEditing?: boolean
   onClick?: () => void
 }
@@ -24,7 +24,7 @@ const SummaryWrapper = styled('ul', {
 
   '& > *': {
     listStyleType: 'none',
-  }
+  },
 })
 
 const SummaryControllerContainer = styled('li', {
@@ -61,8 +61,8 @@ const SummaryItemWrapper = styled('div', {
           background: '$neutral600',
         },
       },
-    }
-  }
+    },
+  },
 })
 
 const SummaryItemTitleContainer = styled('section', {
@@ -71,53 +71,58 @@ const SummaryItemTitleContainer = styled('section', {
   alignItems: 'center',
 })
 
-const SummaryItem = ({ offer, price, isEditing, onClick }: SummaryItemProps) => {
-  const priceFormatted = price?.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) || price
+const SummaryItem = ({
+  offer,
+  price,
+  isEditing,
+  onClick,
+}: SummaryItemProps) => {
+  const priceFormatted =
+    price?.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) ||
+    price
 
-  let offerName = null 
+  let offerName = null
 
   switch (offer) {
     case 'MONTHLY':
       offerName = 'Mensal'
 
-      break 
+      break
     case 'QUARTERLY':
       offerName = 'Trimestral'
 
-      break 
+      break
     case 'YEARLY':
       offerName = 'Anual'
 
-      break 
+      break
   }
 
   return (
-    <SummaryItemWrapper 
-      highlighted={!!isEditing} 
-      selectable={!!isEditing} 
+    <SummaryItemWrapper
+      highlighted={!!isEditing}
+      selectable={!!isEditing}
       onClick={onClick}
     >
       <SummaryItemTitleContainer>
-        <Text
-          color={'$white'}
-          weight={'normal'}
-        >
+        <Text color={'$white'} weight={'normal'}>
           {offerName}
         </Text>
 
-        {
-          !!isEditing ?
-            <Text color={'$neutral100'} weight={'normal'}>
-              Escolher plano
-            </Text>
-          :
-            <Text color={'$primary600'} weight={'normal'}>
-              Plano escolhido
-            </Text>
-        }
+        {isEditing ? (
+          <Text color={'$neutral100'} weight={'normal'}>
+            Escolher plano
+          </Text>
+        ) : (
+          <Text color={'$primary600'} weight={'normal'}>
+            Plano escolhido
+          </Text>
+        )}
       </SummaryItemTitleContainer>
 
-      <Heading as={'h4'} weight={'bold'}>{priceFormatted}</Heading>
+      <Heading as={'h4'} weight={'bold'}>
+        {priceFormatted}
+      </Heading>
     </SummaryItemWrapper>
   )
 }
@@ -141,13 +146,15 @@ export const Summary = (): JSX.Element => {
 
   return (
     <SummaryWrapper>
-      <Heading as={'h5'} weight={'bold'}>Adiconado na sacola</Heading>
+      <Heading as={'h5'} weight={'bold'}>
+        Adiconado na sacola
+      </Heading>
 
       <SummaryControllerContainer>
         <Text color={'$white'}>Alterar plano</Text>
-        
-        <Text 
-          color={'$white'} 
+
+        <Text
+          color={'$white'}
           css={{
             cursor: 'pointer',
             userSelect: 'none',
@@ -157,40 +164,39 @@ export const Summary = (): JSX.Element => {
           }}
           onClick={handleOnEdit}
         >
-          {!!isEditing ? 'Cancelar' : 'Editar'}
+          {isEditing ? 'Cancelar' : 'Editar'}
         </Text>
-      </SummaryControllerContainer> 
+      </SummaryControllerContainer>
 
-      {
-        isEditing ? 
-          <>
-            <SummaryItem 
-              offer={'MONTHLY'}
-              price={plan.price.MONTHLY as number}
-              onClick={handleOnSelect.bind(null, 'MONTHLY')}
-              isEditing
-            />
-
-            <SummaryItem 
-              offer={'QUARTERLY'}
-              price={plan.price.QUARTERLY as number}
-              onClick={handleOnSelect.bind(null, 'QUARTERLY')}
-              isEditing
-            />
-
-            <SummaryItem 
-              offer={'YEARLY'}
-              price={plan.price.YEARLY as number}
-              onClick={handleOnSelect.bind(null, 'YEARLY')}
-              isEditing
-            />
-          </>
-        : 
-          <SummaryItem 
-            offer={order.orderData.offer}
-            price={plan.price[order.orderData.offer] as number}
+      {isEditing ? (
+        <>
+          <SummaryItem
+            offer={'MONTHLY'}
+            price={plan.price.MONTHLY as number}
+            onClick={handleOnSelect.bind(null, 'MONTHLY')}
+            isEditing
           />
-      }     
+
+          <SummaryItem
+            offer={'QUARTERLY'}
+            price={plan.price.QUARTERLY as number}
+            onClick={handleOnSelect.bind(null, 'QUARTERLY')}
+            isEditing
+          />
+
+          <SummaryItem
+            offer={'YEARLY'}
+            price={plan.price.YEARLY as number}
+            onClick={handleOnSelect.bind(null, 'YEARLY')}
+            isEditing
+          />
+        </>
+      ) : (
+        <SummaryItem
+          offer={order.orderData.offer}
+          price={plan.price[order.orderData.offer] as number}
+        />
+      )}
     </SummaryWrapper>
   )
 }

@@ -31,26 +31,26 @@ const PlansCtx = createContext<ProviderProps | null>(null)
 export const PlansProvider: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
-  const [ plans, setPlans ] = useState<PlanSchemaType[] | null>(null)
-  const [ privileges, setPrivileges ] = useState<PrivilegeSchemaType[] | null>(null)
+  const [plans, setPlans] = useState<PlanSchemaType[] | null>(null)
+  const [privileges, setPrivileges] = useState<PrivilegeSchemaType[] | null>(
+    null,
+  )
 
   useEffect(() => {
-    if (plans) return 
+    if (plans) return
 
-    getPlansObject()
-      .then((plans) => {
-        setPlans(plans)
-      })
-  }, [ plans ])
+    getPlansObject().then((plans) => {
+      setPlans(plans)
+    })
+  }, [plans])
 
   useEffect(() => {
-    if (plans) return 
+    if (plans) return
 
-    getPrivilegesList()
-      .then((privileges) => {
-        setPrivileges(privileges)
-      })
-  }, [ plans ])
+    getPrivilegesList().then((privileges) => {
+      setPrivileges(privileges)
+    })
+  }, [plans])
 
   return (
     <PlansCtx.Provider value={{ plans, privileges }}>

@@ -9,7 +9,9 @@ export const ServerReviewReplySchema = z.object({
   createdAt: z.string().datetime(),
 })
 
-export type ServerReviewReplySchemaType = z.infer<typeof ServerReviewReplySchema>
+export type ServerReviewReplySchemaType = z.infer<
+  typeof ServerReviewReplySchema
+>
 
 export const ServerReviewSchema = z.object({
   id: z.string().uuid(),
@@ -24,6 +26,4 @@ export type ServerReviewSchemaType = z.infer<typeof ServerReviewSchema>
 
 export const ServerReviewsSchema = z.array(ServerReviewSchema)
 
-export type ServerReviewsSchemaType = z.infer<
-  typeof ServerReviewsSchema
->
+export type ServerReviewsSchemaType = z.infer<typeof ServerReviewsSchema>

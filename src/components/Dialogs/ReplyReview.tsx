@@ -119,7 +119,7 @@ export const ReplyDialog = ({
   const handleOnSend = async (): Promise<void> => {
     if (onFinish) {
       await onFinish(content)
-    } 
+    }
 
     setStep('finish')
   }

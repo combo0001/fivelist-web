@@ -45,10 +45,7 @@ const ReviewMessageContent = styled(Text, {
   padding: '$3 $6',
 })
 
-export const Review = ({
-  review,
-  hiddenAvatar,
-}: ReviewProps): JSX.Element => {
+export const Review = ({ review, hiddenAvatar }: ReviewProps): JSX.Element => {
   const reviewAuthorName = review.user.name.split(/\s/).shift()
   const reviewCreatedAt = new Date(review.createdAt)
 
@@ -56,7 +53,9 @@ export const Review = ({
     <ReviewContainer>
       {!hiddenAvatar && (
         <AvatarImage
-          src={'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png'}
+          src={
+            'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png'
+          }
           alt={'Author avatar'}
           width={56}
           height={56}
@@ -67,7 +66,10 @@ export const Review = ({
         <Text size={'sm'} color={'$white'} weight={'bold'}>
           {reviewAuthorName},{' '}
           <Text as={'span'} size={'sm'} weight={'bold'}>
-            {formatDistanceToNow(reviewCreatedAt, { addSuffix: true, locale: ptBR })}
+            {formatDistanceToNow(reviewCreatedAt, {
+              addSuffix: true,
+              locale: ptBR,
+            })}
           </Text>
         </Text>
 

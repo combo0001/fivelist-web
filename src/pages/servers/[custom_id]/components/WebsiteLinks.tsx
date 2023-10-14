@@ -39,23 +39,21 @@ export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
         Links externos
       </Heading>
 
-      {
-        links.length ?
-          links.map(({ name, redirectURL }, index) => (
-            <WebsiteLinkBox href={redirectURL} target={'_blank'} key={index}>
-              <Button variation={'icon'} size={'sm'}>
-                <WorldIcon css={{ fill: '$white', size: '$6' }} />
-              </Button>
+      {links.length ? (
+        links.map(({ name, redirectURL }, index) => (
+          <WebsiteLinkBox href={redirectURL} target={'_blank'} key={index}>
+            <Button variation={'icon'} size={'sm'}>
+              <WorldIcon css={{ fill: '$white', size: '$6' }} />
+            </Button>
 
-              <Text size={'sm'} color={'$white'} weight={'bold'}>
-                {name}
-              </Text>
-            </WebsiteLinkBox>
-          ))
-        : <Text>
-          Nenhum site adicionado.
-        </Text>
-      }
+            <Text size={'sm'} color={'$white'} weight={'bold'}>
+              {name}
+            </Text>
+          </WebsiteLinkBox>
+        ))
+      ) : (
+        <Text>Nenhum site adicionado.</Text>
+      )}
     </WebsiteLinksContainer>
   )
 }

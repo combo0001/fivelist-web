@@ -16,10 +16,7 @@ export const UsersPremiumMain = (): JSX.Element => {
       <Header user={clientUser} />
 
       <PremiumWrapper>
-        <PremiumImage
-          src={PremiumBackgroundImage}
-          alt=""
-        />
+        <PremiumImage src={PremiumBackgroundImage} alt="" />
 
         <PremiumContainer>
           <TitleContainer />

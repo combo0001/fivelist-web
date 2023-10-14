@@ -48,20 +48,21 @@ const ReplyMessageContent = styled(Text, {
   padding: '$3 $6',
 })
 
-export const Reply = ({
-  reply,
-}: ReplyProps): JSX.Element => {
+export const Reply = ({ reply }: ReplyProps): JSX.Element => {
   const replyCreatedAt = new Date(reply.createdAt)
 
   return (
     <ReplyContainer>
-      <ReplyArrow /> 
+      <ReplyArrow />
 
       <ReplyMessageContainer>
         <Text size={'sm'} color={'$white'} weight={'bold'}>
           Equipe do servidor,{' '}
           <Text as={'span'} size={'sm'} weight={'bold'}>
-            {formatDistanceToNow(replyCreatedAt, { addSuffix: true, locale: ptBR })}
+            {formatDistanceToNow(replyCreatedAt, {
+              addSuffix: true,
+              locale: ptBR,
+            })}
           </Text>
         </Text>
 

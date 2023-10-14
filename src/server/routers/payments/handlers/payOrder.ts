@@ -22,19 +22,20 @@ export const payOrder = procedure
   .mutation(async ({ input, ctx }) => {
     const { supabase, session } = ctx
 
-    if (!supabase || !session || !isUserValid(session)) return { success: false }
-    
+    if (!supabase || !session || !isUserValid(session))
+      return { success: false }
+
     const order = await getOrderById(supabase, input.orderId, session.user.id)
-    
+
     if (!order) return { success: false }
-    
+
     switch (input.paymentData.paymentMethod) {
-      case 'TICKET': 
+      case 'TICKET':
       case 'PIX':
         return payWithoutAutoCharge(supabase, order, input.paymentData)
       case 'CREDIT_CARD':
         return payWithAutoCharge(supabase, order, input.paymentData)
-      default: 
+      default:
         return { success: false }
     }
   })

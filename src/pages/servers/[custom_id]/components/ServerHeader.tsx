@@ -113,16 +113,17 @@ export const ServerHeader = (): JSX.Element => {
 
   const { serverView, serverDynamic: dynamicNullable } = useServerView()
   const serverDynamic = dynamicNullable as ServerDynamicSchemaType
-  
-  const hasBanner = serverView.page.planTier.privileges.PAGE_BANNER && serverView.page.bannerURL
-  const isOwner = user && serverView.page.ownerUser && serverView.page.ownerUser?.id === user?.id 
+
+  const hasBanner =
+    serverView.page.planTier.privileges.PAGE_BANNER && serverView.page.bannerURL
+  const isOwner =
+    user &&
+    serverView.page.ownerUser &&
+    serverView.page.ownerUser?.id === user?.id
 
   return (
     <HeaderWrapper>
-      {
-        hasBanner &&
-        <Banner src={serverView.page.bannerURL as string} />
-      }
+      {hasBanner && <Banner src={serverView.page.bannerURL as string} />}
 
       <HeaderContainer>
         <HeaderTopContainer>
@@ -148,36 +149,54 @@ export const ServerHeader = (): JSX.Element => {
           </ServerNameText>
 
           <ServerLinks
-            discordURL={searchVariable(['discord', 'discord_url'], serverDynamic.variables)}
-            storeURL={searchVariable(['loja', 'store', 'marketplace'], serverDynamic.variables)}
-            websiteURL={searchVariable(['site', 'website'], serverDynamic.variables)}
+            discordURL={searchVariable(
+              ['discord', 'discord_url'],
+              serverDynamic.variables,
+            )}
+            storeURL={searchVariable(
+              ['loja', 'store', 'marketplace'],
+              serverDynamic.variables,
+            )}
+            websiteURL={searchVariable(
+              ['site', 'website'],
+              serverDynamic.variables,
+            )}
           />
 
           <Divisor />
 
           <ActionsContainer>
-            <Button as={'a'} href={`fivem://connect/${serverView.joinId}`} size={'lg'}>
+            <Button
+              as={'a'}
+              href={`fivem://connect/${serverView.joinId}`}
+              size={'lg'}
+            >
               Conectar Servidor
             </Button>
 
-            {
-              isOwner &&
-              <Link href={`/servers/${serverView.joinId}/premium`} legacyBehavior>
+            {isOwner && (
+              <Link
+                href={`/servers/${serverView.joinId}/premium`}
+                legacyBehavior
+              >
                 <Button size={'lg'} outlined>
                   Obtenha o Premium
                 </Button>
               </Link>
-            }
-            
-            {
-              serverView.page.ownerUser ?
-                <Link href={`/users/${serverView.page.ownerUser.customId}`} legacyBehavior>
-                  <Tag css={{ cursor: 'pointer' }}>
-                    Gerenciado por @{serverView.page.ownerUser.customId}
-                  </Tag>
-                </Link>
-                : <Tag>Servidor não gerenciado</Tag>
-            }
+            )}
+
+            {serverView.page.ownerUser ? (
+              <Link
+                href={`/users/${serverView.page.ownerUser.customId}`}
+                legacyBehavior
+              >
+                <Tag css={{ cursor: 'pointer' }}>
+                  Gerenciado por @{serverView.page.ownerUser.customId}
+                </Tag>
+              </Link>
+            ) : (
+              <Tag>Servidor não gerenciado</Tag>
+            )}
           </ActionsContainer>
         </InformationsContainer>
       </HeaderContainer>

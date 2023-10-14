@@ -30,14 +30,14 @@ const LikeButtonContainer = styled('button', {
       true: {
         '& > *:first-child': {
           fill: '$neutral500',
-        }, 
+        },
 
         opacity: 0.5,
         cursor: 'not-allowed',
       },
-      false: {}
-    }
-  }
+      false: {},
+    },
+  },
 })
 
 interface LikeButtonProps extends ComponentProps<typeof LikeButtonContainer> {

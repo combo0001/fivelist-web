@@ -29,9 +29,8 @@ export const setUserDescription = procedure
     if (updateError) return
 
     const user = rowsData[0]
-    
-    await revalidateUser(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      { customId: user.customId }
-    )
+
+    await revalidateUser(ctx as inferAsyncReturnType<typeof createContext>, {
+      customId: user.customId,
+    })
   })

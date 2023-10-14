@@ -1,5 +1,8 @@
 import { Database } from '@/@types/supabase'
-import { OrderSchemaType, PaymentDataSchemaType } from '@/schemas/payment/OrderSchema'
+import {
+  OrderSchemaType,
+  PaymentDataSchemaType,
+} from '@/schemas/payment/OrderSchema'
 import { SupabaseClient } from '@supabase/supabase-js'
 import { getPlanObject } from './getPlanObject'
 import fetch from 'node-fetch'
@@ -8,24 +11,30 @@ import { TransactionRequestType, TransactionResponseType } from '../types'
 import { PlanSchemaType } from '@/schemas/PremiumSchema'
 import { getOfferMultiplier } from './getOfferMultiplier'
 
-const getGatewayByPaymentType = async (paymentMethod: PayerPaymentMethodEnumType): Promise<string | void> => {
-  const response = await 
-    fetch('http://localhost:5001/api/transaction/list_methods', { 
-      method: 'GET', 
+const getGatewayByPaymentType = async (
+  paymentMethod: PayerPaymentMethodEnumType,
+): Promise<string | void> => {
+  const response = await fetch(
+    'http://localhost:5001/api/transaction/list_methods',
+    {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': 'Bearer ADMIN_TOKEN'
-      }, 
-    })
+        authorization: 'Bearer ADMIN_TOKEN',
+      },
+    },
+  )
 
   if (response.status !== 200) return
-  
-  const result = await response.json() as { [key: string]: Array<{ [key: string]: any }> }
 
-  let gatewayName: string | undefined = undefined
-  let paymentTypeId: string | undefined = undefined
+  const result = (await response.json()) as {
+    [key: string]: Array<{ [key: string]: any }>
+  }
 
-  switch (paymentMethod) {  
+  let gatewayName: string | undefined
+  let paymentTypeId: string | undefined
+
+  switch (paymentMethod) {
     case 'TICKET':
       paymentTypeId = 'ticket'
 
@@ -38,7 +47,9 @@ const getGatewayByPaymentType = async (paymentMethod: PayerPaymentMethodEnumType
 
   for (const name in result) {
     const gateway = result[name]
-    const hasOption = gateway.some((method) => method.payment_type_id === paymentTypeId)
+    const hasOption = gateway.some(
+      (method) => method.payment_type_id === paymentTypeId,
+    )
 
     if (hasOption) {
       gatewayName = name
@@ -51,15 +62,18 @@ const getGatewayByPaymentType = async (paymentMethod: PayerPaymentMethodEnumType
 }
 
 const createTransaction = async (
-  plan: PlanSchemaType, 
-  order: OrderSchemaType, 
-  paymentData: PaymentDataSchemaType
+  plan: PlanSchemaType,
+  order: OrderSchemaType,
+  paymentData: PaymentDataSchemaType,
 ): Promise<TransactionResponseType | void> => {
   const offerMultiplier = getOfferMultiplier(order.orderData.offer)
-  
-  const paymentGateway = await getGatewayByPaymentType(paymentData.paymentMethod)
+
+  const paymentGateway = await getGatewayByPaymentType(
+    paymentData.paymentMethod,
+  )
   const paymentType = paymentData.paymentMethod === 'PIX' ? 'pix' : 'boleto'
-  const paymentAmount = (plan.price[order.orderData.offer] as number) * offerMultiplier
+  const paymentAmount =
+    (plan.price[order.orderData.offer] as number) * offerMultiplier
 
   const bodyPayload = {
     description: plan.id,
@@ -79,41 +93,40 @@ const createTransaction = async (
         address_neighborhood: paymentData.payer.address.neighborhood,
         address_city: paymentData.payer.address.city,
         address_state: paymentData.payer.address.state,
-      }
-    }
+      },
+    },
   } as TransactionRequestType
-  
+
   if (!paymentGateway) return
-  
-  const response = await 
-    fetch('http://localhost:5001/api/transaction/create', { 
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': 'Bearer ADMIN_TOKEN'
-      }, 
-      body: JSON.stringify(bodyPayload) 
-    })
+
+  const response = await fetch('http://localhost:5001/api/transaction/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: 'Bearer ADMIN_TOKEN',
+    },
+    body: JSON.stringify(bodyPayload),
+  })
 
   if (response.status !== 201) return
-  
-  return await response.json() as TransactionResponseType
+
+  return (await response.json()) as TransactionResponseType
 }
 
 export const payWithoutAutoCharge = async (
   supabase: SupabaseClient<Database>,
   order: OrderSchemaType,
   paymentData: PaymentDataSchemaType,
-): Promise<{ success: boolean, redirectURL?: string }> => {
+): Promise<{ success: boolean; redirectURL?: string }> => {
   const isServer = !!order.orderData.pageId
   const plan = await getPlanObject(isServer, order.orderData.planId)
-  
+
   if (!plan) return { success: false }
-  
+
   const transaction = await createTransaction(plan, order, paymentData)
-  
+
   if (!transaction) return { success: false }
-  
+
   const { error } = await supabase
     .from('orders')
     .update({
@@ -124,6 +137,6 @@ export const payWithoutAutoCharge = async (
     .eq('owner_id', order.ownerUser.id)
 
   if (error) return { success: false }
-  
+
   return { success: true, redirectURL: transaction.gwTransactionUrl }
 }

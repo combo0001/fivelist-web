@@ -5,7 +5,7 @@ import { OrderDataSchema } from '@/schemas/payment/OrderSchema'
 
 const OrderDataInputSchema = z.object({
   orderId: z.string().uuid(),
-  orderData: OrderDataSchema
+  orderData: OrderDataSchema,
 })
 
 const OrderDataOutputSchema = z.boolean()
@@ -21,7 +21,7 @@ export const updateOrderData = procedure
     const { error } = await supabase
       .from('orders')
       .update({
-        order_data: input.orderData
+        order_data: input.orderData,
       })
       .eq('id', input.orderId)
       .eq('owner_id', session.user.id)

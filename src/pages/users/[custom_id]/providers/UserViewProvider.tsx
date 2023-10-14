@@ -1,6 +1,12 @@
 import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
 import { trpc } from '@/utils/trpc'
-import React, { Context, createContext, use, useCallback, useContext, useState } from 'react'
+import React, {
+  Context,
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+} from 'react'
 
 interface ProviderProps {
   user: UserProfileSchemaType
@@ -17,84 +23,83 @@ export const UserViewProvider: React.FC<{
   user: UserProfileSchemaType
 }> = ({ children, user }) => {
   const [userToView, setUserToView] = useState(user)
-  const { data: isFollower, refetch } = trpc.users.isUserFollower.useQuery({ userId: userToView.id })
+  const { data: isFollower, refetch } = trpc.users.isUserFollower.useQuery({
+    userId: userToView.id,
+  })
 
   const viewUser = trpc.users.viewUser.useMutation()
   const followUserTrigger = trpc.users.followUser.useMutation()
   const unfollowUserTrigger = trpc.users.unfollowUser.useMutation()
 
-  const registerViewToUser = useCallback(
-    async (): Promise<void> => {
-      const isRegistered = await viewUser.mutateAsync({ userId: userToView.id })
+  const registerViewToUser = useCallback(async (): Promise<void> => {
+    const isRegistered = await viewUser.mutateAsync({ userId: userToView.id })
 
-      if (!isRegistered) return
+    if (!isRegistered) return
 
-      setUserToView((user) => ({
-        ...user,
-        page: {
-          ...user.page,
-          statistics: {
-            ...user.page.statistics,
-            views: user.page.statistics.views + 1,
-          }
-        }
-      }))
-    }, 
-    [userToView]
-  )
+    setUserToView((user) => ({
+      ...user,
+      page: {
+        ...user.page,
+        statistics: {
+          ...user.page.statistics,
+          views: user.page.statistics.views + 1,
+        },
+      },
+    }))
+  }, [userToView, viewUser])
 
-  const followUser = useCallback(
-    async (): Promise<void> => {
-      const isFollowed = await followUserTrigger.mutateAsync({ userId: userToView.id })
+  const followUser = useCallback(async (): Promise<void> => {
+    const isFollowed = await followUserTrigger.mutateAsync({
+      userId: userToView.id,
+    })
 
-      if (!isFollowed) return
+    if (!isFollowed) return
 
-      setUserToView((user) => ({
-        ...user,
-        page: {
-          ...user.page,
-          statistics: {
-            ...user.page.statistics,
-            followers: user.page.statistics.followers + 1,
-          }
-        }
-      }))
+    setUserToView((user) => ({
+      ...user,
+      page: {
+        ...user.page,
+        statistics: {
+          ...user.page.statistics,
+          followers: user.page.statistics.followers + 1,
+        },
+      },
+    }))
 
-      refetch()
-    },
-    [userToView]
-  )
+    refetch()
+  }, [userToView, followUserTrigger, refetch])
 
-  const unfollowUser = useCallback(
-    async (): Promise<void> => {
-      const isUnfollowed = await unfollowUserTrigger.mutateAsync({ userId: userToView.id })
+  const unfollowUser = useCallback(async (): Promise<void> => {
+    const isUnfollowed = await unfollowUserTrigger.mutateAsync({
+      userId: userToView.id,
+    })
 
-      if (!isUnfollowed) return
+    if (!isUnfollowed) return
 
-      setUserToView((user) => ({
-        ...user,
-        page: {
-          ...user.page,
-          statistics: {
-            ...user.page.statistics,
-            followers: user.page.statistics.followers - 1,
-          }
-        }
-      }))
+    setUserToView((user) => ({
+      ...user,
+      page: {
+        ...user.page,
+        statistics: {
+          ...user.page.statistics,
+          followers: user.page.statistics.followers - 1,
+        },
+      },
+    }))
 
-      refetch()
-    },
-    [userToView]
-  )
+    refetch()
+  }, [userToView, refetch, unfollowUserTrigger])
 
   return (
-    <UserViewCtx.Provider value={{ 
-      user: userToView, 
-      isFollower: !!isFollower, 
-      followUser, 
-      unfollowUser, 
-      registerViewToUser 
-    }}>
+    <UserViewCtx.Provider
+      value={{
+        user: userToView,
+        isFollower: !!isFollower,
+        followUser,
+        unfollowUser,
+        registerViewToUser,
+      }}
+    >
       {children}
     </UserViewCtx.Provider>
   )

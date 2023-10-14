@@ -43,7 +43,10 @@ const AdsLink = (): JSX.Element => (
 )
 
 const CommunityLink = (): JSX.Element => (
-  <LinkContainer href={'/community'} css={{ opacity: 0.3, cursor: 'not-allowed' }}>
+  <LinkContainer
+    href={'/community'}
+    css={{ opacity: 0.3, cursor: 'not-allowed' }}
+  >
     <ProfileIcon css={{ size: '$6', fill: '$neutral100' }} />
 
     <Text size={'sm'}>Em breve</Text>
@@ -51,7 +54,10 @@ const CommunityLink = (): JSX.Element => (
 )
 
 const StreamersLink = (): JSX.Element => (
-  <LinkContainer href={'/streamers'} css={{ opacity: 0.3, cursor: 'not-allowed' }}>
+  <LinkContainer
+    href={'/streamers'}
+    css={{ opacity: 0.3, cursor: 'not-allowed' }}
+  >
     <TwitchIcon css={{ size: '$6', fill: '$neutral100' }} />
 
     <Text size={'sm'}>Em breve</Text>

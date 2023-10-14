@@ -16,8 +16,6 @@ import Link from 'next/link'
 import { useUserView } from '../providers/UserViewProvider'
 import { useRouter } from 'next/navigation'
 
-interface ProfileHeaderProps { }
-
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
 
@@ -111,7 +109,7 @@ const PremiumContainer = styled('div', {
   gap: '$2',
 })
 
-export const ProfileHeader = ({ }: ProfileHeaderProps): JSX.Element => {
+export const ProfileHeader = (): JSX.Element => {
   const router = useRouter()
 
   const { user, isFollower, followUser, unfollowUser } = useUserView()
@@ -154,12 +152,14 @@ export const ProfileHeader = ({ }: ProfileHeaderProps): JSX.Element => {
         </Text>
       </PremiumContainer>
     )
+  ) : isFollower ? (
+    <Button size={'lg'} outlined onClick={handleOnToggleFollow}>
+      Deixar de seguir
+    </Button>
   ) : (
-    isFollower ? (
-      <Button size={'lg'} outlined onClick={handleOnToggleFollow}>Deixar de seguir</Button>
-    ) : (
-      <Button size={'lg'} onClick={handleOnToggleFollow}>Seguir</Button>
-    )
+    <Button size={'lg'} onClick={handleOnToggleFollow}>
+      Seguir
+    </Button>
   )
 
   return (
@@ -275,7 +275,8 @@ const DataTags = ({ followers, views }: DataTagsProps): JSX.Element => {
 
       <TagBox>
         <EyeIcon css={{ size: '$6', fill: '$white' }} />
-        {views.toLocaleString()} visualizaç{views !== 1 ? 'ões' : 'ão'} no perfil
+        {views.toLocaleString()} visualizaç{views !== 1 ? 'ões' : 'ão'} no
+        perfil
       </TagBox>
     </TagsContainer>
   )

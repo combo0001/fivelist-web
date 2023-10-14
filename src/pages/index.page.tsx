@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     redirect: {
       permanent: false,

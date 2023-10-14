@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { Database } from '@/@types/supabase'
 import { procedure } from '@/server/trpc'
 import { createClient } from '@supabase/supabase-js'
@@ -35,15 +37,17 @@ export const getPageJoinId = procedure
       .eq('custom_id', input.customId)
       .single()
 
-    if (fetchPageError || !fetchPageData) return null 
+    if (fetchPageError || !fetchPageData) return null
 
     const serverPageId = fetchPageData.id
 
     const { data: fetchServerData, error: fetchServerError } = await supabase
       .from('servers')
-      .select(`
+      .select(
+        `
         joinId:id
-      `)
+      `,
+      )
       .eq('page_id', serverPageId)
       .single()
 

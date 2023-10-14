@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { PasswordSchema } from '@/schemas/users/PasswordSchema'
 import { Database } from '@/@types/supabase'
 import { procedure } from '@/server/trpc'
@@ -6,7 +8,7 @@ import { z } from 'zod'
 
 const UserPasswordInputSchema = z.object({
   code: z.string(),
-  password: PasswordSchema
+  password: PasswordSchema,
 })
 
 const UserPasswordOutputSchema = z.void()
@@ -14,7 +16,7 @@ const UserPasswordOutputSchema = z.void()
 export const setUserPassword = procedure
   .input(UserPasswordInputSchema)
   .output(UserPasswordOutputSchema)
-  .mutation(async ({ input, ctx }) => {
+  .mutation(async ({ input }) => {
     const supabase = createClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -26,13 +28,16 @@ export const setUserPassword = procedure
       },
     )
 
-    const { data: exchangeData, error: exchangeError } = await supabase.auth.exchangeCodeForSession(input.code)
+    const { data: exchangeData, error: exchangeError } =
+      await supabase.auth.exchangeCodeForSession(input.code)
 
     if (exchangeError) return
 
-    const { error: sessionError } = await supabase.auth.setSession(exchangeData.session)
-    
-    if (sessionError) return 
+    const { error: sessionError } = await supabase.auth.setSession(
+      exchangeData.session,
+    )
+
+    if (sessionError) return
 
     await supabase.auth.updateUser({ password: input.password })
   })

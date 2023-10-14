@@ -33,7 +33,7 @@ export const setServerDescription = procedure
     if (updateError || !updateData.length) return
 
     await revalidateServer(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      input.joinId
+      ctx as inferAsyncReturnType<typeof createContext>,
+      input.joinId,
     )
   })

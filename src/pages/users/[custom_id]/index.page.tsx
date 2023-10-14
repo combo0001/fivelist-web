@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-import { DehydratedState } from '@tanstack/react-query'
 import {
   GetStaticPaths,
   GetStaticPropsContext,
@@ -25,12 +24,12 @@ export const getStaticProps = async ({
 
   if (customId && typeof customId === 'string') {
     const userPage = await helpers.users.getUserProfile.fetch({ customId })
-  
+
     if (userPage) {
       const props = {
         userPage,
       }
-  
+
       return {
         props,
         revalidate: false,

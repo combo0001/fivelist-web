@@ -10,7 +10,7 @@ import { isUserValid } from '../../users/utils/isUserValid'
 const ServerSocialMediaInputSchema = z.object({
   joinId: ServerJoinIdSchema,
   pageId: z.string().uuid(),
-  ...ServerSocialMediaSchema.shape
+  ...ServerSocialMediaSchema.shape,
 })
 
 const ServerSocialMediaOutputSchema = z.void()
@@ -32,17 +32,18 @@ export const addServerSocialMedia = procedure
 
     if (fetchError || !fetchData) return
 
-    const { error: upsertError } = await supabase.from('page_social_media')
+    const { error: upsertError } = await supabase
+      .from('page_social_media')
       .upsert({
         page_id: fetchData.id,
         social_media: input.socialMedia,
         profile_id: input.profileId,
-      })  
+      })
 
-    if (upsertError) return 
+    if (upsertError) return
 
     await revalidateServer(
-      ctx as inferAsyncReturnType<typeof createContext>, 
-      input.joinId
+      ctx as inferAsyncReturnType<typeof createContext>,
+      input.joinId,
     )
   })

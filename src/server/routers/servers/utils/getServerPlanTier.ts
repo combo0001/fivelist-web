@@ -9,20 +9,19 @@ export const getServerPlanTier = async (
   return {
     id: 0,
     name: 'FREE_TIER',
-    privileges: {
-    },
+    privileges: {},
     // id: 3,
     // name: 'BUSINESS_TIER',
     // privileges: {
-    //   PAGE_DESCRIPTION: true, 
-    //   PAGE_BANNER: true, 
-    //   REPLY_REVIEWS: true, 
-    //   LIKE_SERVER_BOT: true, 
-    //   PAGE_CUSTOM_ID: true, 
-    //   LIKE_SERVER_SCRIPT: true, 
-    //   PAGE_STATISTICS: true, 
-    //   SERVER_STATISTICS: true, 
-    //   MARKETING_SUPPORT: true, 
+    //   PAGE_DESCRIPTION: true,
+    //   PAGE_BANNER: true,
+    //   REPLY_REVIEWS: true,
+    //   LIKE_SERVER_BOT: true,
+    //   PAGE_CUSTOM_ID: true,
+    //   LIKE_SERVER_SCRIPT: true,
+    //   PAGE_STATISTICS: true,
+    //   SERVER_STATISTICS: true,
+    //   MARKETING_SUPPORT: true,
     // },
   }
 }

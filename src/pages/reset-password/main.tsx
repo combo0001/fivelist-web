@@ -25,7 +25,7 @@ import { PasswordSchema } from '@/schemas/users/PasswordSchema'
 
 const ResetPasswordSchema = z.object({
   password: PasswordSchema,
-  confirmPassword: PasswordSchema
+  confirmPassword: PasswordSchema,
 })
 
 type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>
@@ -62,7 +62,7 @@ export const ResetPasswordMain = (): JSX.Element => {
   }: ResetPasswordSchemaType): Promise<void> => {
     if (password === confirmPassword) {
       await supabase.auth.updateUser({ password })
-      
+
       router.push('/')
     } else {
       setError('confirmPassword', {
@@ -78,7 +78,7 @@ export const ResetPasswordMain = (): JSX.Element => {
     if (!code) {
       router.push('/')
     }
-  }, [])
+  }, [router])
 
   return (
     <Background>

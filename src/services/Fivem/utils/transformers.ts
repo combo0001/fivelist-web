@@ -3,11 +3,15 @@ import {
   DEFAULT_SERVER_LOCALE_COUNTRY,
   filterServerProjectName,
   hasPrivateConnectEndpoint,
-} from "./serverUtils"
-import { master } from "../proto/master"
-import { GameName, IFullServerData, IServerView, IServerViewPlayer } from "../types"
-import { ServerCitizenSchemaType } from "@/schemas/servers/CitizenSchema"
-import { ServerDynamicPlayerType, ServerDynamicSchemaType, ServerDynamicVariablesType } from "@/schemas/servers/DynamicSchema"
+} from './serverUtils'
+import { master } from '../proto/master'
+import { GameName, IFullServerData, IServerViewPlayer } from '../types'
+import { ServerCitizenSchemaType } from '@/schemas/servers/CitizenSchema'
+import {
+  ServerDynamicPlayerType,
+  ServerDynamicSchemaType,
+  ServerDynamicVariablesType,
+} from '@/schemas/servers/DynamicSchema'
 
 const arrayAt = <T>(array: T[], index: number): T | undefined => {
   if (index < 0) {
@@ -33,7 +37,10 @@ export function serverAddress2ServerView(address: string): ServerBaseProps {
   }
 }
 
-export function masterListServerData2ServerView(joinId: string, data: master.IServerData): ServerCitizenSchemaType {
+export function masterListServerData2ServerView(
+  joinId: string,
+  data: master.IServerData,
+): ServerCitizenSchemaType {
   return Object.assign(
     serverAddress2ServerView(joinId),
     {
@@ -51,7 +58,9 @@ interface ServerVariablesProps {
   country?: string
 }
 
-export function processServerDataVariables(vars?: { [key: string]: string } | null): ServerVariablesProps {
+export function processServerDataVariables(
+  vars?: { [key: string]: string } | null,
+): ServerVariablesProps {
   const view: ServerVariablesProps = {
     projectName: '',
     gameName: GameName.FiveM,
@@ -94,7 +103,10 @@ function getCanonicalLocale(locale: string): string {
   }
 }
 
-export function masterListFullServerData2ServerView(joinId: string, data: IFullServerData['Data']): ServerDynamicSchemaType {
+export function masterListFullServerData2ServerView(
+  joinId: string,
+  data: IFullServerData['Data'],
+): ServerDynamicSchemaType {
   return Object.assign(
     serverAddress2ServerView(joinId),
     {
@@ -104,13 +116,19 @@ export function masterListFullServerData2ServerView(joinId: string, data: IFullS
       playersMax: data.svMaxclients || 0,
       playersCurrent: data.clients || 0,
 
-      isPrivate: data.private || hasPrivateConnectEndpoint(data.connectEndPoints),
-      isOnline: data.fallback ? false : true,
+      isPrivate:
+        data.private || hasPrivateConnectEndpoint(data.connectEndPoints),
+      isOnline: !data.fallback,
 
       resources: data.resources as string[],
-      players: 
-        data.players.map(({ identifiers, name, ping }: IServerViewPlayer) => ({ identifiers, name, ping })) as ServerDynamicPlayerType[],
-      variables: data.vars || {} as ServerDynamicVariablesType,
+      players: data.players.map(
+        ({ identifiers, name, ping }: IServerViewPlayer) => ({
+          identifiers,
+          name,
+          ping,
+        }),
+      ) as ServerDynamicPlayerType[],
+      variables: data.vars || ({} as ServerDynamicVariablesType),
     },
     processServerDataVariables(data.vars),
   )

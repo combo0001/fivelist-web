@@ -52,7 +52,10 @@ export const Description = (): JSX.Element => {
   const setUserDescription = trpc.users.setUserDescription.useMutation()
 
   const hasVip = user.planTier.privileges.PAGE_DESCRIPTION
-  const text = hasVip && user.page.description ? user.page.description : 'Descrição não foi editada'
+  const text =
+    hasVip && user.page.description
+      ? user.page.description
+      : 'Descrição não foi editada'
 
   const handleOnChangeDescription = async (
     description: string,

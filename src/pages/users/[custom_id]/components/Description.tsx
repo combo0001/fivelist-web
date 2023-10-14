@@ -31,7 +31,10 @@ export const Description = (): JSX.Element => {
   const { user } = useUserView()
 
   const hasVip = user.planTier.privileges.PAGE_DESCRIPTION
-  const text = hasVip && user.page.description ? user.page.description : 'Descrição não foi editada'
+  const text =
+    hasVip && user.page.description
+      ? user.page.description
+      : 'Descrição não foi editada'
 
   return (
     <DescriptionWrapper>

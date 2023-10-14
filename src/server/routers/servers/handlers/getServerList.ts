@@ -1,5 +1,10 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { Database } from '@/@types/supabase'
-import { ServerPreviewsSchema, ServerPreviewsSchemaType } from '@/schemas/servers/PreviewSchema'
+import {
+  ServerPreviewsSchema,
+  ServerPreviewsSchemaType,
+} from '@/schemas/servers/PreviewSchema'
 import { procedure } from '@/server/trpc'
 import { createClient } from '@supabase/supabase-js'
 import { z } from 'zod'
@@ -23,12 +28,11 @@ export const getServerList = procedure
             autoRefreshToken: false,
             persistSession: false,
           },
-        }
+        },
       )
     }
 
-    let { data: fetchData, error } = await supabase.from('servers')
-      .select(`
+    const { data: fetchData, error } = await supabase.from('servers').select(`
         joinId:id,
         page:pages(
           id,
@@ -60,7 +64,9 @@ export const getServerList = procedure
           },
           planTier,
         },
-        createdAt: createdAt ? new Date(createdAt).toISOString() : new Date().toISOString(),
+        createdAt: createdAt
+          ? new Date(createdAt).toISOString()
+          : new Date().toISOString(),
       })
     }
 

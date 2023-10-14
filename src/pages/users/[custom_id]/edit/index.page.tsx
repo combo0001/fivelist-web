@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import { createContextInner } from '@/server/context'
 import { appRouter } from '@/server/routers/_app'
-import { DehydratedState } from '@tanstack/react-query'
 import { createServerSideHelpers } from '@trpc/react-query/server'
 import {
   GetStaticPaths,
@@ -13,7 +12,7 @@ import SuperJSON from 'superjson'
 import { UsersEditMain } from './main'
 import { UserEditorProvider } from './providers/UserEditorProvider'
 import { useClientUser } from '@/providers/UserProvider'
-import { use, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -63,15 +62,15 @@ export default function UsersEdit({
   const router = useRouter()
   const { user } = useClientUser()
 
-  if (!userPage) {
-    return <></>
-  }
-
   useEffect(() => {
     if (user?.id !== userPage.id) {
       router.push('/home')
     }
   })
+
+  if (!userPage) {
+    return <></>
+  }
 
   return (
     <UserEditorProvider user={userPage}>

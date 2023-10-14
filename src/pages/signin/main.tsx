@@ -10,10 +10,7 @@ import {
   InputContainer,
   Success,
 } from '@/components/Auth'
-import {
-  SignInSchema,
-  SignInSchemaType,
-} from '@/schemas/users/SignInSchema'
+import { SignInSchema, SignInSchemaType } from '@/schemas/users/SignInSchema'
 import { useClientUser } from '@/providers/UserProvider'
 import {
   Button,

@@ -17,13 +17,13 @@ export const getUserLevel = async (
 
   const nextLevel = {
     id: level + 1,
-    extension: EXTENSION,  
+    extension: EXTENSION,
     points: (level + 1) * EXTENSION,
   }
 
   return {
-    currentLevel: currentLevel,
-    nextLevel: nextLevel,
+    currentLevel,
+    nextLevel,
     points,
   }
 }

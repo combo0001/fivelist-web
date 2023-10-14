@@ -1,17 +1,20 @@
-import { createContext } from "@/server/context"
-import { inferAsyncReturnType } from "@trpc/server"
+import { createContext } from '@/server/context'
+import { inferAsyncReturnType } from '@trpc/server'
 
 interface UserProps {
   id?: string
   customId?: string
 }
 
-export const revalidateUser = async (ctx: inferAsyncReturnType<typeof createContext>, user: UserProps): Promise<void> => {
+export const revalidateUser = async (
+  ctx: inferAsyncReturnType<typeof createContext>,
+  user: UserProps,
+): Promise<void> => {
   const { res } = ctx
 
   if (res) {
     let customId: string | null = null
-    
+
     if (user.customId) {
       customId = user.customId
     } else if (user.id) {
@@ -29,7 +32,9 @@ export const revalidateUser = async (ctx: inferAsyncReturnType<typeof createCont
     }
 
     if (!customId) return
-    
-    res.revalidate(`/users/${user.customId}`).catch(() => { })
+
+    try {
+      await res.revalidate(`/users/${user.customId}`)
+    } catch (err) {}
   }
 }

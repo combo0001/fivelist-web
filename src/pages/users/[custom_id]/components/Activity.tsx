@@ -7,7 +7,7 @@ import { ptBR } from 'date-fns/locale'
 import Image from 'next/image'
 
 interface ActivityProps {
-  page: UserPageSchemaType,
+  page: UserPageSchemaType
   message: string
   createdAt: string
 }
@@ -47,9 +47,10 @@ export const Activity = ({
   return (
     <ActivityContainer>
       <AvatarImage
-        src={page.avatarURL ?
+        src={
           page.avatarURL
-          : 'https://cdn.discordapp.com/attachments/923436122871308308/1120117167925501982/image.png'
+            ? page.avatarURL
+            : 'https://cdn.discordapp.com/attachments/923436122871308308/1120117167925501982/image.png'
         }
         alt={'Avatar do perfil'}
         width={56}
@@ -59,7 +60,10 @@ export const Activity = ({
       <ActivityMessageContainer>
         <Text size={'xs'} color={'$neutral200'}>
           Publicado{' '}
-          {formatDistanceToNow(new Date(createdAt), { addSuffix: true, locale: ptBR })}
+          {formatDistanceToNow(new Date(createdAt), {
+            addSuffix: true,
+            locale: ptBR,
+          })}
         </Text>
 
         <MessageText size={'sm'} color={'$white'}>

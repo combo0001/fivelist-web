@@ -5,7 +5,7 @@ import { ServerJoinIdSchema } from './IdentitySchema'
 export const ServerNameSchema = z.string()
 
 export const ServerProfileSchema = z.object({
-  joinId: ServerJoinIdSchema, 
+  joinId: ServerJoinIdSchema,
   page: ServerPageSchema,
   createdAt: z.string().datetime(),
 })

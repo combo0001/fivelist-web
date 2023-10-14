@@ -2,7 +2,6 @@
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { PageLayout } from '@/components/PageLayout'
-import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
 import { useClientUser } from '@/providers/UserProvider'
 
 import { ProfileHeader } from './components/ProfileHeader'
@@ -11,9 +10,7 @@ import { UsersContainer } from './style'
 import { useEffect, useRef } from 'react'
 import { useUserView } from './providers/UserViewProvider'
 
-interface UsersViewMainProps {}
-
-export const UsersViewMain = ({}: UsersViewMainProps): JSX.Element => {
+export const UsersViewMain = (): JSX.Element => {
   const { user: clientUser } = useClientUser()
   const { registerViewToUser } = useUserView()
 
@@ -21,10 +18,10 @@ export const UsersViewMain = ({}: UsersViewMainProps): JSX.Element => {
 
   useEffect(() => {
     if (viewStatus.current) return
-    
+
     registerViewToUser()
     viewStatus.current = true
-  }, [])
+  }, [registerViewToUser])
 
   return (
     <PageLayout>

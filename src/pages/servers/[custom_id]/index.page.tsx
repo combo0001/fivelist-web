@@ -1,6 +1,10 @@
 /* eslint-disable no-undef */
 
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from 'next'
 
 import { ServersViewMain } from './main'
 import { getServerHelper } from '@/utils/getServerHelper'
@@ -20,13 +24,15 @@ export const getStaticProps = async ({
   const customId = params?.custom_id
 
   if (typeof customId === 'string' && customId.length === 6) {
-    const serverPage = await helpers.servers.getServerProfile.fetch({ joinId: customId })
-  
+    const serverPage = await helpers.servers.getServerProfile.fetch({
+      joinId: customId,
+    })
+
     if (serverPage) {
       const props = {
         serverPage,
       }
-  
+
       return {
         props,
         revalidate: 60,
@@ -42,7 +48,9 @@ export const getStaticProps = async ({
   }
 }
 
-export default function ServersView({ serverPage }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
+export default function ServersView({
+  serverPage,
+}: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
   if (!serverPage) {
     return <></>
   }

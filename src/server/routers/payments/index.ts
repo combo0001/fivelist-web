@@ -6,7 +6,7 @@ import { payOrder } from './handlers/payOrder'
 
 export const paymentsRouter = router({
   getOrder,
-  createOrder, 
+  createOrder,
   updateOrderData,
-  payOrder
+  payOrder,
 })

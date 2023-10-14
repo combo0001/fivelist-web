@@ -127,7 +127,11 @@ const PremiumContainer = styled('div', {
 export const ServerHeader = (): JSX.Element => {
   const { uploadFile } = useStorage()
 
-  const { serverDynamic: serverDynamicNullable, serverToEdit, refreshServer } = useServerEditor()
+  const {
+    serverDynamic: serverDynamicNullable,
+    serverToEdit,
+    refreshServer,
+  } = useServerEditor()
   const serverDynamic = serverDynamicNullable as ServerDynamicSchemaType
   const setServerBanner = trpc.servers.setServerBanner.useMutation()
 
@@ -135,7 +139,9 @@ export const ServerHeader = (): JSX.Element => {
   const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
 
   const hasVip = serverToEdit.page.planTier.id > 0
-  const hasBanner = serverToEdit.page.planTier.privileges.PAGE_BANNER && serverToEdit.page.bannerURL
+  const hasBanner =
+    serverToEdit.page.planTier.privileges.PAGE_BANNER &&
+    serverToEdit.page.bannerURL
 
   const toggleBannerEdit = (): void =>
     !isLoading ? setBannerEdit((state) => !state) : undefined
@@ -143,10 +149,18 @@ export const ServerHeader = (): JSX.Element => {
   const updateBanner = async (file: File): Promise<void> => {
     setLoading(true)
 
-    const imageURL = await uploadFile('banners', `${serverToEdit.page.id}/${v4()}.png`, file)
+    const imageURL = await uploadFile(
+      'banners',
+      `${serverToEdit.page.id}/${v4()}.png`,
+      file,
+    )
 
     if (imageURL) {
-      await setServerBanner.mutateAsync({ imageURL, pageId: serverToEdit.page.id, joinId: serverToEdit.joinId })
+      await setServerBanner.mutateAsync({
+        imageURL,
+        pageId: serverToEdit.page.id,
+        joinId: serverToEdit.joinId,
+      })
 
       await refreshServer()
     }
@@ -196,9 +210,18 @@ export const ServerHeader = (): JSX.Element => {
           </ServerNameText>
 
           <ServerLinks
-            discordURL={searchVariable(['discord', 'discord_url'], serverDynamic.variables)}
-            storeURL={searchVariable(['loja', 'store', 'marketplace'], serverDynamic.variables)}
-            websiteURL={searchVariable(['site', 'website'], serverDynamic.variables)}
+            discordURL={searchVariable(
+              ['discord', 'discord_url'],
+              serverDynamic.variables,
+            )}
+            storeURL={searchVariable(
+              ['loja', 'store', 'marketplace'],
+              serverDynamic.variables,
+            )}
+            websiteURL={searchVariable(
+              ['site', 'website'],
+              serverDynamic.variables,
+            )}
           />
 
           <Divisor />
@@ -218,15 +241,18 @@ export const ServerHeader = (): JSX.Element => {
               )}
             </PremiumContainer>
 
-            {
-              serverToEdit.page.ownerUser ?
-                <Link href={`/users/${serverToEdit.page.ownerUser.customId}`} legacyBehavior>
-                  <Tag css={{ cursor: 'pointer' }}>
-                    Gerenciado por @{serverToEdit.page.ownerUser.customId}
-                  </Tag>
-                </Link>
-                : <Tag>Servidor não gerenciado</Tag>
-            }
+            {serverToEdit.page.ownerUser ? (
+              <Link
+                href={`/users/${serverToEdit.page.ownerUser.customId}`}
+                legacyBehavior
+              >
+                <Tag css={{ cursor: 'pointer' }}>
+                  Gerenciado por @{serverToEdit.page.ownerUser.customId}
+                </Tag>
+              </Link>
+            ) : (
+              <Tag>Servidor não gerenciado</Tag>
+            )}
           </ActionsContainer>
         </InformationsContainer>
       </HeaderContainer>

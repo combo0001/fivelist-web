@@ -2,12 +2,7 @@ import { OfferEnumSchemaType, PlanSchemaType } from '@/schemas/PremiumSchema'
 import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
 import { trpc } from '@/utils/trpc'
 import { useRouter } from 'next/navigation'
-import React, {
-  Context,
-  createContext,
-  useContext,
-  useState,
-} from 'react'
+import React, { Context, createContext, useContext, useState } from 'react'
 
 interface ProviderProps {
   offer: OfferEnumSchemaType
@@ -20,11 +15,11 @@ const PremiumCtx = createContext<ProviderProps | null>(null)
 export const PremiumProvider: React.FC<{
   children: React.ReactNode
   user: UserProfileSchemaType
-}> = ({ children, user }) => {
+}> = ({ children }) => {
   const router = useRouter()
   const createOrder = trpc.payment.createOrder.useMutation()
 
-  const [ offer, setOffer ] = useState<OfferEnumSchemaType>('MONTHLY')
+  const [offer, setOffer] = useState<OfferEnumSchemaType>('MONTHLY')
 
   const changeOffer = async (offer: OfferEnumSchemaType) => {
     setOffer(offer)
@@ -35,7 +30,7 @@ export const PremiumProvider: React.FC<{
       orderData: {
         planId: plan.id,
         offer,
-      }
+      },
     })
 
     if (orderId) {

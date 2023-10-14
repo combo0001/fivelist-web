@@ -48,24 +48,30 @@ const ContentContainer = styled('section', {
 })
 
 export const ServerContent = (): JSX.Element => {
-  const { serverDynamic: serverDynamicNullable, serverToEdit, refreshServer } = useServerEditor()
+  const {
+    serverDynamic: serverDynamicNullable,
+    serverToEdit,
+    refreshServer,
+  } = useServerEditor()
   const serverDynamic = serverDynamicNullable as ServerDynamicSchemaType
 
   const addServerSocialMedia = trpc.servers.addServerSocialMedia.useMutation()
-  const removeServerSocialMedia = trpc.servers.removeServerSocialMedia.useMutation()
+  const removeServerSocialMedia =
+    trpc.servers.removeServerSocialMedia.useMutation()
 
   const addServerConnection = trpc.servers.addServerConnection.useMutation()
-  const removeServerConnection = trpc.servers.removeServerConnection.useMutation()
+  const removeServerConnection =
+    trpc.servers.removeServerConnection.useMutation()
 
   const handleOnAddSocialMedia = async (
     socialMedia: SocialMediaSchemaType,
     profileId: string,
   ): Promise<void> => {
-    await addServerSocialMedia.mutateAsync({ 
+    await addServerSocialMedia.mutateAsync({
       pageId: serverToEdit.page.id,
       joinId: serverToEdit.joinId,
-      socialMedia, 
-      profileId 
+      socialMedia,
+      profileId,
     })
 
     await refreshServer()
@@ -74,10 +80,10 @@ export const ServerContent = (): JSX.Element => {
   const handleOnRemoveSocialMedia = async (
     socialMedia: SocialMediaSchemaType,
   ): Promise<void> => {
-    await removeServerSocialMedia.mutateAsync({ 
+    await removeServerSocialMedia.mutateAsync({
       pageId: serverToEdit.page.id,
       joinId: serverToEdit.joinId,
-      socialMedia 
+      socialMedia,
     })
 
     await refreshServer()
@@ -87,23 +93,21 @@ export const ServerContent = (): JSX.Element => {
     name: string,
     redirectURL: string,
   ): Promise<void> => {
-    await addServerConnection.mutateAsync({ 
+    await addServerConnection.mutateAsync({
       pageId: serverToEdit.page.id,
       joinId: serverToEdit.joinId,
-      name, 
-      redirectURL 
+      name,
+      redirectURL,
     })
 
     await refreshServer()
   }
 
-  const handleOnRemoveLink = async (
-    name: string,
-  ): Promise<void> => {
-    await removeServerConnection.mutateAsync({ 
+  const handleOnRemoveLink = async (name: string): Promise<void> => {
+    await removeServerConnection.mutateAsync({
       pageId: serverToEdit.page.id,
       joinId: serverToEdit.joinId,
-      name 
+      name,
     })
 
     await refreshServer()
@@ -112,7 +116,7 @@ export const ServerContent = (): JSX.Element => {
   return (
     <ContentContainer>
       <Description />
-    
+
       <WebsiteLinks
         links={serverToEdit.page.connections}
         onAddLink={handleOnAddLink}
@@ -128,7 +132,10 @@ export const ServerContent = (): JSX.Element => {
       <Statistic
         cfxHash={serverToEdit.joinId}
         likes={{ amount: serverToEdit.page.statistics.likes, variation: 0 }}
-        followers={{ amount: serverToEdit.page.statistics.followers, variation: 0 }}
+        followers={{
+          amount: serverToEdit.page.statistics.followers,
+          variation: 0,
+        }}
         hasVip={serverToEdit.page.planTier.privileges.PAGE_STATISTICS}
       />
 

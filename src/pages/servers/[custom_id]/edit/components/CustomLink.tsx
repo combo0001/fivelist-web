@@ -7,8 +7,6 @@ import { useRef, useState } from 'react'
 import { useServerEditor } from '../providers/ServerEditorProvider'
 import { trpc } from '@/utils/trpc'
 
-interface CustomLinkProps {}
-
 const CustomLinkContainer = styled('div', {
   height: '$50',
 
@@ -47,13 +45,15 @@ const InputLink = styled('input', {
   color: '$neutral100',
 })
 
-export const CustomLink = ({}: CustomLinkProps): JSX.Element => {
+export const CustomLink = (): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>()
 
   const { serverToEdit, refreshServer } = useServerEditor()
   const setServerCustomId = trpc.servers.setServerCustomId.useMutation()
 
-  const [customURL, setCustomURL] = useState<string>('fivelist.gg/' + serverToEdit.page.customId)
+  const [customURL, setCustomURL] = useState<string>(
+    'fivelist.gg/' + serverToEdit.page.customId,
+  )
   const [isEditing, setEditing] = useState<boolean>(false)
 
   const toggleEditing = async (): Promise<void> => {
@@ -65,10 +65,10 @@ export const CustomLink = ({}: CustomLinkProps): JSX.Element => {
       const savedCustomId = customURL.split('/').pop()
 
       if (savedCustomId) {
-        await setServerCustomId.mutateAsync({ 
+        await setServerCustomId.mutateAsync({
           joinId: serverToEdit.joinId,
-          pageId: serverToEdit.page.id, 
-          customId: savedCustomId
+          pageId: serverToEdit.page.id,
+          customId: savedCustomId,
         })
 
         await refreshServer()
