@@ -51,7 +51,7 @@ export const Description = (): JSX.Element => {
   const { user, refreshUser } = useUserEditor()
   const setUserDescription = trpc.users.setUserDescription.useMutation()
 
-  const hasVip = user.planTier.privileges.PAGE_DESCRIPTION
+  const hasVip = user.planTier.privileges.PROFILE_DESCRIPTION
   const text =
     hasVip && user.page.description
       ? user.page.description
@@ -64,6 +64,8 @@ export const Description = (): JSX.Element => {
 
     await refreshUser()
   }
+
+  console.log(user)
 
   return (
     <DescriptionWrapper>

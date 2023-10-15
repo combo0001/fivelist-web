@@ -5,9 +5,9 @@ interface SessionUser extends User {
 }
 
 export const isUserValid = (session: Session): boolean => {
-  const userSession = session.user as SessionUser
+  const userSession = session.user as SessionUser | undefined
 
-  for (const { method } of userSession.amr) {
+  for (const { method } of userSession?.amr || []) {
     if (method === 'recovery') {
       return false
     }

@@ -54,7 +54,7 @@ export const Players = ({
   return (
     <PlayersContainer>
       <TitleContainer>
-        <Heading as={'h4'} weight={'bold'}>
+        <Heading as={'h5'} weight={'bold'}>
           Lista de jogadores
         </Heading>
 

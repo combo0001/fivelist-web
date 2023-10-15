@@ -52,7 +52,7 @@ export const Players = ({
   return (
     <PlayersContainer>
       <TitleContainer>
-        <Heading as={'h5'}>Jogadores Online</Heading>
+        <Heading as={'h5'} weight={'bold'}>Jogadores Online</Heading>
 
         <Text size={'sm'}>
           {clients}/{slots}

@@ -8,10 +8,13 @@ import { useRouter } from 'next/navigation'
 import { Payment } from './components/Payment'
 import { Summary } from './components/Summary'
 import { useEffect, useState } from 'react'
+import { useCheckout } from './providers/CheckoutProvider'
 
 export const CheckoutMain = (): JSX.Element => {
   const router = useRouter()
+
   const { user: clientUser } = useClientUser()
+  const { order } = useCheckout()
 
   const [isBacking, setBacking] = useState<boolean>(false)
 
@@ -26,6 +29,14 @@ export const CheckoutMain = (): JSX.Element => {
       router.back()
     }
   }, [isBacking, router])
+
+  useEffect(() => {
+    if (!order) return 
+
+    if (!clientUser || clientUser.id !== order.ownerUser.id) {
+      router.push('/home')
+    }
+  }, [order, clientUser])
 
   return (
     <PageLayout>

@@ -30,7 +30,7 @@ const DescriptionContainer = styled('div', {
 export const Description = (): JSX.Element => {
   const { user } = useUserView()
 
-  const hasVip = user.planTier.privileges.PAGE_DESCRIPTION
+  const hasVip = user.planTier.privileges.PROFILE_DESCRIPTION
   const text =
     hasVip && user.page.description
       ? user.page.description

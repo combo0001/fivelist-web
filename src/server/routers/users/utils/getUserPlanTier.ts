@@ -7,15 +7,15 @@ export const getUserPlanTier = async (
   userId: string,
 ): Promise<UserPlanTierSchemaType> => {
   return {
-    id: 0,
-    name: 'FREE_TIER',
-    privileges: {},
-    // id: 1,
-    // name: 'PREMIUM_TIER',
-    // privileges: {
-    //   PROFILE_BANNER: true,
-    //   PROFILE_DESCRIPTION: true,
-    //   DOUBLE_LIKE: true,
-    // },
+    // id: 0,
+    // name: 'FREE_TIER',
+    // privileges: {},
+    id: 1,
+    name: 'PREMIUM_TIER',
+    privileges: {
+      PROFILE_BANNER: true,
+      PROFILE_DESCRIPTION: true,
+      DOUBLE_LIKE: true,
+    },
   }
 }

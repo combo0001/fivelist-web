@@ -112,7 +112,7 @@ export const Reviews = (): JSX.Element => {
   return (
     <ReviewsContainer>
       <TitleContainer>
-        <Heading as={'h5'}>Avaliações</Heading>
+        <Heading as={'h5'} weight={'bold'}>Avaliações</Heading>
 
         {user ? (
           <ReviewDialog

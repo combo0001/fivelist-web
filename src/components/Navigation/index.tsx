@@ -1,16 +1,19 @@
 /* eslint-disable no-undef */
 
-import { Text } from '@5list-design-system/react'
+import { Select, Text } from '@5list-design-system/react'
 
 import { ListIcon, ProfileIcon, StarIcon, TwitchIcon } from '../Icons'
 import { LinkContainer, NavigationContainer } from './style'
 import { UserIdentitySchemaType } from '@/schemas/users/IdentitySchema'
+import { useLanguage } from '@/providers/LanguageProvider'
 
 interface NavigationProps {
   user: UserIdentitySchemaType | null
 }
 
 export const Navigation = ({ user }: NavigationProps): JSX.Element => {
+  const { language, availableLanguages, changeLanguage } = useLanguage()
+
   return (
     <NavigationContainer>
       <ListLink />
@@ -22,6 +25,18 @@ export const Navigation = ({ user }: NavigationProps): JSX.Element => {
           <StreamersLink />
         </>
       )}
+
+      <Select
+        openTo={'up'}
+        width={'13rem'}
+        height={'$12'}
+        placeHolder='Idioma'
+        options={availableLanguages.map(({ id, name }) => ({
+          value: id,
+          label: name,
+        }))}
+        onValueChange={(value) => changeLanguage(value)}
+      />
     </NavigationContainer>
   )
 }

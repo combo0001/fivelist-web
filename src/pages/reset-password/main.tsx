@@ -15,7 +15,6 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { SignInButton } from './components/SignIn'
 import { Form, InputsContainer } from './style'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/@types/supabase'
@@ -144,8 +143,10 @@ export const ResetPasswordMain = (): JSX.Element => {
           </Button>
         </Form>
 
-        <Link href={'/signin'} legacyBehavior>
-          <SignInButton />
+        <Link href={'/home'} legacyBehavior>
+          <Button type={'button'} size={'lg'} outlined>
+            Ir para Home
+          </Button>
         </Link>
       </Box>
     </Background>

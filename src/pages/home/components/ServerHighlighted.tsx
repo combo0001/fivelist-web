@@ -5,8 +5,6 @@ import { Text } from '@5list-design-system/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-type ServerHighlightedProps = ServersType.ServerObject
-
 const ServerContainer = styled('div', {
   flexShrink: 0,
 

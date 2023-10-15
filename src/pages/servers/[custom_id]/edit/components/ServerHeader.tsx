@@ -228,7 +228,7 @@ export const ServerHeader = (): JSX.Element => {
 
           <ActionsContainer>
             <PremiumContainer>
-              <Link href={'/premium/servers'} legacyBehavior>
+              <Link href={`/servers/${serverToEdit.joinId}/premium`} legacyBehavior>
                 <Button size={'lg'}>
                   {hasVip ? 'Renovar premium' : 'Obtenha o Premium'}
                 </Button>
@@ -241,7 +241,8 @@ export const ServerHeader = (): JSX.Element => {
               )}
             </PremiumContainer>
 
-            {serverToEdit.page.ownerUser ? (
+            {
+              serverToEdit.page.ownerUser &&
               <Link
                 href={`/users/${serverToEdit.page.ownerUser.customId}`}
                 legacyBehavior
@@ -250,9 +251,7 @@ export const ServerHeader = (): JSX.Element => {
                   Gerenciado por @{serverToEdit.page.ownerUser.customId}
                 </Tag>
               </Link>
-            ) : (
-              <Tag>Servidor não gerenciado</Tag>
-            )}
+            }
           </ActionsContainer>
         </InformationsContainer>
       </HeaderContainer>

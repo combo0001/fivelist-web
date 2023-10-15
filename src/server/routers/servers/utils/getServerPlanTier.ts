@@ -7,21 +7,21 @@ export const getServerPlanTier = async (
   pageId: string | null,
 ): Promise<ServerPlanTierSchemaType> => {
   return {
-    id: 0,
-    name: 'FREE_TIER',
-    privileges: {},
-    // id: 3,
-    // name: 'BUSINESS_TIER',
-    // privileges: {
-    //   PAGE_DESCRIPTION: true,
-    //   PAGE_BANNER: true,
-    //   REPLY_REVIEWS: true,
-    //   LIKE_SERVER_BOT: true,
-    //   PAGE_CUSTOM_ID: true,
-    //   LIKE_SERVER_SCRIPT: true,
-    //   PAGE_STATISTICS: true,
-    //   SERVER_STATISTICS: true,
-    //   MARKETING_SUPPORT: true,
-    // },
+    // id: 0,
+    // name: 'FREE_TIER',
+    // privileges: {},
+    id: 3,
+    name: 'BUSINESS_TIER',
+    privileges: {
+      PAGE_DESCRIPTION: true,
+      PAGE_BANNER: true,
+      REPLY_REVIEWS: true,
+      LIKE_SERVER_BOT: true,
+      PAGE_CUSTOM_ID: true,
+      LIKE_SERVER_SCRIPT: true,
+      PAGE_STATISTICS: true,
+      SERVER_STATISTICS: true,
+      MARKETING_SUPPORT: true,
+    },
   }
 }

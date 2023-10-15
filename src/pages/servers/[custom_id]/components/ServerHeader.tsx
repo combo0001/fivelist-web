@@ -179,9 +179,17 @@ export const ServerHeader = (): JSX.Element => {
                 href={`/servers/${serverView.joinId}/premium`}
                 legacyBehavior
               >
-                <Button size={'lg'} outlined>
-                  Obtenha o Premium
-                </Button>
+                {
+                  serverView.page.planTier.id === 0 ?
+                    <Button size={'lg'} outlined>
+                      Obtenha o Premium
+                    </Button>
+                  : 
+                    <Button size={'lg'} outlined>
+                      Renovar premium
+                    </Button>
+                }
+                
               </Link>
             )}
 
