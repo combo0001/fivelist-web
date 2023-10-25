@@ -1,5 +1,6 @@
 import { Button, Text } from '@5list-design-system/react'
 import { ComponentProps, ElementType } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface SignUpButtonProps extends ComponentProps<typeof Button> {
   as?: ElementType
@@ -7,10 +8,12 @@ interface SignUpButtonProps extends ComponentProps<typeof Button> {
 
 // eslint-disable-next-line no-undef
 export function SignUpButton(props: SignUpButtonProps): JSX.Element {
+  const { t } = useTranslation('pages')
+
   return (
     <Button type={'button'} size={'lg'} outlined {...props}>
       <Text weight={'regular'} size={'sm'} color={'inherit'}>
-        Ainda não tenho uma conta? &nbsp;
+        {t('signin.signUpButton')}{' '}
         <Text
           as={'span'}
           weight={'bold'}
@@ -18,7 +21,7 @@ export function SignUpButton(props: SignUpButtonProps): JSX.Element {
           color={'inherit'}
           css={{ textDecoration: 'underline' }}
         >
-          Criar minha conta
+          {t('signin.signUpLabel')}
         </Text>
       </Text>
     </Button>

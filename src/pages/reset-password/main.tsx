@@ -21,6 +21,7 @@ import { Database } from '@/@types/supabase'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { PasswordSchema } from '@/schemas/users/PasswordSchema'
+import { useTranslation } from 'react-i18next'
 
 const ResetPasswordSchema = z.object({
   password: PasswordSchema,
@@ -39,6 +40,8 @@ const getCode = (): string | null => {
 export const ResetPasswordMain = (): JSX.Element => {
   const supabase = createClientComponentClient<Database>()
   const router = useRouter()
+
+  const { t } = useTranslation('pages')
 
   const {
     register,
@@ -66,7 +69,7 @@ export const ResetPasswordMain = (): JSX.Element => {
     } else {
       setError('confirmPassword', {
         type: 'equal_password',
-        message: 'As senhas não coincidem',
+        message: t('resetPassword.changePasswordInputs.differentPasswords'),
       })
     }
   }
@@ -88,8 +91,8 @@ export const ResetPasswordMain = (): JSX.Element => {
 
         <Form onSubmit={handleSubmit(handleOnSubmit)} action="">
           <Header
-            title={'Trocar senha'}
-            subtitle={`Criar uma nova senha para sua conta ${''}`}
+            title={t('resetPassword.changePassword')}
+            subtitle={t('resetPassword.changePasswordWarn')}
           />
 
           <InputsContainer>
@@ -101,7 +104,7 @@ export const ResetPasswordMain = (): JSX.Element => {
                 disabled={isSubmitting || isSubmitSuccessful}
                 type={'password'}
                 spellCheck={false}
-                placeholder={'Criar nova senha'}
+                placeholder={t('resetPassword.changePasswordInputs.newPassword')}
                 outlined
                 {...register('password')}
               />
@@ -125,7 +128,7 @@ export const ResetPasswordMain = (): JSX.Element => {
                 disabled={isSubmitting || isSubmitSuccessful}
                 type={'password'}
                 spellCheck={false}
-                placeholder={'Repetir nova senha'}
+                placeholder={t('resetPassword.changePasswordInputs.confirmNewPassword')}
                 outlined
                 {...register('confirmPassword')}
               />
@@ -139,13 +142,13 @@ export const ResetPasswordMain = (): JSX.Element => {
           </InputsContainer>
 
           <Button type={'submit'} size={'lg'}>
-            Alterar senha
+            {t('resetPassword.changePasswordButton')}
           </Button>
         </Form>
 
         <Link href={'/home'} legacyBehavior>
           <Button type={'button'} size={'lg'} outlined>
-            Ir para Home
+            {t('resetPassword.backToHomeButton')}
           </Button>
         </Link>
       </Box>

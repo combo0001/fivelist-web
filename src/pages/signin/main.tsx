@@ -27,8 +27,11 @@ import { useForm } from 'react-hook-form'
 import { SignUpButton } from './components/Signup'
 import { Form, InputsContainer } from './style'
 import { AuthError } from '@supabase/supabase-js'
+import { useTranslation } from 'react-i18next'
 
 export const SignInMain = (): JSX.Element => {
+  const { i18n, t } = useTranslation('pages')
+  
   const { user, signIn } = useClientUser()
   const router = useRouter()
 
@@ -78,8 +81,8 @@ export const SignInMain = (): JSX.Element => {
 
         <Form onSubmit={handleSubmit(handleOnSubmit)} action="">
           <Header
-            title={'Entrar'}
-            subtitle={'Tenha acesso em nossa lista de servidores'}
+            title={t('signin.signIn')}
+            subtitle={t('signin.signInWarn')}
           />
 
           <InputsContainer>
@@ -90,7 +93,7 @@ export const SignInMain = (): JSX.Element => {
                 }
                 disabled={isSubmitting || isSubmitSuccessful}
                 autoComplete={'email'}
-                placeholder={'Digite seu e-mail'}
+                placeholder={t('signin.signInInputs.email')}
                 spellCheck={false}
                 outlined
                 {...register('email')}
@@ -109,7 +112,7 @@ export const SignInMain = (): JSX.Element => {
                 disabled={isSubmitting || isSubmitSuccessful}
                 type={'password'}
                 spellCheck={false}
-                placeholder={'Digite sua senha'}
+                placeholder={t('signin.signInInputs.password')}
                 outlined
                 {...register('password')}
               />
@@ -122,12 +125,12 @@ export const SignInMain = (): JSX.Element => {
             </InputContainer>
 
             <Link href={'/forgot-password'} legacyBehavior>
-              <LinkComponent>Esqueci minha senha</LinkComponent>
+              <LinkComponent>{t('signin.forgotPassword')}</LinkComponent>
             </Link>
           </InputsContainer>
 
           <Button type={'submit'} size={'lg'}>
-            Acessar agora
+            {t('signin.signInButton')}
           </Button>
         </Form>
 

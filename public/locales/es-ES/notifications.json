@@ -1,0 +1,7 @@
+{
+  "applyLike": {
+    "pending": "Aplicando Me Gusta...",
+    "success": "Me Gusta aplicado con éxito",
+    "error": "Algo salió mal al aplicar el Me Gusta"
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "checkout": {
+    "backLabel": "Atrás",
+    "summary": "Agregado al carrito",
+    "changePlan": "Cambiar plan",
+    "editPlan": "Editar",
+    "planFrequencies": {
+      "monthly": "Mensual",
+      "quarterly": "Trimestral",
+      "yearly": "Anual"
+    },
+    "planToSelect": "Elegir plan",
+    "planSelected": "Plan seleccionado",
+    "payerData": "Datos de pago",
+    "payerDataInputs": {
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "identification": "CPF (Número de Identificación Fiscal)"
+    },
+    "payerAddress": "Dirección",
+    "payerAddressInputs": {
+      "street": "Calle",
+      "houseNumber": "Número de casa",
+      "complement": "Complemento",
+      "neighborhood": "Barrio",
+      "city": "Ciudad",
+      "state": "Estado",
+      "zipCode": "Código Postal"
+    },
+    "paymentMethod": "Pago",
+    "paymentMethods": {
+      "creditCard": "Tarjeta de Crédito",
+      "ticket": "Boleta Bancaria",
+      "bankTransfer": "Pago con PIX"
+    },
+    "finishPayment": "Finalizar pago"
+  },
+  "forgotPassword": {
+    "retriveAccount": "Recuperar cuenta",
+    "sendLinkWarn": "Enviaremos un enlace de reinicio a tu correo electrónico.",
+    "retriveAccountInputs": {
+      "email": "Introduce tu correo electrónico"
+    },
+    "sendLink": "Enviar enlace",
+    "sendLinkCooldown": "Enviar de nuevo en",
+    "rememberedPassword": "¿Recordaste tu contraseña?",
+    "signIn": "Acceder"
+  },
+  "home": {
+    "platforms": {
+      "desktop": "PC"
+    },
+    "gameTitle": "Grand Theft Auto V",
+    "gameLabels": {
+      "server": "Servidor",
+      "servers": "Servidores",
+      "player": "Jugador en línea",
+      "players": "Jugadores en línea"
+    },
+    "filterInputs": {
+      "searchName": "Buscar servidor",
+      "searchLocale": "Ubicación del servidor",
+      "orderBy": "Ordenar por",
+      "orderByOptions": {
+        "mostVoted": "Más votados",
+        "mostFollowers": "Más seguidos",
+        "mostPlayers": "Más jugadores"
+      }
+    },
+    "highlightedServersTitle": "Nuevos servidores registrados",
+    "highlightedServersLabels": {
+      "playersAmount": "Jugadores"
+    },
+    "serversTitle": "Lista de servidores",
+    "serverLabels": {
+      "playersAmount": "en línea de",
+      "followers": "Seguidores",
+      "reviews": "Reseñas"
+    }
+  },
+  "resetPassword": {
+    "changePassword": "Cambiar contraseña",
+    "changePasswordWarn": "Crea una nueva contraseña para tu cuenta",
+    "changePasswordInputs": {
+      "newPassword": "Crear nueva contraseña",
+      "confirmNewPassword": "Repetir nueva contraseña",
+      "differentPasswords": "Las contraseñas no coinciden"
+    },
+    "changePasswordButton": "Cambiar contraseña",
+    "backToHomeButton": "Ir a Inicio"
+  },
+  "signin": {
+    "signIn": "Iniciar sesión",
+    "signInWarn": "Accede a nuestra lista de servidores",
+    "signInInputs": {
+      "email": "Introduce tu correo electrónico",
+      "password": "Introduce tu contraseña"
+    },
+    "forgotPassword": "Olvidé mi contraseña",
+    "signInButton": "Acceder ahora",
+    "signUpButton": "¿No tienes una cuenta?",
+    "signUpLabel": "Crear mi cuenta"
+  },
+  "signup": {
+    "signUp": "Crear cuenta",
+    "signUpInputs": {
+      "fullName": "Introduce tu nombre",
+      "email": "Introduce tu correo electrónico",
+      "password": "Introduce tu contraseña",
+      "acceptTerms": "Acepto los términos y condiciones"
+    },
+    "passwordInstructions": "La contraseña debe tener más de 8 caracteres y contener al menos una letra mayúscula y un dígito numérico.",
+    "createAccount": "Crear cuenta",
+    "signInButton": "¿Ya tienes una cuenta?",
+    "signInLabel": "Iniciar sesión"
+  },
+  "serversPage": {
+    "statisticLabels": {
+      "playersAmount": "Jugando",
+      "followers": "Seguidores",
+      "reviews": "Opiniones"
+    },
+    "tagsLabels": {
+      "discord": "Discord",
+      "website": "Sitio web",
+      "marketplace": "Tienda"
+    },
+    "connectButton": "Conectar",
+    "purchasePremiumButton": "Obtener Premium",
+    "renewPremiumButton": "Renovar Premium",
+    "managedBy": "Gestionado por",
+    "withoutManagement": "Servidor no gestionado",
+    "desciptionSection": {
+      "title": "Descripción",
+      "withoutPremium": "Servidor sin Premium",
+      "withoutDescription": "Descripción no actualizada."
+    },
+    "statisticsSection": {
+      "title": "Estadísticas",
+      "playersInLast24Hours": "Jugadores en 24 horas"
+    },
+    "linksSection": {
+      "title": "Enlaces externos",
+      "withoutLinks": "No se agregó sitio web."
+    },
+    "socialMediaSection": {
+      "title": "Redes Sociales",
+      "withoutSocialMedia": "No se agregaron redes sociales."
+    },
+    "reviewsSection": {
+      "title": "Opiniones",
+      "withoutReviews": "No hay testimonios.",
+      "replyButton": "Responder",
+      "adminReply": "Equipo del Servidor"
+    },
+    "playersSection": {
+      "title": "Jugadores en línea",
+      "withoutPlayers": "No hay jugadores en línea."
+    }
+  },
+  "serversPageEdit": {
+    "leaveOfEdit": "Salir de la edición",
+    "bannerEdit": "Editar portada",
+    "statisticLabels": {
+      "playersAmount": "Jugando",
+      "followers": "Seguidores",
+      "reviews": "Opiniones"
+    },
+    "tagsLabels": {
+      "discord": "Discord",
+      "website": "Sitio web",
+      "marketplace": "Tienda"
+    },
+    "purchasePremiumButton": "Obtener Premium",
+    "renewPremiumButton": "Renovar Premium",
+    "renewPremiumWarn": "Tu plan termina en",
+    "managedBy": "Gestionado por",
+    "desciptionSection": {
+      "title": "Descripción",
+      "withoutPremium": "Obtener Premium",
+      "withoutDescription": "Descripción no actualizada.",
+      "editButton": "Editar descripción"
+    },
+    "linksSection": {
+      "title": "Enlaces externos",
+      "addLink": "Agregar sitio web"
+    },
+    "socialMediaSection": {
+      "title": "Redes Sociales",
+      "addSocialMedia": "Agregar redes sociales"
+    },
+    "statisticsSection": {
+      "title": "Estadísticas",
+      "premiumPage": "Estadísticas avanzadas (premium)",
+      "likesPerMonth": "Me gusta (mes)",
+      "followersPerMonth": "Seguidores (mes)"
+    },
+    "customIdSection": {
+      "title": "Enlace personalizado",
+      "copyToClipboard": "Copiar enlace",
+      "editButton": "Editar enlace",
+      "confirmButton": "Confirmar edición"
+    },
+    "playersSection": {
+      "title": "Lista de Jugadores",
+      "reportPlayer": "Reportar"
+    }
+  },
+  "serversPagePremium": {},
+  "usersPage": {
+    "statisticLabels": {
+      "serversAmount": "Servidores",
+      "views": "Vistas de perfil"
+    },
+    "levelLabels": {
+      "level": "Nivel",
+      "points": "Pts"
+    },
+    "followButton": "Seguir",
+    "unfollowButton": "Dejar de seguir",
+    "purchasePremiumButton": "Obtener Premium",
+    "renewPremiumButton": "Renovar Premium",
+    "renewPremiumWarn": "Tu plan termina en",
+    "desciptionSection": {
+      "title": "Descripción",
+      "withoutDescription": "Descripción no actualizada."
+    },
+    "socialMediaSection": {
+      "title": "Redes Sociales",
+      "withoutSocialMedia": "No se agregaron redes sociales."
+    },
+    "connectionsSection": {
+      "title": "Conexiones",
+      "withoutConnections": "No se añadió ninguna conexión."
+    },
+    "liveSection": {
+      "title": "En vivo",
+      "withoutLive": "No se encontró transmisión en vivo.",
+      "joinInLive": "Unirse"
+    },
+    "lastActivitiesSection": {
+      "title": "Últimas actividades",
+      "withoutActivity": "No se registró actividad."
+    }
+  },
+  "usersPageEdit": {
+    "leaveOfEdit": "Salir de la edición",
+    "bannerEdit": "Editar portada",
+    "statisticLabels": {
+      "serversAmount": "Servidores",
+      "views": "Vistas de perfil"
+    },
+    "levelLabels": {
+      "level": "Nivel",
+      "points": "Pts"
+    },
+    "purchasePremiumButton": "Obtener Premium",
+    "renewPremiumButton": "Renovar Premium",
+    "renewPremiumWarn": "Tu plan termina en",
+    "desciptionSection": {
+      "title": "Descripción",
+      "withoutPremium": "Obtener Premium",
+      "withoutDescription": "Descripción no actualizada.",
+      "editButton": "Editar descripción"
+    },
+    "socialMediaSection": {
+      "title": "Redes Sociales",
+      "addSocialMedia": "Agregar redes sociales"
+    },
+    "connectionsSection": {
+      "title": "Conexiones",
+      "addConnection": "Conectar plataforma"
+    },
+    "liveSection": {
+      "title": "En vivo",
+      "editLink": "Editar enlace",
+      "confirmEdit": "Confirmar edición",
+      "copyToClipboard": "Copiar enlace"
+    }
+  }
+}

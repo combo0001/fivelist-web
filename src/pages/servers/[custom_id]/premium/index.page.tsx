@@ -8,6 +8,7 @@ import { PremiumProvider } from './providers/PremiumProvider'
 import { PlansProvider } from './providers/PlansProvider'
 import { ServerProfileSchemaType } from '@/schemas/servers/ProfileSchema'
 import { trpc } from '@/utils/trpc'
+import { LanguageProvider } from '@/providers/LanguageProvider'
 
 export default function UsersPremium(): JSX.Element {
   const router = useNavigation()
@@ -35,10 +36,12 @@ export default function UsersPremium(): JSX.Element {
   }
 
   return (
-    <PlansProvider>
-      <PremiumProvider server={serverPage}>
-        <UsersPremiumMain />
-      </PremiumProvider>
-    </PlansProvider>
+    <LanguageProvider>
+      <PlansProvider>
+        <PremiumProvider server={serverPage}>
+          <UsersPremiumMain />
+        </PremiumProvider>
+      </PlansProvider>
+    </LanguageProvider>
   )
 }

@@ -1,7 +1,7 @@
 import { styled } from '@/styles'
 
 export const Form = styled('form', {
-  width: 'calc($80 + $10)',
+  minWidth: 'calc($80 + $10)',
 
   paddingBottom: '$8',
   borderBottom: '0.0625rem solid $colors$neutral700',

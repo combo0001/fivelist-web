@@ -7,7 +7,7 @@ export const Form = styled('form', {
 })
 
 export const InputsContainer = styled('div', {
-  width: 'calc($80 + $10)',
+  minWidth: 'calc($80 + $10)',
 
   paddingBottom: '$10',
   borderBottom: '0.0625rem solid $colors$neutral700',

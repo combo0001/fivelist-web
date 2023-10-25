@@ -1,0 +1,7 @@
+{
+  "applyLike": {
+    "pending": "Applying Like...",
+    "success": "Like applied successfully",
+    "error": "Something went wrong applying the Like"
+  }
+}

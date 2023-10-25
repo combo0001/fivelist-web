@@ -65,8 +65,6 @@ export const Description = (): JSX.Element => {
     await refreshUser()
   }
 
-  console.log(user)
-
   return (
     <DescriptionWrapper>
       <DescriptionContainer>

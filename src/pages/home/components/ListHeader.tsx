@@ -4,6 +4,7 @@ import { Tag as InfoTag } from '@/components/Tag'
 import { styled } from '@/styles'
 import { Heading, Text } from '@5list-design-system/react'
 import { useServersList } from '../providers/ServersListProvider'
+import { useTranslation } from 'react-i18next'
 
 const HeaderWrapper = styled('section', {
   width: '100%',
@@ -53,6 +54,7 @@ const InformationsContainer = styled('div', {
 })
 
 export const ListHeader = (): JSX.Element => {
+  const { t } = useTranslation('pages')
   const { servers } = useServersList()
 
   const playersAmount = servers.reduce(
@@ -65,23 +67,23 @@ export const ListHeader = (): JSX.Element => {
       <OnlineContainer>
         <Tag>
           <Text size={'xs'} weight={'bold'} color={'$white'}>
-            PC
+            {t('home.platforms.desktop')}
           </Text>
         </Tag>
 
         <Heading as={'h4'} weight={'bold'}>
-          Grand Theft Auto V
+          {t('home.gameTitle')}
         </Heading>
 
         <InformationsContainer>
           <InfoTag active>
-            {servers.length.toLocaleString()}&nbsp;&nbsp; Servidor
-            {servers.length !== 1 ? 'es' : ''}
+            {servers.length.toLocaleString()}{'  '}
+            {servers.length !== 1 ? t('home.gameLabels.servers') : t('home.gameLabels.server')}
           </InfoTag>
 
           <InfoTag active>
-            {playersAmount.toLocaleString()}&nbsp;&nbsp; Jogador
-            {playersAmount !== 1 ? 'es' : ''} online
+            {playersAmount.toLocaleString()}{'  '}
+            {playersAmount !== 1 ? t('home.gameLabels.players') : t('home.gameLabels.player')}
           </InfoTag>
         </InformationsContainer>
       </OnlineContainer>

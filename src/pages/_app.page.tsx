@@ -6,33 +6,36 @@ import { StorageProvider } from '@/providers/StorageProvider'
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { LanguageProvider } from '@/providers/LanguageProvider'
+import { NextComponentType } from 'next'
+import { ni18nConfig } from '../../ni18n.config'
+import { appWithI18Next } from 'ni18n'
+import { LanguageProvider, useLanguage } from '@/providers/LanguageProvider'
 
 globalStyles()
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <LanguageProvider>
-      <UserProvider>
-        <StorageProvider>
-          <Component {...pageProps} />
+    <UserProvider>
+      <StorageProvider>
+        <Component {...pageProps} />
 
-          <ToastContainer
-            theme={'dark'}
-            position={'bottom-right'}
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-        </StorageProvider>
-      </UserProvider>
-    </LanguageProvider>
+        <ToastContainer
+          theme={'dark'}
+          position={'bottom-right'}
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </StorageProvider>
+    </UserProvider>
   )
 }
 
-export default trpc.withTRPC(MyApp)
+const MyAppWithI18n = appWithI18Next(MyApp, ni18nConfig as any)
+
+export default trpc.withTRPC(MyAppWithI18n as NextComponentType)

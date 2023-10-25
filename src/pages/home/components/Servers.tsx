@@ -12,6 +12,7 @@ import { useServersList } from '../providers/ServersListProvider'
 import { toast } from 'react-toastify'
 import { useClientUser } from '@/providers/UserProvider'
 import { useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 
 interface ServersProps {
   servers: ServerViewsSchemaType
@@ -32,6 +33,8 @@ const ServerWithAdvertisingBox = styled('div', {
 })
 
 export const Servers = ({ servers }: ServersProps): JSX.Element => {
+  const { t } = useTranslation()
+
   const { user } = useClientUser()
   const { likeServer } = useServersList()
   const router = useRouter()
@@ -66,9 +69,9 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
     })
 
     toast.promise(actionPromise, {
-      pending: 'Aplicando o Like...',
-      success: 'Like aplicado com sucesso',
-      error: 'Algo deu errado ao aplicar o Like',
+      pending: t('notifications:applyLike.pending'),
+      success: t('notifications:applyLike.success'),
+      error: t('notifications:applyLike.error'),
     })
 
     return await actionPromise
@@ -76,7 +79,7 @@ export const Servers = ({ servers }: ServersProps): JSX.Element => {
   return (
     <ServersContainer>
       <Heading as={'h5'} weight={'bold'}>
-        Lista de servidores
+        {t('pages:home.serversTitle')}
       </Heading>
 
       {isFetched &&

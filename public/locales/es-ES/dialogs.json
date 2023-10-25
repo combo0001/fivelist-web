@@ -1,0 +1,43 @@
+{
+  "freeLinks": {
+    "nameInput": "Enter the name",
+    "linkInput": "Enter the profile link",
+    "saveButton": "Save",
+    "cancelButton": "Cancel"
+  },
+  "restrictLink": {
+    "selectInput": "Select",
+    "linkInput": "Enter the profile username",
+    "saveButton": "Save",
+    "cancelButton": "Cancel"
+  }, 
+  "connections": {
+    "saveButton": "Save"
+  },
+  "review": {
+    "title": "Leave your testimony",
+    "rateTitle": "Rate us",
+    "feedbackTitle": "Write your experience",
+    "feedbackInput": "Enter your feedback",
+    "sendButton": "Send testimony"
+  },
+  "reply": {
+    "title": "Reply",
+    "contentTitle": "Reply",
+    "contentInput": "Enter your response",
+    "sendButton": "Send reply"
+  },
+  "image": {
+    "title": "Click to upload",
+    "subtitle": "or drag and drop here",
+    "formats": "PNG, JPG, GIF",
+    "maxSize": "(max. 8mb)"
+  },
+  "description": {
+    "title": "Edit description",
+    "contentTitle": "Enter the text",
+    "contentInput": "Enter the page description",
+    "saveButton": "Save",
+    "cancelButton": "Cancel"
+  }
+}

@@ -5,6 +5,7 @@ import { Heading } from '@5list-design-system/react'
 import { ServerHighlighted } from './ServerHighlighted'
 
 import ScrollContainer from 'react-indiana-drag-scroll'
+import { useTranslation } from 'react-i18next'
 
 interface ServersHighlightedProps {
   servers: ServersType.ServerObject[]
@@ -47,6 +48,8 @@ const ServersList = styled(ScrollContainer, {
 export const ServersHighlighted = ({
   servers,
 }: ServersHighlightedProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   const serversContent = servers.map((server, index) => (
     <ServerHighlighted key={index} {...server} />
   ))
@@ -54,7 +57,7 @@ export const ServersHighlighted = ({
   return (
     <ServersContainer>
       <Heading as={'h5'} weight={'bold'}>
-        Novos servidores cadastrados
+        {t('home.highlightedServersTitle')}
       </Heading>
 
       <ServersList vertical={false} hideScrollbars={false}>

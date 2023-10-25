@@ -1,8 +1,11 @@
 /* eslint-disable no-undef */
-import { InferGetStaticPropsType } from 'next'
+import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { HomeMain } from './main'
 import { ServersListProvider } from './providers/ServersListProvider'
 import { getServerHelper } from '@/utils/getServerHelper'
+import { ni18nConfig } from '../../../ni18n.config'
+import { clientNamespaces, loadTranslations } from 'ni18n'
+import { LanguageProvider } from '@/providers/LanguageProvider'
 
 export const getStaticProps = async () => {
   const helpers = await getServerHelper()
@@ -12,8 +15,15 @@ export const getStaticProps = async () => {
     servers,
   }
 
+  const serverLanguageProps = await loadTranslations(ni18nConfig, undefined, [ 'header', 'navigation', 'pages' ])
+  const clientLanguageProps = clientNamespaces(ni18nConfig, [ 'dialogs', 'notifications' ])
+
   return {
-    props,
+    props: {
+      ...serverLanguageProps,
+      ...clientLanguageProps,
+      ...props,
+    },
     revalidate: 300,
   }
 }
@@ -26,8 +36,10 @@ export default function UsersView({
   }
 
   return (
-    <ServersListProvider servers={servers} newServers={[]}>
-      <HomeMain />
-    </ServersListProvider>
+    <LanguageProvider>
+      <ServersListProvider servers={servers} newServers={[]}>
+        <HomeMain />
+      </ServersListProvider>
+    </LanguageProvider>
   )
 }

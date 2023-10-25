@@ -30,6 +30,7 @@ import { Button, Checkbox, Text, TextInput } from '@5list-design-system/react'
 import { useRouter } from 'next/navigation'
 import { useClientUser } from '@/providers/UserProvider'
 import { AuthError } from '@supabase/supabase-js'
+import { useTranslation } from 'react-i18next'
 
 interface TermsReducerProps {
   value: boolean
@@ -63,6 +64,8 @@ const termsReducer = (
 
 // eslint-disable-next-line no-undef
 export const SignUpMain = (): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   const { user, signUp } = useClientUser()
   const router = useRouter()
 
@@ -134,7 +137,7 @@ export const SignUpMain = (): JSX.Element => {
         </Link>
 
         <Form onSubmit={handleSubmit(handleOnSubmit)} action="">
-          <Header title={'Criar conta'} />
+          <Header title={t('signup.createAccount')} />
 
           <InputsContainer>
             <InputContainer>
@@ -143,7 +146,7 @@ export const SignUpMain = (): JSX.Element => {
                   errors.name ? <Error /> : submitCount > 0 && <Success />
                 }
                 spellCheck={false}
-                placeholder={'Digite seu nome'}
+                placeholder={t('signup.signUpInputs.fullName')}
                 disabled={isSubmitting || isSubmitSuccessful}
                 outlined
                 {...register('name')}
@@ -162,7 +165,7 @@ export const SignUpMain = (): JSX.Element => {
                   errors.email ? <Error /> : submitCount > 0 && <Success />
                 }
                 autoComplete={'email'}
-                placeholder={'Digite seu e-mail'}
+                placeholder={t('signup.signUpInputs.email')}
                 spellCheck={false}
                 disabled={isSubmitting || isSubmitSuccessful}
                 outlined
@@ -183,7 +186,7 @@ export const SignUpMain = (): JSX.Element => {
                 }
                 type={'password'}
                 spellCheck={false}
-                placeholder={'Digite sua senha'}
+                placeholder={t('signup.signUpInputs.password')}
                 disabled={isSubmitting || isSubmitSuccessful}
                 outlined
                 {...register('password')}
@@ -196,9 +199,8 @@ export const SignUpMain = (): JSX.Element => {
               )}
             </InputContainer>
 
-            <Text weight={'regular'} size={'sm'}>
-              A senha deve ter mais de 8 caracteres e conter pelo menos uma
-              letra maiúscula e um dígito numérico.
+            <Text weight={'regular'} size={'sm'} css={{ maxWidth: 'calc($80 + $10)'}}>
+              {t('signup.passwordInstructions')}
             </Text>
           </InputsContainer>
 
@@ -217,13 +219,13 @@ export const SignUpMain = (): JSX.Element => {
               size={'sm'}
               color={termsError ? '$colors$error600' : ''}
             >
-              Aceito os termos de responsabilidade
+              {t('signup.signUpInputs.acceptTerms')}
             </Text>
           </CheckContainer>
 
           <ButtonsContainer>
             <Button type={'submit'} size={'lg'}>
-              Criar conta
+              {t('signup.createAccount')}
             </Button>
 
             <Link href={'/signin'} legacyBehavior>

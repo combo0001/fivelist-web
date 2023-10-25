@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 
+import { useTranslation } from 'react-i18next'
 import { styled } from '@/styles'
 import { Text } from '@5list-design-system/react'
 import Image from 'next/image'
@@ -60,6 +61,8 @@ export const ServerHighlighted = ({
   clients,
   cfxHash,
 }: ServerHighlightedProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+  
   return (
     <Link href={`/servers/${cfxHash}`} legacyBehavior>
       <ServerContainer>
@@ -77,7 +80,7 @@ export const ServerHighlighted = ({
 
           <ServerTagBox>
             <Text size={'xs'} weight={'bold'}>
-              {clients.now} jogando
+              {clients.now}{' '}{t('home.highlightedServersLabels.playersAmount')}
             </Text>
           </ServerTagBox>
         </ServerInformationsBox>

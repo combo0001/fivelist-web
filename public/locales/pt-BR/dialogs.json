@@ -1,0 +1,43 @@
+{
+  "freeLinks": {
+    "nameInput": "Digite o nome",
+    "linkInput": "Digite o link do perfil",
+    "saveButton": "Salvar",
+    "cancelButton": "Cancelar"
+  },
+  "restrictLink": {
+    "selectInput": "Selectionar",
+    "linkInput": "Digite o usuário do perfil",
+    "saveButton": "Salvar",
+    "cancelButton": "Cancelar"
+  }, 
+  "connections": {
+    "saveButton": "Salvar"
+  },
+  "review": {
+    "title": "Deixe seu depoimento",
+    "rateTitle": "Deixe sua nota",
+    "feedbackTitle": "Escreva sua experiência",
+    "feedbackInput": "Digite o seu feedback",
+    "sendButton": "Enviar depoimento"
+  },
+  "reply": {
+    "title": "Responder",
+    "contentTitle": "Responder",
+    "contentInput": "Digite sua resposta",
+    "sendButton": "Enviar resposta"
+  },
+  "image": {
+    "title": "Clique para enviar",
+    "subtitle": "ou segure e solte aqui",
+    "formats": "PNG, JPG, GIF",
+    "maxSize": "(max. 8mb)"
+  },
+  "description": {
+    "title": "Editar descrição",
+    "contentTitle": "Digite o texto",
+    "contentInput": "Digite a descrição da página",
+    "saveButton": "Salvar",
+    "cancelButton": "Cancelar"
+  }
+}

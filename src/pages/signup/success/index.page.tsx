@@ -16,7 +16,7 @@ export default function Success(): JSX.Element {
           <Header title={'Confirmação enviado por e-mail'} />
 
           <Text weight={'bold'} size={'sm'} color={'$colors$primary600'}>
-            Parabéns você ganhou 5 pontos, &nbsp;
+            Parabéns você ganhou 5 pontos, {' '}
             <Text as={'span'} weight={'bold'} size={'sm'}>
               preencha seu perfil para conquistar mais pontos.
             </Text>

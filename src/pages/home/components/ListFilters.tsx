@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
 import { SearchInput, Select } from '@5list-design-system/react'
-import { ChangeEvent, useRef } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { OrderValueEnum, useFilter } from '../providers/FilterProvider'
+import { useTranslation } from 'react-i18next'
 
 const FilterContainer = styled('section', {
   '--grid-gap': '$space$2',
@@ -22,20 +23,22 @@ const FilterContainer = styled('section', {
 })
 
 export const ListFilters = (): JSX.Element => {
+  const { t } = useTranslation('pages')
   const filterRef = useRef<HTMLElement>()
+
+  const [ randomKey, setRandomKey ] = useState<number>(0)
 
   const {
     serverName,
     setServerName,
-    orderBy,
     setServerLocation,
-    setOrderBy,
     getCountries,
-    getOrders,
+    orderBy,
+    orderOptions,
+    setOrderBy,
   } = useFilter()
 
   const countries = getCountries()
-  const orders = getOrders()
 
   const handleOnChangeServerName = ({
     target,
@@ -51,11 +54,15 @@ export const ListFilters = (): JSX.Element => {
     setOrderBy(value)
   }
 
+  useEffect(() => {
+    setRandomKey((state) => state + 1)
+  }, [ orderOptions ])
+
   return (
     <FilterContainer ref={filterRef as any}>
       <SearchInput
-        name={'server-name'}
-        placeholder={'Pesquisar servidor'}
+        name={'name'}
+        placeholder={t('home.filterInputs.searchName')}
         value={serverName}
         onChange={handleOnChangeServerName}
         outlined
@@ -64,18 +71,19 @@ export const ListFilters = (): JSX.Element => {
       <Select
         width={'17.875rem'}
         height={'$12'}
-        placeHolder={'Localização do servidor'}
+        placeHolder={t('home.filterInputs.searchLocale')}
         options={countries}
         onValueChange={handleOnChangeServerLocation}
       />
 
       <Select
+        key={randomKey}
         width={'17.875rem'}
         height={'$12'}
-        options={orders}
+        options={orderOptions}
         defaultValue={orderBy}
         onValueChange={handleOnChangeOrderBy}
-        prefix="Ordenar por:"
+        prefix={`${t('home.filterInputs.orderBy')}:`}
       />
     </FilterContainer>
   )

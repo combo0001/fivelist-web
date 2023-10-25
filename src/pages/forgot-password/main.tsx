@@ -19,6 +19,7 @@ import { z } from 'zod'
 import { SignInButton } from './components/SignIn'
 import { Form } from './style'
 import { useClientUser } from '@/providers/UserProvider'
+import { useTranslation } from 'react-i18next'
 
 const ForgotPasswordSchema = z.object({
   email: z.string({ required_error: 'Campo vazio' }).email('E-mail inválido'),
@@ -28,6 +29,7 @@ type ForgotPasswordSchemaType = z.infer<typeof ForgotPasswordSchema>
 
 // eslint-disable-next-line no-undef
 export const ForgotPasswordMain = (): JSX.Element => {
+  const { t } = useTranslation('pages')
   const { forgotPassword } = useClientUser()
 
   const {
@@ -70,15 +72,15 @@ export const ForgotPasswordMain = (): JSX.Element => {
 
         <Form onSubmit={handleSubmit(handleOnSubmit)} action="">
           <Header
-            title={'Recuperar conta'}
-            subtitle={'Enviaremos um link de alteração em seu e-mail.'}
+            title={t('forgotPassword.retriveAccount')}
+            subtitle={t('forgotPassword.sendLinkWarn')}
           />
 
           <InputContainer>
             <TextInput
               sufixIcon={errors.email ? <Error /> : isInCooldown && <Success />}
               autoComplete={'email'}
-              placeholder={'Digite seu e-mail'}
+              placeholder={t('forgotPassword.retriveAccountInputs.email')}
               spellCheck={false}
               disabled={isFormDisabled}
               outlined
@@ -94,8 +96,8 @@ export const ForgotPasswordMain = (): JSX.Element => {
 
           <Button type={'submit'} size={'lg'} disabled={isFormDisabled}>
             {isFormDisabled
-              ? `Enviar novamente em ${cooldown}s`
-              : 'Enviar link'}
+              ? `${t('forgotPassword.sendLinkCooldown')} ${cooldown}s`
+              : t('forgotPassword.sendLink')}
           </Button>
         </Form>
 

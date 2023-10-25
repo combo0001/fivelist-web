@@ -18,6 +18,7 @@ import { useClientUser } from '@/providers/UserProvider'
 import LogoImage from '@/assets/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 
 interface HeaderProps {
   user: UserIdentitySchemaType | null
@@ -64,38 +65,50 @@ interface ProfileProps {
   user: any
 }
 
-const Profile = ({ user }: ProfileProps): JSX.Element => (
-  <ProfileSection>
-    <ProfileAnchor href={`/users/${user.customId}`}>
-      <ProfileIcon />
+const Profile = ({ user }: ProfileProps): JSX.Element => {
+  const { t } = useTranslation('header')
 
-      <Text size={'sm'}>Perfil</Text>
-    </ProfileAnchor>
-  </ProfileSection>
-)
+  return (
+    <ProfileSection>
+      <ProfileAnchor href={`/users/${user.customId}`}>
+        <ProfileIcon />
+
+        <Text size={'sm'}>{t('profile')}</Text>
+      </ProfileAnchor>
+    </ProfileSection>
+  )
+}
 
 interface DiscordProps {
   inviteURL: string
 }
 
-const Discord = ({ inviteURL }: DiscordProps): JSX.Element => (
-  <DiscordSection>
-    <DiscordAnchor target={'_blank'} href={inviteURL}>
-      <DiscordIcon />
+const Discord = ({ inviteURL }: DiscordProps): JSX.Element => {
+  const { t } = useTranslation('header')
 
-      <Text size={'sm'}>Acesse nosso discord</Text>
-    </DiscordAnchor>
-  </DiscordSection>
-)
+  return (
+    <DiscordSection>
+      <DiscordAnchor target={'_blank'} href={inviteURL}>
+        <DiscordIcon />
 
-const AuthButtons = (): JSX.Element => (
-  <AuthButtonsSection>
-    <Link href={'/signin'} legacyBehavior>
-      <Button outlined>Conectar</Button>
-    </Link>
+        <Text size={'sm'}>{t('discordInvite')}</Text>
+      </DiscordAnchor>
+    </DiscordSection>
+  )
+}
 
-    <Link href={'/signup'} legacyBehavior>
-      <Button>Cadastre-se</Button>
-    </Link>
-  </AuthButtonsSection>
-)
+const AuthButtons = (): JSX.Element => {
+  const { t } = useTranslation('header')
+
+  return (
+    <AuthButtonsSection>
+      <Link href={'/signin'} legacyBehavior>
+        <Button outlined>{t('signIn')}</Button>
+      </Link>
+
+      <Link href={'/signup'} legacyBehavior>
+        <Button>{t('signUp')}</Button>
+      </Link>
+    </AuthButtonsSection>
+  )
+}

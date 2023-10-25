@@ -14,6 +14,9 @@ import { UserEditorProvider } from './providers/UserEditorProvider'
 import { useClientUser } from '@/providers/UserProvider'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { clientNamespaces, loadTranslations } from 'ni18n'
+import { ni18nConfig } from '../../../../../ni18n.config'
+import { LanguageProvider } from '@/providers/LanguageProvider'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -31,7 +34,8 @@ const getServerHelper = async () =>
 
 export const getStaticProps = async ({
   params,
-}: GetStaticPropsContext<{ custom_id: string }>) => {
+  locale,
+}: GetStaticPropsContext<{ custom_id: string, locale: string | undefined }>) => {
   const helpers = await getServerHelper()
   const customId = params?.custom_id as string
 
@@ -42,8 +46,15 @@ export const getStaticProps = async ({
       userPage,
     }
 
+    const serverLanguageProps = await loadTranslations(ni18nConfig, locale, [ 'header', 'navigation', 'pages' ])
+    const clientLanguageProps = clientNamespaces(ni18nConfig, [ 'dialogs', 'notifications' ])
+
     return {
-      props,
+      props: {
+        ...serverLanguageProps,
+        ...clientLanguageProps,
+        ...props,
+      },
       revalidate: 60,
     }
   } else {
@@ -73,8 +84,10 @@ export default function UsersEdit({
   }
 
   return (
-    <UserEditorProvider user={userPage}>
-      <UsersEditMain />
-    </UserEditorProvider>
+    <LanguageProvider>
+      <UserEditorProvider user={userPage}>
+        <UsersEditMain />
+      </UserEditorProvider>
+    </LanguageProvider>
   )
 }

@@ -8,6 +8,9 @@ import {
 import { UsersViewMain } from './main'
 import { UserViewProvider } from './providers/UserViewProvider'
 import { getServerHelper } from '@/utils/getServerHelper'
+import { clientNamespaces, loadTranslations } from 'ni18n'
+import { ni18nConfig } from '../../../../ni18n.config'
+import { LanguageProvider, useLanguage } from '@/providers/LanguageProvider'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -18,7 +21,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps = async ({
   params,
-}: GetStaticPropsContext<{ custom_id: string }>) => {
+  locale
+}: GetStaticPropsContext<{ custom_id: string, locale: string | undefined }>) => {
   const helpers = await getServerHelper()
   const customId = params?.custom_id
 
@@ -30,8 +34,15 @@ export const getStaticProps = async ({
         userPage,
       }
 
+      const serverLanguageProps = await loadTranslations(ni18nConfig, locale, [ 'header', 'navigation', 'pages' ])
+      const clientLanguageProps = clientNamespaces(ni18nConfig, [ 'dialogs', 'notifications' ])
+
       return {
-        props,
+        props: {
+          ...serverLanguageProps,
+          ...clientLanguageProps,
+          ...props,
+        },
         revalidate: false,
       }
     }
@@ -53,8 +64,10 @@ export default function UsersView({
   }
 
   return (
-    <UserViewProvider user={userPage}>
-      <UsersViewMain />
-    </UserViewProvider>
+    <LanguageProvider>
+      <UserViewProvider user={userPage}>
+        <UsersViewMain />
+      </UserViewProvider>
+    </LanguageProvider>
   )
 }

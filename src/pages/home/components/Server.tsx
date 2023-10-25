@@ -8,6 +8,7 @@ import {
 } from '@/components/Icons'
 import { LikeButton } from '@/components/LikeButton'
 import { Tag } from '@/components/Tag'
+import { useTranslation } from 'react-i18next'
 import { ServerPagePreviewSchemaType } from '@/schemas/servers/PagePreviewSchema'
 import { ServerViewSchemaType } from '@/schemas/servers/ViewSchema'
 import { styled } from '@/styles'
@@ -144,6 +145,8 @@ export const Server = ({
   isLiked,
   onLike,
 }: ServerProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   const isRegistered = !!preview
 
   const hasPage = !!isRegistered && !!preview.page
@@ -209,7 +212,9 @@ export const Server = ({
 
           <TagsContainer>
             <Tag active>
-              {cfx.playersCurrent} online de {cfx.playersMax}
+              {cfx.playersCurrent}
+              {' '}{t('home.serverLabels.playersAmount')}{' '}
+              {cfx.playersMax}
             </Tag>
 
             <Tag>
@@ -218,7 +223,7 @@ export const Server = ({
                     preview.page as ServerPagePreviewSchemaType
                   ).statistic.followers.toLocaleString()
                 : 0}{' '}
-              Seguidores
+              {t('home.serverLabels.followers')}
             </Tag>
 
             <Tag>
@@ -227,7 +232,7 @@ export const Server = ({
                     preview.page as ServerPagePreviewSchemaType
                   ).statistic.reviews.toLocaleString()
                 : 0}{' '}
-              Avaliações
+              {t('home.serverLabels.reviews')}
             </Tag>
           </TagsContainer>
         </InformationsContainer>

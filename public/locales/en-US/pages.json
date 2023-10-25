@@ -1,0 +1,282 @@
+{
+  "checkout": {
+    "backLabel": "Back",
+    "summary": "Added to cart",
+    "changePlan": "Change plan",
+    "editPlan": "Edit",
+    "planFrequencies": {
+      "monthly": "Monthly",
+      "quarterly": "Quarterly",
+      "yearly": "Yearly"
+    },
+    "planToSelect": "Choose plan",
+    "planSelected": "Plan selected",
+    "payerData": "Payment data",
+    "payerDataInputs": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "E-mail",
+      "identification": "CPF (Tax Identification Number)"
+    },
+    "payerAddress": "Address",
+    "payerAddressInputs": {
+      "street": "Street",
+      "houseNumber": "House number",
+      "complement": "Complement",
+      "neighborhood": "Neighborhood",
+      "city": "City",
+      "state": "State",
+      "zipCode": "ZIP Code"
+    },
+    "paymentMethod": "Payment",
+    "paymentMethods": {
+      "creditCard": "Credit Card",
+      "ticket": "Bank Slip",
+      "bankTransfer": "PIX Payment"
+    },
+    "finishPayment": "Finish payment"
+  },
+  "forgotPassword": {
+    "retriveAccount": "Retrieve account",
+    "sendLinkWarn": "We will send a reset link to your e-mail.",
+    "retriveAccountInputs": {
+      "email": "Enter your e-mail"
+    },
+    "sendLink": "Send link",
+    "sendLinkCooldown": "Send again in",
+    "rememberedPassword": "Remembered your password",
+    "signIn": "Access"
+  },
+  "home": {
+    "platforms": {
+      "desktop": "PC"
+    },
+    "gameTitle": "Grand Theft Auto V",
+    "gameLabels": {
+      "server": "Server",
+      "servers": "Servers",
+      "player": "Online player",
+      "players": "Online players"
+    },
+    "filterInputs": {
+      "searchName": "Search server",
+      "searchLocale": "Server location",
+      "orderBy": "Sort by",
+      "orderByOptions": {
+        "mostVoted": "Most voted",
+        "mostFollowers": "Most followed",
+        "mostPlayers": "Most players"
+      }
+    },
+    "highlightedServersTitle": "New registered servers",
+    "highlightedServersLabels": {
+      "playersAmount": "Players"
+    },
+    "serversTitle": "Server list",
+    "serverLabels": {
+      "playersAmount": "online of",
+      "followers": "Followers",
+      "reviews": "Reviews"
+    }
+  },
+  "resetPassword": {
+    "changePassword": "Change password",
+    "changePasswordWarn": "Create a new password for your account",
+    "changePasswordInputs": {
+      "newPassword": "Create new password",
+      "confirmNewPassword": "Repeat new password",
+      "differentPasswords": "Passwords do not match"
+    },
+    "changePasswordButton": "Change password",
+    "backToHomeButton": "Go to Home"
+  },
+  "signin": {
+    "signIn": "Sign in",
+    "signInWarn": "Get access to our server list",
+    "signInInputs": {
+      "email": "Enter your e-mail",
+      "password": "Enter your password"
+    },
+    "forgotPassword": "Forgot my password",
+    "signInButton": "Access now",
+    "signUpButton": "Don't have an account?",
+    "signUpLabel": "Create my account"
+  },
+  "signup": {
+    "signUp": "Create account",
+    "signUpInputs": {
+      "fullName": "Enter your name",
+      "email": "Enter your e-mail",
+      "password": "Enter your password",
+      "acceptTerms": "I accept the terms and conditions"
+    },
+    "passwordInstructions": "Password must be more than 8 characters and contain at least one uppercase letter and one numerical digit.",
+    "createAccount": "Create account",
+    "signInButton": "Already have an account?",
+    "signInLabel": "Sign in"
+  },
+  "serversPage": {
+    "statisticLabels": {
+      "playersAmount": "Playing",
+      "followers": "Followers",
+      "reviews": "Reviews"
+    },
+    "tagsLabels": {
+      "discord": "Discord",
+      "website": "Website",
+      "marketplace": "Store"
+    },
+    "connectButton": "Connect",
+    "purchasePremiumButton": "Get Premium",
+    "renewPremiumButton": "Renew Premium",
+    "managedBy": "Managed by",
+    "withoutManagement": "Unmanaged Server",
+    "desciptionSection": {
+      "title": "Description",
+      "withoutPremium": "Server without Premium",
+      "withoutDescription": "Description not updated."
+    },
+    "statisticsSection": {
+      "title": "Statistics",
+      "playersInLast24Hours": "Players in 24 hours"
+    },
+    "linksSection": {
+      "title": "External Links",
+      "withoutLinks": "No website added."
+    },
+    "socialMediaSection": {
+      "title": "Social Media",
+      "withoutSocialMedia": "No social media added."
+    },
+    "reviewsSection": {
+      "title": "Reviews",
+      "withoutReviews": "No testimonies.",
+      "replyButton": "Reply",
+      "adminReply": "Server Team"
+    },
+    "playersSection": {
+      "title": "Online Players",
+      "withoutPlayers": "No players online."
+    }
+  },
+  "serversPageEdit": {
+    "leaveOfEdit": "Exit editing",
+    "bannerEdit": "Edit cover",
+    "statisticLabels": {
+      "playersAmount": "Playing",
+      "followers": "Followers",
+      "reviews": "Reviews"
+    },
+    "tagsLabels": {
+      "discord": "Discord",
+      "website": "Website",
+      "marketplace": "Store"
+    },
+    "purchasePremiumButton": "Get Premium",
+    "renewPremiumButton": "Renew Premium",
+    "renewPremiumWarn": "Your plan ends on",
+    "managedBy": "Managed by",
+    "desciptionSection": {
+      "title": "Description",
+      "withoutPremium": "Get Premium",
+      "withoutDescription": "Description not updated.",
+      "editButton": "Edit description"
+    },
+    "linksSection": {
+      "title": "External Links",
+      "addLink": "Add website"
+    },
+    "socialMediaSection": {
+      "title": "Social Media",
+      "addSocialMedia": "Add social media"
+    },
+    "statisticsSection": {
+      "title": "Statistics",
+      "premiumPage": "Advanced statistics (premium)",
+      "likesPerMonth": "Likes (month)",
+      "followersPerMonth": "Followers (month)"
+    },
+    "customIdSection": {
+      "title": "Custom Link",
+      "copyToClipboard": "Copy link",
+      "editButton": "Edit link",
+      "confirmButton": "Confirm edit"
+    },
+    "playersSection": {
+      "title": "Player List",
+      "reportPlayer": "Report"
+    }
+  },
+  "serversPagePremium": {},
+  "usersPage": {
+    "statisticLabels": {
+      "serversAmount": "Servers",
+      "views": "profile views"
+    },
+    "levelLabels": {
+      "level": "Level",
+      "points": "Pts"
+    },
+    "followButton": "Follow",
+    "unfollowButton": "Unfollow",
+    "purchasePremiumButton": "Get Premium",
+    "renewPremiumButton": "Renew Premium",
+    "renewPremiumWarn": "Your plan ends on",
+    "desciptionSection": {
+      "title": "Description",
+      "withoutDescription": "Description not updated."
+    },
+    "socialMediaSection": {
+      "title": "Social Media",
+      "withoutSocialMedia": "No social media added."
+    },
+    "connectionsSection": {
+      "title": "Connections",
+      "withoutConnections": "No connection added."
+    },
+    "liveSection": {
+      "title": "Live",
+      "withoutLive": "No live found.",
+      "joinInLive": "Join"
+    },
+    "lastActivitiesSection": {
+      "title": "Latest Activities",
+      "withoutActivity": "No activity recorded."
+    }
+  },
+  "usersPageEdit": {
+    "leaveOfEdit": "Exit editing",
+    "bannerEdit": "Edit cover",
+    "statisticLabels": {
+      "serversAmount": "Servers",
+      "views": "profile views"
+    },
+    "levelLabels": {
+      "level": "Level",
+      "points": "Pts"
+    },
+    "purchasePremiumButton": "Get Premium",
+    "renewPremiumButton": "Renew Premium",
+    "renewPremiumWarn": "Your plan ends on",
+    "desciptionSection": {
+      "title": "Description",
+      "withoutPremium": "Get Premium",
+      "withoutDescription": "Description not updated.",
+      "editButton": "Edit description"
+    },
+    "socialMediaSection": {
+      "title": "Social Media",
+      "addSocialMedia": "Add social media"
+    },
+    "connectionsSection": {
+      "title": "Connections",
+      "addConnection": "Connect platform"
+    },
+    "liveSection": {
+      "title": "Live",
+      "editLink": "Edit link",
+      "confirmEdit": "Confirm edit",
+      "copyToClipboard": "Copy link"
+    }
+  }
+}

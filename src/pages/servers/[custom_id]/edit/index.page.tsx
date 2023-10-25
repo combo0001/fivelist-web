@@ -12,6 +12,9 @@ import { ServerEditorProvider } from './providers/ServerEditorProvider'
 import { useEffect } from 'react'
 import { useClientUser } from '@/providers/UserProvider'
 import { useRouter } from 'next/navigation'
+import { ni18nConfig } from '../../../../../ni18n.config'
+import { clientNamespaces, loadTranslations } from 'ni18n'
+import { LanguageProvider } from '@/providers/LanguageProvider'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -22,7 +25,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps = async ({
   params,
-}: GetStaticPropsContext<{ custom_id: string }>) => {
+  locale
+}: GetStaticPropsContext<{ custom_id: string, locale: string | undefined }>) => {
   const helpers = await getServerHelper()
   const customId = params?.custom_id
 
@@ -36,8 +40,15 @@ export const getStaticProps = async ({
         serverPage,
       }
 
+      const serverLanguageProps = await loadTranslations(ni18nConfig, locale, [ 'header', 'navigation', 'pages' ])
+      const clientLanguageProps = clientNamespaces(ni18nConfig, [ 'dialogs', 'notifications' ])
+
       return {
-        props,
+        props: {
+          ...serverLanguageProps,
+          ...clientLanguageProps,
+          ...props,
+        },
         revalidate: 60,
       }
     }
@@ -75,8 +86,10 @@ export default function ServerEdit({
   }
 
   return (
-    <ServerEditorProvider server={serverPage}>
-      <ServerEditMain />
-    </ServerEditorProvider>
+    <LanguageProvider>
+      <ServerEditorProvider server={serverPage}>
+        <ServerEditMain />
+      </ServerEditorProvider>
+    </LanguageProvider>
   )
 }
