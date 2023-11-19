@@ -19,9 +19,10 @@ import { Form, InputsContainer } from './style'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/@types/supabase'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { PasswordSchema } from '@/schemas/users/PasswordSchema'
 import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
+import { isUserValid } from '@/server/routers/users/utils/isUserValid'
 
 const ResetPasswordSchema = z.object({
   password: PasswordSchema,
@@ -29,12 +30,6 @@ const ResetPasswordSchema = z.object({
 })
 
 type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>
-
-const getCode = (): string | null => {
-  const url = new URL(window.location.href)
-
-  return url.searchParams.get('code')
-}
 
 // eslint-disable-next-line no-undef
 export const ResetPasswordMain = (): JSX.Element => {
@@ -75,12 +70,21 @@ export const ResetPasswordMain = (): JSX.Element => {
   }
 
   useEffect(() => {
-    const code = getCode()
+    supabase.auth.getSession()
+      .then(({ data }) => {
+        if (!data.session?.user) {
+          router.push('/')
 
-    if (!code) {
-      router.push('/')
-    }
-  }, [router])
+          return 
+        }
+
+        const isValid = isUserValid(data.session)
+
+        if (isValid) {
+          router.push('/')
+        }
+      })
+  }, [ supabase ])
 
   return (
     <Background>
