@@ -83,7 +83,7 @@
     "changePassword": "Trocar senha",
     "changePasswordWarn": "Criar uma nova senha para sua conta",
     "changePasswordInputs": {
-      "newPassword": "Croar nova senha",
+      "newPassword": "Criar nova senha",
       "confirmNewPassword": "Repetir nova senha",
       "differentPasswords": "As senhas não coincidem"
     },
