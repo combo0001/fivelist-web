@@ -9,6 +9,7 @@ import {
   getSocialMediaLink,
 } from '@/utils/socialMediaLinks'
 import { Button, Heading, Text } from '@5list-design-system/react'
+import { useTranslation } from 'react-i18next'
 
 /* eslint-disable no-undef */
 interface SocialMediaProps {
@@ -63,6 +64,7 @@ export const SocialMediaLinks = ({
   onAddSocialMedia,
   onRemoveSocialMedia,
 }: SocialMediaProps): JSX.Element => {
+  const { t } = useTranslation('pages')
   const availableSocialMedia = getAvailableSocialMedia()
 
   const handleOnChange = async (
@@ -83,7 +85,7 @@ export const SocialMediaLinks = ({
   return (
     <SocialMediaContainer>
       <Heading as={'h4'} weight={'bold'}>
-        Redes sociais
+        {t('usersPageEdit.socialMediaSection.title')}
       </Heading>
 
       <SocialMediaList>
@@ -113,7 +115,7 @@ export const SocialMediaLinks = ({
         })}
 
         <RestrictLinkDialog
-          title={`Adicionar rede social`}
+          title={t('usersPageEdit.socialMediaSection.addSocialMedia')}
           placeHolder={'Digite o usuário do perfil'}
           options={availableSocialMedia.map((value) => {
             return {
@@ -122,7 +124,7 @@ export const SocialMediaLinks = ({
             }
           })}
           onSave={handleOnChange}
-          trigger={<AddLink text={`Adicionar rede social`} />}
+          trigger={<AddLink text={t('usersPageEdit.socialMediaSection.addSocialMedia')} />}
         />
       </SocialMediaList>
     </SocialMediaContainer>

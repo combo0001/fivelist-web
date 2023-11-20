@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { Activity } from './Activity'
 import { UserActivitiesListSchemaType } from '@/schemas/users/ActivitySchema'
 import { useUserView } from '../providers/UserViewProvider'
+import { useTranslation } from 'react-i18next'
 
 interface RecentActivitiesProps {
   activities: UserActivitiesListSchemaType
@@ -43,6 +44,7 @@ export const RecentActivities = ({
   activities,
 }: RecentActivitiesProps): JSX.Element => {
   const { user } = useUserView()
+  const { t } = useTranslation('pages')
 
   const AMOUNT_OF_POSTS_TO_SHOW = 2
   const [showMore, setShowMore] = useState<boolean>(false)
@@ -54,7 +56,7 @@ export const RecentActivities = ({
   return (
     <RecentContainer>
       <Heading as={'h4'} weight={'bold'}>
-        Últimas atividades
+        {t('usersPage.lastActivitiesSection.title')}
       </Heading>
 
       {activities.length > 0 ? (
@@ -67,7 +69,7 @@ export const RecentActivities = ({
         </PostsList>
       ) : (
         <Heading as={'h5'} color={'$neutral100'}>
-          Nenhuma atividade registrada.
+          {t('usersPage.lastActivitiesSection.withoutActivity')}
         </Heading>
       )}
 
@@ -78,7 +80,7 @@ export const RecentActivities = ({
           outlined
           onClick={toggleShowMore}
         >
-          {!showMore ? 'Carregar Mais' : 'Carregar Menos'}
+          {!showMore ? t('usersPage.lastActivitiesSection.loadMore') : t('usersPage.lastActivitiesSection.loadLess')}
         </Button>
       )}
     </RecentContainer>

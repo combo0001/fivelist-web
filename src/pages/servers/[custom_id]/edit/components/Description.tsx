@@ -6,6 +6,7 @@ import { trpc } from '@/utils/trpc'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import Link from 'next/link'
 import { useServerEditor } from '../providers/ServerEditorProvider'
+import { useTranslation } from 'react-i18next'
 
 const DescriptionWrapper = styled('div', {
   minHeight: '10.75rem',
@@ -48,6 +49,8 @@ const EditContainer = styled(EditLink, {
 })
 
 export const Description = (): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   const { serverToEdit, refreshServer } = useServerEditor()
   const setServerDescription = trpc.servers.setServerDescription.useMutation()
 
@@ -55,7 +58,7 @@ export const Description = (): JSX.Element => {
   const text =
     hasVip && serverToEdit.page.description
       ? serverToEdit.page.description
-      : 'Descrição não foi editada'
+      : t('serversPageEdit.descriptionSection.withoutDescription')
 
   const handleOnChangeDescription = async (
     description: string,
@@ -73,7 +76,7 @@ export const Description = (): JSX.Element => {
     <DescriptionWrapper>
       <DescriptionContainer>
         <Heading as={'h5'} weight={'bold'}>
-          Descrição
+          {t('serversPageEdit.descriptionSection.title')}
         </Heading>
 
         <Text size={'sm'}>{text}</Text>
@@ -82,7 +85,7 @@ export const Description = (): JSX.Element => {
       {hasVip && (
         <DescriptionDialog
           defaultValue={text}
-          trigger={<EditContainer text={'Editar descrição'} />}
+          trigger={<EditContainer text={t('serversPageEdit.descriptionSection.editButton')} />}
           onChange={handleOnChangeDescription}
         />
       )}
@@ -91,7 +94,7 @@ export const Description = (): JSX.Element => {
         <DescriptionBlurContainer>
           <Link href={`/servers/${serverToEdit.joinId}/premium`} legacyBehavior>
             <Button css={{ padding: '0 4.5rem' }} size={'lg'}>
-              Obtenha o Premium
+              {t('serversPageEdit.descriptionSection.withoutPremium')}
             </Button>
           </Link>
         </DescriptionBlurContainer>

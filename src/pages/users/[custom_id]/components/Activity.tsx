@@ -5,6 +5,7 @@ import { Text } from '@5list-design-system/react'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
 
 interface ActivityProps {
   page: UserPageSchemaType
@@ -44,6 +45,8 @@ export const Activity = ({
   message,
   createdAt,
 }: ActivityProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <ActivityContainer>
       <AvatarImage

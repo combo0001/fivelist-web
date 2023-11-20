@@ -1,13 +1,14 @@
 {
   "freeLinks": {
+    "nameLabel": "Nome",
     "nameInput": "Digite o nome",
-    "linkInput": "Digite o link do perfil",
+    "linkLabel": "Link",
     "saveButton": "Salvar",
     "cancelButton": "Cancelar"
   },
   "restrictLink": {
     "selectInput": "Selectionar",
-    "linkInput": "Digite o usuário do perfil",
+    "linkLabel": "Link",
     "saveButton": "Salvar",
     "cancelButton": "Cancelar"
   }, 
@@ -19,13 +20,17 @@
     "rateTitle": "Deixe sua nota",
     "feedbackTitle": "Escreva sua experiência",
     "feedbackInput": "Digite o seu feedback",
-    "sendButton": "Enviar depoimento"
+    "sendButton": "Enviar depoimento",
+    "thanksForFeedback": "Obrigado por deixar seu depoimento!",
+    "closeThanks": "Fechar"
   },
   "reply": {
     "title": "Responder",
     "contentTitle": "Responder",
     "contentInput": "Digite sua resposta",
-    "sendButton": "Enviar resposta"
+    "sendButton": "Enviar resposta",
+    "thanksForReply": "Obrigado por responder!",
+    "closeThanks": "Fechar"
   },
   "image": {
     "title": "Clique para enviar",

@@ -15,6 +15,7 @@ import { useServerView } from '../providers/ServerViewProvider'
 import { ServerDynamicSchemaType } from '@/schemas/servers/DynamicSchema'
 import { useClientUser } from '@/providers/UserProvider'
 import { searchVariable } from '../utils/searchVariable'
+import { useTranslation } from 'react-i18next'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -109,6 +110,7 @@ const ActionsContainer = styled('section', {
 })
 
 export const ServerHeader = (): JSX.Element => {
+  const { t } = useTranslation('pages')
   const { user } = useClientUser()
 
   const { serverView, serverDynamic: dynamicNullable } = useServerView()
@@ -130,7 +132,7 @@ export const ServerHeader = (): JSX.Element => {
           {isOwner && (
             <Link href={`/servers/${serverView.joinId}/edit`} legacyBehavior>
               <EditButton size={'sm'}>
-                Editar
+                {t('serversPage.editButton')}
                 <PencilIcon css={{ size: '$4', fill: '$white' }} />
               </EditButton>
             </Link>
@@ -171,7 +173,7 @@ export const ServerHeader = (): JSX.Element => {
               href={`fivem://connect/${serverView.joinId}`}
               size={'lg'}
             >
-              Conectar Servidor
+              {t('serversPage.connectButton')}
             </Button>
 
             {isOwner && (
@@ -182,11 +184,11 @@ export const ServerHeader = (): JSX.Element => {
                 {
                   serverView.page.planTier.id === 0 ?
                     <Button size={'lg'} outlined>
-                      Obtenha o Premium
+                      {t('serversPage.purchasePremiumButton')}
                     </Button>
                   : 
                     <Button size={'lg'} outlined>
-                      Renovar premium
+                      {t('serversPage.renewPremiumButton')}
                     </Button>
                 }
                 
@@ -199,11 +201,11 @@ export const ServerHeader = (): JSX.Element => {
                 legacyBehavior
               >
                 <Tag css={{ cursor: 'pointer' }}>
-                  Gerenciado por @{serverView.page.ownerUser.customId}
+                  {t('serversPage.managedBy') + ' '}@{serverView.page.ownerUser.customId}
                 </Tag>
               </Link>
             ) : (
-              <Tag>Servidor não gerenciado</Tag>
+              <Tag>{t('serversPage.withoutManagement')}</Tag>
             )}
           </ActionsContainer>
         </InformationsContainer>
@@ -265,11 +267,21 @@ const ServerTags = ({
   followers,
   reviews,
 }: ServerTagsProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <TagsContainer>
-      <TagHighlighted active>{clients} Jogando</TagHighlighted>
-      <TagHighlighted>{followers} Seguidores</TagHighlighted>
-      <TagHighlighted>{reviews} Avaliações</TagHighlighted>
+      <TagHighlighted active>
+        {clients.toLocaleString() + ' '}{t('serversPage.statisticLabels.playersAmount')}
+      </TagHighlighted>
+
+      <TagHighlighted>
+        {followers.toLocaleString() + ' '}{t('serversPage.statisticLabels.followers', { count: followers })}
+      </TagHighlighted>
+
+      <TagHighlighted>
+        {reviews.toLocaleString() + ' '}{t('serversPage.statisticLabels.reviews', { count: reviews })}
+      </TagHighlighted>
     </TagsContainer>
   )
 }
@@ -306,6 +318,8 @@ const ServerLinks = ({
   websiteURL,
   storeURL,
 }: ServerLinksProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <LinksContainer>
       {websiteURL && (
@@ -313,7 +327,7 @@ const ServerLinks = ({
           <LinkIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
-            Website
+            {t('serversPage.tagsLabels.website')}
           </Text>
         </LinkAnchor>
       )}
@@ -323,7 +337,7 @@ const ServerLinks = ({
           <StoreIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
-            Loja
+            {t('serversPage.tagsLabels.marketplace')}
           </Text>
         </LinkAnchor>
       )}
@@ -333,7 +347,7 @@ const ServerLinks = ({
           <DiscordIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
-            Discord
+            {t('serversPage.tagsLabels.discord')}
           </Text>
         </LinkAnchor>
       )}

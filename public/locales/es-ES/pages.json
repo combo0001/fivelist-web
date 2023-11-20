@@ -117,24 +117,31 @@
   },
   "serversPage": {
     "statisticLabels": {
-      "playersAmount": "Jugando",
-      "followers": "Seguidores",
-      "reviews": "Opiniones"
+      "playersAmount": "jugando",
+      "followers_zero": "seguidores",
+      "followers_one": "seguidor",
+      "followers_other": "seguidores",
+      "reviews_zero": "evaluaciones",
+      "reviews_one": "evaluación",
+      "reviews_other": "evaluaciones"
     },
     "tagsLabels": {
       "discord": "Discord",
       "website": "Sitio web",
       "marketplace": "Tienda"
     },
+    "editButton": "Editar",
     "connectButton": "Conectar",
     "purchasePremiumButton": "Obtener Premium",
     "renewPremiumButton": "Renovar Premium",
     "managedBy": "Gestionado por",
     "withoutManagement": "Servidor no gestionado",
-    "desciptionSection": {
+    "descriptionSection": {
       "title": "Descripción",
       "withoutPremium": "Servidor sin Premium",
-      "withoutDescription": "Descripción no actualizada."
+      "withoutDescription": "Descripción no actualizada.",
+      "showMore": "Mostrar más",
+      "showLess": "Mostrar menos"
     },
     "statisticsSection": {
       "title": "Estadísticas",
@@ -151,21 +158,29 @@
     "reviewsSection": {
       "title": "Opiniones",
       "withoutReviews": "No hay testimonios.",
+      "enterReview": "Dejar revisión",
       "replyButton": "Responder",
-      "adminReply": "Equipo del Servidor"
+      "adminReply": "Equipo del Servidor",
+      "loadMore": "Cargar más"
     },
     "playersSection": {
       "title": "Jugadores en línea",
-      "withoutPlayers": "No hay jugadores en línea."
+      "withoutPlayers": "No hay jugadores en línea.",
+      "loadMore": "Cargar más",
+      "loadLess": "Cargar menos"
     }
   },
   "serversPageEdit": {
     "leaveOfEdit": "Salir de la edición",
     "bannerEdit": "Editar portada",
     "statisticLabels": {
-      "playersAmount": "Jugando",
-      "followers": "Seguidores",
-      "reviews": "Opiniones"
+      "playersAmount": "jugando",
+      "followers_zero": "seguidores",
+      "followers_one": "seguidor",
+      "followers_other": "seguidores",
+      "reviews_zero": "evaluaciones",
+      "reviews_one": "evaluación",
+      "reviews_other": "evaluaciones"
     },
     "tagsLabels": {
       "discord": "Discord",
@@ -176,7 +191,7 @@
     "renewPremiumButton": "Renovar Premium",
     "renewPremiumWarn": "Tu plan termina en",
     "managedBy": "Gestionado por",
-    "desciptionSection": {
+    "descriptionSection": {
       "title": "Descripción",
       "withoutPremium": "Obtener Premium",
       "withoutDescription": "Descripción no actualizada.",
@@ -184,15 +199,19 @@
     },
     "linksSection": {
       "title": "Enlaces externos",
-      "addLink": "Agregar sitio web"
+      "addLink": "Agregar sitio web",
+      "enterLink": "Introduce el website link"
     },
     "socialMediaSection": {
       "title": "Redes Sociales",
-      "addSocialMedia": "Agregar redes sociales"
+      "addSocialMedia": "Agregar redes sociales",
+      "enterProfile": "Ingrese el usuario del perfil"
     },
     "statisticsSection": {
-      "title": "Estadísticas",
-      "premiumPage": "Estadísticas avanzadas (premium)",
+      "title": "Estadísticas básico",
+      "titlePremium": "Estadísticas",
+      "advancedStatistics": "Estadísticas avanzadas",
+      "advancedStatisticsPremium": "Estadísticas avanzadas (premium)",
       "likesPerMonth": "Me gusta (mes)",
       "followersPerMonth": "Seguidores (mes)"
     },
@@ -204,25 +223,33 @@
     },
     "playersSection": {
       "title": "Lista de Jugadores",
-      "reportPlayer": "Reportar"
+      "reportPlayer": "Reportar",
+      "withoutPlayers": "No hay jugadores en línea.",
+      "loadMore": "Cargar más",
+      "loadLess": "Cargar menos"
     }
   },
   "serversPagePremium": {},
   "usersPage": {
     "statisticLabels": {
-      "serversAmount": "Servidores",
-      "views": "Vistas de perfil"
+      "followers_zero": "seguidores",
+      "followers_one": "seguidor",
+      "followers_other": "seguidores",
+      "views_zero": "visitas al perfil",
+      "views_one": "vista de perfil",
+      "views_other": "visitas al perfil"
     },
     "levelLabels": {
       "level": "Nivel",
-      "points": "Pts"
+      "points": "puntos"
     },
+    "editButton": "Editar",
     "followButton": "Seguir",
     "unfollowButton": "Dejar de seguir",
     "purchasePremiumButton": "Obtener Premium",
     "renewPremiumButton": "Renovar Premium",
     "renewPremiumWarn": "Tu plan termina en",
-    "desciptionSection": {
+    "descriptionSection": {
       "title": "Descripción",
       "withoutDescription": "Descripción no actualizada."
     },
@@ -241,24 +268,30 @@
     },
     "lastActivitiesSection": {
       "title": "Últimas actividades",
-      "withoutActivity": "No se registró actividad."
+      "withoutActivity": "No se registró actividad.",
+      "loadMore": "Cargar más",
+      "loadLess": "Cargar menos"
     }
   },
   "usersPageEdit": {
-    "leaveOfEdit": "Salir de la edición",
-    "bannerEdit": "Editar portada",
     "statisticLabels": {
-      "serversAmount": "Servidores",
-      "views": "Vistas de perfil"
+      "followers_zero": "seguidores",
+      "followers_one": "seguidor",
+      "followers_other": "seguidores",
+      "views_zero": "visitas al perfil",
+      "views_one": "vista de perfil",
+      "views_other": "visitas al perfil"
     },
     "levelLabels": {
       "level": "Nivel",
-      "points": "Pts"
+      "points": "puntos"
     },
+    "leaveOfEdit": "Salir de la edición",
+    "bannerEdit": "Editar portada",
     "purchasePremiumButton": "Obtener Premium",
     "renewPremiumButton": "Renovar Premium",
     "renewPremiumWarn": "Tu plan termina en",
-    "desciptionSection": {
+    "descriptionSection": {
       "title": "Descripción",
       "withoutPremium": "Obtener Premium",
       "withoutDescription": "Descripción no actualizada.",
@@ -277,6 +310,24 @@
       "editLink": "Editar enlace",
       "confirmEdit": "Confirmar edición",
       "copyToClipboard": "Copiar enlace"
+    }
+  },
+  "usersPagePremium": {
+    "monthly": "Mensual",
+    "quarterly": "Trimestral",
+    "yearly": "Anual",
+    "subscribeToPlan": "Suscribirse al Plan",
+    "alreadySigned": "Ya suscrito",
+    "plansForUsers": "Planes para Usuarios",
+    "plansHeader": "Los mejores planes para que apoyes al servidor que amas",
+    "planNames": {
+      "premiumTier": "Premium",
+      "freeTier": "Gratuito"
+    },
+    "planTags": {
+        "free": "Gratis",
+        "bestSeller": "Más vendido",
+        "recommended": "Recomendado"
     }
   }
 }

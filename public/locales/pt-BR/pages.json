@@ -17,7 +17,7 @@
       "lastName": "Sobrenome",
       "email": "E-mail",
       "identification": "CPF"
-    }, 
+    },
     "payerAddress": "Endereço",
     "payerAddressInputs": {
       "street": "Rua",
@@ -27,7 +27,7 @@
       "city": "Cidade",
       "state": "Estado",
       "zipCode": "CEP"
-    }, 
+    },
     "paymentMethod": "Pagamento",
     "paymentMethods": {
       "creditCard": "Cartão de crédito",
@@ -70,11 +70,11 @@
     },
     "highlightedServersTitle": "Novos servidores cadastrados",
     "highlightedServersLabels": {
-      "playersAmount": "Jogadores" 
+      "playersAmount": "Jogadores"
     },
     "serversTitle": "Lista de servidores",
     "serverLabels": {
-      "playersAmount": "online de", 
+      "playersAmount": "online de",
       "followers": "Seguidores",
       "reviews": "Avaliações"
     }
@@ -94,7 +94,7 @@
     "signIn": "Entrar",
     "signInWarn": "Tenha acesso em nossa lista de servidores",
     "signInInputs": {
-      "email":  "Digite seu e-mail",
+      "email": "Digite seu e-mail",
       "password": "Digite sua senha"
     },
     "forgotPassword": "Esqueci minha senha",
@@ -117,24 +117,31 @@
   },
   "serversPage": {
     "statisticLabels": {
-      "playersAmount": "Jogando",
-      "followers": "Seguidores",
-      "reviews": "Avaliações"
+      "playersAmount": "jogando",
+      "followers_zero": "seguidores",
+      "followers_one": "seguidor",
+      "followers_other": "seguidores",
+      "reviews_zero": "avaliações",
+      "reviews_one": "avaliação",
+      "reviews_other": "avaliações"
     },
     "tagsLabels": {
       "discord": "Discord",
       "website": "Site",
       "marketplace": "Loja"
-    }, 
+    },
+    "editButton": "Editar",
     "connectButton": "Conectar",
     "purchasePremiumButton": "Obtenha o Premium",
     "renewPremiumButton": "Renovar Premium",
     "managedBy": "Gerenciado por",
     "withoutManagement": "Servidor não gerenciado",
-    "desciptionSection": {
+    "descriptionSection": {
       "title": "Descrição",
       "withoutPremium": "Servidor sem Premium",
-      "withoutDescription": "Descrição não foi alterada."
+      "withoutDescription": "Descrição não foi alterada.",
+      "showMore": "Mostrar mais",
+      "showLess": "Mostrar menos"
     },
     "statisticsSection": {
       "title": "Estatísticas",
@@ -151,32 +158,40 @@
     "reviewsSection": {
       "title": "Avaliações",
       "withoutReviews": "Nenhum depoimento.",
+      "enterReview": "Deixar avaliação",
       "replyButton": "Responder",
-      "adminReply": "Equipe do servidor"
+      "adminReply": "Equipe do servidor",
+      "loadMore": "Carregar mais"
     },
     "playersSection": {
       "title": "Jogadores online",
-      "withoutPlayers": "Nenhum jogador online."
+      "withoutPlayers": "Nenhum jogador online.",
+      "loadMore": "Carregar mais",
+      "loadLess": "Carregar menos"
     }
   },
   "serversPageEdit": {
     "leaveOfEdit": "Sair da edição",
     "bannerEdit": "Editar capa",
     "statisticLabels": {
-      "playersAmount": "Jogando",
-      "followers": "Seguidores",
-      "reviews": "Avaliações"
+      "playersAmount": "jogando",
+      "followers_zero": "seguidores",
+      "followers_one": "seguidor",
+      "followers_other": "seguidores",
+      "reviews_zero": "avaliações",
+      "reviews_one": "avaliação",
+      "reviews_other": "avaliações"
     },
     "tagsLabels": {
       "discord": "Discord",
       "website": "Site",
       "marketplace": "Loja"
-    }, 
+    },
     "purchasePremiumButton": "Obtenha o Premium",
     "renewPremiumButton": "Renovar Premium",
     "renewPremiumWarn": "Seu plano termina em",
     "managedBy": "Gerenciado por",
-    "desciptionSection": {
+    "descriptionSection": {
       "title": "Descrição",
       "withoutPremium": "Obtenha o Premium",
       "withoutDescription": "Descrição não foi alterada.",
@@ -184,15 +199,19 @@
     },
     "linksSection": {
       "title": "Links externos",
-      "addLink": "Adicionar site"
+      "addLink": "Adicionar site",
+      "enterLink": "Digite o link do site"
     },
     "socialMediaSection": {
       "title": "Redes sociais",
-      "addSocialMedia": "Adicionar rede social"
+      "addSocialMedia": "Adicionar rede social",
+      "enterProfile": "Digite o usuário do perfil"
     },
     "statisticsSection": {
-      "title": "Estatísticas",
-      "premiumPage": "Estatísticas avançadas (premium)",
+      "title": "Estatísticas básicas",
+      "titlePremium": "Estatísticas",
+      "advancedStatistics": "Estatísticas avançadas",
+      "advancedStatisticsPremium": "Estatísticas avançadas (premium)",
       "likesPerMonth": "Curtidas (mês)",
       "followersPerMonth": "Seguidores (mês)"
     },
@@ -204,26 +223,33 @@
     },
     "playersSection": {
       "title": "Lista de jogadores",
-      "reportPlayer": "Reportar"
+      "reportPlayer": "Reportar",
+      "withoutPlayers": "Nenhum jogador online.",
+      "loadMore": "Carregar mais",
+      "loadLess": "Carregar menos"
     }
   },
-  "serversPagePremium": {
-  },
+  "serversPagePremium": {},
   "usersPage": {
     "statisticLabels": {
-      "serversAmount": "Servidores",
-      "views": "visualizações no perfil"
+      "followers_zero": "seguidores",
+      "followers_one": "seguidor",
+      "followers_other": "seguidores",
+      "views_zero": "visualizações",
+      "views_one": "visualização",
+      "views_other": "visualizações"
     },
     "levelLabels": {
       "level": "Nível",
-      "points": "Pts"
+      "points": "pontos"
     },
+    "editButton": "Editar",
     "followButton": "Seguir",
     "unfollowButton": "Deixar de seguir",
     "purchasePremiumButton": "Obtenha o Premium",
     "renewPremiumButton": "Renovar Premium",
     "renewPremiumWarn": "Seu plano termina em",
-    "desciptionSection": {
+    "descriptionSection": {
       "title": "Descrição",
       "withoutDescription": "Descrição não foi alterada."
     },
@@ -242,24 +268,30 @@
     },
     "lastActivitiesSection": {
       "title": "Últimas atividades",
-      "withoutActivity": "Nenhuma atividade registrada."
+      "withoutActivity": "Nenhuma atividade registrada.",
+      "loadMore": "Carregar mais",
+      "loadLess": "Carregar menos"
     }
   },
   "usersPageEdit": {
-    "leaveOfEdit": "Sair da edição",
-    "bannerEdit": "Editar capa",
     "statisticLabels": {
-      "serversAmount": "Servidores",
-      "views": "visualizações no perfil"
+      "followers_zero": "seguidores",
+      "followers_one": "seguidor",
+      "followers_other": "seguidores",
+      "views_zero": "visualizações",
+      "views_one": "visualização",
+      "views_other": "visualizações"
     },
     "levelLabels": {
       "level": "Nível",
-      "points": "Pts"
+      "points": "pontos"
     },
+    "leaveOfEdit": "Sair da edição",
+    "bannerEdit": "Editar capa",
     "purchasePremiumButton": "Obtenha o Premium",
     "renewPremiumButton": "Renovar Premium",
     "renewPremiumWarn": "Seu plano termina em",
-    "desciptionSection": {
+    "descriptionSection": {
       "title": "Descrição",
       "withoutPremium": "Obtenha o Premium",
       "withoutDescription": "Descrição não foi alterada.",
@@ -278,6 +310,24 @@
       "editLink": "Editar link",
       "confirmEdit": "Confirmar edição",
       "copyToClipboard": "Copiar link"
+    }
+  },
+  "usersPagePremium": {
+    "monthly": "Mensal",
+    "quarterly": "Trimestral",
+    "yearly": "Anual",
+    "subscribeToPlan": "Assinar plano",
+    "alreadySigned": "Já assinado",
+    "plansForUsers": "Planos para usuários",
+    "plansHeader": "Os melhores planos para você ajudar o servidor que você ama",
+    "planNames": {
+      "premiumTier": "Premium",
+      "freeTier": "Gratuito"
+    },
+    "planTags": {
+      "free": "Grátis",
+      "bestSeller": "Mais vendido",
+      "recommended": "Recomendado"
     }
   }
 }

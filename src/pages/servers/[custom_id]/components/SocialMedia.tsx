@@ -3,6 +3,7 @@ import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { getSocialMediaLink } from '@/utils/socialMediaLinks'
 import { Button, Heading, Text } from '@5list-design-system/react'
+import { useTranslation } from 'react-i18next'
 
 /* eslint-disable no-undef */
 interface SocialMediaProps {
@@ -47,10 +48,12 @@ const WebsiteLinkBox = styled('a', {
 export const SocialMediaLinks = ({
   socialMedia,
 }: SocialMediaProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <SocialMediaContainer>
       <Heading as={'h4'} weight={'bold'}>
-        Redes sociais
+        {t('serversPage.socialMediaSection.title')}
       </Heading>
 
       <WebsiteSocialMediaContainer>
@@ -80,7 +83,7 @@ export const SocialMediaLinks = ({
             )
           })
         ) : (
-          <Text>Nenhuma rede social registrada.</Text>
+          <Text>{t('serversPage.socialMediaSection.withoutSocialMedia')}</Text>
         )}
       </WebsiteSocialMediaContainer>
     </SocialMediaContainer>

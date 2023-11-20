@@ -2,6 +2,7 @@ import { UserConnectionsListSchemaType } from '@/schemas/users/ConnectionsSchema
 import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
+import { useTranslation } from 'react-i18next'
 
 /* eslint-disable no-undef */
 interface ConnectionsProps {
@@ -51,10 +52,12 @@ const WebsiteLinkBox = styled('a', {
 export const ConnectionsLinks = ({
   connections,
 }: ConnectionsProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <ConnectionsContainer>
       <Heading as={'h4'} weight={'bold'}>
-        Conexões
+        {t('usersPage.connectionsSection.title')}
       </Heading>
 
       <ConnectionsList>
@@ -75,14 +78,14 @@ export const ConnectionsLinks = ({
                   {connection[0] + connection.substring(1).toLowerCase()}
 
                   <PointsText as={'span'} size={'xs'} color={'$sucess600'}>
-                    &nbsp;+ 10 pontos
+                    &nbsp;+ 10{' ' + t('usersPage.levelLabels.points')}
                   </PointsText>
                 </Text>
               </WebsiteLinkBox>
             )
           })
         ) : (
-          <Text>Nenhuma conexão adicionada.</Text>
+          <Text>{t('usersPage.connectionsSection.withoutConnections')}</Text>
         )}
       </ConnectionsList>
     </ConnectionsContainer>

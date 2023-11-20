@@ -4,6 +4,7 @@ import { styled } from '@/styles'
 import { Button, Select, Text, TextInput } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type OptionRowProps = { label: string; value: string }
 
@@ -97,6 +98,7 @@ export const RestrictLinkDialog = ({
   trigger,
   onSave,
 }: RestrictLinkDialogProps): JSX.Element => {
+  const { t } = useTranslation('dialogs')
   const [open, setOpen] = useState<boolean>(false)
 
   const [currentOption, setOption] = useState<OptionRowProps | undefined>()
@@ -155,13 +157,13 @@ export const RestrictLinkDialog = ({
             options={options}
             width={'24.375rem'}
             height={'$10'}
-            placeHolder="Selecione"
+            placeHolder={t('restrictLink.selectInput')}
             onValueChange={handleOnOptionSelected}
             outlined
           />
 
           <InputContainer>
-            <Text size={'sm'}>Link</Text>
+            <Text size={'sm'}>{t('restrictLink.linkLabel')}</Text>
 
             <TextInput
               ref={textInput as any}
@@ -173,12 +175,12 @@ export const RestrictLinkDialog = ({
 
           <ButtonContainer>
             <Dialog.Close onClick={handleOnSave} asChild>
-              <Button size={'lg'}>Salvar</Button>
+              <Button size={'lg'}>{t('restrictLink.saveButton')}</Button>
             </Dialog.Close>
 
             <Dialog.Close onClick={toggleOpen} asChild>
               <Button size={'lg'} outlined>
-                Cancelar
+                {t('restrictLink.cancelButton')}
               </Button>
             </Dialog.Close>
           </ButtonContainer>

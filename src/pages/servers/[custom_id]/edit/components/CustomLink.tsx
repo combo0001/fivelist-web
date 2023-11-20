@@ -6,6 +6,7 @@ import { Button, Heading } from '@5list-design-system/react'
 import { useRef, useState } from 'react'
 import { useServerEditor } from '../providers/ServerEditorProvider'
 import { trpc } from '@/utils/trpc'
+import { useTranslation } from 'react-i18next'
 
 const CustomLinkContainer = styled('div', {
   height: '$50',
@@ -47,6 +48,7 @@ const InputLink = styled('input', {
 
 export const CustomLink = (): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>()
+  const { t } = useTranslation('pages')
 
   const { serverToEdit, refreshServer } = useServerEditor()
   const setServerCustomId = trpc.servers.setServerCustomId.useMutation()
@@ -94,12 +96,12 @@ export const CustomLink = (): JSX.Element => {
     <CustomLinkContainer>
       <TitleContainer>
         <Heading as={'h4'} weight={'bold'}>
-          Link Customizado
+          {t('serversPageEdit.customIdSection.title')}
         </Heading>
 
         <EditLink
           onClick={toggleEditing}
-          text={isEditing ? 'Confirmar edição' : 'Editar link'}
+          text={isEditing ? t('serversPageEdit.customIdSection.confirmButton') : t('serversPageEdit.customIdSection.editButton')}
         />
       </TitleContainer>
 
@@ -111,7 +113,7 @@ export const CustomLink = (): JSX.Element => {
       />
 
       <Button onClick={handleOnCopy}>
-        Copiar link
+        {t('serversPageEdit.customIdSection.copyToClipboard')}
         <CopyIcon css={{ size: '$4', fill: '$white' }} />
       </Button>
     </CustomLinkContainer>

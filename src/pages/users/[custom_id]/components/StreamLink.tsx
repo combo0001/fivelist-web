@@ -3,6 +3,7 @@
 import { PlayIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
+import { useTranslation } from 'react-i18next'
 
 interface StreamLinkProps {
   url: string | null
@@ -38,19 +39,21 @@ const ButtonAnchor = styled('a', {
 })
 
 export const StreamLink = ({ url }: StreamLinkProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+  
   return (
     <StreamLinkContainer>
       <Heading as={'h4'} weight={'bold'}>
-        Live
+        {t('usersPage.liveSection.title')}
       </Heading>
 
       <LinkBox>
-        <Text size={'sm'}>{url || 'Nenhum url encontrado.'}</Text>
+        <Text size={'sm'}>{url || t('usersPage.liveSection.withoutLive')}</Text>
       </LinkBox>
 
       <ButtonAnchor aria-disabled={!url} href={url || '#'} target={'_blank'}>
         <Button disabled={!url}>
-          Acessar
+          {t('usersPage.liveSection.joinInLive')}
           <PlayIcon css={{ size: '$4', fill: '$white' }} />
         </Button>
       </ButtonAnchor>

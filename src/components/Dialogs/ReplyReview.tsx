@@ -7,6 +7,7 @@ import { ChangeEventHandler, useState } from 'react'
 
 import { Review } from '../../pages/servers/[custom_id]/components/Review'
 import { ServerReviewSchemaType } from '@/schemas/servers/ReviewsSchema'
+import { useTranslation } from 'react-i18next'
 
 interface ReplyDialogProps {
   trigger: React.ReactNode
@@ -107,6 +108,8 @@ export const ReplyDialog = ({
   review,
   onFinish,
 }: ReplyDialogProps): JSX.Element => {
+  const { t } = useTranslation('dialogs')
+
   const [open, setOpen] = useState<boolean>(false)
   const [step, setStep] = useState<StepType>('answer')
 
@@ -143,11 +146,11 @@ export const ReplyDialog = ({
 
       <TextAreaContainer>
         <Text size={'sm'} color={'$white'}>
-          Responder
+          {t('reply.contentTitle')}
         </Text>
 
         <TextDescriptionBox
-          placeholder={'Digite a sua resposta.'}
+          placeholder={t('reply.contentInput')}
           value={content}
           onChange={onFeedbackChange}
           spellCheck={false}
@@ -155,7 +158,7 @@ export const ReplyDialog = ({
       </TextAreaContainer>
 
       <Dialog.Close onClick={handleOnSend} asChild>
-        <Button size={'lg'}>Enviar depoimento</Button>
+        <Button size={'lg'}>{t('reply.sendButton')}</Button>
       </Dialog.Close>
     </>
   )
@@ -163,12 +166,12 @@ export const ReplyDialog = ({
   const finishContent = (
     <>
       <Heading as={'h4'} css={{ alignSelf: 'center', textAlign: 'center' }}>
-        Obrigado por responder!
+        {t('reply.thanksForReply')}
       </Heading>
 
       <Dialog.Close onClick={handleOnFinish} asChild>
         <Button size={'lg'} css={{ alignSelf: 'center' }}>
-          Fechar
+          {t('reply.closeThanks')}
         </Button>
       </Dialog.Close>
     </>
@@ -186,7 +189,7 @@ export const ReplyDialog = ({
         <ReplyDialogContent>
           <TitleContainer>
             <Text color={'$white'} weight={'normal'}>
-              Responder, {review.user.name}
+              {t('reply.title')}, {review.user.name}
             </Text>
 
             <CloseButton onClick={toggleOpen}>

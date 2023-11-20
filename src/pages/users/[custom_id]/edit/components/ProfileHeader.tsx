@@ -19,6 +19,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { v4 } from 'uuid'
 import { useUserEditor } from '../providers/UserEditorProvider'
+import { useTranslation } from 'react-i18next'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -122,6 +123,8 @@ export const ProfileHeader = (): JSX.Element => {
   const { uploadFile } = useStorage()
   const { user, refreshUser } = useUserEditor()
 
+  const { t } = useTranslation('pages')
+
   const setUserBanner = trpc.users.setUserBanner.useMutation()
 
   const [isBannerEditing, setBannerEdit] = useState<boolean>(false)
@@ -161,7 +164,7 @@ export const ProfileHeader = (): JSX.Element => {
         <HeaderTopContainer>
           <BannerContainer>
             <EditButton size={'sm'} onClick={toggleBannerEdit}>
-              Editar capa
+              {t('usersPageEdit.bannerEdit')}
               <PencilIcon css={{ size: '$4', fill: '$white' }} />
             </EditButton>
 
@@ -172,7 +175,7 @@ export const ProfileHeader = (): JSX.Element => {
 
           <Link href={`/users/${user.customId}`} legacyBehavior>
             <EditButton size={'sm'} css={{ marginLeft: 'auto' }}>
-              Sair da edição
+              {t('usersPageEdit.leaveOfEdit')}
               <ErrorIcon css={{ size: '$4', fill: '$white' }} />
             </EditButton>
           </Link>
@@ -207,16 +210,16 @@ export const ProfileHeader = (): JSX.Element => {
 
           {user.planTier.id === 0 ? (
             <Link href={`/users/${user.customId}/premium`} legacyBehavior>
-              <Button size={'lg'}>Adquirir plano</Button>
+              <Button size={'lg'}>{t('usersPageEdit.purchasePremiumButton')}</Button>
             </Link>
           ) : (
             <PremiumContainer>
               <Link href={`/users/${user.customId}/premium`} legacyBehavior>
-                <Button size={'lg'}>Renovar plano</Button>
+                <Button size={'lg'}>{t('usersPageEdit.renewPremiumButton')}</Button>
               </Link>
 
               <Text size={'sm'} weight={'bold'}>
-                Seu plano termina em 15 dias
+                {`${t('usersPageEdit.renewPremiumWarn')} 15 dias`}
               </Text>
             </PremiumContainer>
           )}
@@ -280,16 +283,18 @@ const TagBox = styled('div', {
 })
 
 const DataTags = ({ followers, views }: DataTagsProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+  
   return (
     <TagsContainer>
       <TagBox>
         <ProfileIcon css={{ size: '$6', fill: '$white' }} />
-        {followers.toLocaleString()} seguidores
+        {followers.toLocaleString()}{' ' + t('usersPageEdit.statisticLabels.followers', { count: followers })}
       </TagBox>
 
       <TagBox>
         <EyeIcon css={{ size: '$6', fill: '$white' }} />
-        {views.toLocaleString()} vizualizações no perfil
+        {views.toLocaleString()}{' ' + t('usersPageEdit.statisticLabels.views', { count: views })}
       </TagBox>
     </TagsContainer>
   )
@@ -448,6 +453,7 @@ const ProgressIndicator = styled(Progress.Indicator, {
 
 const Level = ({ level, points }: LevelProps): JSX.Element => {
   const progress = Math.floor((points / level.points) * 100)
+  const { t } = useTranslation('pages')
 
   return (
     <LevelContainer>
@@ -455,14 +461,14 @@ const Level = ({ level, points }: LevelProps): JSX.Element => {
         <PointsIcon css={{ fill: '$neutral200', size: '$6' }} />
 
         <Text size={'sm'} color={'$white'} weight={'bold'}>
-          {points} Pts
+          {points}{' ' + t('usersPageEdit.levelLabels.points')}
         </Text>
       </PointsBox>
 
       <ProgressBox>
         <ProgressTitleContainer>
           <Text size={'xs'} color={'$success500'} weight={'bold'}>
-            Level: {level.id}
+            {t('usersPageEdit.levelLabels.level') + ' '}{level.id}
           </Text>
 
           <Text size={'xs'} weight={'normal'}>

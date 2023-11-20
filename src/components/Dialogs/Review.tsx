@@ -4,6 +4,7 @@ import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ChangeEventHandler, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface ReviewDialogProps {
   trigger: React.ReactNode
@@ -113,6 +114,8 @@ export const ReviewDialog = ({
   trigger,
   onFinish,
 }: ReviewDialogProps): JSX.Element => {
+  const { t } = useTranslation('dialogs')
+
   const [open, setOpen] = useState<boolean>(false)
   const [step, setStep] = useState<StepType>('answer')
 
@@ -152,7 +155,7 @@ export const ReviewDialog = ({
         <ReviewRateInput value={rate} onChange={onRateChange} />
 
         <Text size={'sm'} color={'$white'}>
-          Deixe sua nota
+          {t('review.rateTitle')}
         </Text>
       </StarsContainer>
 
@@ -160,11 +163,11 @@ export const ReviewDialog = ({
 
       <TextAreaContainer>
         <Text size={'sm'} color={'$white'}>
-          Escreva sua experiência
+          {t('review.feedbackTitle')}
         </Text>
 
         <TextDescriptionBox
-          placeholder={'Digite o seu feedback.'}
+          placeholder={t('review.feedbackInput')}
           value={content}
           onChange={onContentChange}
           spellCheck={false}
@@ -172,7 +175,7 @@ export const ReviewDialog = ({
       </TextAreaContainer>
 
       <Dialog.Close onClick={handleOnSend} asChild>
-        <Button size={'lg'}>Enviar depoimento</Button>
+        <Button size={'lg'}>{t('review.sendButton')}</Button>
       </Dialog.Close>
     </>
   )
@@ -180,12 +183,12 @@ export const ReviewDialog = ({
   const finishContent = (
     <>
       <Heading as={'h4'} css={{ alignSelf: 'center', textAlign: 'center' }}>
-        Obrigado por deixar seu depoimento
+        {t('review.thanksForFeedback')}
       </Heading>
 
       <Dialog.Close onClick={handleOnFinish} asChild>
         <Button size={'lg'} css={{ alignSelf: 'center' }}>
-          Fechar
+          {t('review.closeThanks')}
         </Button>
       </Dialog.Close>
     </>
@@ -203,7 +206,7 @@ export const ReviewDialog = ({
         <ReviewDialogContent>
           <TitleContainer>
             <Text color={'$white'} weight={'normal'}>
-              Deixe seu depoimento
+              {t('review.feedbackInput')}
             </Text>
 
             <CloseButton onClick={toggleOpen}>

@@ -2,6 +2,7 @@
 import { styled } from '@/styles'
 import { Heading, Text } from '@5list-design-system/react'
 import { useUserView } from '../providers/UserViewProvider'
+import { useTranslation } from 'react-i18next'
 
 const DescriptionWrapper = styled('div', {
   minHeight: '10.75rem',
@@ -29,18 +30,19 @@ const DescriptionContainer = styled('div', {
 
 export const Description = (): JSX.Element => {
   const { user } = useUserView()
+  const { t } = useTranslation('pages')
 
   const hasVip = user.planTier.privileges.PROFILE_DESCRIPTION
   const text =
     hasVip && user.page.description
       ? user.page.description
-      : 'Descrição não foi editada'
+      : t('usersPage.descriptionSection.withoutDescription')
 
   return (
     <DescriptionWrapper>
       <DescriptionContainer>
         <Heading as={'h5'} weight={'bold'}>
-          Descrição
+          {t('usersPage.descriptionSection.title')}
         </Heading>
 
         <Text size={'sm'}>{text}</Text>

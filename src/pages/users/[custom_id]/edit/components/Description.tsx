@@ -6,6 +6,7 @@ import { trpc } from '@/utils/trpc'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import Link from 'next/link'
 import { useUserEditor } from '../providers/UserEditorProvider'
+import { useTranslation } from 'react-i18next'
 
 const DescriptionWrapper = styled('div', {
   minHeight: '10.75rem',
@@ -48,6 +49,8 @@ const EditContainer = styled(EditLink, {
 })
 
 export const Description = (): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   const { user, refreshUser } = useUserEditor()
   const setUserDescription = trpc.users.setUserDescription.useMutation()
 
@@ -55,7 +58,7 @@ export const Description = (): JSX.Element => {
   const text =
     hasVip && user.page.description
       ? user.page.description
-      : 'Descrição não foi editada'
+      : t('usersPageEdit.descriptionSection.withoutDescription')
 
   const handleOnChangeDescription = async (
     description: string,
@@ -69,7 +72,7 @@ export const Description = (): JSX.Element => {
     <DescriptionWrapper>
       <DescriptionContainer>
         <Heading as={'h5'} weight={'bold'}>
-          Descrição
+          {t('usersPageEdit.descriptionSection.title')}
         </Heading>
 
         <Text size={'sm'}>{text}</Text>
@@ -78,7 +81,7 @@ export const Description = (): JSX.Element => {
       {hasVip && (
         <DescriptionDialog
           defaultValue={text}
-          trigger={<EditContainer text={'Editar descrição'} />}
+          trigger={<EditContainer text={t('usersPageEdit.descriptionSection.editButton')} />}
           onChange={handleOnChangeDescription}
         />
       )}
@@ -87,7 +90,7 @@ export const Description = (): JSX.Element => {
         <DescriptionBlurContainer>
           <Link href={`/users/${user.customId}/premium`} legacyBehavior>
             <Button css={{ padding: '0 4.5rem' }} size={'lg'}>
-              Obtenha o Premium
+              {t('usersPageEdit.descriptionSection.withoutPremium')}
             </Button>
           </Link>
         </DescriptionBlurContainer>

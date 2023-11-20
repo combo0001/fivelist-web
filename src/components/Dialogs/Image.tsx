@@ -3,6 +3,7 @@ import { CloudIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Text } from '@5list-design-system/react'
 import { ChangeEventHandler } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface ImageUploaderProps {
   onFileSelected: (file: File) => void
@@ -75,6 +76,8 @@ const TextContainer = styled('div', {
 export const ImageUploader = ({
   onFileSelected,
 }: ImageUploaderProps): JSX.Element => {
+  const { t } = useTranslation('dialogs')
+
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const fileList = target.files as FileList
     const fileSent = fileList[0]
@@ -93,14 +96,14 @@ export const ImageUploader = ({
 
         <TextContainer>
           <Text size={'sm'} color={'$primary900'} weight={'normal'}>
-            Clique para enviar{' '}
+            {t('image.title') + ' '}
             <Text as={'span'} size={'xs'} color={'$neutral900'}>
-              ou segure e solte aqui
+              {t('image.subtitle')}
             </Text>
           </Text>
 
           <Text size={'xs'} color={'$neutral900'}>
-            PNG, JPG, GIF (max. 8mb)
+            {t('image.formats')}{' '}{t('image.maxSize')}
           </Text>
         </TextContainer>
       </OverlayContainer>

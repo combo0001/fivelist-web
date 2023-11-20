@@ -9,6 +9,7 @@ import {
 } from '@/utils/connectionsLinks'
 import { getBaseURL } from '@/utils/getBaseURL'
 import { Button, Heading, Text } from '@5list-design-system/react'
+import { useTranslation } from 'react-i18next'
 
 /* eslint-disable no-undef */
 interface ConnectionsProps {
@@ -59,11 +60,12 @@ export const ConnectionsLinks = ({
   connections,
 }: ConnectionsProps): JSX.Element => {
   const availableConnections = getAvailableConnections()
+  const { t } = useTranslation('pages')
 
   return (
     <ConnectionsContainer>
       <Heading as={'h4'} weight={'bold'}>
-        Conexões
+        {t('usersPageEdit.connectionsSection.title')}
       </Heading>
 
       <ConnectionsList>
@@ -83,7 +85,7 @@ export const ConnectionsLinks = ({
                 {connection[0] + connection.substring(1).toLowerCase()}
 
                 <PointsText as={'span'} size={'xs'} color={'$sucess600'}>
-                  &nbsp;+ 10 pontos
+                  &nbsp;+ 10{' ' + t('usersPageEdit.levelLabels.points')}
                 </PointsText>
               </Text>
             </WebsiteLinkBox>
@@ -91,7 +93,7 @@ export const ConnectionsLinks = ({
         })}
 
         <ConnectionDialog
-          title={`Conectar plataforma`}
+          title={t('usersPageEdit.connectionsSection.addConnection')}
           connections={availableConnections.map((connection) => {
             const { getRequestURL, getPlatformIcon } =
               getConnectionOptions(connection)
@@ -106,7 +108,7 @@ export const ConnectionsLinks = ({
               ),
             }
           })}
-          trigger={<AddLink text={`Conectar plataforma`} />}
+          trigger={<AddLink text={t('usersPageEdit.connectionsSection.addConnection')} />}
         />
       </ConnectionsList>
     </ConnectionsContainer>

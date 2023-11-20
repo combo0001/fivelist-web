@@ -1,43 +1,48 @@
 {
   "freeLinks": {
-    "nameInput": "Enter the name",
-    "linkInput": "Enter the profile link",
-    "saveButton": "Save",
-    "cancelButton": "Cancel"
+    "nameLabel": "Nombre",
+    "nameInput": "Introduce el nombre",
+    "linkLabel": "Link",
+    "saveButton": "Guardar",
+    "cancelButton": "Cancelar"
   },
   "restrictLink": {
-    "selectInput": "Select",
-    "linkInput": "Enter the profile username",
-    "saveButton": "Save",
-    "cancelButton": "Cancel"
+    "selectInput": "Seleccionar",
+    "linkLabel": "Link",
+    "saveButton": "Guardar",
+    "cancelButton": "Cancelar"
   }, 
   "connections": {
-    "saveButton": "Save"
+    "saveButton": "Guardar"
   },
   "review": {
-    "title": "Leave your testimony",
-    "rateTitle": "Rate us",
-    "feedbackTitle": "Write your experience",
-    "feedbackInput": "Enter your feedback",
-    "sendButton": "Send testimony"
+    "title": "Deja tu testimonio",
+    "rateTitle": "Califícanos",
+    "feedbackTitle": "Escribe tu experiencia",
+    "feedbackInput": "Introduce tus comentarios",
+    "sendButton": "Enviar testimonio",
+    "thanksForFeedback": "¡Gracias por dejar tu testimonio!",
+    "closeThanks": "Cerca"
   },
   "reply": {
-    "title": "Reply",
-    "contentTitle": "Reply",
-    "contentInput": "Enter your response",
-    "sendButton": "Send reply"
+    "title": "Responder",
+    "contentTitle": "Respuesta",
+    "contentInput": "Introduce tu respuesta",
+    "sendButton": "Enviar respuesta",
+    "thanksForReply": "¡Gracias por responder!",
+    "closeThanks": "Cerca"
   },
   "image": {
-    "title": "Click to upload",
-    "subtitle": "or drag and drop here",
+    "title": "Haz clic para subir",
+    "subtitle": "o arrastra y suelta aquí",
     "formats": "PNG, JPG, GIF",
-    "maxSize": "(max. 8mb)"
+    "maxSize": "(máx. 8mb)"
   },
   "description": {
-    "title": "Edit description",
-    "contentTitle": "Enter the text",
-    "contentInput": "Enter the page description",
-    "saveButton": "Save",
-    "cancelButton": "Cancel"
+    "title": "Editar descripción",
+    "contentTitle": "Introduce el texto",
+    "contentInput": "Introduce la descripción de la página",
+    "saveButton": "Guardar",
+    "cancelButton": "Cancelar"
   }
 }

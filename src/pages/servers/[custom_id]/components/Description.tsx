@@ -3,6 +3,7 @@ import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import { useState } from 'react'
 import { useServerView } from '../providers/ServerViewProvider'
+import { useTranslation } from 'react-i18next'
 
 const DescriptionWrapper = styled('div', {
   minHeight: '11.25rem',
@@ -46,6 +47,7 @@ const DescriptionBlurContainer = styled('div', {
 })
 
 export const Description = (): JSX.Element => {
+  const { t } = useTranslation('pages')
   const [showMore, setShowMore] = useState<boolean>(false)
 
   const { serverView } = useServerView()
@@ -54,7 +56,7 @@ export const Description = (): JSX.Element => {
   const text =
     hasVip && serverView.page.description
       ? serverView.page.description
-      : 'Descrição não foi editada'
+      : t('serversPage.descriptionSection.withoutDescription')
 
   const toggleMode = (): void => {
     setShowMore((state) => !state)
@@ -64,7 +66,7 @@ export const Description = (): JSX.Element => {
     <DescriptionWrapper>
       <DescriptionContainer>
         <Heading as={'h5'} weight={'bold'}>
-          Descrição
+          {t('serversPage.descriptionSection.title')}
         </Heading>
 
         <DescriptionText size={'sm'}>
@@ -80,7 +82,7 @@ export const Description = (): JSX.Element => {
                 css={{ cursor: 'pointer', marginLeft: '$3' }}
                 onClick={toggleMode}
               >
-                {showMore ? 'Mostrar menos' : 'Mostrar mais'}
+                {showMore ? t('serversPage.descriptionSection.showLess') : t('serversPage.descriptionSection.showMore')}
               </Text>
             </>
           )}
@@ -90,7 +92,7 @@ export const Description = (): JSX.Element => {
       {!hasVip && (
         <DescriptionBlurContainer>
           <Button size={'lg'} css={{ pointerEvents: 'none' }}>
-            Servidor sem Premium
+            {t('serversPage.descriptionSection.withoutPremium')}
           </Button>
         </DescriptionBlurContainer>
       )}

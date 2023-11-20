@@ -2,6 +2,7 @@ import { WorldIcon } from '@/components/Icons'
 import { ServerConnectionsListSchemaType } from '@/schemas/servers/ConnectionsSchema'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
+import { useTranslation } from 'react-i18next'
 
 /* eslint-disable no-undef */
 interface WebsiteLinksProps {
@@ -33,10 +34,12 @@ const WebsiteLinkBox = styled('a', {
 })
 
 export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <WebsiteLinksContainer>
       <Heading as={'h4'} weight={'bold'}>
-        Links externos
+        {t('serversPage.linksSection.title')}
       </Heading>
 
       {links.length ? (
@@ -52,7 +55,7 @@ export const WebsiteLinks = ({ links }: WebsiteLinksProps): JSX.Element => {
           </WebsiteLinkBox>
         ))
       ) : (
-        <Text>Nenhum site adicionado.</Text>
+        <Text>{t('serversPage.linksSection.withoutLinks')}</Text>
       )}
     </WebsiteLinksContainer>
   )

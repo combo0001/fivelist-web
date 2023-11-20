@@ -10,6 +10,7 @@ import { useClientUser } from '@/providers/UserProvider'
 import { useServerView } from '../providers/ServerViewProvider'
 import Link from 'next/link'
 import { Reply } from './Reply'
+import { useTranslation } from 'react-i18next'
 
 const ReviewsContainer = styled('div', {
   minHeight: '9rem',
@@ -63,6 +64,8 @@ const ReplyText = styled(Text, {
 })
 
 export const Reviews = (): JSX.Element => {
+  const { t } = useTranslation('pages')
+  
   const [reviewsAmount, setReviewsAmount] = useState<number>(0)
   const [isNeedShowMore, setNeedShowMore] = useState<boolean>(true)
 
@@ -112,16 +115,16 @@ export const Reviews = (): JSX.Element => {
   return (
     <ReviewsContainer>
       <TitleContainer>
-        <Heading as={'h5'} weight={'bold'}>Avaliações</Heading>
+        <Heading as={'h5'} weight={'bold'}>{t('serversPage.reviewsSection.title')}</Heading>
 
         {user ? (
           <ReviewDialog
             onFinish={handleOnCreateReview}
-            trigger={<Button>Deixar avaliação</Button>}
+            trigger={<Button>{t('serversPage.reviewsSection.enterReview')}</Button>}
           />
         ) : (
           <Link href={'/signin'} legacyBehavior>
-            <Button>Deixar avaliação</Button>
+            <Button>{t('serversPage.reviewsSection.enterReview')}</Button>
           </Link>
         )}
       </TitleContainer>
@@ -139,7 +142,7 @@ export const Reviews = (): JSX.Element => {
                     onFinish={handleOnCreateReplyOfReview.bind(null, review.id)}
                     trigger={
                       <ReplyText size={'sm'} color={'$white'}>
-                        Responder
+                        {t('serversPage.reviewsSection.replyButton')}
                       </ReplyText>
                     }
                   />
@@ -154,7 +157,7 @@ export const Reviews = (): JSX.Element => {
         </ReviewsList>
       ) : (
         <Heading as={'h5'} color={'$neutral100'}>
-          Nenhum depoimento.
+          {t('serversPage.reviewsSection.withoutReviews')}
         </Heading>
       )}
 
@@ -165,7 +168,7 @@ export const Reviews = (): JSX.Element => {
           outlined
           onClick={handleOnShowMore}
         >
-          Carregar Mais
+          {t('serversPage.reviewsSection.loadMore')}
         </Button>
       )}
     </ReviewsContainer>

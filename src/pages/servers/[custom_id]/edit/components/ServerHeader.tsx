@@ -20,6 +20,7 @@ import { searchVariable } from '../../utils/searchVariable'
 import { v4 } from 'uuid'
 import { useStorage } from '@/providers/StorageProvider'
 import { trpc } from '@/utils/trpc'
+import { useTranslation } from 'react-i18next'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -125,6 +126,7 @@ const PremiumContainer = styled('div', {
 })
 
 export const ServerHeader = (): JSX.Element => {
+  const { t } = useTranslation('pages')
   const { uploadFile } = useStorage()
 
   const {
@@ -181,7 +183,7 @@ export const ServerHeader = (): JSX.Element => {
         <HeaderTopContainer>
           <BannerContainer>
             <EditButton size={'sm'} onClick={toggleBannerEdit}>
-              Editar capa
+              {t('serversPageEdit.bannerEdit')}
               <PencilIcon css={{ size: '$4', fill: '$white' }} />
             </EditButton>
 
@@ -192,7 +194,7 @@ export const ServerHeader = (): JSX.Element => {
 
           <Link href={`/servers/${serverToEdit.joinId}`} legacyBehavior>
             <EditButton size={'sm'} css={{ marginLeft: 'auto' }}>
-              Sair da edição
+              {t('serversPageEdit.leaveOfEdit')}
               <ErrorIcon css={{ size: '$4', fill: '$white' }} />
             </EditButton>
           </Link>
@@ -230,13 +232,13 @@ export const ServerHeader = (): JSX.Element => {
             <PremiumContainer>
               <Link href={`/servers/${serverToEdit.joinId}/premium`} legacyBehavior>
                 <Button size={'lg'}>
-                  {hasVip ? 'Renovar premium' : 'Obtenha o Premium'}
+                  {hasVip ? t('serversPageEdit.renewPremiumButton') : t('serversPageEdit.purchasePremiumButton')}
                 </Button>
               </Link>
 
               {hasVip && (
                 <Text size={'md'} weight={'bold'}>
-                  Seu plano termina em 15 dias
+                  {`${t('serversPageEdit.renewPremiumWarn')} 15 dias`}
                 </Text>
               )}
             </PremiumContainer>
@@ -248,7 +250,7 @@ export const ServerHeader = (): JSX.Element => {
                 legacyBehavior
               >
                 <Tag css={{ cursor: 'pointer' }}>
-                  Gerenciado por @{serverToEdit.page.ownerUser.customId}
+                  {t('serversPageEdit.managedBy') + ' '}@{serverToEdit.page.ownerUser.customId}
                 </Tag>
               </Link>
             }
@@ -312,11 +314,21 @@ const ServerTags = ({
   followers,
   reviews,
 }: ServerTagsProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <TagsContainer>
-      <TagHighlighted active>{clients} Online</TagHighlighted>
-      <TagHighlighted>{followers} Seguidores</TagHighlighted>
-      <TagHighlighted>{reviews} Avaliações</TagHighlighted>
+      <TagHighlighted active>
+        {clients.toLocaleString() + ' '}{t('serversPageEdit.statisticLabels.playersAmount')}
+      </TagHighlighted>
+
+      <TagHighlighted>
+        {followers.toLocaleString() + ' '}{t('serversPageEdit.statisticLabels.followers', { count: followers })}
+      </TagHighlighted>
+
+      <TagHighlighted>
+        {reviews.toLocaleString() + ' '}{t('serversPageEdit.statisticLabels.reviews', { count: reviews })}
+      </TagHighlighted>
     </TagsContainer>
   )
 }
@@ -346,6 +358,8 @@ const ServerLinks = ({
   websiteURL,
   storeURL,
 }: ServerLinksProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <LinksContainer>
       {websiteURL && (
@@ -353,7 +367,7 @@ const ServerLinks = ({
           <LinkIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
-            Website
+            {t('serversPageEdit.tagsLabels.website')}
           </Text>
         </LinkAnchor>
       )}
@@ -363,7 +377,7 @@ const ServerLinks = ({
           <StoreIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
-            Loja
+            {t('serversPageEdit.tagsLabels.marketplace')}
           </Text>
         </LinkAnchor>
       )}
@@ -373,7 +387,7 @@ const ServerLinks = ({
           <DiscordIcon css={{ size: '$4', fill: '$neutral100' }} />
 
           <Text size={'xs'} color={'$colors$white'}>
-            Discord
+            {t('serversPageEdit.tagsLabels.discord')}
           </Text>
         </LinkAnchor>
       )}

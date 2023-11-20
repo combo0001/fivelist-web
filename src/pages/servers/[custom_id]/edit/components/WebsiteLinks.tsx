@@ -5,6 +5,7 @@ import { WorldIcon } from '@/components/Icons'
 import { ServerConnectionsListSchemaType } from '@/schemas/servers/ConnectionsSchema'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
+import { useTranslation } from 'react-i18next'
 
 interface WebsiteLinksProps {
   links: ServerConnectionsListSchemaType
@@ -39,6 +40,8 @@ export const WebsiteLinks = ({
   onAddLink,
   onRemoveLink,
 }: WebsiteLinksProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   const handleOnChange = async (name: string, url: string): Promise<void> => {
     if (url) {
       if (/\s/.test(url) && url.length > 64 && name.length > 16) return
@@ -52,7 +55,7 @@ export const WebsiteLinks = ({
   return (
     <WebsiteLinksContainer>
       <Heading as={'h4'} weight={'bold'}>
-        Links externos
+        {t('serversPageEdit.linksSection.title')}
       </Heading>
 
       {links.map(({ name }, index) => (
@@ -68,10 +71,10 @@ export const WebsiteLinks = ({
       ))}
 
       <FreeLinkDialog
-        title={`Adicionar site`}
-        placeHolder={'Digite o link do perfil'}
+        title={t('serversPageEdit.linksSection.addLink')}
+        placeHolder={t('serversPageEdit.linksSection.enterLink')}
         onSave={handleOnChange}
-        trigger={<AddLink text={`Adicionar site`} />}
+        trigger={<AddLink text={t('serversPageEdit.linksSection.addLink')} />}
       />
     </WebsiteLinksContainer>
   )

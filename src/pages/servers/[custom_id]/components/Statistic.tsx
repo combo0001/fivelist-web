@@ -1,5 +1,6 @@
 import { Heading, Text } from '@5list-design-system/react'
 import { styled } from '@/styles'
+import { useTranslation } from 'react-i18next'
 
 /* eslint-disable no-undef */
 interface StatisticProps {
@@ -30,15 +31,17 @@ const PlayersText = styled('p', {
 })
 
 export const Statistic = ({ players }: StatisticProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+  
   return (
     <StatisticContainer>
       <Heading as={'h5'} weight={'bold'}>
-        Estatísticas
+        {t('serversPage.statisticsSection.title')}
       </Heading>
 
       <PlayersText>{players.toLocaleString()}</PlayersText>
 
-      <Text size={'sm'}>Jogadores em 24 horas</Text>
+      <Text size={'sm'}>{t('serversPage.statisticsSection.playersInLast24Hours')}</Text>
     </StatisticContainer>
   )
 }

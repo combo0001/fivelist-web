@@ -4,6 +4,7 @@ import { styled } from '@/styles'
 import { Button, Text, TextInput } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface FreeLinkDialogProps {
   title: string
@@ -89,6 +90,7 @@ export const FreeLinkDialog = ({
   trigger,
   onSave,
 }: FreeLinkDialogProps): JSX.Element => {
+  const { t } = useTranslation('dialogs')
   const [open, setOpen] = useState<boolean>(false)
 
   const nameInput = useRef<HTMLInputElement>()
@@ -134,18 +136,18 @@ export const FreeLinkDialog = ({
           <Divisor />
 
           <InputContainer>
-            <Text size={'sm'}>Nome</Text>
+            <Text size={'sm'}>{t('freeLinks.nameLabel')}</Text>
 
             <TextInput
               ref={nameInput as any}
               spellCheck={false}
-              placeholder={'Digite o nome'}
+              placeholder={t('freeLinks.nameInput')}
               outlined
             />
           </InputContainer>
 
           <InputContainer>
-            <Text size={'sm'}>Link</Text>
+            <Text size={'sm'}>{t('freeLinks.linkLabel')}</Text>
 
             <TextInput
               ref={linkInput as any}
@@ -157,12 +159,12 @@ export const FreeLinkDialog = ({
 
           <ButtonContainer>
             <Dialog.Close onClick={handleOnSave} asChild>
-              <Button size={'lg'}>Salvar</Button>
+              <Button size={'lg'}>{t('freeLinks.saveButton')}</Button>
             </Dialog.Close>
 
             <Dialog.Close onClick={toggleOpen} asChild>
               <Button size={'lg'} outlined>
-                Cancelar
+                {t('freeLinks.cancelButton')}
               </Button>
             </Dialog.Close>
           </ButtonContainer>

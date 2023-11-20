@@ -2,6 +2,7 @@
 import { styled } from '@/styles'
 import { Heading, Link, Text } from '@5list-design-system/react'
 import NextLink from 'next/link'
+import { useTranslation } from 'react-i18next'
 
 interface StatisticProps {
   cfxHash: string
@@ -67,22 +68,24 @@ export const Statistic = ({
   likes,
   hasVip,
 }: StatisticProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <StatisticContainer>
       <TitleContainer>
         <Heading as={'h4'} weight={'bold'}>
-          {hasVip ? 'Estatísticas básicas' : 'Estatísticas'}
+          {hasVip ? t('serversPageEdit.statisticsSection.title') : t('serversPageEdit.statisticsSection.titlePremium')}
         </Heading>
 
         {hasVip ? (
           <NextLink href={`/servers/${cfxHash}/analytics`} legacyBehavior>
             <Link as={'span'} css={{ fontSize: '$sm' }}>
-              Estatísticas avançadas
+              {t('serversPageEdit.statisticsSection.advancedStatistics')}
             </Link>
           </NextLink>
         ) : (
           <Link disabled as={'span'} css={{ fontSize: '$sm' }}>
-            Estatísticas avançadas (premium)
+            {t('serversPageEdit.statisticsSection.advancedStatisticsPremium')}
           </Link>
         )}
       </TitleContainer>
@@ -101,7 +104,7 @@ export const Statistic = ({
             </Text>
           </StatisticDataText>
 
-          <Text size={'sm'}>Curtidas (mês)</Text>
+          <Text size={'sm'}>{t('serversPageEdit.statisticsSection.likesPerMonth')}</Text>
         </StatisticBox>
 
         <StatisticBox>
@@ -117,7 +120,7 @@ export const Statistic = ({
             </Text>
           </StatisticDataText>
 
-          <Text size={'sm'}>Seguidores (mês)</Text>
+          <Text size={'sm'}>{t('serversPageEdit.statisticsSection.followersPerMonth')}</Text>
         </StatisticBox>
       </StatisticsContainer>
     </StatisticContainer>

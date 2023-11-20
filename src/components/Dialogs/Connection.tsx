@@ -4,6 +4,7 @@ import { styled } from '@/styles'
 import { Button, Text } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface ConnectionOptionProps {
   label: string
@@ -108,6 +109,7 @@ export const ConnectionDialog = ({
   trigger,
   connections,
 }: ConnectionDialogProps): JSX.Element => {
+  const { t } = useTranslation('dialogs')
   const [open, setOpen] = useState<boolean>(false)
 
   const toggleOpen = (): void => {
@@ -152,7 +154,7 @@ export const ConnectionDialog = ({
 
           <ButtonContainer>
             <Dialog.Close asChild>
-              <Button size={'lg'}>Salvar</Button>
+              <Button size={'lg'}>{t('connections.saveButton')}</Button>
             </Dialog.Close>
           </ButtonContainer>
         </ConnectionDialogContent>

@@ -4,6 +4,7 @@ import { CopyIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading } from '@5list-design-system/react'
 import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface StreamLinkProps {
   streamURL: string
@@ -54,6 +55,8 @@ export const StreamLink = ({
 }: StreamLinkProps): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>()
 
+  const { t } = useTranslation('pages')
+
   const [customURL, setCustomURL] = useState<string>(streamURL)
   const [isEditing, setEditing] = useState<boolean>(false)
 
@@ -83,12 +86,12 @@ export const StreamLink = ({
     <StreamContainer>
       <TitleContainer>
         <Heading as={'h4'} weight={'bold'}>
-          Live
+          {t('usersPageEdit.liveSection.title')}
         </Heading>
 
         <EditLink
           onClick={toggleEditing}
-          text={isEditing ? 'Confirmar edição' : 'Editar link'}
+          text={isEditing ? t('usersPageEdit.liveSection.confirmEdit') : t('usersPageEdit.liveSection.editLink')}
         />
       </TitleContainer>
 
@@ -100,7 +103,7 @@ export const StreamLink = ({
       />
 
       <Button onClick={handleOnCopy}>
-        Copiar link
+        {t('usersPageEdit.liveSection.copyToClipboard')}
         <CopyIcon css={{ size: '$4', fill: '$white' }} />
       </Button>
     </StreamContainer>

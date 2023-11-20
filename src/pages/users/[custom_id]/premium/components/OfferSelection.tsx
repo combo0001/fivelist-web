@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { styled } from '@/styles'
 import { OfferEnumSchemaType } from '@/schemas/PremiumSchema'
+import { useTranslation } from 'react-i18next'
 
 interface OfferContainerProps {
   offer: OfferEnumSchemaType
@@ -49,27 +50,29 @@ export const OfferContainer = ({
   offer,
   onChange,
 }: OfferContainerProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
   return (
     <OfferWrapper>
       <OfferButton
         selected={offer === 'MONTHLY'}
         onClick={onChange.bind(null, 'MONTHLY')}
       >
-        Mensal
+        {t('usersPagePremium.monthly')}
       </OfferButton>
 
       <OfferButton
         selected={offer === 'QUARTERLY'}
         onClick={onChange.bind(null, 'QUARTERLY')}
       >
-        Trimestral
+        {t('usersPagePremium.quarterly')}
       </OfferButton>
 
       <OfferButton
         selected={offer === 'YEARLY'}
         onClick={onChange.bind(null, 'YEARLY')}
       >
-        Anual
+        {t('usersPagePremium.yearly')}
       </OfferButton>
     </OfferWrapper>
   )

@@ -15,6 +15,7 @@ import { useClientUser } from '@/providers/UserProvider'
 import Link from 'next/link'
 import { useUserView } from '../providers/UserViewProvider'
 import { useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 
 const HeaderWrapper = styled('section', {
   userSelect: 'none',
@@ -115,6 +116,8 @@ export const ProfileHeader = (): JSX.Element => {
   const { user, isFollower, followUser, unfollowUser } = useUserView()
   const { user: clientUser } = useClientUser()
 
+  const { t } = useTranslation('pages')
+
   const isClientProfile = clientUser?.id === user.id
   const hasBanner = !!(
     user.planTier.privileges.PROFILE_BANNER && user.page.bannerURL
@@ -139,26 +142,26 @@ export const ProfileHeader = (): JSX.Element => {
   const actionButton = isClientProfile ? (
     user.planTier.id === 0 ? (
       <Link href={`/users/${user.customId}/premium`} legacyBehavior>
-        <Button size={'lg'}>Adquirir plano</Button>
+        <Button size={'lg'}>{t('usersPage.purchasePremiumButton')}</Button>
       </Link>
     ) : (
       <PremiumContainer>
         <Link href={`/users/${user.customId}/premium`} legacyBehavior>
-          <Button size={'lg'}>Renovar plano</Button>
+          <Button size={'lg'}>{t('usersPage.renewPremiumButton')}</Button>
         </Link>
 
         <Text size={'sm'} weight={'bold'}>
-          Seu plano termina em 15 dias
+          {`${t('usersPage.renewPremiumWarn')} 15 dias`}
         </Text>
       </PremiumContainer>
     )
   ) : isFollower ? (
     <Button size={'lg'} outlined onClick={handleOnToggleFollow}>
-      Deixar de seguir
+      {t('usersPage.unfollowButton')}
     </Button>
   ) : (
     <Button size={'lg'} onClick={handleOnToggleFollow}>
-      Seguir
+      {t('usersPage.followButton')}
     </Button>
   )
 
@@ -171,7 +174,7 @@ export const ProfileHeader = (): JSX.Element => {
           {isClientProfile && (
             <Link href={`/users/${user.customId}/edit`} legacyBehavior>
               <EditButton size={'sm'}>
-                Editar
+                {t('usersPage.editButton')}
                 <PencilIcon css={{ size: '$4', fill: '$white' }} />
               </EditButton>
             </Link>
@@ -266,17 +269,19 @@ const TagBox = styled('div', {
 })
 
 const DataTags = ({ followers, views }: DataTagsProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+
+  console.log(views)
   return (
     <TagsContainer>
       <TagBox>
         <ProfileIcon css={{ size: '$6', fill: '$white' }} />
-        {followers.toLocaleString()} seguidor{followers !== 1 ? 'es' : ''}
+        {followers.toLocaleString() + ' '}{t('usersPage.statisticLabels.followers', { count: followers })}
       </TagBox>
 
       <TagBox>
         <EyeIcon css={{ size: '$6', fill: '$white' }} />
-        {views.toLocaleString()} visualizaç{views !== 1 ? 'ões' : 'ão'} no
-        perfil
+        {views.toLocaleString() + ' '}{t('usersPage.statisticLabels.views', { count: views })}
       </TagBox>
     </TagsContainer>
   )
@@ -424,6 +429,7 @@ const ProgressIndicator = styled(Progress.Indicator, {
 
 const Level = ({ level, points }: LevelProps): JSX.Element => {
   const progress = Math.floor((points / level.points) * 100)
+  const { t } = useTranslation('pages')
 
   return (
     <LevelContainer>
@@ -438,7 +444,7 @@ const Level = ({ level, points }: LevelProps): JSX.Element => {
       <ProgressBox>
         <ProgressTitleContainer>
           <Text size={'xs'} color={'$success500'} weight={'bold'}>
-            Level: {level.id}
+            {t('usersPage.levelLabels.level') + ' '}{level.id}
           </Text>
 
           <Text size={'xs'} weight={'normal'}>

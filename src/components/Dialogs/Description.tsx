@@ -4,6 +4,7 @@ import { styled } from '@/styles'
 import { Button, Text } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface DescriptionDialogProps {
   defaultValue: string
@@ -112,6 +113,8 @@ export const DescriptionDialog = ({
   trigger,
   onChange,
 }: DescriptionDialogProps): JSX.Element => {
+  const { t } = useTranslation('dialogs')
+
   const [open, setOpen] = useState<boolean>(false)
   const [description, setDescription] = useState<string>(defaultValue)
 
@@ -144,7 +147,7 @@ export const DescriptionDialog = ({
         <DescriptionDialogContent>
           <TitleContainer>
             <Text color={'$white'} weight={'normal'}>
-              Editar descrição
+              {t('description.title')}
             </Text>
 
             <CloseButton onClick={toggleOpen}>
@@ -156,11 +159,11 @@ export const DescriptionDialog = ({
 
           <TextAreaContainer>
             <Text size={'sm'} color={'$white'}>
-              Digite o texto
+              {t('description.contentTitle')}
             </Text>
 
             <TextDescriptionBox
-              placeholder={'Digite a descrição do servidor.'}
+              placeholder={t('description.contentInput')}
               value={description}
               onChange={({ target }) =>
                 !isSaving && setDescription(target.value)
@@ -171,12 +174,12 @@ export const DescriptionDialog = ({
 
           <ButtonContainer>
             <Dialog.Close onClick={handleOnSave} asChild>
-              <Button size={'lg'}>Salvar</Button>
+              <Button size={'lg'}>{t('description.saveButton')}</Button>
             </Dialog.Close>
 
             <Dialog.Close onClick={toggleOpen} asChild>
               <Button size={'lg'} outlined>
-                Cancelar
+                {t('description.cancelButton')}
               </Button>
             </Dialog.Close>
           </ButtonContainer>

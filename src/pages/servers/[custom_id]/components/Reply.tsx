@@ -4,6 +4,7 @@ import { styled } from '@/styles'
 import { Text } from '@5list-design-system/react'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { useTranslation } from 'react-i18next'
 
 interface ReplyProps {
   reply: ServerReviewReplySchemaType
@@ -49,6 +50,7 @@ const ReplyMessageContent = styled(Text, {
 })
 
 export const Reply = ({ reply }: ReplyProps): JSX.Element => {
+  const { t } = useTranslation('pages')
   const replyCreatedAt = new Date(reply.createdAt)
 
   return (
@@ -57,7 +59,7 @@ export const Reply = ({ reply }: ReplyProps): JSX.Element => {
 
       <ReplyMessageContainer>
         <Text size={'sm'} color={'$white'} weight={'bold'}>
-          Equipe do servidor,{' '}
+          {t('serversPage.reviewsSection.adminReply')},{' '}
           <Text as={'span'} size={'sm'} weight={'bold'}>
             {formatDistanceToNow(replyCreatedAt, {
               addSuffix: true,

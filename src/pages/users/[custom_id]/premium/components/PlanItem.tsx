@@ -4,6 +4,7 @@ import { usePremium } from '../providers/PremiumProvider'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import { CheckedIcon, NotCheckedIcon } from '@/components/Icons'
 import { usePlans } from '../providers/PlansProvider'
+import { useTranslation } from 'react-i18next'
 
 type PlansContainerProps = PlanSchemaType
 
@@ -124,6 +125,8 @@ const IconContainer = styled('div', {
 })
 
 export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+  
   const { privileges } = usePlans()
   const { offer, goToCheckout } = usePremium()
 
@@ -141,24 +144,24 @@ export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
 
   switch (plan.id) {
     case 'PREMIUM_TIER':
-      planName = 'Premium'
+      planName = t('usersPagePremium.planNames.premiumTier')
 
       break
     default:
-      planName = 'Gratuíto'
+      planName = t('usersPagePremium.planNames.freeTier')
   }
 
   switch (plan.tag) {
     case 'FREE':
-      tagName = 'Grátis'
+      tagName = t('usersPagePremium.planTags.free')
 
       break
     case 'BEST_SELLER':
-      tagName = 'Mais vendido'
+      tagName = t('usersPagePremium.planTags.bestSeller')
 
       break
     case 'RECOMMENDED':
-      tagName = 'Recomendado'
+      tagName = t('usersPagePremium.planTags.recommended')
   }
 
   return (
@@ -223,12 +226,12 @@ export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
 
       {plan.tag !== 'FREE' ? (
         <Button size={'lg'} onClick={handleOnBuyPlan.bind(null, plan)}>
-          Assinar plano
+          {t('usersPagePremium.subscribeToPlan')}
         </Button>
       ) : (
         <Button size={'lg'} disabled>
           <Text size={'sm'} color={'$neutral200'}>
-            Já assinado
+            {t('usersPagePremium.alreadySigned')}
           </Text>
         </Button>
       )}

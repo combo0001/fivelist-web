@@ -144,15 +144,15 @@ export const ServerContent = (): JSX.Element => {
       <Players
         clients={serverDynamic.playersCurrent}
         slots={serverDynamic.playersMax}
-        players={[
-          {
-            name: 'Willian',
-            avatarURL:
-              'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
-            likes: 12744,
-            startedAt: new Date(1685825570941),
-          },
-        ]}
+        // players={[
+        //   {
+        //     name: 'Willian',
+        //     avatarURL:
+        //       'https://cdn.discordapp.com/attachments/897332194811473951/1114657450491125801/image.png',
+        //     likes: 12744,
+        //     startedAt: new Date(1685825570941),
+        //   },
+        // ]}
       />
     </ContentContainer>
   )

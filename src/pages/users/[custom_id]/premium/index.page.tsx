@@ -8,6 +8,7 @@ import { UserProfileSchemaType } from '@/schemas/users/ProfileSchema'
 import { useRouter } from 'next/router'
 import { useRouter as useNavigation } from 'next/navigation'
 import { trpc } from '@/utils/trpc'
+import { LanguageProvider } from '@/providers/LanguageProvider'
 
 export default function UsersPremium(): JSX.Element {
   const router = useNavigation()
@@ -34,10 +35,12 @@ export default function UsersPremium(): JSX.Element {
   }
 
   return (
-    <PlansProvider>
-      <PremiumProvider user={userPage}>
-        <UsersPremiumMain />
-      </PremiumProvider>
-    </PlansProvider>
+    <LanguageProvider>
+      <PlansProvider>
+        <PremiumProvider user={userPage}>
+          <UsersPremiumMain />
+        </PremiumProvider>
+      </PlansProvider>
+    </LanguageProvider>
   )
 }
