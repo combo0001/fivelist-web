@@ -229,7 +229,27 @@
       "loadLess": "Load less"
     }
   },
-  "serversPagePremium": {},
+  "serversPagePremium": {
+    "monthly": "Monthly",
+    "quarterly": "Quarterly",
+    "yearly": "Yearly",
+    "subscribeToPlan": "Subscribe to Plan",
+    "alreadySigned": "Already Subscribed",
+    "contact": "Contact Us",
+    "plansForServers": "Plans for Servers",
+    "plansHeader": "The best plans for your FiveM server",
+    "planNames": {
+        "businessTier": "Business",
+        "proTier": "Professional",
+        "basicTier": "Basic",
+        "freeTier": "Free"
+    },
+    "planTags": {
+        "free": "Free",
+        "bestSeller": "Best Seller",
+        "recommended": "Recommended"
+    }
+  },
   "usersPage": {
     "statisticLabels": {
       "followers_zero": "followers",

@@ -4,6 +4,7 @@ import { usePremium } from '../providers/PremiumProvider'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import { CheckedIcon, NotCheckedIcon } from '@/components/Icons'
 import { usePlans } from '../providers/PlansProvider'
+import { useTranslation } from 'react-i18next'
 
 type PlansContainerProps = PlanSchemaType
 
@@ -124,6 +125,8 @@ const IconContainer = styled('div', {
 })
 
 export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
+  const { t } = useTranslation('pages')
+ 
   const { privileges } = usePlans()
   const { offer, goToCheckout } = usePremium()
 
@@ -141,32 +144,32 @@ export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
 
   switch (plan.id) {
     case 'BASIC_TIER':
-      planName = 'Básico'
+      planName = t('serversPagePremium.planNames.basicTier')
 
       break
     case 'PRO_TIER':
-      planName = 'Profissional'
+      planName = t('serversPagePremium.planNames.proTier')
 
       break
     case 'BUSINESS_TIER':
-      planName = 'Business'
+      planName = t('serversPagePremium.planNames.businessTier')
 
       break
     default:
-      planName = 'Gratuíto'
+      planName = t('serversPagePremium.planNames.freeTier')
   }
 
   switch (plan.tag) {
     case 'FREE':
-      tagName = 'Grátis'
+      tagName = t('serversPagePremium.planTags.free')
 
       break
     case 'BEST_SELLER':
-      tagName = 'Mais vendido'
+      tagName = t('serversPagePremium.planTags.bestSeller')
 
       break
     case 'RECOMMENDED':
-      tagName = 'Recomendado'
+      tagName = t('serversPagePremium.planTags.recommended')
   }
 
   return (
@@ -231,12 +234,12 @@ export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
 
       {plan.tag !== 'FREE' ? (
         <Button size={'lg'} onClick={handleOnBuyPlan.bind(null, plan)}>
-          {priceFormatted ? 'Assinar plano' : 'Entre em contato'}
+          {priceFormatted ? t('serversPagePremium.subscribeToPlan') : t('serversPagePremium.contact')}
         </Button>
       ) : (
         <Button size={'lg'} disabled>
           <Text size={'sm'} color={'$neutral200'}>
-            Já assinado
+            {t('serversPagePremium.alreadySigned')}
           </Text>
         </Button>
       )}
