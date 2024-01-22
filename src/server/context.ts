@@ -1,14 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import { Database } from '@/@types/supabase'
-import {
-  createRouteHandlerClient,
-  Session,
-  SupabaseClient,
-} from '@supabase/auth-helpers-nextjs'
+import { getSupabaseByRequest } from '@/utils/supabaseHealper'
+import { Session, SupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { inferAsyncReturnType } from '@trpc/server'
 import { CreateNextContextOptions } from '@trpc/server/adapters/next'
-import { RequestCookies } from 'next/dist/compiled/@edge-runtime/cookies'
 
 interface CreateInnerContextOptions extends Partial<CreateNextContextOptions> {
   supabase: SupabaseClient<Database, 'public'>
@@ -23,17 +19,7 @@ export async function createContextInner(opts?: CreateInnerContextOptions) {
 }
 
 export async function createContext({ req, res }: CreateNextContextOptions) {
-  const headers = new Headers(req.headers as any)
-
-  const supabase = createRouteHandlerClient<Database>(
-    {
-      cookies: () => new RequestCookies(headers),
-    },
-    {
-      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      supabaseKey: process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    },
-  )
+  const supabase = await getSupabaseByRequest(req)
 
   const {
     data: { session },

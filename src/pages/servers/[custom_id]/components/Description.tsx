@@ -82,7 +82,9 @@ export const Description = (): JSX.Element => {
                 css={{ cursor: 'pointer', marginLeft: '$3' }}
                 onClick={toggleMode}
               >
-                {showMore ? t('serversPage.descriptionSection.showLess') : t('serversPage.descriptionSection.showMore')}
+                {showMore
+                  ? t('serversPage.descriptionSection.showLess')
+                  : t('serversPage.descriptionSection.showMore')}
               </Text>
             </>
           )}

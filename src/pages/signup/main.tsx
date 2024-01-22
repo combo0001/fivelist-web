@@ -199,7 +199,11 @@ export const SignUpMain = (): JSX.Element => {
               )}
             </InputContainer>
 
-            <Text weight={'regular'} size={'sm'} css={{ maxWidth: 'calc($80 + $10)'}}>
+            <Text
+              weight={'regular'}
+              size={'sm'}
+              css={{ maxWidth: 'calc($80 + $10)' }}
+            >
               {t('signup.passwordInstructions')}
             </Text>
           </InputsContainer>

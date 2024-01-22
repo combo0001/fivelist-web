@@ -15,6 +15,7 @@ import NormalPlaceSvg from '@/assets/normal-place.svg'
 import PencilSvg from '@/assets/pencil.svg'
 import AtSvg from '@/assets/platforms/at.svg'
 import DiscordSvg from '@/assets/platforms/discord.svg'
+import SteamSvg from '@/assets/platforms/steam.svg'
 import FacebookSvg from '@/assets/platforms/facebook.svg'
 import InstagramSvg from '@/assets/platforms/instagram.svg'
 import TiktokSvg from '@/assets/platforms/tiktok.svg'
@@ -40,6 +41,7 @@ import MethodCreditCardSvg from '@/assets/method-credit-card.svg'
 import { styled } from '../../styles'
 
 export const DiscordIcon = styled(DiscordSvg, {})
+export const SteamIcon = styled(SteamSvg, {})
 export const InstagramIcon = styled(InstagramSvg, {})
 export const FacebookIcon = styled(FacebookSvg, {})
 export const YoutubeIcon = styled(YoutubeSvg, {})

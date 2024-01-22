@@ -9,6 +9,8 @@ const SOCIAL_BASE_URL: SocialBaseUrlProps = {
   YOUTUBE: 'https://www.youtube.com/@',
   TWITCH: 'https://www.twitch.tv/',
   GITHUB: 'https://github.com/',
+  STEAM: 'https://steamcommunity.com/profiles/',
+  DISCORD: 'https://discordapp.com/channels/@me/',
 }
 
 export const getSocialMediaLink = (

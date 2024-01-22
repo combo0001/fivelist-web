@@ -31,7 +31,7 @@ export const CheckoutMain = (): JSX.Element => {
   }, [isBacking, router])
 
   useEffect(() => {
-    if (!order) return 
+    if (!order) return
 
     if (!clientUser || clientUser.id !== order.ownerUser.id) {
       router.push('/home')

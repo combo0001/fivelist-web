@@ -14,7 +14,7 @@ export const NavigationContainer = styled('nav', {
 
   '& > *:last-child': {
     marginTop: 'auto',
-  }
+  },
 })
 
 export const LinkContainer = styled(Link, {

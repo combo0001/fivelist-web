@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import { ConnectionSchema } from '../ConnectionSchema'
+import { ConnectionsSchema } from '../ConnectionSchema'
 
 export const UserConnectionSchema = z.object({
-  connection: ConnectionSchema,
+  connection: ConnectionsSchema,
   identifier: z.string(),
 })
 

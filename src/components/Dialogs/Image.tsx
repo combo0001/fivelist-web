@@ -103,7 +103,7 @@ export const ImageUploader = ({
           </Text>
 
           <Text size={'xs'} color={'$neutral900'}>
-            {t('image.formats')}{' '}{t('image.maxSize')}
+            {t('image.formats')} {t('image.maxSize')}
           </Text>
         </TextContainer>
       </OverlayContainer>

@@ -74,7 +74,9 @@ export const Statistic = ({
     <StatisticContainer>
       <TitleContainer>
         <Heading as={'h4'} weight={'bold'}>
-          {hasVip ? t('serversPageEdit.statisticsSection.title') : t('serversPageEdit.statisticsSection.titlePremium')}
+          {hasVip
+            ? t('serversPageEdit.statisticsSection.title')
+            : t('serversPageEdit.statisticsSection.titlePremium')}
         </Heading>
 
         {hasVip ? (
@@ -104,7 +106,9 @@ export const Statistic = ({
             </Text>
           </StatisticDataText>
 
-          <Text size={'sm'}>{t('serversPageEdit.statisticsSection.likesPerMonth')}</Text>
+          <Text size={'sm'}>
+            {t('serversPageEdit.statisticsSection.likesPerMonth')}
+          </Text>
         </StatisticBox>
 
         <StatisticBox>
@@ -120,7 +124,9 @@ export const Statistic = ({
             </Text>
           </StatisticDataText>
 
-          <Text size={'sm'}>{t('serversPageEdit.statisticsSection.followersPerMonth')}</Text>
+          <Text size={'sm'}>
+            {t('serversPageEdit.statisticsSection.followersPerMonth')}
+          </Text>
         </StatisticBox>
       </StatisticsContainer>
     </StatisticContainer>

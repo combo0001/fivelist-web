@@ -1,33 +1,43 @@
 import { DiscordIcon } from '@/components/Icons'
+import { getBaseURL } from '@/utils/getBaseURL'
+import { NextApiRequest } from 'next'
 
-const CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID as string
-const CLIENT_SECRET = process.env.NEXT_PUBLIC_DISCORD_CLIENT_SECRET as string
+const CLIENT_ID = process.env.DISCORD_CLIENT_ID as string
+const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET as string
 
-export const getRequestURL = (redirectURL: string): string => {
+const getRedirectURI = (): string => {
+  return getBaseURL() + '/api/auth/discord'
+}
+
+export const getRequestURL = (): string => {
+  const redirectURI = getRedirectURI()
+
   return `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
-    redirectURL + '/auth/user',
+    redirectURI,
   )}&response_type=code&scope=identify&state=DISCORD`
 }
 
-export const getPlatformIcon = (): React.ReactNode => {
-  return <DiscordIcon css={{ size: '$8', fill: '$white' }} />
+export const getDiscordCode = (endpoint: string): string | null => {
+  const BASE_URL = getBaseURL()
+  const fragment = new URL(`${BASE_URL}${endpoint}`).searchParams
+
+  return fragment.get('code')
 }
 
 const exchangeTokenForCode = async (code: string): Promise<string | null> => {
-  await new Promise((resolve) => setTimeout(resolve, 5000))
-
-  const body = JSON.stringify({
+  const formBody = new URLSearchParams({
     client_id: CLIENT_ID,
     client_secret: CLIENT_SECRET,
     grant_type: 'authorization_code',
+    redirect_uri: getRedirectURI(),
+    scope: 'identify',
     code,
-    redirect_uri: window.location.origin,
   })
 
   try {
-    const result = await fetch('https://discord.com/oauth2/token/', {
+    const result = await fetch('https://discord.com/api/oauth2/token', {
       method: 'POST',
-      body,
+      body: formBody.toString(),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -44,9 +54,9 @@ const exchangeTokenForCode = async (code: string): Promise<string | null> => {
 }
 
 export const getUserIdentifier = async (
-  fragment: URLSearchParams,
+  req: NextApiRequest,
 ): Promise<string | null> => {
-  const code = fragment.get('code')
+  const code = getDiscordCode(req.url as string)
 
   if (!code) return null
 

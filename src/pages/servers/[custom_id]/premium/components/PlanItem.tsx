@@ -126,7 +126,7 @@ const IconContainer = styled('div', {
 
 export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
   const { t } = useTranslation('pages')
- 
+
   const { privileges } = usePlans()
   const { offer, goToCheckout } = usePremium()
 
@@ -234,7 +234,9 @@ export const PlanItem = (plan: PlansContainerProps): JSX.Element => {
 
       {plan.tag !== 'FREE' ? (
         <Button size={'lg'} onClick={handleOnBuyPlan.bind(null, plan)}>
-          {priceFormatted ? t('serversPagePremium.subscribeToPlan') : t('serversPagePremium.contact')}
+          {priceFormatted
+            ? t('serversPagePremium.subscribeToPlan')
+            : t('serversPagePremium.contact')}
         </Button>
       ) : (
         <Button size={'lg'} disabled>

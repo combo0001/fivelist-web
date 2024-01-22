@@ -181,17 +181,15 @@ export const ServerHeader = (): JSX.Element => {
                 href={`/servers/${serverView.joinId}/premium`}
                 legacyBehavior
               >
-                {
-                  serverView.page.planTier.id === 0 ?
-                    <Button size={'lg'} outlined>
-                      {t('serversPage.purchasePremiumButton')}
-                    </Button>
-                  : 
-                    <Button size={'lg'} outlined>
-                      {t('serversPage.renewPremiumButton')}
-                    </Button>
-                }
-                
+                {serverView.page.planTier.id === 0 ? (
+                  <Button size={'lg'} outlined>
+                    {t('serversPage.purchasePremiumButton')}
+                  </Button>
+                ) : (
+                  <Button size={'lg'} outlined>
+                    {t('serversPage.renewPremiumButton')}
+                  </Button>
+                )}
               </Link>
             )}
 
@@ -201,7 +199,8 @@ export const ServerHeader = (): JSX.Element => {
                 legacyBehavior
               >
                 <Tag css={{ cursor: 'pointer' }}>
-                  {t('serversPage.managedBy') + ' '}@{serverView.page.ownerUser.customId}
+                  {t('serversPage.managedBy') + ' '}@
+                  {serverView.page.ownerUser.customId}
                 </Tag>
               </Link>
             ) : (
@@ -272,15 +271,18 @@ const ServerTags = ({
   return (
     <TagsContainer>
       <TagHighlighted active>
-        {clients.toLocaleString() + ' '}{t('serversPage.statisticLabels.playersAmount')}
+        {clients.toLocaleString() + ' '}
+        {t('serversPage.statisticLabels.playersAmount')}
       </TagHighlighted>
 
       <TagHighlighted>
-        {followers.toLocaleString() + ' '}{t('serversPage.statisticLabels.followers', { count: followers })}
+        {followers.toLocaleString() + ' '}
+        {t('serversPage.statisticLabels.followers', { count: followers })}
       </TagHighlighted>
 
       <TagHighlighted>
-        {reviews.toLocaleString() + ' '}{t('serversPage.statisticLabels.reviews', { count: reviews })}
+        {reviews.toLocaleString() + ' '}
+        {t('serversPage.statisticLabels.reviews', { count: reviews })}
       </TagHighlighted>
     </TagsContainer>
   )

@@ -1,5 +1,6 @@
 import { createContext } from '@/server/context'
 import { inferAsyncReturnType } from '@trpc/server'
+import { getUserCustomId } from './getUserCustomId'
 
 interface UserProps {
   id?: string
@@ -20,15 +21,7 @@ export const revalidateUser = async (
     } else if (user.id) {
       if (!ctx.supabase) return
 
-      const { data: selectData, error: selectError } = await ctx.supabase
-        .from('users')
-        .select('customId:custom_id')
-        .eq('id', user.id)
-        .single()
-
-      if (selectError) return
-
-      customId = selectData.customId
+      customId = await getUserCustomId(ctx.supabase, user.id)
     }
 
     if (!customId) return

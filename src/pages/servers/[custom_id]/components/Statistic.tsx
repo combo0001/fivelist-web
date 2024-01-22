@@ -32,7 +32,7 @@ const PlayersText = styled('p', {
 
 export const Statistic = ({ players }: StatisticProps): JSX.Element => {
   const { t } = useTranslation('pages')
-  
+
   return (
     <StatisticContainer>
       <Heading as={'h5'} weight={'bold'}>
@@ -41,7 +41,9 @@ export const Statistic = ({ players }: StatisticProps): JSX.Element => {
 
       <PlayersText>{players.toLocaleString()}</PlayersText>
 
-      <Text size={'sm'}>{t('serversPage.statisticsSection.playersInLast24Hours')}</Text>
+      <Text size={'sm'}>
+        {t('serversPage.statisticsSection.playersInLast24Hours')}
+      </Text>
     </StatisticContainer>
   )
 }

@@ -40,7 +40,7 @@ const ButtonAnchor = styled('a', {
 
 export const StreamLink = ({ url }: StreamLinkProps): JSX.Element => {
   const { t } = useTranslation('pages')
-  
+
   return (
     <StreamLinkContainer>
       <Heading as={'h4'} weight={'bold'}>

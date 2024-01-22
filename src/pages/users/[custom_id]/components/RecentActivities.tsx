@@ -80,7 +80,9 @@ export const RecentActivities = ({
           outlined
           onClick={toggleShowMore}
         >
-          {!showMore ? t('usersPage.lastActivitiesSection.loadMore') : t('usersPage.lastActivitiesSection.loadLess')}
+          {!showMore
+            ? t('usersPage.lastActivitiesSection.loadMore')
+            : t('usersPage.lastActivitiesSection.loadLess')}
         </Button>
       )}
     </RecentContainer>

@@ -35,7 +35,10 @@ const getServerHelper = async () =>
 export const getStaticProps = async ({
   params,
   locale,
-}: GetStaticPropsContext<{ custom_id: string, locale: string | undefined }>) => {
+}: GetStaticPropsContext<{
+  custom_id: string
+  locale: string | undefined
+}>) => {
   const helpers = await getServerHelper()
   const customId = params?.custom_id as string
 
@@ -46,8 +49,15 @@ export const getStaticProps = async ({
       userPage,
     }
 
-    const serverLanguageProps = await loadTranslations(ni18nConfig, locale, [ 'header', 'navigation', 'pages' ])
-    const clientLanguageProps = clientNamespaces(ni18nConfig, [ 'dialogs', 'notifications' ])
+    const serverLanguageProps = await loadTranslations(ni18nConfig, locale, [
+      'header',
+      'navigation',
+      'pages',
+    ])
+    const clientLanguageProps = clientNamespaces(ni18nConfig, [
+      'dialogs',
+      'notifications',
+    ])
 
     return {
       props: {

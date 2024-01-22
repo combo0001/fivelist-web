@@ -31,7 +31,7 @@ import { useTranslation } from 'react-i18next'
 
 export const SignInMain = (): JSX.Element => {
   const { i18n, t } = useTranslation('pages')
-  
+
   const { user, signIn } = useClientUser()
   const router = useRouter()
 

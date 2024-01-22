@@ -41,10 +41,7 @@ const PlayersList = styled('ul', {
   gap: '$2',
 })
 
-export const Players = ({
-  clients,
-  slots,
-}: PlayersProps): JSX.Element => {
+export const Players = ({ clients, slots }: PlayersProps): JSX.Element => {
   const { t } = useTranslation('pages')
 
   // const [showMore, setShowMore] = useState<boolean>(false)

@@ -1,4 +1,4 @@
-import { getServerHelper } from '@/utils/getServerHelper'
+import { getServerHelper } from '@/utils/supabaseHealper'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
 export const getStaticPaths: GetStaticPaths = async () => {

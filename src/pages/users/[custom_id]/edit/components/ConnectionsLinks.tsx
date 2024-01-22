@@ -1,15 +1,17 @@
 import { UserConnectionsListSchemaType } from '@/schemas/users/ConnectionsSchema'
-import { ConnectionDialog } from '@/components/Dialogs/Connection'
-import { AddLink } from '@/components/EditLinks'
-import { WorldIcon } from '@/components/Icons'
-import { styled } from '@/styles'
 import {
-  getAvailableConnections,
-  getConnectionOptions,
-} from '@/utils/connectionsLinks'
-import { getBaseURL } from '@/utils/getBaseURL'
+  ConnectionDialog,
+  ConnectionOptionsType,
+} from '@/components/Dialogs/Connection'
+import { AddLink } from '@/components/EditLinks'
+import { DiscordIcon, SteamIcon, WorldIcon } from '@/components/Icons'
+import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import { useTranslation } from 'react-i18next'
+import { ConnectionsSchemaType } from '@/schemas/ConnectionSchema'
+import { trpc } from '@/utils/trpc'
+import { useRouter } from 'next/navigation'
+import { getSocialMediaLink } from '@/utils/socialMediaLinks'
 
 /* eslint-disable no-undef */
 interface ConnectionsProps {
@@ -43,6 +45,7 @@ const ConnectionsList = styled('ul', {
 })
 
 const PointsText = styled(Text, {
+  color: '$success600',
   fontFeatureSettings: `'clig' off, 'liga' off'`,
 })
 
@@ -59,8 +62,29 @@ const WebsiteLinkBox = styled('a', {
 export const ConnectionsLinks = ({
   connections,
 }: ConnectionsProps): JSX.Element => {
-  const availableConnections = getAvailableConnections()
   const { t } = useTranslation('pages')
+  const router = useRouter()
+
+  const AVAILABLE_CONNECTIONS = [
+    {
+      name: 'Steam',
+      icon: <SteamIcon css={{ size: '$8', fill: '$white' }} />,
+      connection: 'STEAM',
+    },
+    {
+      name: 'Discord',
+      icon: <DiscordIcon css={{ size: '$8', fill: '$white' }} />,
+      connection: 'DISCORD',
+    },
+  ] as ConnectionOptionsType[]
+
+  const getAuthService = trpc.users.getAuthService.useMutation()
+
+  const onAuth = async (connection: ConnectionsSchemaType): Promise<void> => {
+    const redirectURL = await getAuthService.mutateAsync({ connection })
+
+    if (redirectURL) router.push(redirectURL)
+  }
 
   return (
     <ConnectionsContainer>
@@ -69,9 +93,15 @@ export const ConnectionsLinks = ({
       </Heading>
 
       <ConnectionsList>
-        {connections.map(({ connection }) => {
+        {connections.map(({ connection, identifier }) => {
+          const connectionURL = getSocialMediaLink(connection, identifier)
+
           return (
-            <WebsiteLinkBox href={''} target={'_blank'} key={connection}>
+            <WebsiteLinkBox
+              href={connectionURL}
+              target={'_blank'}
+              key={connection}
+            >
               <Button variation={'icon'} size={'sm'}>
                 <WorldIcon css={{ fill: '$white', size: '$6' }} />
               </Button>
@@ -94,21 +124,13 @@ export const ConnectionsLinks = ({
 
         <ConnectionDialog
           title={t('usersPageEdit.connectionsSection.addConnection')}
-          connections={availableConnections.map((connection) => {
-            const { getRequestURL, getPlatformIcon } =
-              getConnectionOptions(connection)
-
-            return {
-              label: connection[0] + connection.substring(1).toLowerCase(),
-              icon: getPlatformIcon(),
-              requestURL: getRequestURL(
-                typeof window !== 'undefined'
-                  ? window.location.origin
-                  : getBaseURL(),
-              ),
-            }
-          })}
-          trigger={<AddLink text={t('usersPageEdit.connectionsSection.addConnection')} />}
+          options={AVAILABLE_CONNECTIONS}
+          onAuth={onAuth}
+          trigger={
+            <AddLink
+              text={t('usersPageEdit.connectionsSection.addConnection')}
+            />
+          }
         />
       </ConnectionsList>
     </ConnectionsContainer>

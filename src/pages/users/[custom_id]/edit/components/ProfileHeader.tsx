@@ -210,12 +210,16 @@ export const ProfileHeader = (): JSX.Element => {
 
           {user.planTier.id === 0 ? (
             <Link href={`/users/${user.customId}/premium`} legacyBehavior>
-              <Button size={'lg'}>{t('usersPageEdit.purchasePremiumButton')}</Button>
+              <Button size={'lg'}>
+                {t('usersPageEdit.purchasePremiumButton')}
+              </Button>
             </Link>
           ) : (
             <PremiumContainer>
               <Link href={`/users/${user.customId}/premium`} legacyBehavior>
-                <Button size={'lg'}>{t('usersPageEdit.renewPremiumButton')}</Button>
+                <Button size={'lg'}>
+                  {t('usersPageEdit.renewPremiumButton')}
+                </Button>
               </Link>
 
               <Text size={'sm'} weight={'bold'}>
@@ -284,17 +288,20 @@ const TagBox = styled('div', {
 
 const DataTags = ({ followers, views }: DataTagsProps): JSX.Element => {
   const { t } = useTranslation('pages')
-  
+
   return (
     <TagsContainer>
       <TagBox>
         <ProfileIcon css={{ size: '$6', fill: '$white' }} />
-        {followers.toLocaleString()}{' ' + t('usersPageEdit.statisticLabels.followers', { count: followers })}
+        {followers.toLocaleString()}
+        {' ' +
+          t('usersPageEdit.statisticLabels.followers', { count: followers })}
       </TagBox>
 
       <TagBox>
         <EyeIcon css={{ size: '$6', fill: '$white' }} />
-        {views.toLocaleString()}{' ' + t('usersPageEdit.statisticLabels.views', { count: views })}
+        {views.toLocaleString()}
+        {' ' + t('usersPageEdit.statisticLabels.views', { count: views })}
       </TagBox>
     </TagsContainer>
   )
@@ -461,14 +468,16 @@ const Level = ({ level, points }: LevelProps): JSX.Element => {
         <PointsIcon css={{ fill: '$neutral200', size: '$6' }} />
 
         <Text size={'sm'} color={'$white'} weight={'bold'}>
-          {points}{' ' + t('usersPageEdit.levelLabels.points')}
+          {points}
+          {' ' + t('usersPageEdit.levelLabels.points')}
         </Text>
       </PointsBox>
 
       <ProgressBox>
         <ProgressTitleContainer>
           <Text size={'xs'} color={'$success500'} weight={'bold'}>
-            {t('usersPageEdit.levelLabels.level') + ' '}{level.id}
+            {t('usersPageEdit.levelLabels.level') + ' '}
+            {level.id}
           </Text>
 
           <Text size={'xs'} weight={'normal'}>

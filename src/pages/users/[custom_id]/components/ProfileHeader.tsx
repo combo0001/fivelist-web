@@ -276,12 +276,14 @@ const DataTags = ({ followers, views }: DataTagsProps): JSX.Element => {
     <TagsContainer>
       <TagBox>
         <ProfileIcon css={{ size: '$6', fill: '$white' }} />
-        {followers.toLocaleString() + ' '}{t('usersPage.statisticLabels.followers', { count: followers })}
+        {followers.toLocaleString() + ' '}
+        {t('usersPage.statisticLabels.followers', { count: followers })}
       </TagBox>
 
       <TagBox>
         <EyeIcon css={{ size: '$6', fill: '$white' }} />
-        {views.toLocaleString() + ' '}{t('usersPage.statisticLabels.views', { count: views })}
+        {views.toLocaleString() + ' '}
+        {t('usersPage.statisticLabels.views', { count: views })}
       </TagBox>
     </TagsContainer>
   )
@@ -444,7 +446,8 @@ const Level = ({ level, points }: LevelProps): JSX.Element => {
       <ProgressBox>
         <ProgressTitleContainer>
           <Text size={'xs'} color={'$success500'} weight={'bold'}>
-            {t('usersPage.levelLabels.level') + ' '}{level.id}
+            {t('usersPage.levelLabels.level') + ' '}
+            {level.id}
           </Text>
 
           <Text size={'xs'} weight={'normal'}>

@@ -69,7 +69,7 @@ const ListLink = (): JSX.Element => {
 
 const AdsLink = (): JSX.Element => {
   const { t } = useTranslation('navigation')
-  
+
   return (
     <LinkContainer href={'/advertising'}>
       <StarIcon css={{ size: '$6', fill: '$neutral100' }} />

@@ -85,7 +85,11 @@ export const Description = (): JSX.Element => {
       {hasVip && (
         <DescriptionDialog
           defaultValue={text}
-          trigger={<EditContainer text={t('serversPageEdit.descriptionSection.editButton')} />}
+          trigger={
+            <EditContainer
+              text={t('serversPageEdit.descriptionSection.editButton')}
+            />
+          }
           onChange={handleOnChangeDescription}
         />
       )}

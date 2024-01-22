@@ -29,11 +29,12 @@ export const addUserConnection = procedure
 
     if (upsertError) return
 
-    await registerActivity(supabase, {
-      userId: session.user.id,
-      message: `Conexão com ${input.connection} adicionada`,
-      points: 10,
-    })
+    // await registerActivity(supabase, {
+    //   userId: session.user.id,
+    //   message: `Conexão com ${input.connection} adicionada`,
+    //   points: 10,
+    // })
+
     await revalidateUser(ctx as inferAsyncReturnType<typeof createContext>, {
       id: session.user.id,
     })

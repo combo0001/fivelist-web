@@ -65,7 +65,7 @@ const ReplyText = styled(Text, {
 
 export const Reviews = (): JSX.Element => {
   const { t } = useTranslation('pages')
-  
+
   const [reviewsAmount, setReviewsAmount] = useState<number>(0)
   const [isNeedShowMore, setNeedShowMore] = useState<boolean>(true)
 
@@ -115,12 +115,16 @@ export const Reviews = (): JSX.Element => {
   return (
     <ReviewsContainer>
       <TitleContainer>
-        <Heading as={'h5'} weight={'bold'}>{t('serversPage.reviewsSection.title')}</Heading>
+        <Heading as={'h5'} weight={'bold'}>
+          {t('serversPage.reviewsSection.title')}
+        </Heading>
 
         {user ? (
           <ReviewDialog
             onFinish={handleOnCreateReview}
-            trigger={<Button>{t('serversPage.reviewsSection.enterReview')}</Button>}
+            trigger={
+              <Button>{t('serversPage.reviewsSection.enterReview')}</Button>
+            }
           />
         ) : (
           <Link href={'/signin'} legacyBehavior>

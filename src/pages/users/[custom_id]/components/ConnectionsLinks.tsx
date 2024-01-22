@@ -3,6 +3,7 @@ import { WorldIcon } from '@/components/Icons'
 import { styled } from '@/styles'
 import { Button, Heading, Text } from '@5list-design-system/react'
 import { useTranslation } from 'react-i18next'
+import { getSocialMediaLink } from '@/utils/socialMediaLinks'
 
 /* eslint-disable no-undef */
 interface ConnectionsProps {
@@ -36,6 +37,7 @@ const ConnectionsList = styled('ul', {
 })
 
 const PointsText = styled(Text, {
+  color: '$success600',
   fontFeatureSettings: `'clig' off, 'liga' off'`,
 })
 
@@ -62,9 +64,15 @@ export const ConnectionsLinks = ({
 
       <ConnectionsList>
         {connections.length ? (
-          connections.map(({ connection }) => {
+          connections.map(({ connection, identifier }) => {
+            const connectionURL = getSocialMediaLink(connection, identifier)
+
             return (
-              <WebsiteLinkBox href={''} target={'_blank'} key={connection}>
+              <WebsiteLinkBox
+                href={connectionURL}
+                target={'_blank'}
+                key={connection}
+              >
                 <Button variation={'icon'} size={'sm'}>
                   <WorldIcon css={{ fill: '$white', size: '$6' }} />
                 </Button>

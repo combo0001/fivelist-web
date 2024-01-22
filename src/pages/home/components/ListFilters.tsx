@@ -26,7 +26,7 @@ export const ListFilters = (): JSX.Element => {
   const { t } = useTranslation('pages')
   const filterRef = useRef<HTMLElement>()
 
-  const [ randomKey, setRandomKey ] = useState<number>(0)
+  const [randomKey, setRandomKey] = useState<number>(0)
 
   const {
     serverName,
@@ -56,7 +56,7 @@ export const ListFilters = (): JSX.Element => {
 
   useEffect(() => {
     setRandomKey((state) => state + 1)
-  }, [ orderOptions ])
+  }, [orderOptions])
 
   return (
     <FilterContainer ref={filterRef as any}>

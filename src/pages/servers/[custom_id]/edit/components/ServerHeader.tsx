@@ -230,9 +230,14 @@ export const ServerHeader = (): JSX.Element => {
 
           <ActionsContainer>
             <PremiumContainer>
-              <Link href={`/servers/${serverToEdit.joinId}/premium`} legacyBehavior>
+              <Link
+                href={`/servers/${serverToEdit.joinId}/premium`}
+                legacyBehavior
+              >
                 <Button size={'lg'}>
-                  {hasVip ? t('serversPageEdit.renewPremiumButton') : t('serversPageEdit.purchasePremiumButton')}
+                  {hasVip
+                    ? t('serversPageEdit.renewPremiumButton')
+                    : t('serversPageEdit.purchasePremiumButton')}
                 </Button>
               </Link>
 
@@ -243,17 +248,17 @@ export const ServerHeader = (): JSX.Element => {
               )}
             </PremiumContainer>
 
-            {
-              serverToEdit.page.ownerUser &&
+            {serverToEdit.page.ownerUser && (
               <Link
                 href={`/users/${serverToEdit.page.ownerUser.customId}`}
                 legacyBehavior
               >
                 <Tag css={{ cursor: 'pointer' }}>
-                  {t('serversPageEdit.managedBy') + ' '}@{serverToEdit.page.ownerUser.customId}
+                  {t('serversPageEdit.managedBy') + ' '}@
+                  {serverToEdit.page.ownerUser.customId}
                 </Tag>
               </Link>
-            }
+            )}
           </ActionsContainer>
         </InformationsContainer>
       </HeaderContainer>
@@ -319,15 +324,18 @@ const ServerTags = ({
   return (
     <TagsContainer>
       <TagHighlighted active>
-        {clients.toLocaleString() + ' '}{t('serversPageEdit.statisticLabels.playersAmount')}
+        {clients.toLocaleString() + ' '}
+        {t('serversPageEdit.statisticLabels.playersAmount')}
       </TagHighlighted>
 
       <TagHighlighted>
-        {followers.toLocaleString() + ' '}{t('serversPageEdit.statisticLabels.followers', { count: followers })}
+        {followers.toLocaleString() + ' '}
+        {t('serversPageEdit.statisticLabels.followers', { count: followers })}
       </TagHighlighted>
 
       <TagHighlighted>
-        {reviews.toLocaleString() + ' '}{t('serversPageEdit.statisticLabels.reviews', { count: reviews })}
+        {reviews.toLocaleString() + ' '}
+        {t('serversPageEdit.statisticLabels.reviews', { count: reviews })}
       </TagHighlighted>
     </TagsContainer>
   )

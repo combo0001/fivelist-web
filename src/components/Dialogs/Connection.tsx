@@ -1,21 +1,23 @@
 /* eslint-disable no-undef */
 import { ErrorIcon } from '@/components/Icons'
+import { ConnectionsSchemaType } from '@/schemas/ConnectionSchema'
 import { styled } from '@/styles'
 import { Button, Text } from '@5list-design-system/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-interface ConnectionOptionProps {
-  label: string
-  icon: React.ReactNode
-  requestURL: string
+export interface ConnectionOptionsType {
+  connection: ConnectionsSchemaType
+  name: string
+  icon: JSX.Element
 }
 
 interface ConnectionDialogProps {
   title: string
   trigger: React.ReactNode
-  connections: ConnectionOptionProps[]
+  options: ConnectionOptionsType[]
+  onAuth: (connection: ConnectionsSchemaType) => Promise<void>
 }
 
 const ConnectionDialogOverlay = styled(Dialog.Overlay, {
@@ -66,7 +68,7 @@ const ConnectionsBox = styled('div', {
   gridGap: '$6',
 })
 
-const ConnectionAnchor = styled('a', {
+const ConnectionButton = styled('button', {
   all: 'unset',
 
   cursor: 'pointer',
@@ -107,7 +109,8 @@ const ButtonContainer = styled('div', {
 export const ConnectionDialog = ({
   title,
   trigger,
-  connections,
+  options,
+  onAuth,
 }: ConnectionDialogProps): JSX.Element => {
   const { t } = useTranslation('dialogs')
   const [open, setOpen] = useState<boolean>(false)
@@ -130,7 +133,7 @@ export const ConnectionDialog = ({
             <Text color={'$white'} weight={'normal'}>
               {title}
             </Text>
-
+            
             <CloseButton onClick={toggleOpen}>
               <ErrorIcon css={{ size: '$6', fill: '$white' }} />
             </CloseButton>
@@ -139,17 +142,18 @@ export const ConnectionDialog = ({
           <Divisor />
 
           <ConnectionsBox>
-            {connections
-              .slice(0, 5)
-              .map(({ label, icon, requestURL }, index) => (
-                <ConnectionAnchor key={index} href={requestURL}>
-                  {icon}
+            {options.map(({ name, connection, icon }) => (
+              <ConnectionButton
+                key={connection}
+                onClick={onAuth.bind(null, connection)}
+              >
+                {icon}
 
-                  <Text size={'xs'} weight={'regular'}>
-                    {label}
-                  </Text>
-                </ConnectionAnchor>
-              ))}
+                <Text size={'xs'} weight={'regular'}>
+                  {name}
+                </Text>
+              </ConnectionButton>
+            ))}
           </ConnectionsBox>
 
           <ButtonContainer>

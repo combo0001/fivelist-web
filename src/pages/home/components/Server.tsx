@@ -212,8 +212,7 @@ export const Server = ({
 
           <TagsContainer>
             <Tag active>
-              {cfx.playersCurrent}
-              {' '}{t('home.serverLabels.playersAmount')}{' '}
+              {cfx.playersCurrent} {t('home.serverLabels.playersAmount')}{' '}
               {cfx.playersMax}
             </Tag>
 

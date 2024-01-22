@@ -2,7 +2,7 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { HomeMain } from './main'
 import { ServersListProvider } from './providers/ServersListProvider'
-import { getServerHelper } from '@/utils/getServerHelper'
+import { getServerHelper } from '@/utils/supabaseHealper'
 import { ni18nConfig } from '../../../ni18n.config'
 import { clientNamespaces, loadTranslations } from 'ni18n'
 import { LanguageProvider } from '@/providers/LanguageProvider'
@@ -15,8 +15,15 @@ export const getStaticProps = async () => {
     servers,
   }
 
-  const serverLanguageProps = await loadTranslations(ni18nConfig, undefined, [ 'header', 'navigation', 'pages' ])
-  const clientLanguageProps = clientNamespaces(ni18nConfig, [ 'dialogs', 'notifications' ])
+  const serverLanguageProps = await loadTranslations(ni18nConfig, undefined, [
+    'header',
+    'navigation',
+    'pages',
+  ])
+  const clientLanguageProps = clientNamespaces(ni18nConfig, [
+    'dialogs',
+    'notifications',
+  ])
 
   return {
     props: {

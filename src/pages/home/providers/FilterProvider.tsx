@@ -1,8 +1,15 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, { Context, createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, {
+  Context,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { countries } from 'countries-list'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
 type OptionsProps = { label: string; value: string }
 
@@ -36,7 +43,7 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
   const [serverLocation, setServerLocation] = useState<string>('')
 
   const [orderBy, setOrderBy] = useState<OrderValueEnum>(OrderValueEnum.Likes)
-  const [orderOptions, setOrderOptions] = useState<SelectOptionsType>([ ])
+  const [orderOptions, setOrderOptions] = useState<SelectOptionsType>([])
 
   const getCountries = (): OptionsProps[] => {
     const countriesList = Object.entries(countries)
@@ -53,11 +60,20 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     setOrderOptions([
-      { label: t('home.filterInputs.orderByOptions.mostVoted'), value: OrderValueEnum.Likes },
-      { label: t('home.filterInputs.orderByOptions.mostFollowers'), value: OrderValueEnum.Followers },
-      { label: t('home.filterInputs.orderByOptions.mostPlayers'), value: OrderValueEnum.Players },
+      {
+        label: t('home.filterInputs.orderByOptions.mostVoted'),
+        value: OrderValueEnum.Likes,
+      },
+      {
+        label: t('home.filterInputs.orderByOptions.mostFollowers'),
+        value: OrderValueEnum.Followers,
+      },
+      {
+        label: t('home.filterInputs.orderByOptions.mostPlayers'),
+        value: OrderValueEnum.Players,
+      },
     ])
-  }, [ i18n.resolvedLanguage ])
+  }, [i18n.resolvedLanguage])
 
   return (
     <FilterCtx.Provider

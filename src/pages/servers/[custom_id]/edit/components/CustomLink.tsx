@@ -101,7 +101,11 @@ export const CustomLink = (): JSX.Element => {
 
         <EditLink
           onClick={toggleEditing}
-          text={isEditing ? t('serversPageEdit.customIdSection.confirmButton') : t('serversPageEdit.customIdSection.editButton')}
+          text={
+            isEditing
+              ? t('serversPageEdit.customIdSection.confirmButton')
+              : t('serversPageEdit.customIdSection.editButton')
+          }
         />
       </TitleContainer>
 

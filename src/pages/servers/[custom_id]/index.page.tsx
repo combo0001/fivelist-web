@@ -7,7 +7,7 @@ import {
 } from 'next'
 
 import { ServersViewMain } from './main'
-import { getServerHelper } from '@/utils/getServerHelper'
+import { getServerHelper } from '@/utils/supabaseHealper'
 import { ServerViewProvider } from './providers/ServerViewProvider'
 import { clientNamespaces, loadTranslations } from 'ni18n'
 import { ni18nConfig } from '../../../../ni18n.config'
@@ -22,8 +22,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps = async ({
   params,
-  locale
-}: GetStaticPropsContext<{ custom_id: string, locale: string | undefined }>) => {
+  locale,
+}: GetStaticPropsContext<{
+  custom_id: string
+  locale: string | undefined
+}>) => {
   const helpers = await getServerHelper()
   const customId = params?.custom_id
 
@@ -37,8 +40,15 @@ export const getStaticProps = async ({
         serverPage,
       }
 
-      const serverLanguageProps = await loadTranslations(ni18nConfig, locale, [ 'header', 'navigation', 'pages' ])
-      const clientLanguageProps = clientNamespaces(ni18nConfig, [ 'dialogs', 'notifications' ])
+      const serverLanguageProps = await loadTranslations(ni18nConfig, locale, [
+        'header',
+        'navigation',
+        'pages',
+      ])
+      const clientLanguageProps = clientNamespaces(ni18nConfig, [
+        'dialogs',
+        'notifications',
+      ])
 
       return {
         props: {

@@ -77,13 +77,19 @@ export const ListHeader = (): JSX.Element => {
 
         <InformationsContainer>
           <InfoTag active>
-            {servers.length.toLocaleString()}{'  '}
-            {servers.length !== 1 ? t('home.gameLabels.servers') : t('home.gameLabels.server')}
+            {servers.length.toLocaleString()}
+            {'  '}
+            {servers.length !== 1
+              ? t('home.gameLabels.servers')
+              : t('home.gameLabels.server')}
           </InfoTag>
 
           <InfoTag active>
-            {playersAmount.toLocaleString()}{'  '}
-            {playersAmount !== 1 ? t('home.gameLabels.players') : t('home.gameLabels.player')}
+            {playersAmount.toLocaleString()}
+            {'  '}
+            {playersAmount !== 1
+              ? t('home.gameLabels.players')
+              : t('home.gameLabels.player')}
           </InfoTag>
         </InformationsContainer>
       </OnlineContainer>

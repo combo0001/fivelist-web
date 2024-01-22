@@ -3,7 +3,7 @@ const nextConfig = {
     defaultLocale: 'en-US',
     locales: ['en-US', 'pt-BR', 'es-ES'],
   },
-  
+
   images: {
     domains: ['cdn.discordapp.com', 'gnbufszcvbhrauxksshd.supabase.co'],
   },

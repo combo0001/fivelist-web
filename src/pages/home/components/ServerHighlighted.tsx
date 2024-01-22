@@ -62,7 +62,7 @@ export const ServerHighlighted = ({
   cfxHash,
 }: ServerHighlightedProps): JSX.Element => {
   const { t } = useTranslation('pages')
-  
+
   return (
     <Link href={`/servers/${cfxHash}`} legacyBehavior>
       <ServerContainer>
@@ -80,7 +80,7 @@ export const ServerHighlighted = ({
 
           <ServerTagBox>
             <Text size={'xs'} weight={'bold'}>
-              {clients.now}{' '}{t('home.highlightedServersLabels.playersAmount')}
+              {clients.now} {t('home.highlightedServersLabels.playersAmount')}
             </Text>
           </ServerTagBox>
         </ServerInformationsBox>

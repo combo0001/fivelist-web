@@ -124,7 +124,11 @@ export const SocialMediaLinks = ({
             }
           })}
           onSave={handleOnChange}
-          trigger={<AddLink text={t('serversPageEdit.socialMediaSection.addSocialMedia')} />}
+          trigger={
+            <AddLink
+              text={t('serversPageEdit.socialMediaSection.addSocialMedia')}
+            />
+          }
         />
       </SocialMediaList>
     </SocialMediaContainer>

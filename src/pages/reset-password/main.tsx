@@ -70,21 +70,20 @@ export const ResetPasswordMain = (): JSX.Element => {
   }
 
   useEffect(() => {
-    supabase.auth.getSession()
-      .then(({ data }) => {
-        if (!data.session?.user) {
-          router.push('/')
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session?.user) {
+        router.push('/')
 
-          return 
-        }
+        return
+      }
 
-        const isValid = isUserValid(data.session)
+      const isValid = isUserValid(data.session)
 
-        if (isValid) {
-          router.push('/')
-        }
-      })
-  }, [ supabase ])
+      if (isValid) {
+        router.push('/')
+      }
+    })
+  }, [supabase])
 
   return (
     <Background>
@@ -108,7 +107,9 @@ export const ResetPasswordMain = (): JSX.Element => {
                 disabled={isSubmitting || isSubmitSuccessful}
                 type={'password'}
                 spellCheck={false}
-                placeholder={t('resetPassword.changePasswordInputs.newPassword')}
+                placeholder={t(
+                  'resetPassword.changePasswordInputs.newPassword',
+                )}
                 outlined
                 {...register('password')}
               />
@@ -132,7 +133,9 @@ export const ResetPasswordMain = (): JSX.Element => {
                 disabled={isSubmitting || isSubmitSuccessful}
                 type={'password'}
                 spellCheck={false}
-                placeholder={t('resetPassword.changePasswordInputs.confirmNewPassword')}
+                placeholder={t(
+                  'resetPassword.changePasswordInputs.confirmNewPassword',
+                )}
                 outlined
                 {...register('confirmPassword')}
               />

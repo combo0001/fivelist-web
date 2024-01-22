@@ -13,7 +13,7 @@ export function SignInButton(props: SignInButtonProps): JSX.Element {
   return (
     <Button type={'button'} size={'lg'} outlined {...props}>
       <Text weight={'regular'} size={'sm'} color={'inherit'}>
-        {t('forgotPassword.rememberedPassword')}, {' '}
+        {t('forgotPassword.rememberedPassword')},{' '}
         <Text
           as={'span'}
           weight={'bold'}

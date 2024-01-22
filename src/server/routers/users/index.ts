@@ -13,6 +13,7 @@ import { viewUser } from './handlers/viewUser'
 import { followUser } from './handlers/followUser'
 import { unfollowUser } from './handlers/unfollowUser'
 import { isUserFollower } from './handlers/isUserFollower'
+import { getAuthService } from './handlers/getAuthService'
 
 export const usersRouter = router({
   getUserIdentity,
@@ -29,4 +30,5 @@ export const usersRouter = router({
   followUser,
   unfollowUser,
   isUserFollower,
+  getAuthService,
 })

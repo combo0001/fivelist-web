@@ -37,10 +37,7 @@ const PlayersList = styled('ul', {
   gap: '$2',
 })
 
-export const Players = ({
-  clients,
-  slots,
-}: PlayersProps): JSX.Element => {
+export const Players = ({ clients, slots }: PlayersProps): JSX.Element => {
   const { t } = useTranslation('pages')
 
   // const [showMore, setShowMore] = useState<boolean>(false)
@@ -50,7 +47,9 @@ export const Players = ({
   return (
     <PlayersContainer>
       <TitleContainer>
-        <Heading as={'h5'} weight={'bold'}>{t('serversPage.playersSection.title')}</Heading>
+        <Heading as={'h5'} weight={'bold'}>
+          {t('serversPage.playersSection.title')}
+        </Heading>
 
         <Text size={'sm'}>
           {clients}/{slots}

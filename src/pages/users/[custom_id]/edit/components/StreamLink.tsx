@@ -91,7 +91,11 @@ export const StreamLink = ({
 
         <EditLink
           onClick={toggleEditing}
-          text={isEditing ? t('usersPageEdit.liveSection.confirmEdit') : t('usersPageEdit.liveSection.editLink')}
+          text={
+            isEditing
+              ? t('usersPageEdit.liveSection.confirmEdit')
+              : t('usersPageEdit.liveSection.editLink')
+          }
         />
       </TitleContainer>
 
